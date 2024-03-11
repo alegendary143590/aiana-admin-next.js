@@ -8,7 +8,7 @@ type ClipSpanProps = {
 const ClipSpan = ({ className = "", children }: ClipSpanProps) => (
   <span
     className={twMerge(
-      "bg-gradient_s_1 bg-clip-text	text-pink-300 leading-[130%] overflow-visible py-[10px]",
+      "bg-gradient_s_3 bg-clip-text	text-pink-400 leading-[130%] overflow-visible py-[10px]",
       className,
     )}
   >
