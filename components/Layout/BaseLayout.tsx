@@ -8,7 +8,8 @@ const BaseLayout = ({ children }: ILayout) => (
     className="no-scrollbar relative
     h-screen w-screen
     overflow-x-hidden bg-[url('/images/Layout/d_bg.png')]
-    bg-cover"
+    bg-cover flex justify-end
+    "
   >
     <SeoHead
       title="SESSION"

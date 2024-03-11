@@ -18,7 +18,7 @@ const FullLayout = ({ children }: ILayout) => (
     <div
       className="flex h-screen
       w-[640px] flex-col bg-black_0 bg-gradient-to-b
-      from-[#a1ea0400] from-0%
+      from-[#a1ea0400] from-0% absolute right-0
       via-[#a1ea0405] via-75% to-[#a1ea041a]
       to-100% px-[60px] py-[2vh]"
     >

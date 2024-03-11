@@ -10,9 +10,7 @@ const WelcomeText = () => {
         className="font-urwgeometric_medium text-[36.1px] leading-[80%] text-gray_1 samsungS8:text-[40.6px]
               xs:text-[44px] md:text-[64px]"
       >
-        Your next <ClipSpan>Session</ClipSpan>
-        <br />
-        awaits you.
+        <ClipSpan>Welcome</ClipSpan> to AIANA<br /> 
       </p>
       <p
         className="pt-[4vh] font-urwgeometric_medium text-[13.12px] text-gray_1

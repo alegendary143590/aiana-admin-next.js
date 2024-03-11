@@ -10,6 +10,7 @@ import MobileLayout from "./MobileLayout"
 import MobileTransparent from "./MobileTransparent"
 import { ILayout } from "./types"
 import AdminLayout from "./AdminLayout"
+import { Grid } from "@mui/material"
 
 const layoutContainers = {
   full: FullLayout,
@@ -49,9 +50,10 @@ const Layout = ({ children, type }: ILayoutFactory) => {
       <div className={`${isLoading ? "visible" : "hidden"}`}>
         <LoadingPage />
       </div>
-      {/* <div className={`${isLoading ? "hidden" : "visible"}`}>
+      
+      <div className={`${isLoading ? "hidden" : "visible"}`}>
         <Container>{children}</Container>
-      </div> */}
+      </div>
     </>
   )
 }
