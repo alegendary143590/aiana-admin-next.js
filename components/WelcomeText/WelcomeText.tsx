@@ -19,18 +19,17 @@ const WelcomeText = () => {
       >
         {isMobile ? (
           <>
-            <ClipSpan>Sound Studios</ClipSpan> is excited to welcome you to
+            <ClipSpan>AIANA</ClipSpan> is the world of seamless automation
+            <br /> and personalized support
             <br />
-            their world class studio. Quickly sign up or log in
-            <br />
-            to book your session.
+            with AI-driven chatbots
           </>
         ) : (
           <>
-            <ClipSpan>Sound Studios</ClipSpan> is excited to welcome you to their world class
-            studio.
+            <ClipSpan>AIANA</ClipSpan> is the world of seamless automation
+            and personalized support
             <br />
-            Quickly sign up or log in to book your session.
+            with AI-driven chatbots
           </>
         )}
       </p>
