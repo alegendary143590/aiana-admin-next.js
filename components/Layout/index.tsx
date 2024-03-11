@@ -49,9 +49,9 @@ const Layout = ({ children, type }: ILayoutFactory) => {
       <div className={`${isLoading ? "visible" : "hidden"}`}>
         <LoadingPage />
       </div>
-      <div className={`${isLoading ? "hidden" : "visible"}`}>
+      {/* <div className={`${isLoading ? "hidden" : "visible"}`}>
         <Container>{children}</Container>
-      </div>
+      </div> */}
     </>
   )
 }
