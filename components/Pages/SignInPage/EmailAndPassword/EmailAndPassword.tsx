@@ -35,21 +35,18 @@ const EmailAndPassword = () => {
       <Button
         id="log-in"
         type="submit"
-        className="mt-[2vh] h-[48px] w-full
-          rounded-[30px]
-          font-urwgeometric_bold text-white
-          shadow-[0px_0px_40px_0px_#a1ea0466]"
-          style={{backgroundColor:"#6666ff"}}
+        className="mt-[2vh] h-[48px] w-full font-urwgeometric_bold text-white text-lg shadow-[0px_0px_40px_0px_#a1ea0466]"
+        style={{ backgroundColor:"#6666ff", borderRadius:"30px", marginTop:"30px" }}
         disabled={loading}
       >
         Log In
       </Button>
-      <SocialButtons label={"Log In"} />
+      <SocialButtons label="Log In" />
       <p
         className="pt-[2vh] text-center
                 font-urwgeometric text-[14px] text-gray_1"
       >
-        Don't have an account? &nbsp;
+        Don&rsquo;t have an account? &nbsp;
         <button type="button" onClick={() => router.push("/signup")}>
           <p className="underline  font-urwgeometric_bold ">
             Sign up

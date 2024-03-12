@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useAuth } from "@/providers/AuthProvider"
 import Button from "@mui/material/Button"
-import GoogleIcon from '@mui/icons-material/Google';
+import GoogleIcon from "@mui/icons-material/Google";
 
 export default function GoogleButton({text}) {
   const { googleSign } = useAuth()

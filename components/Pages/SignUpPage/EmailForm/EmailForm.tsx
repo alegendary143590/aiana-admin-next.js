@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import Form from "@/shared/Form"
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import { useAuth } from "@/providers/AuthProvider"
 import TextInput from "../../../TextInput"
 import SocialButtons from "../../../SocialButtons"
@@ -27,11 +27,7 @@ const EmailForm = () => {
       <Button
         id="create-email"
         type="submit"
-        className="mt-[20px] h-[48px] w-full 
-          rounded-[30px]
-          font-urwgeometric_bold text-lg
-          samsungS8:mt-[25px] 
-          xs:mt-[30px]"
+        className="mt-[20px] h-[48px] w-full font-urwgeometric_bold text-lg samsungS8:mt-[25px] xs:mt-[30px]"
           style={{backgroundColor:"#6666ff", marginTop:"20px", opacity:"65", color:"#fff", borderRadius:"30px"}}
         >
         Sign up
