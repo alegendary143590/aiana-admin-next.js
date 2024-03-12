@@ -1,11 +1,11 @@
 import GoogleButton from "../GoogleButton"
 
-const SocialButtons = ({ className = "" }) => (
+const SocialButtons = ({ className = "", label }) => (
   <div
     className={`flex justify-center gap-x-[10px]
       samsungS8:gap-x-[30px] ${className}`}
       >
-    <GoogleButton />
+    <GoogleButton text={label}/>
   </div>
 )
 

@@ -44,7 +44,7 @@ const EmailAndPassword = () => {
       >
         Log In
       </Button>
-      <SocialButtons />
+      <SocialButtons label={"Log In"} />
       <p
         className="pt-[2vh] text-center
                 font-urwgeometric text-[14px] text-gray_1"

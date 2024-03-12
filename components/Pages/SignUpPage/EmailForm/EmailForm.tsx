@@ -36,7 +36,7 @@ const EmailForm = () => {
         >
         Sign up
       </Button>
-      <SocialButtons />
+      <SocialButtons label={"Sign up"} />
       <p
         className="pt-[20px] text-center
           font-urwgeometric text-[14px] text-gray_1 samsungS8:pt-[25px]"
