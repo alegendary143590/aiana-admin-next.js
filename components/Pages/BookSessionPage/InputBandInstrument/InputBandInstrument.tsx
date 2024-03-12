@@ -15,7 +15,6 @@ const InputBandInstrument = () => {
         value={bandName}
         onChange={setBandName}
         placeholder="Enter your Artist/Band Name"
-        label="Artist/Band Name"
       />
       <SelectBox
         id="instrument"
