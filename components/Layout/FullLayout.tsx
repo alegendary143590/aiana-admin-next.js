@@ -1,15 +1,14 @@
 import React from "react"
 import Grid from "@mui/material/Grid"
+import Media from "@/shared/Media"
 import { ILayout } from "./types"
 import StudioHeader from "../Header/StudioHeader"
-import Media from "@/shared/Media"
-
 
 const FullLayout = ({ children }: ILayout) => (
   <div
     className="
     min-h-screen w-screen
-    overflow-hidden bg-white-300
+    overflow-hidden
     bg-cover bg-[bottom_right]"
     style={{backgroundColor: "#fff"}}
     > 

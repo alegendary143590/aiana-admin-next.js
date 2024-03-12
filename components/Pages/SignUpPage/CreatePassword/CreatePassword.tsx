@@ -39,7 +39,6 @@ const CreatePassword = () => {
           value={userPassword}
           onChange={setUserPassword}
           placeholder="Enter Password..."
-          label="Password"
           classNameError="!text-gray_2 mb-[20px] md:mb-0"
           infoText={
             "Your Password needs to be at least 8 symbols. We recommend a\nmixture of symbols and numbers."

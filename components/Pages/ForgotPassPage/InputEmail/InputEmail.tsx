@@ -60,7 +60,6 @@ const InputEmail = () => {
           value={userEmail}
           onChange={setUserEmail}
           placeholder="Enter Email..."
-          label="Email"
           classNameError="!text-gray_2"
         />
         <Button

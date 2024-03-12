@@ -13,7 +13,6 @@ const InputForm = () => {
         value={userEmail}
         onChange={setUserEmail}
         placeholder="Enter Email..."
-        label="Email"
       />
       <TextInput
         type="password"
@@ -22,7 +21,6 @@ const InputForm = () => {
         value={userPassword}
         onChange={setUserPassword}
         placeholder="Enter Password..."
-        label="Password"
       />
     </div>
   )

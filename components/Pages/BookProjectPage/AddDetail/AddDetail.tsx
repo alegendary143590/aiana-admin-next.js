@@ -48,7 +48,6 @@ const AddDetail = () => {
             value={bandName}
             onChange={setBandName}
             placeholder="Enter your Artist/Band Name"
-            label="Artist/Band Name"
           />
           <AddLinks />
         </div>
@@ -79,7 +78,6 @@ const AddDetail = () => {
           value={projectName}
           onChange={setProjectName}
           placeholder="Enter Project Name..."
-          label="Project Name"
         />
         <SelectBox
           id="genre"
@@ -99,7 +97,6 @@ const AddDetail = () => {
           value={projectDesc}
           onChange={setProjectDesc}
           placeholder="Enter your Project Name..."
-          label="Project Description"
           variant="multiple"
         />
         <SelectBox

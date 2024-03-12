@@ -3,7 +3,6 @@ import Input from "@/shared/Input"
 import TextArea from "@/shared/TextArea/TextArea"
 
 interface TextInputProps {
-  label: string
   id: string
   value: any
   onChange: any

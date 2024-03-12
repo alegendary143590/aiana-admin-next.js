@@ -1,12 +1,9 @@
 import { useRouter } from "next/router"
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button"
 import { useAuth } from "@/providers/AuthProvider"
 import { STEPS } from "@/lib/consts/authStep"
 import WelcomeText from "../../../WelcomeText"
-import ClipSpan from "../../../ClipSpan"
-import TextInput from "../../../TextInput"
 import FadeIn from "../../../FadeIn"
-import SocialButtons from "../../../SocialButtons"
 
 const Landing = () => {
   const router = useRouter()

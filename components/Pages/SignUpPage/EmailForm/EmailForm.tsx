@@ -23,7 +23,6 @@ const EmailForm = () => {
         value={userEmail}
         onChange={setUserEmail}
         placeholder="Enter Email..."
-        label="Email"
       />
       <Button
         id="create-email"

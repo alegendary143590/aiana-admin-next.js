@@ -19,7 +19,6 @@ const InputDetail = () => {
         value={sessionDetail}
         onChange={setSessionDetail}
         placeholder="Enter session detail..."
-        label=""
         variant="multiple"
       />
     </div>

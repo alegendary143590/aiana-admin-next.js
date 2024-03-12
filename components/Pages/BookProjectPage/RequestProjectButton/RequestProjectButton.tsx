@@ -27,12 +27,12 @@ const RequestProjectButton = () => {
         type="button"
         disabled={loading}
         className="mt-[20px] h-[48px] w-full border-x-[1px] border-b-[2px] border-x-[#A1EA04] border-b-[#A1EA04] font-urwgeometric_bold
-                                text-black shadow-none
-                                md:h-[28.8px] md:w-[201px]
-                                md:text-[9.6px] md:shadow-[0px_0px_40px_0px_#a1ea0466]
-                                lg:h-[38.4px] lg:w-[268px]
-                                lg:text-[12.8px] xl:h-[48px]
-                                xl:w-[335px] xl:text-[16px]"
+                    text-black shadow-none
+                    md:h-[28.8px] md:w-[201px]
+                    md:text-[9.6px] md:shadow-[0px_0px_40px_0px_#a1ea0466]
+                    lg:h-[38.4px] lg:w-[268px]
+                    lg:text-[12.8px] xl:h-[48px]
+                    xl:w-[335px] xl:text-[16px]"
         pulseColor="white"
         onClick={request}
       >
