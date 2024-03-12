@@ -7,14 +7,14 @@ import StudioHeader from "../Header/StudioHeader"
 const FullLayout = ({ children }: ILayout) => (
   <div
     className="
-    min-h-screen w-screen
-    overflow-hidden
-    bg-cover bg-[bottom_right]"
-    style={{backgroundColor: "#fff"}}
+      min-h-screen w-screen
+      overflow-hidden
+      bg-cover bg-[bottom_right]
+      bg-gray-100"
     > 
     <Grid container spacing={0}>
-      <Grid item xs={7} className="flex h-full w-full">
-        <div id="background" className="justify-center items-center flex h-full w-full p-[20px]">
+      <Grid item xs={7}>
+        <div id="background" className="justify-center items-center flex h-full w-full p-[20px]  opacity-70">
           <Media
             type="image"
             link="/images/Landing/bg_1.png"
@@ -27,7 +27,7 @@ const FullLayout = ({ children }: ILayout) => (
       <Grid item xs={5} className="flex h-full w-full">
         <div
           className="flex h-screen
-          w-full flex-col bg-black_0 bg-gradient-to-b
+          w-full flex-col bg-black_1 bg-gradient-to-b
           from-[#a1ea0400] from-0% right-0
           via-[#a1ea0405] via-75% to-[#a1ea041a]
           to-100% px-[60px] py-[2vh]"
