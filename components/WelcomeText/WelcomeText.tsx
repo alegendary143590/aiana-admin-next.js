@@ -20,9 +20,7 @@ const WelcomeText = () => {
         {isMobile ? (
           <>
             <ClipSpan>AIANA</ClipSpan> is the world of seamless automation
-            <br /> and personalized support
-            <br />
-            with AI-driven chatbots
+            <br /> and personalized support with AI-driven chatbots
           </>
         ) : (
           <>

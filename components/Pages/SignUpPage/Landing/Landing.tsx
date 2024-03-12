@@ -1,10 +1,12 @@
 import { useRouter } from "next/router"
-import Button from "@/shared/Button"
+import Button from '@mui/material/Button';
 import { useAuth } from "@/providers/AuthProvider"
 import { STEPS } from "@/lib/consts/authStep"
 import WelcomeText from "../../../WelcomeText"
 import ClipSpan from "../../../ClipSpan"
+import TextInput from "../../../TextInput"
 import FadeIn from "../../../FadeIn"
+import SocialButtons from "../../../SocialButtons"
 
 const Landing = () => {
   const router = useRouter()
@@ -17,12 +19,12 @@ const Landing = () => {
         id="landing-btn"
         type="submit"
         className="my-[24.6px] h-[39.3px] w-full border-x-[1px] 
-                border-b-[2px] border-x-[#A1EA04] border-b-[#A1EA04]
+                border-b-[2px] 
                 font-urwgeometric_bold text-black
-                shadow-[0px_0px_40px_0px_#a1ea0466] samsungS8:h-[44.3px]
+                samsungS8:h-[44.3px]
                 xs:my-[30px] xs:h-[48px]
                 lg:my-[27.6px]"
-        pulseColor="white"
+                style={{backgroundColor:"#6666ff", marginTop:"40px", opacity:"65", color:"#fff", borderRadius:"30px"}}
         onClick={() => setCurStep(STEPS.INPUT_EMAIL)}
       >
         Sign up
@@ -32,9 +34,9 @@ const Landing = () => {
                 text-[14px] text-gray_1"
       >
         Already have an account? &nbsp;
-        <button type="button" onClick={() => router.push("/signin")}>
-          <p className="text-[#A1EA04] underline">
-            <ClipSpan className="font-urwgeometric_bold">Log In</ClipSpan>
+        <button type="button" style={{margin:"20px"}} onClick={() => router.push("/signin")}>
+          <p className="text-[#fff] underline">
+            Log In
           </p>
         </button>
       </p>

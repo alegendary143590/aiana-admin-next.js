@@ -1,6 +1,5 @@
 import Link from "next/link"
 import Media from "@/shared/Media"
-import Button from "@/shared/Button"
 import LogoutButton from "./LogoutButton"
 
 const Header = () => (

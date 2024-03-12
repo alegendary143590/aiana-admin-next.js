@@ -75,7 +75,7 @@ const Button: FC<ButtonProps> = ({
       type="button"
       className={`relative overflow-hidden rounded-[30px]
           text-[white] transition
-          duration-[300ms] hover:scale-[1.05]
+          duration-[300ms] hover:scale-[1.02]
           ${className || ""}
           ${disabled ? "cursor-not-allowed !border-none" : ""}`}
       disabled={disabled}
@@ -88,13 +88,13 @@ const Button: FC<ButtonProps> = ({
       <div
         className={`absolute left-0 top-0 z-[100]
         z-[10] size-full
-        !border-none bg-[#12121166] bg-gradient_s_1 shadow-[0px_0px_40px_0px_#a1ea0466] ${
+        !border-none bg-gradient-to-r from-pink-300 ${
           !disabled ? "!hidden" : ""
         }`}
       />
       <div
         className={`absolute left-0 top-0 z-[100]
-        z-[15] size-full !border-none bg-[#12121166] ${!disabled ? "!hidden" : ""}`}
+        z-[15] size-full !border-none bg-[#4d79ff] ${!disabled ? "!hidden" : ""}`}
       />
       <div
         className={`absolute

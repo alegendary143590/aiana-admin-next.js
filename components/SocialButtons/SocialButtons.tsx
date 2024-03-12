@@ -7,7 +7,6 @@ const SocialButtons = ({ className = "" }) => (
     samsungS8:gap-x-[30px] ${className}`}
   >
     <GoogleButton />
-    <TwitterButton />
   </div>
 )
 

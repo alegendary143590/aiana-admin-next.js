@@ -27,7 +27,7 @@ const TextInput: FC<TextInputProps> = ({
   infoText = "",
 }) => (
   <div className="w-full">
-    <p className="pb-[8px] pl-[20px] font-urwgeometric text-[16px] text-gray_1">{label}</p>
+    
     {variant === "single" ? (
       <Input
         id={id}
