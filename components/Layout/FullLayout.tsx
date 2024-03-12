@@ -3,7 +3,7 @@ import { ILayout } from "./types"
 import SeoHead from "../SeoHead"
 import Grid from '@mui/material/Grid';
 import StudioHeader from "../Header/StudioHeader"
-import CardMedia from '@mui/material/CardMedia';
+import Media from "@/shared/Media"
 
 
 const FullLayout = ({ children }: ILayout) => (
@@ -21,16 +21,21 @@ const FullLayout = ({ children }: ILayout) => (
     />
     <Grid container spacing={0} className="h-screen w-screen">
       <Grid item xs={7} className="flex h-full w-full">
-      <div id="background" className="left-0">
-        
-      </div>
-
+        <div id="background" className="justify-center items-center flex h-full w-full p-[20px]">
+          <Media
+            type="image"
+            link="/images/Landing/bg_1.png"
+            blurLink="/images/Admin/calendar-top.png"
+            className="max-w-full max-h-full"
+            containerClasses="w-full h-full"
+          />
+        </div>
       </Grid>
       <Grid item xs={5} className="flex h-full w-full">
       <div
         className="flex h-screen
         w-[640px] flex-col bg-black_0 bg-gradient-to-b
-        from-[#a1ea0400] from-0% absolute right-0
+        from-[#a1ea0400] from-0% right-0
         via-[#a1ea0405] via-75% to-[#a1ea041a]
         to-100% px-[60px] py-[2vh]"
         >
