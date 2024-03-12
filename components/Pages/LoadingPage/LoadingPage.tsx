@@ -8,8 +8,8 @@ const LoadingPage = () => (
     <Media
       type="image"
       link="/images/logo_big.png"
-      blurLink="/images/logo_short.png"
-      containerClasses="w-[918px] aspect-[918/405] relative z-[5]"
+      blurLink="/images/seo-logo.png"
+      containerClasses="w-[300px] aspect-[918/405] relative z-[5]"
     />
     <div
       className="absolute left-0 top-0 z-[2] size-full

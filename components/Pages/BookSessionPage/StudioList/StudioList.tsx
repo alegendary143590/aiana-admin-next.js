@@ -24,7 +24,7 @@ const StudioList = () => {
         ) : (
           <div
             className="col-span-1 flex min-h-[300px] w-full items-center
-        justify-center md:col-span-2"
+            justify-center md:col-span-2"
           >
             <Loading width={size} height={size} color="#d2d2d2" type="spin" />
           </div>
