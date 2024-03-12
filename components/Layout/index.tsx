@@ -2,7 +2,6 @@ import { useRouter } from "next/router"
 import { useEffect } from "react"
 import { useAuth } from "@/providers/AuthProvider"
 import { STATUS } from "@/lib/consts/authStatus"
-import LoadingPage from "../Pages/LoadingPage"
 import BaseLayout from "./BaseLayout"
 import FullLayout from "./FullLayout"
 import MobileDarkLayout from "./MobileDarkLayout"
@@ -10,7 +9,8 @@ import MobileLayout from "./MobileLayout"
 import MobileTransparent from "./MobileTransparent"
 import { ILayout } from "./types"
 import AdminLayout from "./AdminLayout"
-import { Grid } from "@mui/material"
+import LoadingPage from "../Pages/LoadingPage"
+
 
 const layoutContainers = {
   full: FullLayout,

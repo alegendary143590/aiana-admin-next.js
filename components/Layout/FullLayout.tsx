@@ -1,5 +1,5 @@
 import React from "react"
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid"
 import { ILayout } from "./types"
 import StudioHeader from "../Header/StudioHeader"
 import Media from "@/shared/Media"

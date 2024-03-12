@@ -15,7 +15,6 @@ interface TextInputProps {
   infoText?: string
 }
 const TextInput: FC<TextInputProps> = ({
-  label,
   value,
   onChange,
   id,
