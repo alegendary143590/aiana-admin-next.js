@@ -3,7 +3,6 @@ import Button from "@/shared/Button"
 import { useAuth } from "@/providers/AuthProvider"
 import { STEPS } from "@/lib/consts/authStep"
 import WelcomeText from "../../../WelcomeText"
-import ClipSpan from "../../../ClipSpan"
 import FadeIn from "../../../FadeIn"
 
 const Landing = () => {
@@ -33,8 +32,8 @@ const Landing = () => {
       >
         {`Don't have an account?`} &nbsp;
         <button type="button" onClick={() => router.push("/signup")}>
-          <p className="text-[#A1EA04] underline">
-            <ClipSpan className="font-urwgeometric_bold">Sign up</ClipSpan>
+          <p className="underline">
+            Sign up
           </p>
         </button>
       </p>
