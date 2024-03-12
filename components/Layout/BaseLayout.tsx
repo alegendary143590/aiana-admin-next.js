@@ -7,7 +7,7 @@ const BaseLayout = ({ children }: ILayout) => (
   <div
     className="no-scrollbar relative
     h-screen w-screen
-    overflow-x-hidden bg-[url('/images/Layout/d_bg.png')]
+    overflow-x-hidden
     bg-cover flex justify-end
     "
   >

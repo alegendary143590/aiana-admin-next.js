@@ -7,7 +7,7 @@ const MobileLayout = ({ children }: ILayout) => (
   <div
     className="relative h-screen w-screen
     overflow-x-hidden bg-black_0
-    bg-[url('/images/Layout/m_bg.png')] bg-cover bg-[bottom_right]"
+    bg-cover bg-[bottom_right]"
   >
     <SeoHead
       title="SESSION"

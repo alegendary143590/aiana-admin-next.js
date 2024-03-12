@@ -7,8 +7,8 @@ import SideMenuProvider from "../../providers/SideMenuProvider"
 const AdminLayout = ({ children }: ILayout) => (
   <div
     className="no-scrollbar relative flex
-    h-screen w-screen
-    overflow-x-hidden bg-[url('/images/Admin/background.png')] bg-[100%_auto] bg-cover"
+    h-screen w-screen 
+    overflow-x-hidden bg-cover"
   >
     <SeoHead
       title="SESSION"
