@@ -49,7 +49,7 @@ const EmailAndPassword = () => {
         className="pt-[2vh] text-center
                 font-urwgeometric text-[14px] text-gray_1"
       >
-        {`Don't have an account?`} &nbsp;
+        Don't have an account? &nbsp;
         <button type="button" onClick={() => router.push("/signup")}>
           <p className="underline  font-urwgeometric_bold ">
             Sign up
