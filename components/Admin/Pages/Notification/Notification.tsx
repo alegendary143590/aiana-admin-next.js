@@ -1,34 +1,56 @@
-import { useState } from "react"
+import { useState,  } from "react"
+import * as React from "react"
 import Icon from "@/components/ui/Icon"
+import MenuItem from "@mui/material/MenuItem"
+import Menu from "@mui/material/Menu"
 import SideModal from "../../../SideModal"
 import Notifications from "./Notifications"
+
 
 const Notification = () => {
   const [isOpenNotificationModal, setIsOpenNotificationModal] = useState(false)
 
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    
+  }
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <div className="flex w-full items-center justify-end gap-x-[24px] py-[24px]">
-      <div className="flex items-center gap-x-[10px]">
-        <p className="pb-[4px] font-urwgeometric_bold text-[12px] text-gray_2">
-          July, <span className="text-gray_1">24</span>
-        </p>
-        <div className="size-[8px] rounded-full bg-gradient_s_1" />
-        <p className="pb-[4px] font-urwgeometric_bold  text-[12px] text-gray_1">6:31 PM</p>
-      </div>
+    <div className="flex w-full items-center justify-end gap-x-[24px] py-[5px]">
       <button
         type="button"
         className="relative flex size-[44px] items-center justify-center
-              rounded-full border-x border-b-[2px] border-x-gray_overlay_6 border-b-gray_overlay_6 bg-gray_overlay_6"
-        onClick={() => setIsOpenNotificationModal(true)}
-      >
-        <Icon name="BellSimple" />
-        <div
-          className="absolute right-[0px] top-[-3px] flex size-[14px] 
-                  items-center justify-center rounded-full bg-black_1 p-[3px]"
+              rounded-full border-x border-b-[2px] border-x-gray_overlay_6 border-b-gray_overlay_6 bg-[#1d4ed8]"
+        onClick={handleMenu}
         >
-          <div className="size-[8px] rounded-full bg-gradient_s_1 shadow-[0px_0px_15px_0px_#a1ea04]" />
-        </div>
+        <Icon name="User" className="text-white" />
       </button>
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>Log Out</MenuItem>
+      </Menu>
       <SideModal
         isVisible={isOpenNotificationModal}
         toggleModal={() => setIsOpenNotificationModal(!isOpenNotificationModal)}
