@@ -1,5 +1,4 @@
 import Media from "@/shared/Media"
-import LogoutButton from "./LogoutButton"
 import MenuList from "./MenuList"
 
 const SideNavbar = () => (
@@ -16,9 +15,6 @@ const SideNavbar = () => (
       />
     </div>
     <MenuList />
-    <div className="flex grow flex-col justify-end px-[18px]">
-      <LogoutButton />
-    </div>
   </div>
 )
 

@@ -4,23 +4,21 @@ import Icon from "@/components/ui/Icon"
 import MenuItem from "@mui/material/MenuItem"
 import Menu from "@mui/material/Menu"
 import SideModal from "../../../SideModal"
-import Notifications from "./Notifications"
+import LogoutAlert from "../../SideNavbar/LogoutAlert"
+
 
 
 const Notification = () => {
-  const [isOpenNotificationModal, setIsOpenNotificationModal] = useState(false)
+  const [isOpenLogoutModal, setIsOpenLogoutModal] = useState(false)
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    
-  }
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   }
 
   const handleClose = () => {
+    setIsOpenLogoutModal(true)
     setAnchorEl(null);
   }
 
@@ -52,10 +50,10 @@ const Notification = () => {
         <MenuItem onClick={handleClose}>Log Out</MenuItem>
       </Menu>
       <SideModal
-        isVisible={isOpenNotificationModal}
-        toggleModal={() => setIsOpenNotificationModal(!isOpenNotificationModal)}
-      >
-        <Notifications />
+        isVisible={isOpenLogoutModal}
+        toggleModal={() => setIsOpenLogoutModal(!isOpenLogoutModal)}
+        >
+        <LogoutAlert handleClose={() => setIsOpenLogoutModal(!isOpenLogoutModal)} />
       </SideModal>
     </div>
   )
