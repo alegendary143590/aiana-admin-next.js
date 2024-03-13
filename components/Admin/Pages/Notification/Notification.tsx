@@ -18,11 +18,11 @@ const Notification = () => {
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
-  };
+  }
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
+  }
 
   return (
     <div className="flex w-full items-center justify-end gap-x-[24px] py-[5px]">

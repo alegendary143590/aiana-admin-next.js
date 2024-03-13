@@ -1,5 +1,4 @@
 import Media from "@/shared/Media"
-import ClipSpan from "../../ClipSpan"
 import LogoutButton from "./LogoutButton"
 import MenuList from "./MenuList"
 
