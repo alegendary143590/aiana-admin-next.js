@@ -8,7 +8,7 @@ const AdminLayout = ({ children }: ILayout) => (
   <div
     className="no-scrollbar relative flex
     h-screen w-screen 
-    overflow-x-hidden bg-cover"
+    overflow-x-hidden bg-gray-50"
   >
     <SeoHead
       title="SESSION"
@@ -18,7 +18,7 @@ const AdminLayout = ({ children }: ILayout) => (
     <SideMenuProvider>
       <SideNavbar />
     </SideMenuProvider>
-    <div className="no-scrollbar max-h-screen w-full overflow-y-auto">{children}</div>
+    <div className="no-scrollbar max-h-screen w-full overflow-y-auto mt-[64px]">{children}</div>
   </div>
 )
 

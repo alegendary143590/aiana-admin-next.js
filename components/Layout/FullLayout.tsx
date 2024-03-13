@@ -10,7 +10,7 @@ const FullLayout = ({ children }: ILayout) => (
       min-h-screen w-screen
       overflow-hidden
       bg-cover bg-[bottom_right]
-      bg-gray-100"
+      bg-white-100"
     > 
     <Grid container spacing={0}>
       <Grid item xs={7}>

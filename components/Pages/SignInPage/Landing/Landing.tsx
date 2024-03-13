@@ -17,7 +17,7 @@ const Landing = () => {
         type="submit"
         className="my-[24.6px] h-[39.3px] w-full border-x-[1px] 
                 border-b-[2px] border-x-[#A1EA04] border-b-[#A1EA04]
-                font-urwgeometric_bold text-black
+                font-urwgeometric_bold text-white text-lg
                 shadow-[0px_0px_40px_0px_#a1ea0466] samsungS8:h-[44.3px]
                 xs:my-[30px] xs:h-[48px]
                 lg:my-[27.6px]"
