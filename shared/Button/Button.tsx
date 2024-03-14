@@ -88,7 +88,7 @@ const Button: FC<ButtonProps> = ({
       <div
         className={`absolute left-0 top-0 z-[100]
         z-[10] size-full
-        !border-none bg-gradient-to-r from-pink-300 ${
+        !border-none bg-gradient-to-g from-blue-300 ${
           !disabled ? "!hidden" : ""
         }`}
       />

@@ -6,19 +6,18 @@ import MobileHeader from "../Header/MobileHeader"
 const MobileLayout = ({ children }: ILayout) => (
   <div
     className="relative h-screen w-screen
-    overflow-x-hidden bg-black_0
-    bg-[url('/images/Layout/m_bg.png')] bg-cover bg-[bottom_right]"
+    bg-black_0 
+    bg-cover bg-[bottom_right]"
   >
     <SeoHead
-      title="SESSION"
-      description="Book your next studio session today"
+      title="AIANA"
+      description="Create your own chatbot"
       image="/images/seo_logo.png"
     />
     <MobileHeader />
     <div
-      className="relative z-[2]
-      flex h-screen w-screen flex-col
-      justify-between overflow-hidden p-[20px] xs:py-[32px]"
+      className="flex-grow h-screen w-screen
+      justify-between px-[60px] py-[2vh] pt-[100px]"
     >
       {children}
     </div>
