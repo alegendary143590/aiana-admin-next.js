@@ -3,13 +3,13 @@ import { getFirestore } from "firebase/firestore"
 import { getAuth } from "firebase/auth"
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: "session-49c98.firebaseapp.com",
-  projectId: "session-49c98",
-  storageBucket: "session-49c98.appspot.com",
-  messagingSenderId: "891853708828",
-  appId: "1:891853708828:web:40b3f4c8cd1f84122d49d9",
-  measurementId: "G-PDWZST4BEH",
+  apiKey: "AIzaSyAK6OP1ViTNadnwdd8Ybnf35Cc7ZDbpPS8",
+  authDomain: "aiana-bf19d-b794c.firebaseapp.com",
+  projectId: "aiana-bf19d",
+  storageBucket: "aiana-bf19d.appspot.com",
+  messagingSenderId: "302290704868",
+  appId: "1:302290704868:web:82275c5f8271418213cff1",
+  measurementId: "G-FETTJFMEC1"
 }
 
 // Initialize Firebase
