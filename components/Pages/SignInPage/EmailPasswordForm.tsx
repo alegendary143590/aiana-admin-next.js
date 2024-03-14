@@ -13,7 +13,7 @@ const EmailPasswordForm = () => {
   const router = useRouter()
 
   const handleSubmit = () => {
-    router.push("/signin")
+    router.push("/dashboard")
   }
 
   return (
