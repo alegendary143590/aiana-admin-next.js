@@ -57,7 +57,12 @@ function Input({
   const isInvalid = fieldError && fieldError?.message && formState?.isSubmitted
 
   const isValid = isFullyHooked && !fieldError?.message && canTrigger
-
+  useEffect(()=>{
+    console.log("FieldError: ", fieldError)
+    console.log("fieldError?.message: ", fieldError?.message)
+    console.log("formState?.isSubmitted: ", formState?.isSubmitted)
+  },[])
+  
   useEffect(() => {
     if (name && hookToForm) {
       formContext.setValue(name, value)
@@ -68,7 +73,7 @@ function Input({
   return (
     <label {...(id && { htmlFor: id })}>
       <div
-        className={`relative flex items-center
+        className={`relative flex items-center mt-[10px]
       overflow-hidden rounded-full
       ${containerClassName || ""}
       ${isValid ? "!border-t-[1px] !border-[#a1ea04]" : ""}

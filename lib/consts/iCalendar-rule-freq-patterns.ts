@@ -1,3 +1,0 @@
-export const WEEKLY_PATTERN = "FREQ=WEEKLY"
-export const MONTLY_PATTERN = "FREQ=MONTHLY"
-export const YEARLY_PATTERN = "FREQ=YEARLY"

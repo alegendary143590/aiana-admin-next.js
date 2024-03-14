@@ -1,5 +1,5 @@
 import useIsMobile from "@/hooks/useIsMobile"
-import ClipSpan from "../ClipSpan"
+import ClipSpan from "../Texts/ClipSpan"
 
 const WelcomeText = () => {
   const isMobile = useIsMobile()
@@ -10,7 +10,9 @@ const WelcomeText = () => {
         className="font-urwgeometric_medium text-[36.1px] leading-[80%] text-gray_1 samsungS8:text-[40.6px]
               xs:text-[44px] md:text-[64px]"
       >
-        <ClipSpan>Welcome</ClipSpan> to AIANA<br /> 
+        Your next <ClipSpan>Session</ClipSpan>
+        <br />
+        awaits you.
       </p>
       <p
         className="pt-[4vh] font-urwgeometric_medium text-[13.12px] text-gray_1
@@ -19,15 +21,18 @@ const WelcomeText = () => {
       >
         {isMobile ? (
           <>
-            <ClipSpan>AIANA</ClipSpan> is the world of seamless automation
-            <br /> and personalized support with AI-driven chatbots
+            <ClipSpan>Sound Studios</ClipSpan> is excited to welcome you to
+            <br />
+            their world class studio. Quickly sign up or log in
+            <br />
+            to book your session.
           </>
         ) : (
           <>
-            <ClipSpan>AIANA</ClipSpan> is the world of seamless automation
-            and personalized support
+            <ClipSpan>Sound Studios</ClipSpan> is excited to welcome you to their world class
+            studio.
             <br />
-            with AI-driven chatbots
+            Quickly sign up or log in to book your session.
           </>
         )}
       </p>

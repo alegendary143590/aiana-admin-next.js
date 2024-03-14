@@ -3,6 +3,7 @@ import Input from "@/shared/Input"
 import TextArea from "@/shared/TextArea/TextArea"
 
 interface TextInputProps {
+  label: string
   id: string
   value: any
   onChange: any
@@ -14,6 +15,7 @@ interface TextInputProps {
   infoText?: string
 }
 const TextInput: FC<TextInputProps> = ({
+  label,
   value,
   onChange,
   id,
@@ -25,7 +27,7 @@ const TextInput: FC<TextInputProps> = ({
   infoText = "",
 }) => (
   <div className="w-full">
-    
+    <p className="pb-[8px] pl-[20px] font-urwgeometric text-[16px] text-gray_1">{label}</p>
     {variant === "single" ? (
       <Input
         id={id}

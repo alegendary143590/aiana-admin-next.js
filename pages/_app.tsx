@@ -7,17 +7,14 @@ import { ToastContainer } from "react-toastify"
 import { SessionProvider } from "next-auth/react"
 import * as React from "react"
 import { Analytics } from "@vercel/analytics/react"
-import AuthProvider from "@/providers/AuthProvider"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AuthProvider>
       <SessionProvider>
         <Component {...pageProps} />
         <ToastContainer />
         <Analytics />
       </SessionProvider>
-    </AuthProvider>
   )
 }
 export default MyApp

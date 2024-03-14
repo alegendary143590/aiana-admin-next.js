@@ -1,4 +1,4 @@
-import ClipSpan from "../ClipSpan"
+import ClipSpan from "../Texts/ClipSpan"
 
 const Divider = ({ className = "" }) => (
   <div
@@ -9,7 +9,7 @@ const Divider = ({ className = "" }) => (
       className="h-[2px] w-full
       bg-gradient_s_1"
     />
-    <ClipSpan className="px-[20px] font-urwgeometric_bold text-[#fff]">OR</ClipSpan>
+    <ClipSpan className="px-[20px] font-urwgeometric_bold text-[#a1ea04]">OR</ClipSpan>
     <div className="h-[2px] w-full bg-gradient_s_1" />
   </div>
 )

@@ -1,13 +1,13 @@
 import React from "react"
 import { ILayout } from "./types"
 import SeoHead from "../SeoHead"
-import MobileHeader from "../Header/MobileHeader/MobileHeader"
+import MobileHeader from "../Header/MobileHeader"
 
 const MobileLayout = ({ children }: ILayout) => (
   <div
     className="relative h-screen w-screen
     overflow-x-hidden bg-black_0
-    bg-cover bg-[bottom_right]"
+    bg-[url('/images/Layout/m_bg.png')] bg-cover bg-[bottom_right]"
   >
     <SeoHead
       title="SESSION"
