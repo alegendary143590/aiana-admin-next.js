@@ -1,8 +1,8 @@
 import React from "react"
+import Media from "@/shared/Media"
 import { ILayout } from "./types"
 import SeoHead from "../SeoHead"
 import Header from "../Header"
-import Media from "@/shared/Media"
 
 const AuthLayout = ({ children }: ILayout) => (
   <div

@@ -15,9 +15,7 @@ interface ILayoutFactory extends ILayout {
 const Layout = ({ children, type }: ILayoutFactory) => {
   const Container = layoutContainers[type]
   return (
-    <>
         <Container>{children}</Container>
-    </>
   )
 }
 

@@ -2,7 +2,6 @@ import Link from "next/link"
 import Media from "@/shared/Media"
 
 const Header = () => (
-  <>
     <Link href="/">
       <div className="cursor-pointer">
         <Media
@@ -15,7 +14,6 @@ const Header = () => (
         />
       </div>
     </Link>
-  </>
 )
 
 export default Header
