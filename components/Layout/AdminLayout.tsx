@@ -7,7 +7,7 @@ import SideNavbar from "../SideNavBar"
 const AdminLayout = ({ children }: ILayout) => (
   <div
     className="no-scrollbar relative flex
-    h-screen w-screen bg-[#f8fafc]
+    h-screen w-screen
     overflow-x-hidden bg-[100%_auto]"
     >
     <SeoHead
@@ -18,7 +18,7 @@ const AdminLayout = ({ children }: ILayout) => (
       <SideMenuProvider>
         <SideNavbar />
       </SideMenuProvider>
-    <div className="no-scrollbar max-h-screen w-full overflow-y-auto">{children}</div>
+    <div className="no-scrollbar bg-[#11121d] max-h-screen w-full overflow-y-auto">{children}</div>
   </div>
 )
 

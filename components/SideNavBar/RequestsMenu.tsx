@@ -31,6 +31,7 @@ const RequestsMenu = () => {
           requestActive ? navActiveContainerClasses : navContainerClasses
         } flex justify-between`}
         onClick={() => setIsOpenRequestsMenu(!isOpenRequestsMenu)}
+        style={{height: "48px"}}
       >
         <div className="flex items-center gap-x-2">
           <div className={requestActive ? iconActiveClasses : iconClasses}>

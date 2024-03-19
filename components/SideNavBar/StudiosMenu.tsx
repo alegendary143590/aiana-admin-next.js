@@ -32,6 +32,7 @@ const StudiosMenu = () => {
           studioActive ? navActiveContainerClasses : navContainerClasses
         } flex justify-between`}
         onClick={() => setIsOpenStudioMenu(!isOpenStudioMenu)}
+        style={{height: "48px"}}
       >
         <div className="flex items-center gap-x-[8px]">
           <div className={studioActive ? iconActiveClasses : iconClasses}>

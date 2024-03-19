@@ -25,6 +25,7 @@ const MenuList = () => {
         type="button"
         className={dashboardActive ? navActiveContainerClasses : navContainerClasses}
         onClick={() => push("/dashboard")}
+        style={{height: "48px"}}
       >
         <div className={dashboardActive ? iconActiveClasses : iconClasses}>
           <Media
@@ -41,7 +42,24 @@ const MenuList = () => {
         <p className={navClasses}>Dashboard</p>
         {dashboardActive && <MenuItemActive />}
       </button>
-      <button type="button" className={navContainerClasses} onClick={() => push("/calendar")}>
+      <button
+        type="button"
+        className={activeProjectsActive ? navActiveContainerClasses : navContainerClasses}
+        onClick={() => push("/create")}
+        style={{height: "48px"}}
+      >
+        <div className={activeProjectsActive ? iconActiveClasses : iconClasses}>
+          <Media
+            type="image"
+            link={activeProjectsActive ? "/icons/project.svg" : "/images/Admin/sparkle.svg"}
+            blurLink="/images/Admin/sparkle.png"
+            containerClasses={activeProjectsActive ? "w-7 h-7" : "w-5 h-5"}
+          />
+        </div>
+        <p className={navClasses}>Create Chatbot</p>
+        {activeProjectsActive && <MenuItemActive project />}
+      </button>
+      <button type="button" className={navContainerClasses} onClick={() => push("/calendar")} style={{height: "48px"}}>
         <div className={iconClasses}>
           <Media
             type="image"
@@ -59,23 +77,8 @@ const MenuList = () => {
       </button>
       <StudiosMenu />
       <RequestsMenu />
-      <button
-        type="button"
-        className={activeProjectsActive ? navActiveContainerClasses : navContainerClasses}
-        onClick={() => push("/active-projects")}
-      >
-        <div className={activeProjectsActive ? iconActiveClasses : iconClasses}>
-          <Media
-            type="image"
-            link={activeProjectsActive ? "/icons/project.svg" : "/images/Admin/sparkle.svg"}
-            blurLink="/images/Admin/sparkle.png"
-            containerClasses={activeProjectsActive ? "w-7 h-7" : "w-5 h-5"}
-          />
-        </div>
-        <p className={navClasses}>Active Projects</p>
-        {activeProjectsActive && <MenuItemActive project />}
-      </button>
-      <button type="button" className={navContainerClasses}>
+      
+      <button type="button" className={navContainerClasses}  style={{height: "48px"}}>
         <div className={iconClasses}>
           <Media
             type="image"
