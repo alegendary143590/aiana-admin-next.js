@@ -1,5 +1,4 @@
 import Account from "@/components/Account"
-import ChatbotForm from "@/components/ChatbotFrom"
 import Layout from "../../Layout"
 import Chatbots from "./Chatbots"
 
