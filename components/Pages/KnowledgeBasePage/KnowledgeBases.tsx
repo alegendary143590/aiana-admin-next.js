@@ -85,7 +85,7 @@ const KnowledgeBases = () => {
                                 </StyledTableCell>
                                 <StyledTableCell align="center">{row.name}</StyledTableCell>
                                 <StyledTableCell align="center">{row.created}</StyledTableCell>
-                                <StyledTableCell align="center"><Actions botId={row.id} onDelete={() => handleDeleteRow(row.id)} /></StyledTableCell>
+                                <StyledTableCell align="center"><Actions baseId={row.id} onDelete={() => handleDeleteRow(row.id)} /></StyledTableCell>
                             </StyledTableRow>
                         ))}
                     </TableBody>
