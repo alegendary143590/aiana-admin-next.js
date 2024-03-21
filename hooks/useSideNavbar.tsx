@@ -19,10 +19,10 @@ const useSideNavbar = () => {
 
   const { pathname } = useRouter()
   const dashboardActive = pathname.includes("/dashboard")
-  const calendarActive = pathname.includes("/calendar")
-  const studioInfoActive = pathname.includes("/studio-info")
+  const createActive = pathname.includes("/chatbot")
+  const profileActive = pathname.includes("/admin")
+  const knowledgeActive = pathname.includes("/knowledge")
   const reviewsActive = pathname.includes("/reviews")
-  const studioActive = studioInfoActive || reviewsActive
   const sessionRequestsActive = pathname.includes("/session-requests")
   const projectRequestsActive = pathname.includes("/project-requests")
   const requestActive = sessionRequestsActive || projectRequestsActive
@@ -37,11 +37,11 @@ const useSideNavbar = () => {
     navContainerClasses,
     navClasses,
     selectedNav,
+    knowledgeActive,
     setSelectedNav,
+    profileActive,
     dashboardActive,
-    calendarActive,
-    studioActive,
-    studioInfoActive,
+    createActive,
     reviewsActive,
     requestActive,
     sessionRequestsActive,

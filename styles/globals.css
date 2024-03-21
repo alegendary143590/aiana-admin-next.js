@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("./radial-chart.css");
-@import url("./radial-calendar.css");
-
 @font-face {
   font-family: "URWGeometric";
   src: url("/fonts/URWGeometric/URWGeometric-Regular.ttf") format("truetype");

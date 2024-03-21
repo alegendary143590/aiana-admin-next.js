@@ -1,8 +1,6 @@
 import { useRouter } from "next/router"
 import Media from "@/shared/Media"
 import { useSideMenu } from "@/providers/SideMenuProvider"
-import RequestsMenu from "./RequestsMenu"
-import StudiosMenu from "./StudiosMenu"
 import MenuItemActive from "./MenuItemActive"
 
 const MenuList = () => {
@@ -14,80 +12,97 @@ const MenuList = () => {
     iconClasses,
     navContainerClasses,
     navClasses,
+    profileActive,
     dashboardActive,
-    calendarActive,
-    activeProjectsActive,
+    createActive,
+    knowledgeActive,
   } = useSideMenu()
 
   return (
-    <div className="relative z-[4] w-full">
+    <div className="relative z-[4] w-full mt-3">
+      <button
+        type="button"
+        className={profileActive ? navActiveContainerClasses : navContainerClasses}
+        onClick={() => push("/admin")}
+        style={{ height: "60px", marginBottom: "5px" }}
+      >
+        <div className={profileActive ? iconActiveClasses : iconClasses}>
+          <Media
+            type="image"
+            link={
+              "/images/Admin/profile.png"
+            }
+            blurLink={
+              profileActive ? "/images/Admin/dashboard-active.png" : "/images/Admin/dashboard.png"
+            }
+            containerClasses={"w-[20px] h-[20px]"}
+          />
+        </div>
+        <p className={navClasses} style={{ fontSize: "20px" }}>My Profile</p>
+        {profileActive && <MenuItemActive />}
+      </button>
+      <button
+        type="button"
+        className={createActive ? navActiveContainerClasses : navContainerClasses}
+        onClick={() => push("/chatbot")}
+        style={{ height: "60px", marginBottom: "5px" }}
+      >
+        <div className={createActive ? iconActiveClasses : iconClasses}>
+          <Media
+            type="image"
+            link={
+              "/images/Admin/sparkle.png"
+            }
+            blurLink={
+              "/images/Admin/sparkle.png"
+            }
+            containerClasses={"w-[20px] h-[20px]"}
+          />
+        </div>
+        <p className={navClasses} style={{ fontSize: "20px" }}>Chatbot</p>
+        {createActive && <MenuItemActive />}
+      </button>
+      <button
+        type="button"
+        className={knowledgeActive ? navActiveContainerClasses : navContainerClasses}
+        onClick={() => push("/knowledge")}
+        style={{ height: "60px", marginBottom: "5px" }}
+      >
+        <div className={knowledgeActive ? iconActiveClasses : iconClasses}>
+          <Media
+            type="image"
+            link={
+              "/images/Admin/dashboard.svg"
+            }
+            blurLink={
+              knowledgeActive ? "/images/Admin/dashboard-active.png" : "/images/Admin/dashboard.png"
+            }
+            containerClasses={"w-[20px] h-[20px]"}
+          />
+        </div>
+        <p className={navClasses} style={{ fontSize: "20px" }}>Knowledge Base</p>
+        {knowledgeActive && <MenuItemActive />}
+      </button>
       <button
         type="button"
         className={dashboardActive ? navActiveContainerClasses : navContainerClasses}
         onClick={() => push("/dashboard")}
-        style={{height: "48px"}}
+        style={{ height: "60px", marginBottom: "5px" }}
       >
         <div className={dashboardActive ? iconActiveClasses : iconClasses}>
           <Media
             type="image"
             link={
-              dashboardActive ? "/images/Admin/dashboard-active.svg" : "/images/Admin/dashboard.svg"
+              "/images/Admin/dashboard.svg"
             }
             blurLink={
               dashboardActive ? "/images/Admin/dashboard-active.png" : "/images/Admin/dashboard.png"
             }
-            containerClasses={dashboardActive ? "w-[32px] h-[30px]" : "w-[20px] h-[20px]"}
+            containerClasses={"w-[20px] h-[20px]"}
           />
         </div>
-        <p className={navClasses}>Dashboard</p>
+        <p className={navClasses} style={{ fontSize: "20px" }}>AIANA Admin</p>
         {dashboardActive && <MenuItemActive />}
-      </button>
-      <button
-        type="button"
-        className={activeProjectsActive ? navActiveContainerClasses : navContainerClasses}
-        onClick={() => push("/create")}
-        style={{height: "48px"}}
-      >
-        <div className={activeProjectsActive ? iconActiveClasses : iconClasses}>
-          <Media
-            type="image"
-            link={activeProjectsActive ? "/icons/project.svg" : "/images/Admin/sparkle.svg"}
-            blurLink="/images/Admin/sparkle.png"
-            containerClasses={activeProjectsActive ? "w-7 h-7" : "w-5 h-5"}
-          />
-        </div>
-        <p className={navClasses}>Create Chatbot</p>
-        {activeProjectsActive && <MenuItemActive project />}
-      </button>
-      <button type="button" className={navContainerClasses} onClick={() => push("/calendar")} style={{height: "48px"}}>
-        <div className={iconClasses}>
-          <Media
-            type="image"
-            link={
-              calendarActive ? "/images/Admin/calendar-active.svg" : "/images/Admin/calendar.svg"
-            }
-            blurLink={
-              calendarActive ? "/images/Admin/calendar-active.png" : "/images/Admin/calendar.png"
-            }
-            containerClasses={calendarActive ? "w-[32px] h-[30px]" : "w-[20px] h-[20px]"}
-          />
-        </div>
-        <p className={navClasses}>Calendar</p>
-        {calendarActive && <MenuItemActive />}
-      </button>
-      <StudiosMenu />
-      <RequestsMenu />
-      
-      <button type="button" className={navContainerClasses}  style={{height: "48px"}}>
-        <div className={iconClasses}>
-          <Media
-            type="image"
-            link="/images/Admin/recent.svg"
-            blurLink="/images/Admin/recent.png"
-            containerClasses="w-[20px] h-[20px]"
-          />
-        </div>
-        <p className={navClasses}>History</p>
       </button>
     </div>
   )

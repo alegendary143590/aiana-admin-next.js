@@ -18,7 +18,7 @@ const AdminLayout = ({ children }: ILayout) => (
       <SideMenuProvider>
         <SideNavbar />
       </SideMenuProvider>
-    <div className="no-scrollbar bg-[#11121d] max-h-screen w-full overflow-y-auto">{children}</div>
+    <div className="no-scrollbar bg-[#ffffff] max-h-screen w-full overflow-y-auto">{children}</div>
   </div>
 )
 

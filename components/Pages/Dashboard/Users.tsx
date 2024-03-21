@@ -21,7 +21,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
 
-const Assistants = () => {
+const Users = () => {
 
     const StyledTableRow = styled(TableRow)(({ theme }) => ({
       '&:nth-of-type(odd)': {
@@ -36,17 +36,19 @@ const Assistants = () => {
     function createData(
       id:number,
       name: string,
-      created: string
+      email:string,
+      phone:string,
+      role:string,
+      lastlogin:string,
+      status:string
     ) {
-      return { id, name, created};
+      return { id, name, email, phone, role, lastlogin, status}
     }
     
     const rows = [
-      createData(1, 'Cook Assistant', '2024.03.12'),
-      createData(2, 'Lawyer Assistant', '2024.03.12'),
-      createData(3, 'Surfing Assistant', '2024.03.12'),
-      createData(4, 'Yoga Assistant', '2024.03.12'),
-      createData(5, 'General Assistant', '2024.03.12'),
+      createData(1, "John Doe", "johndoe@example.com", "123-456-7890", "Admin", "2024-03-20", "Active"),
+      createData(2, "Jane Smith", "janesmith@example.com", "987-654-3210", "User", "2024-03-19", "Active"),
+      createData(3, "Alice Johnson", "alicejohnson@example.com", "555-123-4567", "User", "2024-03-18", "Inactive")
     ];
     return (
         <>
@@ -58,10 +60,12 @@ const Assistants = () => {
                     <TableHead>
                         <TableRow>
                             <StyledTableCell>No</StyledTableCell>
-                            <StyledTableCell align="center">Name</StyledTableCell>
-                            <StyledTableCell align="center">Created</StyledTableCell>
-                            <StyledTableCell align="center">Run</StyledTableCell>
-                            <StyledTableCell align="center">Publish</StyledTableCell>
+                            <StyledTableCell align="center">User Name</StyledTableCell>
+                            <StyledTableCell align="center">Email</StyledTableCell>
+                            <StyledTableCell align="center">Phone Number</StyledTableCell>
+                            <StyledTableCell align="center">Role</StyledTableCell>
+                            <StyledTableCell align="center">Last Login Date</StyledTableCell>
+                            <StyledTableCell align="center">Account Status</StyledTableCell>
                             <StyledTableCell align="center">Action</StyledTableCell>
                         </TableRow>
                     </TableHead>
@@ -72,9 +76,11 @@ const Assistants = () => {
                                 {row.id}
                             </StyledTableCell>
                             <StyledTableCell align="center">{row.name}</StyledTableCell>
-                            <StyledTableCell align="center">{row.created}</StyledTableCell>
-                            <StyledTableCell align="center"><RunButton /></StyledTableCell>
-                            <StyledTableCell align="center"><PublishButton /></StyledTableCell>
+                            <StyledTableCell align="center">{row.email}</StyledTableCell>
+                            <StyledTableCell align="center">{row.phone}</StyledTableCell>
+                            <StyledTableCell align="center">{row.role}</StyledTableCell>
+                            <StyledTableCell align="center">{row.lastlogin}</StyledTableCell>
+                            <StyledTableCell align="center">{row.status}</StyledTableCell>
                             <StyledTableCell align="center"><Actions /></StyledTableCell>
                         </StyledTableRow>
                     ))}
@@ -85,4 +91,4 @@ const Assistants = () => {
     )
 }
 
-export default Assistants
+export default Users

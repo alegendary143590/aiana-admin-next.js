@@ -147,7 +147,7 @@ function Input({
         <div
           className={`flex gap-x-[5px]
         pl-[20px] pt-[10px] ${classNameError || ""}`}
-        >
+          >
           <Media
             type="image"
             link={infoText ? InfoIcon : ErrorIcon}
