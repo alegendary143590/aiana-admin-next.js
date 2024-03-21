@@ -1,8 +1,7 @@
 import React, { useState } from "react"
-import { Grid, Typography, Button, Paper, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton } from "@mui/material"
+import { Grid, Typography, Button, Paper, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, TextField } from "@mui/material"
 import CloudUploadIcon from "@mui/icons-material/CloudUpload"
 import DeleteIcon from "@mui/icons-material/Delete"
-import {TextField} from "@mui/material"
 import InfoIcon from "@mui/icons-material/InfoRounded"
 
 const Document = () => {
@@ -36,7 +35,7 @@ const Document = () => {
             <Grid container className="p-5 mt-2">
                 <Typography className="bg-[#e6f2ff] w-full mr-5 ml-5 p-3" sx={{ lineHeight: '2' }}>
                     <InfoIcon className="text-[#33adff] mr-2 mb-1" />
-                    Build your chatbot's knowledge base by uploading documents. These documents train your chatbot to answer questions accurately.
+                    Build your chatbot&apos;s knowledge base by uploading documents. These documents train your chatbot to answer questions accurately.
                 </Typography>
             </Grid>
             <Grid container spacing={2} className="mt-1">
@@ -60,10 +59,10 @@ const Document = () => {
                 <Grid item xs={8}>
                     <List className="h-[350px] overflow-y-auto border-solid border border-gray-300 rounded-md mt-5 p-3">
                         {documents.map((doc, index) => (
-                            <ListItem key={index} className="border-b border-gray-300">
+                            <ListItem className="border-b border-gray-300">
                                 <ListItemText primary={doc.name} />
                                 <ListItemSecondaryAction>
-                                    <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteDocument(index)}>
+                                    <IconButton role="button" edge="end" aria-label="delete" onClick={() => handleDeleteDocument(index)}>
                                         <DeleteIcon />
                                     </IconButton>
                                 </ListItemSecondaryAction>

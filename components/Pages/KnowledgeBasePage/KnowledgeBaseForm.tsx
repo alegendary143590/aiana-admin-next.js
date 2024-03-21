@@ -13,10 +13,6 @@ interface TabPanelProps {
     value: number;
 }
 
-interface KnowledgeBaseProps {
-    base: string | string[]
-}
-
 function CustomTabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
 

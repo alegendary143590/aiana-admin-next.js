@@ -3,7 +3,6 @@ import { Grid, Typography, Button, Paper, List, ListItem, ListItemText, ListItem
 import DeleteIcon from "@mui/icons-material/Delete"
 import InfoIcon from "@mui/icons-material/InfoRounded"
 import { isValidUrl } from "./validation" // Import your URL validation library here
-import { set } from "react-hook-form"
 
 const Website = () => {
     const [urlInputValue, setUrlInputValue] = useState("");
@@ -28,7 +27,7 @@ const Website = () => {
             <Grid container className="p-5">
                 <Typography className="bg-[#e6f2ff] w-full mr-5 ml-5 p-3" sx={{ lineHeight: '2' }}>
                     <InfoIcon className="text-[#33adff] mr-2 mb-1" />
-                    Add URLs to build your chatbot's knowledge base. These URLs help train your chatbot to answer questions accurately.
+                    Add URLs to build your chatbot&apos;s knowledge base. These URLs help train your chatbot to answer questions accurately.
                 </Typography>
             </Grid>
             <Grid container spacing={3} className="mt-5">
@@ -53,7 +52,7 @@ const Website = () => {
                 <Grid item xs={8}>
                     <List className="h-[350px] overflow-y-auto border-solid border border-gray-300 rounded-md mt-5 p-3">
                         {urls.map((url, index) => (
-                            <ListItem key={index} className="border-b border-gray-300">
+                            <ListItem className="border-b border-gray-300">
                                 <ListItemText primary={url} />
                                 <ListItemSecondaryAction>
                                     <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteUrl(index)}>

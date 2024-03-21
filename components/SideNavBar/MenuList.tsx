@@ -50,12 +50,8 @@ const MenuList = () => {
         <div className={createActive ? iconActiveClasses : iconClasses}>
           <Media
             type="image"
-            link={
-              "/images/Admin/sparkle.png"
-            }
-            blurLink={
-              "/images/Admin/sparkle.png"
-            }
+            link="/images/Admin/sparkle.png"
+            blurLink="/images/Admin/sparkle.png"
             containerClasses={"w-[20px] h-[20px]"}
           />
         </div>
@@ -71,9 +67,7 @@ const MenuList = () => {
         <div className={knowledgeActive ? iconActiveClasses : iconClasses}>
           <Media
             type="image"
-            link={
-              "/images/Admin/dashboard.svg"
-            }
+            link="/images/Admin/dashboard.svg"
             blurLink={
               knowledgeActive ? "/images/Admin/dashboard-active.png" : "/images/Admin/dashboard.png"
             }
@@ -92,9 +86,7 @@ const MenuList = () => {
         <div className={dashboardActive ? iconActiveClasses : iconClasses}>
           <Media
             type="image"
-            link={
-              "/images/Admin/dashboard.svg"
-            }
+            link="/images/Admin/dashboard.svg"
             blurLink={
               dashboardActive ? "/images/Admin/dashboard-active.png" : "/images/Admin/dashboard.png"
             }

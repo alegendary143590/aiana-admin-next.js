@@ -80,7 +80,7 @@ const ChatbotForm : React.FC<ChatbotFormProps> = ({ bot }) => {
                             <Typography variant="body1" align="right" style={{ borderRadius: "5px" }}>Name:</Typography>
                         </Grid>
                         <Grid item xs={8}>
-                            <Input placeholder="Enter a name of the chatbot" style={{ width: "300px" }} inputProps={ariaLabel} />
+                            <Input placeholder="Enter a name of the chatbot" value={bot} style={{ width: "300px" }} inputProps={ariaLabel} />
                         </Grid>
                     </Grid>
                     <Grid container spacing={1} alignItems="center">
@@ -124,8 +124,7 @@ const ChatbotForm : React.FC<ChatbotFormProps> = ({ bot }) => {
                             <Typography variant="body1" align="right" style={{ borderRadius: "5px" }}>Color:</Typography>
                         </Grid>
                         <Grid item xs={4}>
-                            <Button onClick={handleColorButtonClick} className="!w-[60px] !h-[30px]" style={{ backgroundColor: themeColor }}>
-                            </Button>
+                            <Button onClick={handleColorButtonClick} className="!w-[60px] !h-[30px]" style={{ backgroundColor: themeColor }} />
                             <Menu
                                 anchorEl={anchorEl}
                                 open={Boolean(anchorEl)}

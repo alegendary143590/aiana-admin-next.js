@@ -24,6 +24,14 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const KnowledgeBases = () => {
 
+    function createData(
+        id: number,
+        name: string,
+        created: string
+    ) {
+        return { id, name, created };
+    }
+
     const [rows, setRows] = React.useState([
         createData(1, 'Cook Recipient', '2024.03.12'),
         createData(2, 'Hospital Insurance', '2024.03.12'),
@@ -50,13 +58,7 @@ const KnowledgeBases = () => {
         },
     }));
 
-    function createData(
-        id: number,
-        name: string,
-        created: string
-    ) {
-        return { id, name, created };
-    }
+   
 
     return (
         <>

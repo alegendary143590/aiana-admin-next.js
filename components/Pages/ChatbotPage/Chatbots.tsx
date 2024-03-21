@@ -26,6 +26,15 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const Chatbots = () => {
 
+    function createData(
+        id: number,
+        name: string,
+        created: string
+    ) {
+        return { id, name, created };
+    }
+
+
     const [rows, setRows] = React.useState([
         createData(1, 'Cook Assistant', '2024.03.12'),
         createData(2, 'Lawyer Assistant', '2024.03.12'),
@@ -52,14 +61,7 @@ const Chatbots = () => {
         },
     }));
 
-    function createData(
-        id: number,
-        name: string,
-        created: string
-    ) {
-        return { id, name, created };
-    }
-
+   
 
 
     return (

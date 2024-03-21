@@ -1,6 +1,5 @@
 import Account from "@/components/Account"
 import Layout from "../../Layout"
-import KnowledgeBaseForm from "./KnowledgeBaseForm"
 import KnowledgeBases from "./KnowledgeBases"
 
 const KnowledgeBasePage = () => (
