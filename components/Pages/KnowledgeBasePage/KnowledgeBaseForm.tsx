@@ -41,7 +41,7 @@ function a11yProps(index: number) {
     };
 }
 
-const KnowledgeBaseForm= ({base:KnowledgeBaseProps }) => {
+const KnowledgeBaseForm= ({knowledge_base }) => {
 
     const [value, setValue] = useState(0);
 

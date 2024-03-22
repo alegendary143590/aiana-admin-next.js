@@ -59,10 +59,10 @@ const Document = () => {
                 <Grid item xs={8}>
                     <List className="h-[350px] overflow-y-auto border-solid border border-gray-300 rounded-md mt-5 p-3">
                         {documents.map((doc, index) => (
-                            <ListItem className="border-b border-gray-300">
+                            <ListItem key={index} className="border-b border-gray-300">
                                 <ListItemText primary={doc.name} />
                                 <ListItemSecondaryAction>
-                                    <IconButton role="button" edge="end" aria-label="delete" onClick={() => handleDeleteDocument(index)}>
+                                    <IconButton edge="end" onClick={() => handleDeleteDocument(index)}>
                                         <DeleteIcon />
                                     </IconButton>
                                 </ListItemSecondaryAction>

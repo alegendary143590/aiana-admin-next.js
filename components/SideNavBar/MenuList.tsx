@@ -29,9 +29,7 @@ const MenuList = () => {
         <div className={profileActive ? iconActiveClasses : iconClasses}>
           <Media
             type="image"
-            link={
-              "/images/Admin/profile.png"
-            }
+            link="/images/Admin/profile.png"
             blurLink={
               profileActive ? "/images/Admin/dashboard-active.png" : "/images/Admin/dashboard.png"
             }
