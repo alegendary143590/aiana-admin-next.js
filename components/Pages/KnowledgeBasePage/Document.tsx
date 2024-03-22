@@ -45,7 +45,6 @@ const Document = () => {
                 <Grid item xs={6}>
                     <Button
                         component="label"
-                        role="doc_upload"
                         variant="contained"
                         tabIndex={-1}
                         startIcon={<CloudUploadIcon />}
