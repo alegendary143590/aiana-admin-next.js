@@ -48,7 +48,7 @@ const Document = () => {
                         variant="contained"
                         tabIndex={-1}
                         startIcon={<CloudUploadIcon />}
-                    >
+                        >
                         Choose Documents
                         <input type="file" accept=".pdf,.doc,.txt,.docx" onChange={handleDocumentChanged} multiple style={{ display: 'none' }} />
                     </Button>
@@ -58,7 +58,7 @@ const Document = () => {
                 <Grid item xs={8}>
                     <List className="h-[350px] overflow-y-auto border-solid border border-gray-300 rounded-md mt-5 p-3">
                         {documents.map((doc, index) => (
-                            <ListItem key={index.toString()} className="border-b border-gray-300">
+                            <ListItem key={doc} className="border-b border-gray-300">
                                 <ListItemText primary={doc.name} />
                                 <ListItemSecondaryAction>
                                     <IconButton edge="end" onClick={() => handleDeleteDocument(index)}>
