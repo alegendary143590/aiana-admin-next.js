@@ -33,7 +33,7 @@ const MenuList = () => {
             blurLink={
               profileActive ? "/images/Admin/dashboard-active.png" : "/images/Admin/dashboard.png"
             }
-            containerClasses={"w-[20px] h-[20px]"}
+            containerClasses="w-[20px] h-[20px]"
           />
         </div>
         <p className={navClasses} style={{ fontSize: "20px" }}>My Profile</p>
@@ -50,7 +50,7 @@ const MenuList = () => {
             type="image"
             link="/images/Admin/sparkle.png"
             blurLink="/images/Admin/sparkle.png"
-            containerClasses={"w-[20px] h-[20px]"}
+            containerClasses="w-[20px] h-[20px]"
           />
         </div>
         <p className={navClasses} style={{ fontSize: "20px" }}>Chatbot</p>
@@ -69,7 +69,7 @@ const MenuList = () => {
             blurLink={
               knowledgeActive ? "/images/Admin/dashboard-active.png" : "/images/Admin/dashboard.png"
             }
-            containerClasses={"w-[20px] h-[20px]"}
+            containerClasses="w-[20px] h-[20px]"
           />
         </div>
         <p className={navClasses} style={{ fontSize: "20px" }}>Knowledge Base</p>
@@ -88,7 +88,7 @@ const MenuList = () => {
             blurLink={
               dashboardActive ? "/images/Admin/dashboard-active.png" : "/images/Admin/dashboard.png"
             }
-            containerClasses={"w-[20px] h-[20px]"}
+            containerClasses="w-[20px] h-[20px]"
           />
         </div>
         <p className={navClasses} style={{ fontSize: "20px" }}>AIANA Admin</p>
