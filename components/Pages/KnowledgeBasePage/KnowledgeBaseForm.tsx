@@ -13,6 +13,10 @@ interface TabPanelProps {
     value: number;
 }
 
+interface KnowledgeBaseFormProps {
+    knowledge_base: string | string[];
+}
+
 function CustomTabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
 
@@ -41,7 +45,7 @@ function a11yProps(index: number) {
     };
 }
 
-const KnowledgeBaseForm= ({knowledge_base }) => {
+const KnowledgeBaseForm:React.FC<KnowledgeBaseFormProps>= ({knowledge_base }) => {
 
     const [value, setValue] = useState(0);
 
