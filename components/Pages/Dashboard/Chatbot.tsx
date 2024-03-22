@@ -51,7 +51,7 @@ const Chatbot = () => {
             </Grid>
             <Grid container className={`h-[400px] bg-gray-100 ${show ? "hidden" : ""}`}>
                 <div style={{display: "flex", flexDirection: "column", height: "100%", width: "100%"}}>
-                    {messages.map((message, index) => (
+                    {messages.map((message) => (
                         <Grid container key={message.text} direction={message.sender === 'bot' ? 'row' : 'row-reverse'} alignItems="center">
                             {message.sender === 'bot' && (
                                 <Avatar alt="Bot Avatar" src="/images/Admin/avatar1.jpg" />
