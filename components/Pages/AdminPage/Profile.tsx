@@ -1,18 +1,9 @@
 import React from "react"
-import {
-  Container,
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Grid,
-  TextField,
-  Button,
-} from "@mui/material"
+import { Box, Typography, Grid, TextField, Button } from "@mui/material"
 import router from "next/router"
-import CustomSelect from "@/components/CustomSelect"
-import Country from "@/components/Country"
-import Language from "@/components/Language"
+import CustomSelect from "../../CustomSelect"
+import Country from "../../Country"
+import Language from "../../Language"
 
 function Profile() {
   const handleSubmit = () => {
