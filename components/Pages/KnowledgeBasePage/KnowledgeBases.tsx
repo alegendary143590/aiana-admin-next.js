@@ -1,100 +1,55 @@
 import * as React from "react"
-import { styled } from "@mui/material/styles"
-import Table from "@mui/material/Table"
-import TableBody from "@mui/material/TableBody"
-import TableCell, { tableCellClasses } from "@mui/material/TableCell"
-import TableContainer from "@mui/material/TableContainer"
-import TableHead from "@mui/material/TableHead"
-import { Typography } from "@mui/material"
-import TableRow from "@mui/material/TableRow"
+import { Box, Typography } from "@mui/material"
 import Button from "@mui/material/Button"
-import Paper from "@mui/material/Paper"
 import router from "next/router"
-import Actions from "./Actions"
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-        fontSize: 14,
-    },
-}));
+const Chatbots = () => {
+  const [bases, setBases] = React.useState([createData(1, "KB Daytime", "09:00 - 17:00")])
 
-const KnowledgeBases = () => {
+  const handleAddRow = () => {
+    router.push(`/knowledge/edit?bot=0`)
+  }
 
-    function createData(
-        id: number,
-        name: string,
-        created: string
-    ) {
-        return { id, name, created };
-    }
+  function createData(id: number, name: string, time: string) {
+    return { id, name, time }
+  }
 
-    const [rows, setRows] = React.useState([
-        createData(1, 'Cook Recipient', '2024.03.12'),
-        createData(2, 'Hospital Insurance', '2024.03.12'),
-        createData(3, 'Surfing Expert', '2024.03.12'),
-        createData(4, 'Yoga Specialist', '2024.03.12'),
-        createData(5, 'General Data', '2024.03.12'),
-    ]);
-
-    const handleDeleteRow = (id) => {
-        setRows(rows.filter(row => row.id !== id));
-    }
-
-    const handleAddRow = () => {
-        router.push(`/knowledge/edit?base=0`)
-    }
-
-    const StyledTableRow = styled(TableRow)(({ theme }) => ({
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.action.hover,
-        },
-        // hide last border
-        '&:last-child td, &:last-child th': {
-            border: 0,
-        },
-    }));
-
-   
-
-    return (
-        <>
-            <div className="w-full h-[50px] flex items-center justify-center pt-[20px] mb-[10px] text-[28px]">
-                <Typography className="text-[30px] underline">Knowledge Bases</Typography>
-                <Button onClick={handleAddRow} className="bg-[#0099ff] text-white absolute right-5 font-bold py-2 px-4 rounded m-2" variant="contained">
-                    + New
-                </Button>
+  return (
+    <>
+      <div className="w-full h-[50px] flex items-center justify-center pt-[24px] mb-[10px] text-[28px]">
+        <Typography className="text-[20px] w-2/3">Chatbots</Typography>
+        <Box sx={{ width: "30%", height: "fit-content" }}>
+          <Button
+            onClick={handleAddRow}
+            className="bg-[#5b0c99] text-white font-bold py-2 px-4 rounded m-2"
+            variant="contained"
+            style={{ textTransform: "none" }}
+          >
+            + Create Knowledgebase
+          </Button>
+        </Box>
+      </div>
+      <div className="w-full h-fit flex flex-wrap mt-10 items-center justify-start">
+        {bases.map((base) => (
+          <div key={base.id} className="w-72 h-30 bg-white shadow-sm p-4 m-3">
+            <div className="w-full h-fit flex flex-row items-center justify-center">
+              <div className="flex-grow flex flex-col">
+                <Typography className="text-[20px]">{base.name}</Typography>
+              </div>
             </div>
-
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell>No</StyledTableCell>
-                            <StyledTableCell align="center">Name</StyledTableCell>
-                            <StyledTableCell align="center">Created</StyledTableCell>
-                            <StyledTableCell align="center">Action</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows.map((row) => (
-                            <StyledTableRow key={row.id}>
-                                <StyledTableCell component="th" scope="row">
-                                    {row.id}
-                                </StyledTableCell>
-                                <StyledTableCell align="center">{row.name}</StyledTableCell>
-                                <StyledTableCell align="center">{row.created}</StyledTableCell>
-                                <StyledTableCell align="center"><Actions baseId={row.id} onDelete={() => handleDeleteRow(row.id)} /></StyledTableCell>
-                            </StyledTableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </>
-    )
+            <div>
+              <button
+                className="w-12 h-8 text-[12px] my-1 rounded-sm bg-[#00D7CA] text-white"
+                style={{ textTransform: "none" }}
+              >
+                Edit
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  )
 }
 
-export default KnowledgeBases
+export default Chatbots

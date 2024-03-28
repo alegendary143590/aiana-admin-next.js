@@ -1,66 +1,102 @@
-import { useRouter } from "next/router"
-import { useState } from "react"
-import Form from "@/shared/Form"
-import Button from "@mui/material/Button"
-// import { useAuth } from "@/providers/AuthProvider"
-import TextInput from "../../TextInput"
-import { validation } from "./validation"
+import React from "react"
+import {
+  Container,
+  Box,
+  Card,
+  CardContent,
+  TextField,
+  Button,
+  Typography,
+  Link,
+} from "@mui/material"
 
 const EmailPasswordForm = () => {
-//   const { userEmail, setUserEmail, checkEmail } = useAuth()
-  const [userEmail, setUserEmail] = useState("")
-  const [userPassword, setUserPassword] = useState("")
-  const router = useRouter()
-
-  const handleSubmit = () => {
-    router.push("/admin")
-  }
-
   return (
-    <Form
-      onSubmit={handleSubmit}
-      validationSchema={validation}
-      className="flex w-full grow flex-col justify-end"
-    >
-      <TextInput
-        type="text"
-        id="useremail"
-        name="useremail"
-        value={userEmail}
-        onChange={setUserEmail}
-        placeholder="Enter Email..."
-        label=""
-      />
-      <TextInput
-        type="password"
-        id="userpassword"
-        name="userpassword"
-        value={userPassword}
-        onChange={setUserPassword}
-        placeholder="Enter Password..."
-        label=""
-      />
-      <Button
-        id="btn_signin"
-        type="submit"
-        className="mt-[20px] h-[48px]
-                !bg-[#6366f1] text-white text-lg
-                rounded-[30px]"
-        >
-        Sign In
-      </Button>
-      <p
-        className="pt-[20px] text-center
-          font-urwgeometric text-[14px] text-gray_1 samsungS8:pt-[25px]"
-      >
-        Don&apos;t have account yet? &nbsp;
-        <button type="button" onClick={() => router.push("/signin")}>
-          <p className="text-[#fff] underline">
-            Sign Up
-          </p>
-        </button>
-      </p>
-    </Form>
+    <Container className="bg-transparent w-[450px] bg-gray-100 flex flex-col justify-center items-center">
+      <div>
+        <Card className="w-full md:w-[450px]">
+          <CardContent>
+            <div className="text-center mt-5">
+              <img src="/images/logo_big.png" alt="Logo" className="mx-auto h-20" />
+              <Typography variant="h6" className="text-primary font-mono text-[#00d7ca]">
+                Welcome!
+              </Typography>
+            </div>
+            <Box
+              component="form"
+              action="https://test2.aiana.io/index"
+              noValidate
+              sx={{ mt: 3, m: "15px" }}
+            >
+              <Typography variant="body1" className="text-primary font-mono !m-0">
+                Username
+              </Typography>
+
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                name="username"
+                autoComplete="username"
+                placeholder="Enter a username"
+                autoFocus
+                className="bg-white mt-2"
+              />
+              <Typography variant="body1" className="text-primary font-mono mt-2">
+                Password
+              </Typography>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                type="password"
+                id="password"
+                placeholder="Enter a password"
+                autoComplete="current-password"
+                className="bg-white !mt-2"
+              />
+              <div className="mt-4">
+                <Link
+                  underline="none"
+                  href="https://test2.aiana.io/auth-recoverpw"
+                  variant="body2"
+                  className="text-muted text-gray-500"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+              <div className="mt-4 text-right">
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  className="mt-3 bg-[#00d7ca] w-[95px]"
+                  style={{ textTransform: "none" }}
+                >
+                  Log In
+                </Button>
+              </div>
+              <div className="text-center mt-2">
+                <Typography variant="body2">
+                  Don't have an account?&nbsp;
+                  <Link underline="none" href="/signup" variant="body2" className="text-[#00d7ca]">
+                    Sign up now
+                  </Link>
+                </Typography>
+              </div>
+            </Box>
+          </CardContent>
+        </Card>
+      </div>
+      <div className="text-center text-muted mt-4 absolute bottom-5">
+        <Typography variant="body2" color="textSecondary" className="text-white-50">
+          © {new Date().getFullYear()} aiana
+        </Typography>
+      </div>
+    </Container>
   )
 }
 

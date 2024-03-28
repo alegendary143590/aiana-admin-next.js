@@ -1,66 +1,230 @@
-import { useRouter } from "next/router"
-import { useState } from "react"
-import Form from "@/shared/Form"
-import Button from "@mui/material/Button"
-// import { useAuth } from "@/providers/AuthProvider"
-import TextInput from "../../TextInput"
-import { validation } from "./validation"
+import React from "react"
+import {
+  Container,
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+  TextField,
+  Button,
+} from "@mui/material"
+import router from "next/router"
 
-const EmailPasswordForm = () => {
-//   const { userEmail, setUserEmail, checkEmail } = useAuth()
-  const [userEmail, setUserEmail] = useState("")
-  const [userPassword, setUserPassword] = useState("")
-  const router = useRouter()
-
+function EmailPasswordForm() {
   const handleSubmit = () => {
-    router.push("/signin")
+    router.push("/admin")
   }
-
   return (
-    <Form
-      onSubmit={handleSubmit}
-      validationSchema={validation}
-      className="flex w-full grow flex-col justify-end"
+    <Container
+      data-layout="horizontal"
+      data-sidebar="light"
+      data-bs-theme="light"
+      className="!w-4/5 bg-transparent flex flex-col justify-center items-center"
     >
-      <TextInput
-        type="text"
-        id="useremail"
-        name="useremail"
-        value={userEmail}
-        onChange={setUserEmail}
-        placeholder="Enter Email..."
-        label=""
-      />
-      <TextInput
-        type="password"
-        id="userpassword"
-        name="userpassword"
-        value={userPassword}
-        onChange={setUserPassword}
-        placeholder="Enter Password..."
-        label=""
-      />
-      <Button
-        id="btn_signup"
-        type="submit"
-        className="mt-[20px] h-[48px]
-                !bg-[#6366f1] text-white text-lg
-                rounded-[30px]"
-        >
-        Sign up
-      </Button>
-      <p
-        className="pt-[20px] text-center
-          font-urwgeometric text-[14px] text-gray_1 samsungS8:pt-[25px]"
-      >
-        Already have an account? &nbsp;
-        <button type="button" onClick={() => router.push("/signin")}>
-          <p className="text-[#fff] underline">
-            Log In
-          </p>
-        </button>
-      </p>
-    </Form>
+      <Box className="relative w-full">
+        <Container className="d-flex flex-column">
+          <Box className="row justify-content-center my-auto">
+            <Card className="w-full">
+              <CardContent className="p-10 ">
+                <Grid container spacing={2}>
+                  <Grid item className="col-12" xs={12} md={6}>
+                    <Box className="flex-col">
+                      <Typography variant="h4" className="text-[#00d7ca]">
+                        Create your account
+                      </Typography>
+                      <Typography variant="body2" className="text-muted">
+                        Publish your chatbot today.
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  <img
+                    src="/images/logo_big.png"
+                    alt="Image Title"
+                    className="absolute top-10 right-20 h-20 hidden lg:block"
+                  />
+                </Grid>
+                <Grid
+                  container
+                  spacing={3}
+                  className="mt-2 max-h-[650px] overflow-hidden overflow-y-auto"
+                >
+                  <Grid item xs={12} md={6} direction="column">
+                    <Typography variant="subtitle1" className="text-primary" fontWeight="bold">
+                      Your Company
+                    </Typography>
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          Name:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField id="standard-basic" variant="outlined" />
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          VAT number:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField id="standard-basic" variant="outlined" />
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          Street:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField id="standard-basic" variant="outlined" />
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          Number:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField id="standard-basic" variant="outlined" />
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          City:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField id="standard-basic" variant="outlined" />
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          Postal code:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField id="standard-basic" variant="outlined" />
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          Country:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField id="standard-basic" variant="outlined" />
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          Website url:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField id="standard-basic" variant="outlined" />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={12} md={6}>
+                    <Typography variant="subtitle1" className="text-primary" fontWeight="bold">
+                      Your User
+                    </Typography>
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          First name:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField id="standard-basic" variant="outlined" />
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          Last name:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField id="standard-basic" variant="outlined" />
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          Email:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField id="standard-basic" variant="outlined" />
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          Language:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField id="standard-basic" variant="outlined" />
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          Password:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField id="standard-basic" variant="outlined" />
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          Repeat password:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField id="standard-basic" variant="outlined" />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className="mt-3 bg-[#00d7ca] px-10 font-sans text-[16pxpx]"
+                  style={{ textTransform: "none" }}
+                  onClick={handleSubmit}
+                >
+                  Start!
+                </Button>
+              </CardContent>
+            </Card>
+          </Box>
+          <Box className="row">
+            <Box className="col-lg-12">
+              <Box className="text-center text-muted p-4">
+                <Typography variant="body2" className="text-white opacity-50">
+                  © {new Date().getFullYear()} aiana
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Container>
+      </Box>
+    </Container>
   )
 }
 

@@ -2,7 +2,10 @@ import React, { useState } from "react"
 import TextField from "@mui/material/TextField"
 import { Paper, Grid, Typography, IconButton, Avatar } from "@mui/material"
 import SendIcon from "@mui/icons-material/Send"
+import ArrowDropDown from "@mui/icons-material/ArrowDropDown"
+import ArrowDropUp from "@mui/icons-material/ArrowDropUp"
 import RemoveIcon from "@mui/icons-material/Remove"
+import AddIcon from "@mui/icons-material/Add"
 import HomeIcon from "@mui/icons-material/Home"
 
 
@@ -37,8 +40,8 @@ const Chatbot = () => {
                 </Grid>
                 <Grid item xs={8}>
                     <Typography>
-                        Hi, I&apos;m Nelly!<br />
-                        I&apos;m here to help, so if you have any questions, go ahead and ask me!
+                        Hi, I'm Nelly!<br />
+                        I'm here to help, so if you have any questions, go ahead and ask me!
                     </Typography>
                 </Grid>
 
@@ -51,8 +54,8 @@ const Chatbot = () => {
             </Grid>
             <Grid container className={`h-[400px] bg-gray-100 ${show ? "hidden" : ""}`}>
                 <div style={{display: "flex", flexDirection: "column", height: "100%", width: "100%"}}>
-                    {messages.map((message) => (
-                        <Grid container key={message.text} direction={message.sender === 'bot' ? 'row' : 'row-reverse'} alignItems="center">
+                    {messages.map((message, index) => (
+                        <Grid key={index} container direction={message.sender === 'bot' ? 'row' : 'row-reverse'} alignItems="center">
                             {message.sender === 'bot' && (
                                 <Avatar alt="Bot Avatar" src="/images/Admin/avatar1.jpg" />
                             )}
@@ -65,9 +68,9 @@ const Chatbot = () => {
             </Grid>
             <Grid container direction="row" className={`h-[65px] bg-gray-100 ${show ? "hidden" : ""}`}>
                 <Grid item xs={12} style={{ display: "flex" }}>
-                    <TextField className="w-full h-full m-1" fullWidth onChange={handleInputChange} />
+                    <TextField className="w-full h-full m-1" fullWidth />
 
-                    <IconButton color="primary" aria-label="send message" onClick={handleSendMessage} className="absolute w-[50px] h-[50px] right-2">
+                    <IconButton color="primary" aria-label="send message" onClick={handleInputChange} className="absolute w-[50px] h-[50px] right-2">
                         <SendIcon />
                     </IconButton>
                 </Grid>

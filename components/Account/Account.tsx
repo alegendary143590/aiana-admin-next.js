@@ -8,24 +8,22 @@ const Account = () => {
     const [auth, setAuth] = useState(true);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-    const handleMenu = (event: MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    }
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    }
-
     const handleLogout = () => {
         setAuth(!auth);
         handleClose();
-    }
+    };
 
-    if (!auth) {
-        return null;
-    }
+    const handleMenu = (event: MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     return (
+        <>
+            {auth && (
                 <div className="flex items-center justify-end px-[30px]">
                     <IconButton
                         size="large"
@@ -56,6 +54,9 @@ const Account = () => {
                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     </Menu>
                 </div>
+            )
+            }
+        </>
     )
 }
 

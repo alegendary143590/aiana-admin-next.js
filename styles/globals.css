@@ -27,6 +27,27 @@
   src: url("/fonts/URWGeometric/URWGeometric-Bold.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Box Icons";
+  src: url("/fonts/boxicons.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Drop Icons";
+  src: url("/fonts/dripicons.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Fabrands";
+  src: url("/fonts/fabrands.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Material Design Icons";
+  src: url("/fonts/materialdesignicons.ttf") format("truetype");
+}
+
+
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;

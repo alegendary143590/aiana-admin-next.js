@@ -62,6 +62,11 @@ module.exports = {
         urwgeometric_medium: ["URWGeometric Medium", "sans-serif"],
         urwgeometric_semibold: ["URWGeometric SemiBold", "sans-serif"],
         urwgeometric_bold: ["URWGeometric Bold", "sans-serif"],
+        boxicons: ["Box Icons", "sans-serif"],
+        dropicons: ["Drop Icons", "sans-serif"],
+        fabrands: ["Fabrands", "sans-serif"],
+        material: ["Material Design Icons", "sans-serif"],
+        login_font: ["Be Vietnam", "sans-serif"],
       },
       screens: {
         ios: "320px",
@@ -80,17 +85,17 @@ module.exports = {
       },
       backgroundImage: {
         gradient_s_overlay_1:
-        "linear-gradient(90deg, rgba(161, 234, 4, 0.2) 0%, rgba(161, 234, 4, 0) 30%)",
+          "linear-gradient(90deg, rgba(161, 234, 4, 0.2) 0%, rgba(161, 234, 4, 0) 30%)",
         gradient_p_overlay_1:
-        "linear-gradient(90deg, rgba(255, 106, 43, 0.2) 0%, rgba(255, 106, 43, 0) 30%)",
+          "linear-gradient(90deg, rgba(255, 106, 43, 0.2) 0%, rgba(255, 106, 43, 0) 30%)",
         "grad-full": "linear-gradient(270deg, rgba(161, 234, 4, 0.2) 0%, rgba(161, 234, 4, 0) 30%)",
         gradient_s_1:
-        "linear-gradient(270deg, rgba(161, 234, 4, 1) -0.02%, rgba(218, 235, 2, 1) 100.01%)",
+          "linear-gradient(270deg, rgba(161, 234, 4, 1) -0.02%, rgba(218, 235, 2, 1) 100.01%)",
         gradient_p_1:
-        "linear-gradient(270deg, rgba(255, 106, 43, 1) -0.02%, rgba(255, 68, 43, 1) 100.01%)",
+          "linear-gradient(270deg, rgba(255, 106, 43, 1) -0.02%, rgba(255, 68, 43, 1) 100.01%)",
         gradient_p_2:
-        "linear-gradient(270deg, rgba(255, 106, 43, 0.2) -0.02%, rgba(255, 68, 43, 0.2) 100.01%)",
-        },
+          "linear-gradient(270deg, rgba(255, 106, 43, 0.2) -0.02%, rgba(255, 68, 43, 0.2) 100.01%)",
+      },
       colors: {
         white: "white",
         black: "black",

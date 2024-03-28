@@ -1,14 +1,16 @@
 import useIsMobile from "@/hooks/useIsMobile"
-import Layout from "../../Layout"
-import EnterEmailAndPassword from "./EnterEmailAndPassword"
+import EmailPasswordForm from "./EmailPasswordForm"
 
 const SignUpPage = () => {
   const isMobile = useIsMobile()
 
   return (
-    <Layout type={isMobile ? "mobile" : "auth"}>
-        <EnterEmailAndPassword />
-    </Layout>
+    <div
+      className="no-scrollbar relative flex h-screen w-screen bg-center bg-cover items-center justify-center"
+      style={{ backgroundImage: "url('/images/auth-bg-1.jpg')" }}
+    >
+      <EmailPasswordForm />
+    </div>
   )
 }
 

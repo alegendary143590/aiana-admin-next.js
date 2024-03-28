@@ -20,7 +20,7 @@
 .session-calendar .Calendar__day.-selected,
 .Calendar__day.-selectedStart,
 .Calendar__day.-selectedEnd {
-  background-color: transparent !important;
+  /* background-color: transparent !important; */
   background-image: url("/images/Calendar/calendar-day.png") !important;
   background-repeat: no-repeat !important;
   background-size: contain !important;
@@ -32,7 +32,7 @@
 
 /* calendar day hover css customization */
 .session-calendar .Calendar__day:hover {
-  background-color: transparent !important;
+  /* background-color: transparent !important; */
   color: #a1ea04 !important;
   border-radius: 40px !important;
   background-image: url("/images/Calendar/calendar-number.png") !important;
