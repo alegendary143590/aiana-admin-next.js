@@ -6,13 +6,13 @@ import RemoveIcon from "@mui/icons-material/Remove"
 import HomeIcon from "@mui/icons-material/Home"
 
 const Chatbot = () => {
-  const [messages, setMessages] = useState([
+  const messages = [
     { text: "Hello! I am your friendly chatbot.", sender: "bot" },
     { text: "Hi, what can I do for you?", sender: "user" },
-  ])
+  ]
   const [inputValue, setInputValue] = useState("")
   const [show, setShow] = useState(false)
-
+  console.log(inputValue)
   //   const handleSendMessage = () => {
   //     if (!inputValue.trim()) return
 
