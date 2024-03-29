@@ -2,7 +2,7 @@ import React from "react"
 import { Box, Typography, Grid, TextField, Button } from "@mui/material"
 import router from "next/router"
 import CustomSelect from "../../CustomSelect"
-import Country from "../../Country"
+import Country from "../../country"
 import Language from "../../Language"
 
 function Profile() {

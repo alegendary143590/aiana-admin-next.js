@@ -49,7 +49,7 @@ function EmailPasswordForm() {
                   spacing={3}
                   className="mt-2 max-h-[650px] overflow-hidden overflow-y-auto"
                 >
-                  <Grid item xs={12} md={6} direction="column">
+                  <Grid item xs={12} md={6}>
                     <Typography variant="subtitle1" className="text-primary" fontWeight="bold">
                       Your Company
                     </Typography>
