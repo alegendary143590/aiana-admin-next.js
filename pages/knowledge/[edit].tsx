@@ -1,6 +1,5 @@
 import { useRouter } from "next/router"
 import { useEffect } from "react"
-import Account from "@/components/Account"
 import Layout from "@/components/Layout"
 import KnowledgeBaseForm from "@/components/Pages/KnowledgeBasePage/KnowledgeBaseForm"
 
@@ -17,7 +16,6 @@ const EditPage = () => {
     return (
         <Layout type="admin">
             <div className="px-[20px] py-[20px] w-full h-full flex flex-col">
-                <Account />
                 <KnowledgeBaseForm base={base} />
             </div>
         </Layout>
