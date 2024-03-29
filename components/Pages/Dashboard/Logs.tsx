@@ -1,16 +1,13 @@
 import * as React from "react"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
-import ListItemText from "@mui/material/ListItemText"
-import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction"
-import IconButton from "@mui/material/IconButton"
-import DeleteIcon from "@mui/icons-material/Delete"
 import Paper from "@mui/material/Paper"
 import Link from "@mui/material/Link"
 import { Typography } from "@mui/material"
 import BackArrow from "@mui/icons-material/ArrowBack"
 
 const Logs = () => {
+  console.log("here is log")
   return (
     <>
       <div className="w-full h-[50px] relative flex items-center justify-start text-black_8 pt-[20px] mb-[10px] text-[20px]">
@@ -40,7 +37,7 @@ const Logs = () => {
                     src="/images/users/avatar-2.jpg"
                     className="w-[40px] h-[40px] rounded-[50px] mr-4"
                     alt="avatar"
-                  ></img>
+                  />
                   <div>
                     <Typography className="font-bold text-black">Laura</Typography>
                     <Typography className="text-[14px] text-gray-600">

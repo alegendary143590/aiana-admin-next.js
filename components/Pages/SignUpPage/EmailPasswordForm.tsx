@@ -40,7 +40,7 @@ function EmailPasswordForm() {
                   </Grid>
                   <img
                     src="/images/logo_big.png"
-                    alt="Image Title"
+                    alt="Logo"
                     className="absolute top-10 right-20 h-20 hidden lg:block"
                   />
                 </Grid>

@@ -4,8 +4,6 @@ import Button from "@mui/material/Button"
 import router from "next/router"
 
 const Chatbots = () => {
-  const [bots, setBots] = React.useState([createData(1, "Peter", "09:00 - 17:00")])
-
   const handleAddRow = () => {
     router.push(`/chatbot/edit?bot=0`)
   }
@@ -13,6 +11,8 @@ const Chatbots = () => {
   function createData(id: number, name: string, time: string) {
     return { id, name, time }
   }
+
+  const bots = [createData(1, "Peter", "09:00 - 17:00")]
 
   return (
     <>
@@ -37,7 +37,7 @@ const Chatbots = () => {
                 src="/images/users/avatar-2.jpg"
                 className="w-[60px] h-[60px] rounded-[50px] mr-4"
                 alt="avatar"
-              ></img>
+              />
               <div className="flex-grow flex flex-col">
                 <Typography className="text-[20px]">{bot.name}</Typography>
                 <Typography className="text-[14px] text-gray-600">{bot.time}</Typography>
@@ -51,6 +51,7 @@ const Chatbots = () => {
             </div>
             <div>
               <button
+                type="button"
                 className="w-12 h-8 text-[12px] my-1 rounded-sm bg-[#00D7CA] text-white"
                 style={{ textTransform: "none" }}
               >

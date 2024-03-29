@@ -4,8 +4,6 @@ import Button from "@mui/material/Button"
 import router from "next/router"
 
 const Chatbots = () => {
-  const [bases, setBases] = React.useState([createData(1, "KB Daytime", "09:00 - 17:00")])
-
   const handleAddRow = () => {
     router.push(`/knowledge/edit?bot=0`)
   }
@@ -13,6 +11,8 @@ const Chatbots = () => {
   function createData(id: number, name: string, time: string) {
     return { id, name, time }
   }
+
+  const bases = [createData(1, "KB Daytime", "09:00 - 17:00")]
 
   return (
     <>
@@ -39,6 +39,7 @@ const Chatbots = () => {
             </div>
             <div>
               <button
+                type="button"
                 className="w-12 h-8 text-[12px] my-1 rounded-sm bg-[#00D7CA] text-white"
                 style={{ textTransform: "none" }}
               >

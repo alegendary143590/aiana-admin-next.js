@@ -1,5 +1,5 @@
-import SignUpPage from "@/components/Pages/SignUpPage"
+import SignInPage from "@/components/Pages/SignInPage"
 
-const Landing = () => <SignUpPage />
+const Landing = () => <SignInPage />
 
 export default Landing

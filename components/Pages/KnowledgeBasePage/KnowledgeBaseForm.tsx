@@ -50,8 +50,10 @@ function a11yProps(index: number) {
   }
 }
 
-const KnowledgeBaseForm = ({ base: KnowledgeBaseProps }) => {
+const KnowledgeBaseForm = (base) => {
   const [value, setValue] = useState(0)
+
+  console.log(base)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)

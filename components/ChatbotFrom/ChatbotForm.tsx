@@ -6,22 +6,18 @@ import {
   Button,
   Avatar,
   TextField,
-  FormControlLabel,
-  Switch,
   Menu,
   MenuItem,
   Card,
   Autocomplete,
   Box,
 } from "@mui/material"
-import CloudUploadIcon from "@mui/icons-material/CloudUpload"
 import CustomSwitch from "../CustomSwitch"
 
 const ChatbotForm = ({ bot }) => {
   const [avatarUrl, setAvatarUrl] = useState(null)
   const [timeFrom, setTimeFrom] = useState("09:00")
   const [timeUntil, setTimeUntil] = useState("17:00")
-  const [activated, setActivated] = useState(true)
   const [anchorEl, setAnchorEl] = useState(null)
   const [themeColor, setThemeColor] = useState("#1976D2")
 
@@ -64,10 +60,6 @@ const ChatbotForm = ({ bot }) => {
     "Knowledge Base 5",
     "Knowledge Base 6",
   ]
-
-  const handleActiveChange = () => {
-    setActivated(!activated)
-  }
 
   const handleAvatarChange = (event) => {
     const file = event.target.files && event.target.files[0]
@@ -148,7 +140,7 @@ const ChatbotForm = ({ bot }) => {
                 onClick={handleColorButtonClick}
                 className="!w-[30px] h-[30px]"
                 style={{ backgroundColor: themeColor }}
-              ></Button>
+              />
               <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
                 {colors.map((color) => (
                   <MenuItem

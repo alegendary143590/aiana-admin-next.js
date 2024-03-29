@@ -72,7 +72,7 @@ const Users = () => {
                 <StyledTableCell align="center">
                   <Typography
                     className={`m-0 ${
-                      row.result == "Resolved" ? "bg-[#33a186]" : "bg-sky-400"
+                      row.result === "Resolved" ? "bg-[#33a186]" : "bg-sky-400"
                     }  rounded-[5px] px-2 text-white inline-block text-[12px]`}
                   >
                     {row.result}

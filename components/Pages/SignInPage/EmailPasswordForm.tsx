@@ -11,8 +11,9 @@ import {
 } from "@mui/material"
 
 const EmailPasswordForm = () => {
+  console.log("EmailPasswordForm")
   return (
-    <Container className="bg-transparent w-[450px] bg-gray-100 flex flex-col justify-center items-center">
+    <Container className="w-[450px] bg-gray-100 flex flex-col justify-center items-center">
       <div>
         <Card className="w-full md:w-[450px]">
           <CardContent>
@@ -81,7 +82,7 @@ const EmailPasswordForm = () => {
               </div>
               <div className="text-center mt-2">
                 <Typography variant="body2">
-                  Don't have an account?&nbsp;
+                  Don&apos;t have an account?&nbsp;
                   <Link underline="none" href="/signup" variant="body2" className="text-[#00d7ca]">
                     Sign up now
                   </Link>

@@ -13,7 +13,7 @@ function Profile() {
     <div className="d-flex flex-column bg-transparent">
       <Box className="row justify-content-center my-auto px-8">
         <Grid container spacing={3} className="mt-2 max-h-[650px] overflow-hidden overflow-y-auto">
-          <Grid item xs={12} md={6} direction="column">
+          <Grid item xs={12} md={6}>
             <Typography variant="subtitle1" className="text-primary" fontWeight="bold">
               Your Company
             </Typography>
