@@ -25,7 +25,7 @@ const EmailPasswordForm = () => {
             </div>
             <Box
               component="form"
-              action="https://test2.aiana.io/index"
+              action="/admin"
               noValidate
               sx={{ mt: 3, m: "15px" }}
             >
