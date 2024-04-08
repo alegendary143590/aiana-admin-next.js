@@ -11,6 +11,9 @@ import {
 } from "@mui/material"
 import axios from "axios"
 import router from "next/router"
+
+import { AUTH_API } from "@/components/utils/serverURL"
+import ErrorAlert from "@/components/Alerts/ErrorAlert"
 import CustomSelect from "../../CustomSelect"
 import Country from "../../country"
 import Language from "../../Language"
@@ -51,14 +54,24 @@ function EmailPasswordForm() {
     if (error !== "") {
       console.log(error)
       setErrorMessage(error)
+      alert(errorMessage)
       return false
     }
-    return true
-  }
 
-  const handleSubmit = () => {
-    if (!handleAuth()) return
-    router.push("/admin")
+    axios
+      .post(AUTH_API.REGISTER, formState)
+      .then((response) => {
+        console.log(response)
+        if (response.status === 201) {
+          router.push("/signin")
+          return
+        }
+        setErrorMessage(response.data.error)
+        alert(errorMessage)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   return (
@@ -317,6 +330,7 @@ function EmailPasswordForm() {
                       <Grid item>
                         <TextField
                           id="password"
+                          type="password"
                           value={formState.password}
                           onChange={(e) => {
                             handleInputChange("password", e.target.value)
@@ -334,6 +348,7 @@ function EmailPasswordForm() {
                       <Grid item>
                         <TextField
                           id="confirm_password"
+                          type="password"
                           value={formState.confirm_password}
                           onChange={(e) => {
                             handleInputChange("confirm_password", e.target.value)
@@ -349,7 +364,7 @@ function EmailPasswordForm() {
                   color="primary"
                   className="mt-3 bg-[#00d7ca] px-10 font-sans text-[16pxpx]"
                   style={{ textTransform: "none" }}
-                  onClick={handleSubmit}
+                  onClick={handleAuth}
                 >
                   Start!
                 </Button>
@@ -367,6 +382,7 @@ function EmailPasswordForm() {
           </Box>
         </Container>
       </Box>
+      {/* <ErrorAlert text={errorMessage} visibility={errorMessage !== ""} /> */}
     </Container>
   )
 }
