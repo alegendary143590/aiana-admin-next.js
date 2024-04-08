@@ -48,12 +48,12 @@ function EmailPasswordForm() {
 
   const handleAuth = () => {
     setErrorMessage("")
-    const error = validateForm(formState)
-    console.log(error)
-    if (error !== "") {
-      console.log(error)
-      setErrorMessage(error)
-      alert(error)
+    const validationerror = validateForm(formState)
+    console.log(validationerror)
+    if (validationerror !== "") {
+      console.log(validationerror)
+      setErrorMessage(validationerror)
+      alert(validationerror)
       return false
     }
 
