@@ -13,7 +13,6 @@ import axios from "axios"
 import router from "next/router"
 
 import { AUTH_API } from "@/components/utils/serverURL"
-import ErrorAlert from "@/components/Alerts/ErrorAlert"
 import CustomSelect from "../../CustomSelect"
 import Country from "../../country"
 import Language from "../../Language"
@@ -54,7 +53,7 @@ function EmailPasswordForm() {
     if (error !== "") {
       console.log(error)
       setErrorMessage(error)
-      alert(errorMessage)
+      alert(error)
       return false
     }
 
@@ -72,6 +71,7 @@ function EmailPasswordForm() {
       .catch((error) => {
         console.log(error)
       })
+    return true
   }
 
   return (
