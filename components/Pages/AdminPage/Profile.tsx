@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Box, Typography, Grid, TextField, Button } from "@mui/material"
 import router from "next/router"
 import CustomSelect from "../../CustomSelect"
@@ -6,6 +6,32 @@ import Country from "../../country"
 import Language from "../../Language"
 
 function Profile() {
+  const INITIAL_REGISTER_OBJ = {
+    first_name: "",
+    last_name: "",
+    password: "",
+    confirm_password: "",
+    email: "",
+    language: "",
+    com_name: "",
+    com_vat: "",
+    com_street: "",
+    com_city: "",
+    com_country: "",
+    com_postal: "",
+    com_phone: "",
+    com_website: "",
+  }
+
+  const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target
+    setFormState((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }))
+  }
   const handleSubmit = () => {
     router.push("/admin")
   }
@@ -24,7 +50,12 @@ function Profile() {
                 </Typography>
               </Grid>
               <Grid item>
-                <TextField id="standard-basic" variant="outlined" />
+                <TextField
+                  id="com_name"
+                  value={formState.com_name}
+                  onChange={handleInputChange}
+                  variant="outlined"
+                />
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -34,7 +65,12 @@ function Profile() {
                 </Typography>
               </Grid>
               <Grid item>
-                <TextField id="standard-basic" variant="outlined" />
+                <TextField
+                  id="com_vat"
+                  value={formState.com_vat}
+                  onChange={handleInputChange}
+                  variant="outlined"
+                />
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -44,17 +80,12 @@ function Profile() {
                 </Typography>
               </Grid>
               <Grid item>
-                <TextField id="standard-basic" variant="outlined" />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item>
-                <Typography variant="body1" className="text-primary">
-                  Number:
-                </Typography>
-              </Grid>
-              <Grid item>
-                <TextField id="standard-basic" variant="outlined" />
+                <TextField
+                  id="com_street"
+                  value={formState.com_street}
+                  onChange={handleInputChange}
+                  variant="outlined"
+                />
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -64,17 +95,12 @@ function Profile() {
                 </Typography>
               </Grid>
               <Grid item>
-                <TextField id="standard-basic" variant="outlined" />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item>
-                <Typography variant="body1" className="text-primary">
-                  Postal code:
-                </Typography>
-              </Grid>
-              <Grid item>
-                <TextField id="standard-basic" variant="outlined" />
+                <TextField
+                  id="com_city"
+                  value={formState.com_city}
+                  onChange={handleInputChange}
+                  variant="outlined"
+                />
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -84,10 +110,47 @@ function Profile() {
                 </Typography>
               </Grid>
               <Grid item>
-                {/* <TextField id="standard-basic" variant="outlined" /> */}
-                <CustomSelect props={Country} text="Select a country" />
+                <CustomSelect
+                  id="com_country"
+                  value={formState.com_country}
+                  onChange={handleInputChange}
+                  props={Country}
+                  text="Select a country"
+                />
               </Grid>
             </Grid>
+            <Grid container spacing={2} alignItems="center" className="mt-1">
+              <Grid item>
+                <Typography variant="body1" className="text-primary">
+                  Number:
+                </Typography>
+              </Grid>
+              <Grid item>
+                <TextField
+                  id="com_phone"
+                  value={formState.com_phone}
+                  onChange={handleInputChange}
+                  variant="outlined"
+                />
+              </Grid>
+            </Grid>
+
+            <Grid container spacing={2} alignItems="center" className="mt-1">
+              <Grid item>
+                <Typography variant="body1" className="text-primary">
+                  Postal code:
+                </Typography>
+              </Grid>
+              <Grid item>
+                <TextField
+                  id="com_postal"
+                  value={formState.com_postal}
+                  onChange={handleInputChange}
+                  variant="outlined"
+                />
+              </Grid>
+            </Grid>
+
             <Grid container spacing={2} alignItems="center" className="mt-1">
               <Grid item>
                 <Typography variant="body1" className="text-primary">
@@ -95,7 +158,12 @@ function Profile() {
                 </Typography>
               </Grid>
               <Grid item>
-                <TextField id="standard-basic" variant="outlined" />
+                <TextField
+                  id="com_website"
+                  value={formState.com_website}
+                  onChange={handleInputChange}
+                  variant="outlined"
+                />
               </Grid>
             </Grid>
           </Grid>
@@ -111,7 +179,12 @@ function Profile() {
                 </Typography>
               </Grid>
               <Grid item>
-                <TextField id="standard-basic" variant="outlined" />
+                <TextField
+                  id="first_name"
+                  value={formState.first_name}
+                  onChange={handleInputChange}
+                  variant="outlined"
+                />
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -121,7 +194,12 @@ function Profile() {
                 </Typography>
               </Grid>
               <Grid item>
-                <TextField id="standard-basic" variant="outlined" />
+                <TextField
+                  id="last_name"
+                  value={formState.last_name}
+                  onChange={handleInputChange}
+                  variant="outlined"
+                />
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -131,7 +209,12 @@ function Profile() {
                 </Typography>
               </Grid>
               <Grid item>
-                <TextField id="standard-basic" variant="outlined" />
+                <TextField
+                  id="email"
+                  value={formState.email}
+                  onChange={handleInputChange}
+                  variant="outlined"
+                />
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -141,8 +224,13 @@ function Profile() {
                 </Typography>
               </Grid>
               <Grid item>
-                {/* <TextField id="standard-basic" variant="outlined" /> */}
-                <CustomSelect props={Language} text="Select a language" />
+                <CustomSelect
+                  id="language"
+                  value={formState.language}
+                  onChange={handleInputChange}
+                  props={Language}
+                  text="Select a language"
+                />
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -152,7 +240,12 @@ function Profile() {
                 </Typography>
               </Grid>
               <Grid item>
-                <TextField id="standard-basic" variant="outlined" />
+                <TextField
+                  id="password"
+                  value={formState.password}
+                  onChange={handleInputChange}
+                  variant="outlined"
+                />
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -162,7 +255,12 @@ function Profile() {
                 </Typography>
               </Grid>
               <Grid item>
-                <TextField id="standard-basic" variant="outlined" />
+                <TextField
+                  id="confirm_password"
+                  value={formState.confirm_password}
+                  onChange={handleInputChange}
+                  variant="outlined"
+                />
               </Grid>
             </Grid>
           </Grid>

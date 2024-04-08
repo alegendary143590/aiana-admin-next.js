@@ -1,21 +1,25 @@
 import * as React from "react"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
-import Select, { SelectChangeEvent } from "@mui/material/Select"
+import Select from "@mui/material/Select"
 
-export default function CustomSelect({ props, text }) {
-  const [age, setAge] = React.useState("")
+export default function CustomSelect({ props, text, id, value, onChange }) {
+  const [val, setVal] = React.useState(value)
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value)
-  }
+  React.useEffect(() => {
+    setVal(value)
+  }, [value])
 
   return (
     // <div>
     <FormControl sx={{ m: 1, minWidth: 120, maxHeight: "100px" }}>
       <Select
-        value={age}
-        onChange={handleChange}
+        id={id}
+        value={val}
+        onChange={(e) => {
+          setVal(e.target.value) // Update local state
+          onChange(id, e.target.value) // Pass the event to the parent component
+        }}
         displayEmpty
         inputProps={{ "aria-label": "Without label" }}
         sx={{ width: "240px", height: "40px" }}

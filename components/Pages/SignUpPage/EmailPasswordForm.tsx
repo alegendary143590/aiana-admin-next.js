@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
   Container,
   Box,
@@ -9,15 +9,58 @@ import {
   TextField,
   Button,
 } from "@mui/material"
+import axios from "axios"
 import router from "next/router"
 import CustomSelect from "../../CustomSelect"
 import Country from "../../country"
 import Language from "../../Language"
+import { validateForm } from "./validation"
 
 function EmailPasswordForm() {
+  const INITIAL_REGISTER_OBJ = {
+    first_name: "",
+    last_name: "",
+    password: "",
+    confirm_password: "",
+    email: "",
+    language: "",
+    com_name: "",
+    com_vat: "",
+    com_street: "",
+    com_city: "",
+    com_country: "",
+    com_postal: "",
+    com_phone: "",
+    com_website: "",
+  }
+  const [errorMessage, setErrorMessage] = useState("")
+  const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
+
+  const handleInputChange = (id, value) => {
+    console.log(id, value)
+    setFormState((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }))
+  }
+
+  const handleAuth = () => {
+    setErrorMessage("")
+    const error = validateForm(formState)
+    console.log(error)
+    if (error !== "") {
+      console.log(error)
+      setErrorMessage(error)
+      return false
+    }
+    return true
+  }
+
   const handleSubmit = () => {
+    if (!handleAuth()) return
     router.push("/admin")
   }
+
   return (
     <Container
       data-layout="horizontal"
@@ -63,7 +106,14 @@ function EmailPasswordForm() {
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <TextField id="standard-basic" variant="outlined" />
+                        <TextField
+                          id="com_name"
+                          value={formState.com_name}
+                          onChange={(e) => {
+                            handleInputChange("com_name", e.target.value)
+                          }}
+                          variant="outlined"
+                        />
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -73,7 +123,14 @@ function EmailPasswordForm() {
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <TextField id="standard-basic" variant="outlined" />
+                        <TextField
+                          id="com_vat"
+                          value={formState.com_vat}
+                          onChange={(e) => {
+                            handleInputChange("com_vat", e.target.value)
+                          }}
+                          variant="outlined"
+                        />
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -83,17 +140,14 @@ function EmailPasswordForm() {
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <TextField id="standard-basic" variant="outlined" />
-                      </Grid>
-                    </Grid>
-                    <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
-                        <Typography variant="body1" className="text-primary">
-                          Number:
-                        </Typography>
-                      </Grid>
-                      <Grid item>
-                        <TextField id="standard-basic" variant="outlined" />
+                        <TextField
+                          id="com_street"
+                          value={formState.com_street}
+                          onChange={(e) => {
+                            handleInputChange("com_street", e.target.value)
+                          }}
+                          variant="outlined"
+                        />
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -103,17 +157,14 @@ function EmailPasswordForm() {
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <TextField id="standard-basic" variant="outlined" />
-                      </Grid>
-                    </Grid>
-                    <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
-                        <Typography variant="body1" className="text-primary">
-                          Postal code:
-                        </Typography>
-                      </Grid>
-                      <Grid item>
-                        <TextField id="standard-basic" variant="outlined" />
+                        <TextField
+                          id="com_city"
+                          value={formState.com_city}
+                          onChange={(e) => {
+                            handleInputChange("com_city", e.target.value)
+                          }}
+                          variant="outlined"
+                        />
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -123,9 +174,51 @@ function EmailPasswordForm() {
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <CustomSelect props={Country} text="Select a country" />
+                        <CustomSelect
+                          id="com_country"
+                          value={formState.com_country}
+                          onChange={handleInputChange}
+                          props={Country}
+                          text="Select a country"
+                        />
                       </Grid>
                     </Grid>
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          Number:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField
+                          id="com_phone"
+                          value={formState.com_phone}
+                          onChange={(e) => {
+                            handleInputChange("com_phone", e.target.value)
+                          }}
+                          variant="outlined"
+                        />
+                      </Grid>
+                    </Grid>
+
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          Postal code:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField
+                          id="com_postal"
+                          value={formState.com_postal}
+                          onChange={(e) => {
+                            handleInputChange("com_postal", e.target.value)
+                          }}
+                          variant="outlined"
+                        />
+                      </Grid>
+                    </Grid>
+
                     <Grid container spacing={2} alignItems="center" className="mt-1">
                       <Grid item>
                         <Typography variant="body1" className="text-primary">
@@ -133,11 +226,17 @@ function EmailPasswordForm() {
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <TextField id="standard-basic" variant="outlined" />
+                        <TextField
+                          id="com_website"
+                          value={formState.com_website}
+                          onChange={(e) => {
+                            handleInputChange("com_website", e.target.value)
+                          }}
+                          variant="outlined"
+                        />
                       </Grid>
                     </Grid>
                   </Grid>
-
                   <Grid item xs={12} md={6}>
                     <Typography variant="subtitle1" className="text-primary" fontWeight="bold">
                       Your User
@@ -149,7 +248,14 @@ function EmailPasswordForm() {
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <TextField id="standard-basic" variant="outlined" />
+                        <TextField
+                          id="first_name"
+                          value={formState.first_name}
+                          onChange={(e) => {
+                            handleInputChange("first_name", e.target.value)
+                          }}
+                          variant="outlined"
+                        />
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -159,7 +265,14 @@ function EmailPasswordForm() {
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <TextField id="standard-basic" variant="outlined" />
+                        <TextField
+                          id="last_name"
+                          value={formState.last_name}
+                          onChange={(e) => {
+                            handleInputChange("last_name", e.target.value)
+                          }}
+                          variant="outlined"
+                        />
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -169,7 +282,14 @@ function EmailPasswordForm() {
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <TextField id="standard-basic" variant="outlined" />
+                        <TextField
+                          id="email"
+                          value={formState.email}
+                          onChange={(e) => {
+                            handleInputChange("email", e.target.value)
+                          }}
+                          variant="outlined"
+                        />
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -179,7 +299,13 @@ function EmailPasswordForm() {
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <CustomSelect props={Language} text="Select a language" />
+                        <CustomSelect
+                          id="language"
+                          value={formState.language}
+                          onChange={handleInputChange}
+                          props={Language}
+                          text="Select a language"
+                        />
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -189,7 +315,14 @@ function EmailPasswordForm() {
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <TextField id="standard-basic" variant="outlined" />
+                        <TextField
+                          id="password"
+                          value={formState.password}
+                          onChange={(e) => {
+                            handleInputChange("password", e.target.value)
+                          }}
+                          variant="outlined"
+                        />
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
@@ -199,7 +332,14 @@ function EmailPasswordForm() {
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <TextField id="standard-basic" variant="outlined" />
+                        <TextField
+                          id="confirm_password"
+                          value={formState.confirm_password}
+                          onChange={(e) => {
+                            handleInputChange("confirm_password", e.target.value)
+                          }}
+                          variant="outlined"
+                        />
                       </Grid>
                     </Grid>
                   </Grid>
