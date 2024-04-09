@@ -9,9 +9,53 @@ import {
   Typography,
   Link,
 } from "@mui/material"
+import axios from "axios"
+import router from "next/router"
+import { AUTH_API } from "@/components/utils/serverURL"
 
 const EmailPasswordForm = () => {
-  console.log("EmailPasswordForm")
+  const [errorMessage, setErrorMessage] = React.useState("")
+  const [email, setEmail] = React.useState("")
+  const [password, setPassword] = React.useState("")
+  const handleAuth = () => {
+    setErrorMessage("")
+    if (email === "") {
+      setErrorMessage("Email is required")
+      alert(errorMessage)
+      return false
+    }
+    if (password === "") {
+      setErrorMessage("Password is required")
+      alert(errorMessage)
+      return false
+    }
+
+    axios
+      .post(AUTH_API.LOGIN, { email: email, password: password })
+      .then((response) => {
+        console.log(response)
+        if (response.status === 200) {
+          router.push("/admin")
+          return
+        }
+        console.log(response.data.error)
+        setErrorMessage("Invalide credentials!")
+        alert(errorMessage)
+      })
+      .catch((error) => {
+        console.log("Here >>>>>", error)
+        setErrorMessage("Invalide email or password!")
+        alert(errorMessage)
+      })
+    return true
+  }
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value)
+  }
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value)
+  }
+
   return (
     <Container className="w-[450px] bg-gray-100 flex flex-col justify-center items-center">
       <div>
@@ -32,6 +76,8 @@ const EmailPasswordForm = () => {
                 margin="normal"
                 required
                 fullWidth
+                value={email}
+                onChange={handleEmailChange}
                 id="username"
                 name="username"
                 autoComplete="username"
@@ -44,6 +90,8 @@ const EmailPasswordForm = () => {
               </Typography>
               <TextField
                 margin="normal"
+                value={password}
+                onChange={handlePasswordChange}
                 required
                 fullWidth
                 name="password"
@@ -65,7 +113,8 @@ const EmailPasswordForm = () => {
               </div>
               <div className="mt-4 text-right">
                 <Button
-                  type="submit"
+                  type="button"
+                  onClick={handleAuth}
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
