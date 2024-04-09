@@ -21,12 +21,12 @@ const EmailPasswordForm = () => {
     setErrorMessage("")
     if (email === "") {
       setErrorMessage("Email is required")
-      alert(errorMessage)
+      alert("Email is required")
       return false
     }
     if (password === "") {
       setErrorMessage("Password is required")
-      alert(errorMessage)
+      alert("Password is required")
       return false
     }
 
@@ -40,12 +40,12 @@ const EmailPasswordForm = () => {
         }
         console.log(response.data.error)
         setErrorMessage("Invalide credentials!")
-        alert(errorMessage)
+        alert("Invalide credentials!")
       })
       .catch((error) => {
         console.log("Here >>>>>", error)
         setErrorMessage("Invalide email or password!")
-        alert(errorMessage)
+        alert("Invalide email or password!")
       })
     return true
   }
