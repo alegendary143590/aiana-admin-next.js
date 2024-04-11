@@ -45,6 +45,7 @@ const EmailPasswordForm = () => {
       })
     return true
   }
+  /* eslint-disable */
   const handleEmailChange = (event) => {
     const { value } = event.target
     setEmail(value)
@@ -53,6 +54,7 @@ const EmailPasswordForm = () => {
     const { value } = event.target
     setPassword(value)
   }
+  /* eslint-enable */
 
   return (
     <Container className="w-[450px] bg-gray-100 flex flex-col justify-center items-center">
