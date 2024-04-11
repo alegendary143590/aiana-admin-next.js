@@ -26,6 +26,7 @@ const Profile = () => {
   }
 
   const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
+  const [first, setFirst] = useState(false)
 
   useEffect(() => {
     const userID = localStorage.getItem("userID")
@@ -52,15 +53,13 @@ const Profile = () => {
               com_website: userData.com_website,
               // Update other fields as per the response data
             }))
-            // router.push("/admin")
-            return
           }
         })
         .catch((error) => {
           console.log("Here >>>>>", error)
         })
     }
-  }, [])
+  }, [first])
 
   const handleInputChange = (id, value) => {
     setFormState((prevState) => ({

@@ -14,18 +14,14 @@ import router from "next/router"
 import { AUTH_API } from "@/components/utils/serverURL"
 
 const EmailPasswordForm = () => {
-  const [errorMessage, setErrorMessage] = React.useState("")
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
   const handleAuth = () => {
-    setErrorMessage("")
     if (email === "") {
-      setErrorMessage("Email is required")
       alert("Email is required")
       return false
     }
     if (password === "") {
-      setErrorMessage("Password is required")
       alert("Password is required")
       return false
     }
@@ -35,21 +31,18 @@ const EmailPasswordForm = () => {
       .then((response) => {
         // console.log(response)
         if (response.status === 200) {
-          console.log(response.data["useId"])
-          localStorage.setItem("userID", response.data["useId"])
+          console.log(response.data.userId)
+          localStorage.setItem("userID", response.data.userId)
           router.push("/admin")
           return
         }
         console.log(response.data.error)
-        setErrorMessage("Invalide credentials!")
         alert("Invalide credentials!")
       })
       .catch((error) => {
         console.log("Here >>>>>", error)
-        setErrorMessage("Invalide email or password!")
         alert("Invalide email or password!")
       })
-    return true
   }
   const handleEmailChange = (event) => {
     setEmail(event.target.value)
