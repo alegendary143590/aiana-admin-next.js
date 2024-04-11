@@ -46,12 +46,11 @@ const EmailPasswordForm = () => {
     return true
   }
   /* eslint-disable */
-  const handleEmailChange = (event) => {
-    const { value } = event.target
+  const handleEmailChange = ({ target: { value } }) => {
     setEmail(value)
   }
-  const handlePasswordChange = (event) => {
-    const { value } = event.target
+
+  const handlePasswordChange = ({ target: { value } }) => {
     setPassword(value)
   }
   /* eslint-enable */
