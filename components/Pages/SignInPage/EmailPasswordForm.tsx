@@ -33,8 +33,10 @@ const EmailPasswordForm = () => {
     axios
       .post(AUTH_API.LOGIN, { email: email, password: password })
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         if (response.status === 200) {
+          console.log(response.data["useId"])
+          localStorage.setItem("userID", response.data["useId"])
           router.push("/admin")
           return
         }
@@ -61,7 +63,7 @@ const EmailPasswordForm = () => {
       <div>
         <Card className="w-full md:w-[450px]">
           <CardContent>
-            <div className="text-center mt-5">
+            <div className="text-end mt-5">
               <img src="/images/logo_big.png" alt="Logo" className="mx-auto h-20" />
               <Typography variant="h6" className="text-primary font-mono text-[#00d7ca]">
                 Welcome!
@@ -104,7 +106,7 @@ const EmailPasswordForm = () => {
               <div className="mt-4">
                 <Link
                   underline="none"
-                  href="https://test2.aiana.io/auth-recoverpw"
+                  href="/forgot"
                   variant="body2"
                   className="text-muted text-gray-500"
                 >

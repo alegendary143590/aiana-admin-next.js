@@ -6,4 +6,5 @@ export const AUTH_API = {
   LOGIN: `${SERVER_API_URL}/login`,
   REGISTER: `${SERVER_API_URL}/register`,
   LOGOUT: `${SERVER_API_URL}/logout`,
+  GET_USER: `${SERVER_API_URL}/get_user`,
 }

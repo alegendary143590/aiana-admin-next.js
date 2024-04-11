@@ -1,11 +1,13 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import axios from "axios"
 import { Box, Typography, Grid, TextField, Button } from "@mui/material"
 import router from "next/router"
+import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSelect from "../../CustomSelect"
 import Country from "../../country"
 import Language from "../../Language"
 
-function Profile() {
+const Profile = () => {
   const INITIAL_REGISTER_OBJ = {
     first_name: "",
     last_name: "",
@@ -25,8 +27,42 @@ function Profile() {
 
   const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value } = e.target
+  useEffect(() => {
+    const userID = localStorage.getItem("userID")
+    if (userID !== undefined) {
+      axios
+        .post(AUTH_API.GET_USER, { userID: userID })
+        .then((response) => {
+          // console.log(response)
+          if (response.status === 200) {
+            const userData = response.data // Assuming the response contains user data in the expected format
+            setFormState((prevState) => ({
+              ...prevState,
+              first_name: userData.first_name,
+              last_name: userData.last_name,
+              email: userData.email,
+              language: userData.language,
+              com_name: userData.com_name,
+              com_vat: userData.com_vat,
+              com_street: userData.com_street,
+              com_city: userData.com_city,
+              com_country: userData.com_country,
+              com_postal: userData.com_postal,
+              com_phone: userData.com_phone,
+              com_website: userData.com_website,
+              // Update other fields as per the response data
+            }))
+            // router.push("/admin")
+            return
+          }
+        })
+        .catch((error) => {
+          console.log("Here >>>>>", error)
+        })
+    }
+  }, [])
+
+  const handleInputChange = (id, value) => {
     setFormState((prevState) => ({
       ...prevState,
       [id]: value,
@@ -53,7 +89,9 @@ function Profile() {
                 <TextField
                   id="com_name"
                   value={formState.com_name}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange("com_name", e.target.value)
+                  }}
                   variant="outlined"
                 />
               </Grid>
@@ -68,7 +106,9 @@ function Profile() {
                 <TextField
                   id="com_vat"
                   value={formState.com_vat}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange("com_vat", e.target.value)
+                  }}
                   variant="outlined"
                 />
               </Grid>
@@ -83,7 +123,9 @@ function Profile() {
                 <TextField
                   id="com_street"
                   value={formState.com_street}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange("com_street", e.target.value)
+                  }}
                   variant="outlined"
                 />
               </Grid>
@@ -98,7 +140,9 @@ function Profile() {
                 <TextField
                   id="com_city"
                   value={formState.com_city}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange("com_city", e.target.value)
+                  }}
                   variant="outlined"
                 />
               </Grid>
@@ -129,7 +173,9 @@ function Profile() {
                 <TextField
                   id="com_phone"
                   value={formState.com_phone}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange("com_phone", e.target.value)
+                  }}
                   variant="outlined"
                 />
               </Grid>
@@ -145,7 +191,9 @@ function Profile() {
                 <TextField
                   id="com_postal"
                   value={formState.com_postal}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange("com_postal", e.target.value)
+                  }}
                   variant="outlined"
                 />
               </Grid>
@@ -161,13 +209,14 @@ function Profile() {
                 <TextField
                   id="com_website"
                   value={formState.com_website}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange("com_website", e.target.value)
+                  }}
                   variant="outlined"
                 />
               </Grid>
             </Grid>
           </Grid>
-
           <Grid item xs={12} md={6}>
             <Typography variant="subtitle1" className="text-primary" fontWeight="bold">
               Your User
@@ -182,7 +231,9 @@ function Profile() {
                 <TextField
                   id="first_name"
                   value={formState.first_name}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange("first_name", e.target.value)
+                  }}
                   variant="outlined"
                 />
               </Grid>
@@ -197,7 +248,9 @@ function Profile() {
                 <TextField
                   id="last_name"
                   value={formState.last_name}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange("last_name", e.target.value)
+                  }}
                   variant="outlined"
                 />
               </Grid>
@@ -212,7 +265,9 @@ function Profile() {
                 <TextField
                   id="email"
                   value={formState.email}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange("email", e.target.value)
+                  }}
                   variant="outlined"
                 />
               </Grid>
@@ -242,8 +297,11 @@ function Profile() {
               <Grid item>
                 <TextField
                   id="password"
+                  type="password"
                   value={formState.password}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange("password", e.target.value)
+                  }}
                   variant="outlined"
                 />
               </Grid>
@@ -257,8 +315,11 @@ function Profile() {
               <Grid item>
                 <TextField
                   id="confirm_password"
+                  type="password"
                   value={formState.confirm_password}
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange("confirm_password", e.target.value)
+                  }}
                   variant="outlined"
                 />
               </Grid>
