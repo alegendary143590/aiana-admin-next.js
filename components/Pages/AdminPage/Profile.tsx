@@ -76,7 +76,7 @@ const Profile = () => {
     if (change) {
       axios
         .post(AUTH_API.UPDATE_USER, {
-          userID: userID,
+          userID,
           first_name: formState.first_name,
           last_name: formState.last_name,
           password: formState.password,

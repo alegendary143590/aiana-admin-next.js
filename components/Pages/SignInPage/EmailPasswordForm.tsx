@@ -10,6 +10,7 @@ import {
   Link,
 } from "@mui/material"
 import axios from "axios"
+import { ToastContainer, toast } from "react-toastify"
 import router from "next/router"
 import { AUTH_API } from "@/components/utils/serverURL"
 
@@ -18,11 +19,10 @@ const EmailPasswordForm = () => {
   const [password, setPassword] = React.useState("")
   const handleAuth = () => {
     if (email === "") {
-      alert("Email is required")
       return false
     }
     if (password === "") {
-      alert("Password is required")
+      toast.error("Password is required!", { position: toast.POSITION.TOP_RIGHT })
       return false
     }
 
@@ -41,16 +41,15 @@ const EmailPasswordForm = () => {
         alert("Invalide credentials!")
       })
       .catch((error) => {
-        console.log("Here >>>>>", error)
-        alert("Invalide email or password!")
+        toast.error("Invalide email or password!", { position: toast.POSITION.TOP_RIGHT })
       })
     return
   }
-  const handleEmailChange = ({ target: { value } }) => {
-    setEmail(value)
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value)
   }
-  const handlePasswordChange = ({ target: { value } }) => {
-    setPassword(value)
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value)
   }
 
   return (
