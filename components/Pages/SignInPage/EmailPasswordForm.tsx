@@ -40,16 +40,18 @@ const EmailPasswordForm = () => {
         console.log(response.data.error)
         alert("Invalide credentials!")
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error("Invalide email or password!", { position: toast.POSITION.TOP_RIGHT })
       })
-    return
+    return true
   }
   const handleEmailChange = (event) => {
-    setEmail(event.target.value)
+    const { value } = event.target
+    setEmail(value)
   }
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value)
+    const { value } = event.target
+    setPassword(value)
   }
 
   return (
@@ -137,6 +139,7 @@ const EmailPasswordForm = () => {
           © {new Date().getFullYear()} aiana
         </Typography>
       </div>
+      <ToastContainer />
     </Container>
   )
 }
