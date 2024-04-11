@@ -32,7 +32,7 @@ const Profile = () => {
     const userID = localStorage.getItem("userID")
     if (userID !== undefined) {
       axios
-        .post(AUTH_API.GET_USER, { userID: userID })
+        .post(AUTH_API.GET_USER, { userID })
         .then((response) => {
           // console.log(response)
           if (response.status === 200) {

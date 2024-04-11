@@ -27,12 +27,13 @@ const EmailPasswordForm = () => {
     }
 
     axios
-      .post(AUTH_API.LOGIN, { email: email, password: password })
+      .post(AUTH_API.LOGIN, { email, password })
       .then((response) => {
         // console.log(response)
         if (response.status === 200) {
-          console.log(response.data.userId)
-          localStorage.setItem("userID", response.data.userId)
+          const data = response.data
+          console.log("Login  >>>>>>>>>", data.userID)
+          localStorage.setItem("userID", data.userID)
           router.push("/admin")
           return
         }
