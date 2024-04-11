@@ -44,12 +44,13 @@ const EmailPasswordForm = () => {
         console.log("Here >>>>>", error)
         alert("Invalide email or password!")
       })
+    return
   }
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value)
+  const handleEmailChange = ({ target: { value } }) => {
+    setEmail(value)
   }
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value)
+  const handlePasswordChange = ({ target: { value } }) => {
+    setPassword(value)
   }
 
   return (

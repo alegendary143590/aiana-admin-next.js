@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { Box, Typography, Grid, TextField, Button } from "@mui/material"
+import { ToastContainer, toast } from "react-toastify"
 import router from "next/router"
 import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSelect from "../../CustomSelect"
@@ -26,10 +27,10 @@ const Profile = () => {
   }
 
   const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
-  const [first, setFirst] = useState(false)
-
+  const [change, setChange] = useState(false)
+  const [userID, setUserID] = useState("")
   useEffect(() => {
-    const userID = localStorage.getItem("userID")
+    setUserID(localStorage.getItem("userID"))
     if (userID !== undefined) {
       axios
         .post(AUTH_API.GET_USER, { userID })
@@ -59,7 +60,11 @@ const Profile = () => {
           console.log("Here >>>>>", error)
         })
     }
-  }, [first])
+  }, [userID])
+
+  useEffect(() => {
+    setChange(true)
+  }, [formState])
 
   const handleInputChange = (id, value) => {
     setFormState((prevState) => ({
@@ -68,6 +73,35 @@ const Profile = () => {
     }))
   }
   const handleSubmit = () => {
+    if (change) {
+      axios
+        .post(AUTH_API.UPDATE_USER, {
+          userID: userID,
+          first_name: formState.first_name,
+          last_name: formState.last_name,
+          password: formState.password,
+          confirm_password: formState.confirm_password,
+          email: formState.email,
+          language: formState.language,
+          com_name: formState.com_name,
+          com_vat: formState.com_vat,
+          com_street: formState.com_street,
+          com_city: formState.com_city,
+          com_country: formState.com_country,
+          com_postal: formState.com_postal,
+          com_phone: formState.com_phone,
+          com_website: formState.com_website,
+        })
+        .then((response) => {
+          // console.log(response)
+          if (response.status === 201) {
+            toast.success("Successfully updated!", { position: toast.POSITION.TOP_RIGHT })
+          }
+        })
+        .catch((error) => {
+          console.log("Here >>>>>", error)
+        })
+    }
     router.push("/admin")
   }
   return (
@@ -332,7 +366,6 @@ const Profile = () => {
               color="primary"
               className="mt-3 bg-[#fa6374] px-10 font-sans text-[16pxpx]"
               style={{ textTransform: "none" }}
-              onClick={handleSubmit}
             >
               Cancel
             </Button>
@@ -348,6 +381,7 @@ const Profile = () => {
           </Box>
         </Box>
       </Box>
+      <ToastContainer />
     </div>
   )
 }
