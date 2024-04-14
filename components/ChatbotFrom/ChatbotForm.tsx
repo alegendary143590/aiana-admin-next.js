@@ -1,4 +1,6 @@
+"use client!"
 import React, { useState } from "react"
+import axios from "axios"
 import {
   Grid,
   Typography,
@@ -13,9 +15,14 @@ import {
   Box,
 } from "@mui/material"
 import CustomSwitch from "../CustomSwitch"
+import { AUTH_API } from "@/components/utils/serverURL"
 
 const ChatbotForm = ({ bot }) => {
-  const [avatarUrl, setAvatarUrl] = useState(null)
+  const [name, setName] = useState("")
+  const [active, setActive] = useState(true)
+  const [knowledgeBase, setKnowleBase] = useState("")
+  const [avatar, setAvatar] = useState(null)
+  const [avatarPreview, setAvatarPreview] = useState(null)
   const [timeFrom, setTimeFrom] = useState("09:00")
   const [timeUntil, setTimeUntil] = useState("17:00")
   const [anchorEl, setAnchorEl] = useState(null)
@@ -63,15 +70,20 @@ const ChatbotForm = ({ bot }) => {
 
   const handleAvatarChange = (event) => {
     const file = event.target.files && event.target.files[0]
+    setAvatar(file)
     const reader = new FileReader()
 
     reader.onload = () => {
-      setAvatarUrl(reader.result)
+      setAvatarPreview(reader.result)
     }
 
     if (file) {
       reader.readAsDataURL(file)
     }
+  }
+  const handleSwitchChange = () => {
+    setActive((prevActive) => !prevActive) // Toggle the value of active
+    console.log(active)
   }
 
   const handleTimeFromChange = (event) => {
@@ -80,6 +92,39 @@ const ChatbotForm = ({ bot }) => {
 
   const handleTimeUntilChange = (event) => {
     setTimeUntil(event.target.value)
+  }
+
+  const handleNameChange = (event) => {
+    setName(event.target.value)
+  }
+
+  const handleKnowledgeBaseChange = (event) => {
+    setKnowleBase(event.target.value)
+  }
+
+  const handleSubmit = async () => {
+    const formData = new FormData()
+    console.log("Submitted")
+    formData.append("name", name)
+    formData.append("avatar", avatar)
+    formData.append("color", themeColor)
+    formData.append("active", active.toString())
+    formData.append("start_time", timeFrom)
+    formData.append("end_time", timeUntil)
+    formData.append("knowledge_base", knowledgeBase)
+
+    try {
+      const response = await axios.post(AUTH_API.CREATE_BOT, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      console.log("Success:", response.data)
+      // Handle successful response
+    } catch (error) {
+      console.error("Error uploading:", error)
+      // Handle errors here
+    }
   }
 
   return (
@@ -98,7 +143,13 @@ const ChatbotForm = ({ bot }) => {
               </Typography>
             </Grid>
             <Grid item sm={12} md={4}>
-              <Input fullWidth inputProps={{ "aria-label": "description" }} disableUnderline />
+              <Input
+                fullWidth
+                inputProps={{ "aria-label": "description" }}
+                disableUnderline
+                value={name}
+                onChange={handleNameChange}
+              />
             </Grid>
           </Grid>
           <Grid container direction="row" spacing={1} alignItems="center" className="mt-1">
@@ -122,9 +173,9 @@ const ChatbotForm = ({ bot }) => {
                   </Typography>
                 </Button>
               </label>
-              {avatarUrl && (
+              {avatarPreview && (
                 <div className="flex flex-col justify-center items-center">
-                  <Avatar src={avatarUrl} sx={{ width: 70, height: 70, objectFit: "cover" }} />
+                  <Avatar src={avatarPreview} sx={{ width: 70, height: 70, objectFit: "cover" }} />
                 </div>
               )}
             </Grid>
@@ -157,7 +208,7 @@ const ChatbotForm = ({ bot }) => {
           </Grid>
           <Grid container direction="row" spacing={1} alignItems="center" className="mt-1">
             <Grid item alignItems="start" className="mr-3">
-              <CustomSwitch />
+              <CustomSwitch onChange={handleSwitchChange} />
             </Grid>
           </Grid>
           <Grid container direction="row" spacing={1} alignItems="center" className="mt-2">
@@ -183,6 +234,7 @@ const ChatbotForm = ({ bot }) => {
               disablePortal
               id="knowledge_base"
               options={knoweldgebases}
+              onChange={handleKnowledgeBaseChange}
               sx={{ width: 300 }}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -201,6 +253,7 @@ const ChatbotForm = ({ bot }) => {
               color="primary"
               className="bg-[#00d7ca] w-24 h-10 ml-2"
               sx={{ textTransform: "none" }}
+              onClick={handleSubmit}
             >
               Save
             </Button>

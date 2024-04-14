@@ -8,4 +8,5 @@ export const AUTH_API = {
   LOGOUT: `${SERVER_API_URL}/logout`,
   GET_USER: `${SERVER_API_URL}/get_user`,
   UPDATE_USER: `${SERVER_API_URL}/update_user`,
+  CREATE_BOT: `${SERVER_API_URL}/create_bot`,
 }

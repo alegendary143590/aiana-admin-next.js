@@ -5,7 +5,7 @@ import router from "next/router"
 
 const Chatbots = () => {
   const handleAddRow = () => {
-    router.push(`/chatbot/edit?bot=0`)
+    router.push(`/chatbot/edit?bot=-1`)
   }
 
   function createData(id: number, name: string, time: string) {

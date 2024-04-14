@@ -60,7 +60,7 @@ const EmailPasswordForm = () => {
       <div>
         <Card className="w-full md:w-[450px]">
           <CardContent>
-            <div className="text-end mt-5">
+            <div className="text-center mt-5">
               <img src="/images/logo_big.png" alt="Logo" className="mx-auto h-20" />
               <Typography variant="h6" className="text-primary font-mono text-[#00d7ca]">
                 Welcome!
@@ -132,15 +132,15 @@ const EmailPasswordForm = () => {
                 </Typography>
               </div>
             </Box>
+            <ToastContainer />
           </CardContent>
         </Card>
       </div>
-      <div className="text-center text-muted mt-4 absolute bottom-5">
-        <Typography variant="body2" color="textSecondary" className="text-white-50">
+      <div className="text-center text-muted mt-4 absolute bottom-[100px]">
+        <Typography variant="body2" color="textSecondary" className="text-gray-300">
           © {new Date().getFullYear()} aiana
         </Typography>
       </div>
-      <ToastContainer />
     </Container>
   )
 }

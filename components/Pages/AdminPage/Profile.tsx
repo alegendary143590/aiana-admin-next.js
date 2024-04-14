@@ -57,6 +57,7 @@ const Profile = () => {
           }
         })
         .catch((error) => {
+          // eslint-disable-next-line no-console
           console.log("Here >>>>>", error)
         })
     }
@@ -99,6 +100,7 @@ const Profile = () => {
           }
         })
         .catch((error) => {
+          // eslint-disable-next-line no-console
           console.log("Here >>>>>", error)
         })
     }

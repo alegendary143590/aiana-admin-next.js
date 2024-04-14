@@ -91,7 +91,12 @@ const ResetPasswordForm = () => {
         </Card>
       </div>
       <div className="text-center text-muted  mt-4 absolute bottom-20">
-        <Typography variant="body2" color="textSecondary" className="text-gray-300">
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          className="text-gray-300"
+          suppressHydrationWarning
+        >
           © {new Date().getFullYear()} aiana
         </Typography>
       </div>
