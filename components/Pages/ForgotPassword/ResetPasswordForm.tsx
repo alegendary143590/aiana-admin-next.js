@@ -1,4 +1,6 @@
 import React, { useState } from "react"
+import { ToastContainer, toast } from "react-toastify"
+import axios from "axios"
 import {
   Container,
   Box,
@@ -9,11 +11,47 @@ import {
   Typography,
   Link,
 } from "@mui/material"
+import { AUTH_API } from "@/components/utils/serverURL"
 
 const ResetPasswordForm = () => {
   const [email, setEmail] = useState("")
 
-  const handleSendButton = () => {}
+  const handleSendButton = () => {
+    if (email !== "") {
+      axios
+        .post(AUTH_API.FORGOT_PASSWORD, {
+          email,
+        })
+        .then((response) => {
+          // console.log(response)
+          if (response.status === 201) {
+            toast.success("Reset link sent", { position: toast.POSITION.TOP_RIGHT })
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            const status = error.response.status
+            if (status === 404) {
+              toast.error("Unregistered email", {
+                position: toast.POSITION.TOP_RIGHT,
+              })
+            } else if (status === 500) {
+              toast.error("Internal Server Error: Something went wrong on the server", {
+                position: toast.POSITION.TOP_RIGHT,
+              })
+            } else {
+              toast.error(`Error: ${status}`, { position: toast.POSITION.TOP_RIGHT })
+            }
+          } else {
+            toast.error("Network Error: Unable to connect to the server", {
+              position: toast.POSITION.TOP_RIGHT,
+            })
+          }
+        })
+    } else {
+      toast.error("Please enter your email", { position: toast.POSITION.TOP_RIGHT })
+    }
+  }
 
   return (
     <Container className="w-[450px] bg-gray-100 flex flex-col justify-center items-center">
@@ -87,6 +125,7 @@ const ResetPasswordForm = () => {
                 </Typography>
               </div>
             </Box>
+            <ToastContainer />
           </CardContent>
         </Card>
       </div>

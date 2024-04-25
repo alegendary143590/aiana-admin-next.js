@@ -29,6 +29,7 @@ const ChatbotForm = ({ bot }) => {
   const [themeColor, setThemeColor] = useState("#1976D2")
 
   console.log("Editing Bot:", bot)
+
   const handleColorButtonClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
@@ -81,6 +82,7 @@ const ChatbotForm = ({ bot }) => {
       reader.readAsDataURL(file)
     }
   }
+
   const handleSwitchChange = () => {
     setActive((prevActive) => !prevActive) // Toggle the value of active
     console.log(active)

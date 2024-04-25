@@ -9,4 +9,9 @@ export const AUTH_API = {
   GET_USER: `${SERVER_API_URL}/get_user`,
   UPDATE_USER: `${SERVER_API_URL}/update_user`,
   CREATE_BOT: `${SERVER_API_URL}/create_bot`,
+  FORGOT_PASSWORD: `${SERVER_API_URL}/forgot_password`,
+  UPLOAD_DOCUMENT: `${SERVER_API_URL}/upload_document`,
+  UPLOAD_WEBSITE: `${SERVER_API_URL}/upload_website`,
+  UPLOAD_TEXT: `${SERVER_API_URL}/upload_text`,
+  GET_KNOWLEDGE_BASE: `${SERVER_API_URL}/get_knowledge_bases`,
 }

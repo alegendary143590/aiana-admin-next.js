@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 import {
   Grid,
   Typography,
@@ -10,50 +10,30 @@ import {
   ListItemSecondaryAction,
   IconButton,
   TextField,
-} from "@mui/material"
-import CloudUploadIcon from "@mui/icons-material/CloudUpload"
-import DeleteIcon from "@mui/icons-material/Delete"
-import InfoIcon from "@mui/icons-material/InfoRounded"
+} from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import DeleteIcon from "@mui/icons-material/Delete";
+import InfoIcon from "@mui/icons-material/InfoRounded";
 
-const Document = () => {
-  const [documents, setDocuments] = useState([])
-  const [nameInputValue, setNameInputValue] = useState("")
+const Document = ({documents, setDocuments}) => {
+  
 
-  const handleDocumentChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = event.target.files
-    const allowedTypes = [
-      "application/pdf",
-      "application/msword",
-      "text/plain",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    ]
-
-    const newDocs = Array.from(fileList).filter((file) => allowedTypes.includes(file.type))
-
-    setDocuments([...documents, ...newDocs])
-  }
+  const handleDocumentChanged = (event) => {
+    const fileList = event.target.files;
+    const newDocs = Array.from(fileList);
+    setDocuments([...documents, ...newDocs]);
+  };
 
   const handleDeleteDocument = (index) => {
-    const updatedDocuments = documents.filter((doc, i) => i !== index)
-    setDocuments(updatedDocuments)
-  }
+    const updatedDocuments = documents.filter((_, i) => i !== index);
+    setDocuments([]);
+    setDocuments(updatedDocuments);
+  };
+
+  
 
   return (
-    <Paper elevation={3} className="w-[700px] h-full p-5">
-      <Grid container spacing={2} className="mt-2">
-        <Grid item xs={4} className="flex justify-end items-center">
-          <Typography>Name:</Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            type="text"
-            value={nameInputValue}
-            onChange={(e) => setNameInputValue(e.target.value)}
-            className="w-full"
-            id="urlInput"
-          />
-        </Grid>
-      </Grid>
+    <Paper elevation={3} className="w-[700px] h-[90%] p-5 mt-20 overflow-y-auto">
       <Grid container className="p-5">
         <Typography className="bg-[#e6f2ff] w-full mr-5 ml-5 p-3" sx={{ lineHeight: "2" }}>
           <InfoIcon className="text-[#33adff] mr-2 mb-1" />
@@ -102,11 +82,7 @@ const Document = () => {
             ))}
           </List>
         </Grid>
-        <Grid item xs={4} className="flex justify-center">
-          <Button className="bg-[#0099ff]" variant="contained">
-            Save
-          </Button>
-        </Grid>
+        
       </Grid>
     </Paper>
   )

@@ -1,18 +1,44 @@
-import * as React from "react"
-import { Box, Typography } from "@mui/material"
-import Button from "@mui/material/Button"
-import router from "next/router"
+import * as React from "react";
+import { Box, Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import router from "next/router";
+import { AUTH_API } from "@/components/utils/serverURL"
 
 const Chatbots = () => {
+  const [bases, setBases] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+
   const handleAddRow = () => {
-    router.push(`/knowledge/edit?bot=0`)
+    router.push(`/knowledge/edit?bot=0`);
   }
 
-  function createData(id: number, name: string, time: string) {
-    return { id, name, time }
-  }
+  // Fetch knowledge bases when component mounts
+  React.useEffect(() => {
+    setIsLoading(true)
+    const userID = localStorage.getItem('userID');
+     const requestOptions = {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': "1",
+      })
+    };
+    if (userID) {
+      fetch(`${AUTH_API.GET_KNOWLEDGE_BASE}?userId=${userID}`, requestOptions)
+        .then(response => response.json())
+        .then(data => {
+          setBases(data);
+          setIsLoading(false);
+        })
+        .catch(error => {
+          console.error('Error fetching knowledge bases:', error);
+          setIsLoading(false);
+        });
+    }
+  }, []); // Empty dependency array means this effect will only run once after the initial render
 
-  const bases = [createData(1, "KB Daytime", "09:00 - 17:00")]
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -50,7 +76,7 @@ const Chatbots = () => {
         ))}
       </div>
     </>
-  )
+  );
 }
 
-export default Chatbots
+export default Chatbots;
