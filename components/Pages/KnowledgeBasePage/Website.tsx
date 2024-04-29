@@ -79,7 +79,7 @@ const Website = ({urls, setUrls}) => {
         <Grid item xs={8}>
           <List className="h-[350px] overflow-y-auto border-solid border border-gray-300 rounded-md mt-5 p-3">
             {urls.map((url, index) => (
-              <ListItem key={url.unique_id} className="border-b border-gray-300">
+              <ListItem key={url.id} className="border-b border-gray-300">
                 <ListItemText primary={url.url} />
                 <ListItemSecondaryAction>
                   <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteUrl(index)}>

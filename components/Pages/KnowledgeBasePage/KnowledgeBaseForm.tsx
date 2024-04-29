@@ -78,7 +78,7 @@ const KnowledgeBaseForm = ({baseId}) => {
     unique_id: "",
     user_id: 0,});
 
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(false);
   React.useEffect(() => {
      if (!baseId) {
     const storedBaseId = localStorage.getItem('lastBaseId');
@@ -160,7 +160,7 @@ const KnowledgeBaseForm = ({baseId}) => {
     formData.append("userID", userID)
 
     try {
-      let API = "#0099ff"
+      let API = ""
       if (baseId=="-1"){
         API = AUTH_API.UPLOAD_DOCUMENT
       } else {
