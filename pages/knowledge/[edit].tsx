@@ -14,7 +14,7 @@ const EditPage = () => {
   return (
     <Layout type="admin">
       <div className="px-[20px] py-[20px] w-full h-full flex flex-col">
-        <KnowledgeBaseForm base={base} />
+        <KnowledgeBaseForm baseId={base} />
       </div>
     </Layout>
   )

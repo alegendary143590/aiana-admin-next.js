@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
 import Box from "@mui/material/Box"
@@ -55,15 +55,39 @@ function a11yProps(index: number) {
   }
 }
 
-const KnowledgeBaseForm = ({base}) => {
+const KnowledgeBaseForm = ({baseId}) => {
   const router = useRouter();
   const [value, setValue] = useState(0)
   const [nameInputValue, setNameInputValue] = useState("")
   const [documents, setDocuments] = useState([])
   const [urls, setUrls] = useState([])
   const [questionAnswers, setQuestionAnswers] = useState([])
+    const [bases, setBases] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
 
-
+  if (baseId!=="0"){
+    React.useEffect(() => {
+    setIsLoading(true)
+     const requestOptions = {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': "1",
+      })
+    };
+    if (baseId) {
+      fetch(`${AUTH_API.GET_KNOWLEDGE_BASE}?baseId=${baseId}`, requestOptions)
+        .then(response => response.json())
+        .then(data => {
+          setBases(data);
+          setIsLoading(false);
+        })
+        .catch(error => {
+          console.error('Error fetching knowledge bases:', error);
+          setIsLoading(false);
+        });
+    }
+  }, []);
+  }
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
   }
@@ -101,7 +125,9 @@ const KnowledgeBaseForm = ({base}) => {
       toast.error("Error uploading knowledge base. Please try again.", { position: toast.POSITION.TOP_RIGHT });
     }
   };
-
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <Box
       sx={{
