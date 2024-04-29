@@ -15,18 +15,33 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from "@mui/icons-material/InfoRounded";
 
-const Document = ({documents, setDocuments}) => {
+
+interface DocumentObject {
+ created_at: string;
+ filename: string;
+ id: number;
+ type: string;
+ unique_id: string;
+}
+
+const Document = ({documents, setDocuments, setFiles}) => {
   
 
   const handleDocumentChanged = (event) => {
-    const fileList = event.target.files;
-    const newDocs = Array.from(fileList);
+     const fileList = event.target.files;
+     setFiles(Array.from(fileList));
+    const newDocs = Array.from(fileList).map((file: File) => ({
+      created_at: new Date().toISOString(),
+      filename: file.name,
+      id: -1,
+      type: file.type,
+      unique_id: "",
+    }))
     setDocuments([...documents, ...newDocs]);
   };
 
   const handleDeleteDocument = (index) => {
     const updatedDocuments = documents.filter((_, i) => i !== index);
-    setDocuments([]);
     setDocuments(updatedDocuments);
   };
 
@@ -55,7 +70,7 @@ const Document = ({documents, setDocuments}) => {
             </Typography>
             <input
               type="file"
-              accept=".pdf,.doc,.txt,.docx"
+              accept=".pdf,.txt"
               onChange={handleDocumentChanged}
               multiple
               style={{ display: "none" }}
@@ -67,8 +82,8 @@ const Document = ({documents, setDocuments}) => {
         <Grid item xs={8}>
           <List className="h-[300px] overflow-y-auto border-solid border border-gray-300 rounded-md mt-5 p-3">
             {documents.map((doc, index) => (
-              <ListItem key={doc.name} className="border-b border-gray-300">
-                <ListItemText primary={doc.name} />
+              <ListItem key={doc.id} className="border-b border-gray-300">
+                <ListItemText primary={doc.filename} />
                 <ListItemSecondaryAction>
                   <IconButton
                     edge="end"

@@ -15,23 +15,37 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import InfoIcon from "@mui/icons-material/InfoRounded"
 import { isValidUrl } from "./validation" // Import your URL validation library here
 
+// Define the interface for a website object
+interface WebsiteObject {
+ created_at: string;
+ id: number;
+ unique_id: string;
+ url: string;
+}
 const Website = ({urls, setUrls}) => {
   const [urlInputValue, setUrlInputValue] = useState("")
   
 
   const handleUrlAdd = () => {
     if (isValidUrl(urlInputValue)) {
-      setUrls([...urls, urlInputValue])
-      setUrlInputValue("")
+      // Example object creation. You might need to adjust this based on how you're generating these objects.
+      const newWebsite: WebsiteObject = {
+        created_at: new Date().toISOString(), // Example date
+        id: -1, // Example ID. Adjust based on your actual ID generation logic.
+        unique_id: "", // Example unique ID. Adjust based on your actual unique ID generation logic.
+        url: urlInputValue,
+      };
+      setUrls([...urls, newWebsite]);
+      setUrlInputValue("");
     } else {
-      alert("Invalid URL. Please enter a valid URL.")
+      alert("Invalid URL. Please enter a valid URL.");
     }
-  }
+ };
 
-  const handleDeleteUrl = (index) => {
-    const updatedUrls = urls.filter((url, i) => i !== index)
-    setUrls(updatedUrls)
-  }
+ const handleDeleteUrl = (index) => {
+    const updatedUrls = urls.filter((_, i) => i !== index);
+    setUrls(updatedUrls);
+ };
 
   return (
     <Paper elevation={3} className="w-[700px] h-[90%] p-5 mt-20">
@@ -65,8 +79,8 @@ const Website = ({urls, setUrls}) => {
         <Grid item xs={8}>
           <List className="h-[350px] overflow-y-auto border-solid border border-gray-300 rounded-md mt-5 p-3">
             {urls.map((url, index) => (
-              <ListItem key={url} className="border-b border-gray-300">
-                <ListItemText primary={url} />
+              <ListItem key={url.unique_id} className="border-b border-gray-300">
+                <ListItemText primary={url.url} />
                 <ListItemSecondaryAction>
                   <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteUrl(index)}>
                     <DeleteIcon />

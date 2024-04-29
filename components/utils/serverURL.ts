@@ -15,4 +15,6 @@ export const AUTH_API = {
   UPLOAD_TEXT: `${SERVER_API_URL}/upload_text`,
   GET_KNOWLEDGE_BASES: `${SERVER_API_URL}/get_knowledge_bases`,
   GET_KNOWLEDGE_BASE: `${SERVER_API_URL}/get_knowledge_base`,
+  UPDATE_KNOWLEDGE_BASE: `${SERVER_API_URL}/update_knowledge_base`,
+
 }

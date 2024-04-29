@@ -55,42 +55,90 @@ function a11yProps(index: number) {
   }
 }
 
+// Define the interface for the base object
+interface Base {
+ created_at: string;
+ id: number;
+ name: string;
+ unique_id: string;
+ user_id: number;
+}
+
 const KnowledgeBaseForm = ({baseId}) => {
   const router = useRouter();
   const [value, setValue] = useState(0)
   const [nameInputValue, setNameInputValue] = useState("")
   const [documents, setDocuments] = useState([])
+  const [files, setFiles] = useState([])
   const [urls, setUrls] = useState([])
   const [questionAnswers, setQuestionAnswers] = useState([])
-    const [bases, setBases] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [base, setBase] = React.useState<Base>({created_at: "",
+    id: 0,
+    name: "",
+    unique_id: "",
+    user_id: 0,});
 
-  if (baseId!=="0"){
+  const [isLoading, setIsLoading] = React.useState(true);
+  React.useEffect(() => {
+     if (!baseId) {
+    const storedBaseId = localStorage.getItem('lastBaseId');
+    baseId = storedBaseId;
+  } else {
+    localStorage.setItem('lastBaseId', baseId);
+  }
+    console.log(`Editing item with knowledge: ${baseId}`)
+  }, [baseId])
+
+  if (baseId!=="-1"){
     React.useEffect(() => {
-    setIsLoading(true)
-     const requestOptions = {
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'ngrok-skip-browser-warning': "1",
-      })
-    };
-    if (baseId) {
-      fetch(`${AUTH_API.GET_KNOWLEDGE_BASE}?baseId=${baseId}`, requestOptions)
-        .then(response => response.json())
-        .then(data => {
-          setBases(data);
-          setIsLoading(false);
-        })
-        .catch(error => {
+    console.log("fetching is done !!!!!!!!!")
+
+    const fetchData = async () => {
+      console.log("fetching baseId is done !!!!!!!!!", baseId)
+      
+      if (baseId && baseId != "-1") {
+        setIsLoading(true);
+          console.log("fetching is done !!!!!!!!!")
+        try {
+          const requestOptions = {
+            headers: new Headers({
+              'Content-Type': 'application/json',
+              'ngrok-skip-browser-warning': "1",
+            })
+          };
+          const response = await fetch(`${AUTH_API.GET_KNOWLEDGE_BASE}?baseId=${baseId}`, requestOptions);
+          const data = await response.json();
+          console.log("fetching data is done !!!!!!!!!", data)
+
+          setBase(data.base || {
+            created_at: "",
+            id: 0,
+            name: "",
+            unique_id: "",
+            user_id: 0,
+          });
+          setNameInputValue(data.base.name)
+          setDocuments(data.documents || []);
+          setUrls(data.websites || []);
+          setQuestionAnswers(data.texts || []);
+          console.log("fetching is done !!!!!!!!!")
+        } catch (error) {
           console.error('Error fetching knowledge bases:', error);
-          setIsLoading(false);
-        });
-    }
+          toast.error("Failed to load data", { position: toast.POSITION.TOP_RIGHT });
+        }
+        
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
   }
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
   }
+  
   const handleSubmit = async () => {
     if ( nameInputValue === ""){
        toast.error("Please input the name!", { position: toast.POSITION.TOP_RIGHT })
@@ -105,13 +153,20 @@ const KnowledgeBaseForm = ({baseId}) => {
     const userID = localStorage.getItem("userID")
     const formData = new FormData()
     formData.append("name", nameInputValue)
-    documents.forEach(doc => formData.append("files", doc))
+    formData.append("docs", JSON.stringify(documents))
+    files.forEach(doc => formData.append("files", doc))
     formData.append("urls", JSON.stringify(urls))
     formData.append("qa", JSON.stringify(questionAnswers))
     formData.append("userID", userID)
 
     try {
-      const response = await axios.post(AUTH_API.UPLOAD_DOCUMENT, formData, {
+      let API = "#0099ff"
+      if (baseId=="-1"){
+        API = AUTH_API.UPLOAD_DOCUMENT
+      } else {
+        API = `${AUTH_API.UPDATE_KNOWLEDGE_BASE}/?unique_id=${base.unique_id}`
+      }
+      const response = await axios.post(API, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -125,9 +180,11 @@ const KnowledgeBaseForm = ({baseId}) => {
       toast.error("Error uploading knowledge base. Please try again.", { position: toast.POSITION.TOP_RIGHT });
     }
   };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
   return (
     <Box
       sx={{
@@ -175,7 +232,7 @@ const KnowledgeBaseForm = ({baseId}) => {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Document documents={documents} setDocuments={setDocuments}/>
+        <Document documents={documents} setDocuments={setDocuments} setFiles={setFiles} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <Website urls={urls} setUrls = {setUrls} />

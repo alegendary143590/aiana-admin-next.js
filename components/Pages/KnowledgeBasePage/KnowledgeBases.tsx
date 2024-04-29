@@ -9,7 +9,7 @@ const KnowledgeBase = () => {
   const [isLoading, setIsLoading] = React.useState(true);
 
   const handleAddRow = () => {
-    router.push(`/knowledge/edit?bot=0`);
+    router.push(`/knowledge/edit?baseId=-1`);
   }
 
   // Fetch knowledge bases when component mounts
@@ -37,7 +37,7 @@ const KnowledgeBase = () => {
   }, []); // Empty dependency array means this effect will only run once after the initial render
 
   const handleEditClick = (baseId) => {
-     router.push(`/knowledge/edit?bot=${baseId}`);
+     router.push(`/knowledge/edit?baseId=${baseId}`);
 
   }
   if (isLoading) {
