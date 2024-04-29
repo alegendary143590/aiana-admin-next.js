@@ -14,8 +14,12 @@ import {
   Autocomplete,
   Box,
 } from "@mui/material"
-import CustomSwitch from "../CustomSwitch"
+import { ToastContainer, toast } from "react-toastify"
+import { useRouter } from "next/router"
 import { AUTH_API } from "@/components/utils/serverURL"
+import CustomSwitch from "../CustomSwitch"
+import { set } from "js-cookie"
+
 
 const ChatbotForm = ({ bot }) => {
   const [name, setName] = useState("")
@@ -27,6 +31,10 @@ const ChatbotForm = ({ bot }) => {
   const [timeUntil, setTimeUntil] = useState("17:00")
   const [anchorEl, setAnchorEl] = useState(null)
   const [themeColor, setThemeColor] = useState("#1976D2")
+  const [isLoading, setIsLoading] = useState(false);
+  const [bases, setBases] = useState([]);
+  const router = useRouter()
+  const [userId, setUserId] = useState(null)
 
   console.log("Editing Bot:", bot)
 
@@ -60,14 +68,56 @@ const ChatbotForm = ({ bot }) => {
     "#000000",
   ]
 
-  const knoweldgebases = [
-    "Knowledge Base 1",
-    "Knowledge Base 2",
-    "Knowledge Base 3",
-    "Knowledge Base 4",
-    "Knowledge Base 5",
-    "Knowledge Base 6",
-  ]
+   // Fetch knowledge bases when component mounts
+  React.useEffect(() => {
+    setIsLoading(true)
+    const userID = localStorage.getItem('userID');
+    setUserId(userID)
+     const requestOptions = {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': "1",
+      })
+    };
+
+    if (userID) {
+      fetch(`${AUTH_API.GET_KNOWLEDGE_BASES}?userId=${userID}`, requestOptions)
+        .then(response => response.json())
+        .then(data => {
+          setBases(data);
+          console.log("bases", data)
+          setIsLoading(false);
+        })
+        .catch(error => {
+          console.error('Error fetching knowledge bases:', error);
+          setIsLoading(false);
+        });
+    }
+    if (bot) {
+      setIsLoading(true);
+
+      fetch(`${AUTH_API.GET_CHATBOT}?botId=${bot}`, requestOptions)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          setName(data.name)
+          setActive(data.active)
+          setKnowleBase(data.knowledge_base)
+          setAvatarPreview(data.avatar)
+          setTimeFrom(data.timeFrom)
+          setTimeUntil(data.timeUntil)
+          console.log("bases", data)
+          setIsLoading(false);
+        })
+        .catch(error => {
+          console.error('Error fetching knowledge bases:', error);
+          setIsLoading(false);
+        });
+    }
+  }, [bot]); // Empty dependency array means this effect will only run once after the initial render
+
+
+  const knowledgeBases = bases.map(base => base.name);
 
   const handleAvatarChange = (event) => {
     const file = event.target.files && event.target.files[0]
@@ -100,33 +150,51 @@ const ChatbotForm = ({ bot }) => {
     setName(event.target.value)
   }
 
-  const handleKnowledgeBaseChange = (event) => {
-    setKnowleBase(event.target.value)
+  const handleKnowledgeBaseChange = (value) => {
+    setKnowleBase(value)
+    console.log(value)
   }
 
   const handleSubmit = async () => {
     const formData = new FormData()
-    console.log("Submitted")
     formData.append("name", name)
     formData.append("avatar", avatar)
     formData.append("color", themeColor)
-    formData.append("active", active.toString())
+    formData.append("active", (active !== undefined ? active.toString() : "false"));
     formData.append("start_time", timeFrom)
     formData.append("end_time", timeUntil)
     formData.append("knowledge_base", knowledgeBase)
-
+    formData.append("user_id", userId)
+    
+    if (!name || !knowledgeBase) {
+      toast.error("Name and Knowledge Base are required.", { position: toast.POSITION.TOP_RIGHT })
+      return;
+    }
     try {
-      const response = await axios.post(AUTH_API.CREATE_BOT, formData, {
+      let API_URL = ''
+      if (bot!="-1"){
+        API_URL = `${AUTH_API.UPDATE_CHATBOT}?botId=${bot}`
+      } else {
+        API_URL = AUTH_API.CREATE_BOT
+      }
+      const response = await axios.post(API_URL, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       console.log("Success:", response.data)
-      // Handle successful response
+      toast.success("Successulfy Created!", { position: toast.POSITION.TOP_RIGHT })
+      router.push('/chatbot')
     } catch (error) {
       console.error("Error uploading:", error)
-      // Handle errors here
     }
+  }
+  const handleCancelClick = () => {
+    router.push('/chatbot')
+  }
+
+  if (isLoading){
+    return <div>Loading...</div>
   }
 
   return (
@@ -134,7 +202,7 @@ const ChatbotForm = ({ bot }) => {
       <Grid container spacing={1} justifyContent="start" alignItems="center">
         <Grid item xs={12} className="w-full ml-1">
           <Typography variant="h5" align="left">
-            Chatbot Peter
+            Chatbot
           </Typography>
         </Grid>
         <div className="bg-none w-full rounded-lg p-4 flex flex-col gap-4 mt-1">
@@ -210,7 +278,7 @@ const ChatbotForm = ({ bot }) => {
           </Grid>
           <Grid container direction="row" spacing={1} alignItems="center" className="mt-1">
             <Grid item alignItems="start" className="mr-3">
-              <CustomSwitch onChange={handleSwitchChange} />
+              <CustomSwitch value={active}  onChange={handleSwitchChange} />
             </Grid>
           </Grid>
           <Grid container direction="row" spacing={1} alignItems="center" className="mt-2">
@@ -234,9 +302,10 @@ const ChatbotForm = ({ bot }) => {
             </Typography>
             <Autocomplete
               disablePortal
+              value={knowledgeBase}
               id="knowledge_base"
-              options={knoweldgebases}
-              onChange={handleKnowledgeBaseChange}
+              options={knowledgeBases}
+              onChange={(_, value) => handleKnowledgeBaseChange(value)}
               sx={{ width: 300 }}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -247,6 +316,7 @@ const ChatbotForm = ({ bot }) => {
               color="primary"
               className="bg-[#fa6374] w-24 h-10"
               sx={{ textTransform: "none" }}
+              onClick={handleCancelClick}
             >
               Cancel
             </Button>
@@ -262,6 +332,7 @@ const ChatbotForm = ({ bot }) => {
           </Box>
         </div>
       </Grid>
+      <ToastContainer />
     </div>
   )
 }

@@ -164,7 +164,7 @@ const KnowledgeBaseForm = ({baseId}) => {
       if (baseId=="-1"){
         API = AUTH_API.UPLOAD_DOCUMENT
       } else {
-        API = `${AUTH_API.UPDATE_KNOWLEDGE_BASE}/?unique_id=${base.unique_id}`
+        API = `${AUTH_API.UPDATE_KNOWLEDGE_BASE}?unique_id=${base.unique_id}`
       }
       const response = await axios.post(API, formData, {
         headers: {

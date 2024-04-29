@@ -15,6 +15,8 @@ export const AUTH_API = {
   UPLOAD_TEXT: `${SERVER_API_URL}/upload_text`,
   GET_KNOWLEDGE_BASES: `${SERVER_API_URL}/get_knowledge_bases`,
   GET_KNOWLEDGE_BASE: `${SERVER_API_URL}/get_knowledge_base`,
+  GET_CHATBOTS: `${SERVER_API_URL}/get_chatbots`,
   UPDATE_KNOWLEDGE_BASE: `${SERVER_API_URL}/update_knowledge_base`,
-
+  GET_CHATBOT: `${SERVER_API_URL}/get_chatbot`,
+  UPDATE_CHATBOT: `${SERVER_API_URL}/update_chatbot`,
 }
