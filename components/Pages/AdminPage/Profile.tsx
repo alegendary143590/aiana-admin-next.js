@@ -29,9 +29,11 @@ const Profile = () => {
   const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
   const [change, setChange] = useState(false)
   const [userID, setUserID] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
   useEffect(() => {
     setUserID(localStorage.getItem("userID"))
     if (userID !== undefined) {
+      setIsLoading(true)
       axios
         .post(AUTH_API.GET_USER, { userID })
         .then((response) => {
@@ -55,10 +57,12 @@ const Profile = () => {
               // Update other fields as per the response data
             }))
           }
+          setIsLoading(false)
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
           console.log("Here >>>>>", error)
+          setIsLoading(false)
         })
     }
   }, [userID])
@@ -75,6 +79,7 @@ const Profile = () => {
   }
   const handleSubmit = () => {
     if (change) {
+      setIsLoading(true)
       axios
         .post(AUTH_API.UPDATE_USER, {
           userID,
@@ -97,14 +102,19 @@ const Profile = () => {
           // console.log(response)
           if (response.status === 201) {
             toast.success("Successfully updated!", { position: toast.POSITION.TOP_RIGHT })
+            setIsLoading(false)
           }
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
           console.log("Here >>>>>", error)
+          setIsLoading(false)
         })
     }
     router.push("/admin")
+  }
+  if(isLoading){
+    return <div>Loading...</div>
   }
   return (
     <div className="d-flex flex-column bg-transparent">

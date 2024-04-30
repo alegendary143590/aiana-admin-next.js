@@ -1,5 +1,5 @@
 "use client!"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import axios from "axios"
 import {
   Grid,
@@ -23,7 +23,7 @@ import { set } from "js-cookie"
 
 const ChatbotForm = ({ bot }) => {
   const [name, setName] = useState("")
-  const [active, setActive] = useState(true)
+  const [active, setActive] = useState(false)
   const [knowledgeBase, setKnowleBase] = useState("")
   const [avatar, setAvatar] = useState(null)
   const [avatarPreview, setAvatarPreview] = useState(null)
@@ -32,8 +32,11 @@ const ChatbotForm = ({ bot }) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [themeColor, setThemeColor] = useState("#1976D2")
   const [isLoading, setIsLoading] = useState(false);
-  const [bases, setBases] = useState([]);
+  const [bases, setBases] = useState([])
+  const [knowledgeBases, setKnowledgeBases] = useState([])
+
   const router = useRouter()
+  const [index, setIndex] = useState(0)
   const [userId, setUserId] = useState(null)
 
   console.log("Editing Bot:", bot)
@@ -83,17 +86,18 @@ const ChatbotForm = ({ bot }) => {
     if (userID) {
       fetch(`${AUTH_API.GET_KNOWLEDGE_BASES}?userId=${userID}`, requestOptions)
         .then(response => response.json())
-        .then(data => {
-          setBases(data);
+        .then((data) => {
+          setBases(data)
           console.log("bases", data)
-          setIsLoading(false);
+          setIsLoading(false)
         })
+
         .catch(error => {
           console.error('Error fetching knowledge bases:', error);
           setIsLoading(false);
         });
     }
-    if (bot) {
+    if (bot!='-1') {
       setIsLoading(true);
 
       fetch(`${AUTH_API.GET_CHATBOT}?botId=${bot}`, requestOptions)
@@ -102,7 +106,16 @@ const ChatbotForm = ({ bot }) => {
           console.log(data)
           setName(data.name)
           setActive(data.active)
-          setKnowleBase(data.knowledge_base)
+          const baseObject = bases.find(base => base.unique_id === data.knowledge_base);
+
+          // Check if a matching base was found
+          if (baseObject) {
+            // Set the name of the knowledge base
+            setKnowleBase(baseObject.name);
+          } else {
+            // Handle the case where no matching base was found
+            console.error('No matching base found for the unique_id:', data.knowledge_base);
+          }
           setAvatarPreview(data.avatar)
           setTimeFrom(data.timeFrom)
           setTimeUntil(data.timeUntil)
@@ -117,7 +130,11 @@ const ChatbotForm = ({ bot }) => {
   }, [bot]); // Empty dependency array means this effect will only run once after the initial render
 
 
-  const knowledgeBases = bases.map(base => base.name);
+  useEffect(() => {
+    if (bases) {
+      setKnowledgeBases(bases.map(base => base.name))
+    }
+  }, [bases ? bases.length : undefined])
 
   const handleAvatarChange = (event) => {
     const file = event.target.files && event.target.files[0]
@@ -151,8 +168,19 @@ const ChatbotForm = ({ bot }) => {
   }
 
   const handleKnowledgeBaseChange = (value) => {
-    setKnowleBase(value)
-    console.log(value)
+    // Find the index of the selected value in the bases array
+    const selectedIndex = bases.findIndex(base => base.name === value);
+
+    // Check if a matching base was found
+    if (selectedIndex !== -1) {
+      // Set the name of the knowledge base
+      setKnowleBase(bases[selectedIndex].name);
+      // Update the index state with the found index
+      setIndex(selectedIndex);
+    } else {
+      // Handle the case where no matching base was found
+      console.error('No matching base found for the selected value:', value);
+    }
   }
 
   const handleSubmit = async () => {
@@ -163,7 +191,7 @@ const ChatbotForm = ({ bot }) => {
     formData.append("active", (active !== undefined ? active.toString() : "false"));
     formData.append("start_time", timeFrom)
     formData.append("end_time", timeUntil)
-    formData.append("knowledge_base", knowledgeBase)
+    formData.append("knowledge_base", bases[index].unique_id)
     formData.append("user_id", userId)
     
     if (!name || !knowledgeBase) {
