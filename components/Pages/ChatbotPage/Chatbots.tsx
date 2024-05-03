@@ -4,6 +4,7 @@ import Button from "@mui/material/Button"
 import router from "next/router"
 import { AUTH_API } from "@/components/utils/serverURL"
 import ChatbotPage from "@/components/Pages/ChatPage"
+import { toast } from "react-toastify"
 
 
 const Chatbots = () => {
@@ -47,17 +48,21 @@ const Chatbots = () => {
   const handleEditClickButton = (id: any) => {
     router.push(`/chatbot/edit?bot=${id}`)
   }
-  const handleChatClickButton = (id:any) => {
-    const bot = bots.find(bot => bot.id === id);
-
+  const handleChatClickButton = (id: any) => {
+    const bot = bots.find((bot) => bot.id === id)
+    if (!bot.active) {
+      toast.warn("This bot is not active yet. Please wait until it is active.", {
+        position: toast.POSITION.TOP_RIGHT,
+      })
+    }
     // Set the bot details
-    setBotId(id);
-    setBotName(bot.name);
-    setBotAvatar(bot.avatar);
-    setBotKnowledgeBase(bot.knowledge_base); // Assuming there's a knowledgeBase property
-    setBotThemeColor(bot.color); // Assuming there's a themeColor property
-    setBotActive(bot.active); // Assuming there's an active property
-    setBotVisible(true);
+    setBotId(id)
+    setBotName(bot.name)
+    setBotAvatar(bot.avatar)
+    setBotKnowledgeBase(bot.knowledge_base) // Assuming there's a knowledgeBase property
+    setBotThemeColor(bot.color) // Assuming there's a themeColor property
+    setBotActive(bot.active)
+    setBotVisible(true)
   }
   if(isLoading) {
     return <div>Loading...</div>
@@ -123,7 +128,7 @@ const Chatbots = () => {
         ))}
        
       </div>
-      <ChatbotPage botId={botId}  visible={botVisible} setVisible={setBotVisible} />
+      <ChatbotPage botId={botId} botName={botName} color={botThemeColor} avatar={botAvatar}  visible={botVisible} setVisible={setBotVisible} />
       </>
   )
 }
