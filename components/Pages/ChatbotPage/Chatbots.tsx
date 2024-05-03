@@ -2,13 +2,21 @@ import * as React from "react"
 import { Box, Typography } from "@mui/material"
 import Button from "@mui/material/Button"
 import router from "next/router"
-import { AUTH_API, SERVER_API } from "@/components/utils/serverURL"
+import { AUTH_API } from "@/components/utils/serverURL"
+import ChatbotPage from "@/components/Pages/ChatPage"
 
 
 const Chatbots = () => {
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [bots, setBots] = React.useState([]);
+  const [botId, setBotId] = React.useState('')
+  const [botVisible, setBotVisible] = React.useState(false)
+  const [botName, setBotName] = React.useState('')
+  const [botAvatar, setBotAvatar] = React.useState('')
+  const [botKnowledgeBase, setBotKnowledgeBase] = React.useState('')
+  const [botThemeColor, setBotThemeColor] = React.useState('#1976D2')
+  const [botActive, setBotActive] = React.useState(false)
   const handleAddRow = () => {
     router.push(`/chatbot/edit?bot=-1`)
   }
@@ -39,6 +47,18 @@ const Chatbots = () => {
   const handleEditClickButton = (id: any) => {
     router.push(`/chatbot/edit?bot=${id}`)
   }
+  const handleChatClickButton = (id:any) => {
+    const bot = bots.find(bot => bot.id === id);
+
+    // Set the bot details
+    setBotId(id);
+    setBotName(bot.name);
+    setBotAvatar(bot.avatar);
+    setBotKnowledgeBase(bot.knowledge_base); // Assuming there's a knowledgeBase property
+    setBotThemeColor(bot.color); // Assuming there's a themeColor property
+    setBotActive(bot.active); // Assuming there's an active property
+    setBotVisible(true);
+  }
   if(isLoading) {
     return <div>Loading...</div>
   }
@@ -57,7 +77,7 @@ const Chatbots = () => {
           </Button>
         </Box>
       </div>
-      <div className="w-full h-fit flex flex-wrap mt-10 items-center justify-start">
+      <div className="relative w-full h-fit flex flex-wrap mt-10 items-center justify-start">
         {bots.map((bot) => (
           <div key={bot.id} className="w-72 h-40 bg-white shadow-sm p-4 m-3">
             <div className="w-full h-fit flex flex-row items-center justify-center">
@@ -77,20 +97,34 @@ const Chatbots = () => {
                 </Button>
               </div>
             </div>
-            <div>
-              <button
-                type="button"
-                className="w-12 h-8 text-[12px] my-1 rounded-sm bg-[#00D7CA] text-white"
-                style={{ textTransform: "none" }}
-                onClick={()=>handleEditClickButton(bot.id)}
-              >
-                Edit
-              </button>
-            </div>
+            <div className="flex flex-row justify-between mt-5 mx-5">
+              <div>
+                <button
+                  type="button"
+                  className="w-12 h-8 text-[12px] my-1 rounded-sm bg-[#00D7CA] text-white"
+                  style={{ textTransform: "none" }}
+                  onClick={() => handleEditClickButton(bot.id)}
+                >
+                  Edit
+                </button>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  className="w-12 h-8 text-[12px] my-1 rounded-sm bg-[#4c4fe7] text-white"
+                  style={{ textTransform: "none" }}
+                  onClick={() => handleChatClickButton(bot.id)}
+                >
+                  Chat
+                </button>
+              </div>
+              </div>
           </div>
         ))}
+       
       </div>
-    </>
+      <ChatbotPage botId={botId}  visible={botVisible} setVisible={setBotVisible} />
+      </>
   )
 }
 

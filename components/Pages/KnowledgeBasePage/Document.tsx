@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Grid,
   Typography,
@@ -9,20 +9,19 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
-  TextField,
 } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from "@mui/icons-material/InfoRounded";
 
 
-interface DocumentObject {
- created_at: string;
- filename: string;
- id: number;
- type: string;
- unique_id: string;
-}
+// interface DocumentObject {
+//  created_at: string;
+//  filename: string;
+//  id: number;
+//  type: string;
+//  unique_id: string;
+// }
 
 const Document = ({documents, setDocuments, setFiles}) => {
   

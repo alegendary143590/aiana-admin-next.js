@@ -19,32 +19,30 @@ const EmailPasswordForm = () => {
   const [password, setPassword] = React.useState("")
   const handleAuth = () => {
     if (email === "") {
-      return false
+      return false;
     }
     if (password === "") {
-      toast.error("Password is required!", { position: toast.POSITION.TOP_RIGHT })
-      return false
+      toast.error("Password is required!", { position: toast.POSITION.TOP_RIGHT });
+      return false;
     }
 
     axios
       .post(AUTH_API.LOGIN, { email, password })
-      .then((response) => {
-        // console.log(response)
-        if (response.status === 200) {
-          const data = response.data
-          console.log("Login  >>>>>>>>>", data.userID)
-          localStorage.setItem("userID", data.userID)
-          router.push("/admin")
-          return
+      .then(({ data }) => { // Use object destructuring here
+        if (data) {
+          console.log("Login  >>>>>>>>>", data.userID);
+          localStorage.setItem("userID", data.userID);
+          router.push("/admin");
+          return;
         }
-        console.log(response.data.error)
-        alert("Invalide credentials!")
+        console.log(data.error);
+        alert("Invalid credentials!");
       })
       .catch(() => {
-        toast.error("Invalide email or password!", { position: toast.POSITION.TOP_RIGHT })
-      })
-    return true
-  }
+        toast.error("Invalid email or password!", { position: toast.POSITION.TOP_RIGHT });
+      });
+    return true;
+  };
   /* eslint-disable */
   const handleEmailChange = ({ target: { value } }) => {
     setEmail(value)

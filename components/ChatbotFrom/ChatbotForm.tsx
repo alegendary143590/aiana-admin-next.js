@@ -1,4 +1,5 @@
 "use client!"
+
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import {
@@ -18,7 +19,6 @@ import { ToastContainer, toast } from "react-toastify"
 import { useRouter } from "next/router"
 import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSwitch from "../CustomSwitch"
-import { set } from "js-cookie"
 
 
 const ChatbotForm = ({ bot }) => {
@@ -97,28 +97,19 @@ const ChatbotForm = ({ bot }) => {
           setIsLoading(false);
         });
     }
-    if (bot!='-1') {
+    if (bot!=='-1') {
       setIsLoading(true);
 
       fetch(`${AUTH_API.GET_CHATBOT}?botId=${bot}`, requestOptions)
         .then(response => response.json())
         .then(data => {
-          console.log(data)
+          console.log("Bot info >>>>.>",data)
           setName(data.name)
           setActive(data.active)
-          const baseObject = bases.find(base => base.unique_id === data.knowledge_base);
-
-          // Check if a matching base was found
-          if (baseObject) {
-            // Set the name of the knowledge base
-            setKnowleBase(baseObject.name);
-          } else {
-            // Handle the case where no matching base was found
-            console.error('No matching base found for the unique_id:', data.knowledge_base);
-          }
+          setKnowleBase(data.knowledge_base)
           setAvatarPreview(data.avatar)
-          setTimeFrom(data.timeFrom)
-          setTimeUntil(data.timeUntil)
+          setTimeFrom(data.start_time)
+          setTimeUntil(data.end_time)
           console.log("bases", data)
           setIsLoading(false);
         })
@@ -200,7 +191,7 @@ const ChatbotForm = ({ bot }) => {
     }
     try {
       let API_URL = ''
-      if (bot!="-1"){
+      if (bot!=="-1"){
         API_URL = `${AUTH_API.UPDATE_CHATBOT}?botId=${bot}`
       } else {
         API_URL = AUTH_API.CREATE_BOT

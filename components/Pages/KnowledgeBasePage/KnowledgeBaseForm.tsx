@@ -79,24 +79,26 @@ const KnowledgeBaseForm = ({baseId}) => {
     user_id: 0,});
 
   const [isLoading, setIsLoading] = React.useState(false);
+  let newBaseId = baseId;
   React.useEffect(() => {
-     if (!baseId) {
-    const storedBaseId = localStorage.getItem('lastBaseId');
-    baseId = storedBaseId;
-  } else {
-    localStorage.setItem('lastBaseId', baseId);
-  }
-    console.log(`Editing item with knowledge: ${baseId}`)
-  }, [baseId])
-
-  if (baseId!=="-1"){
-    React.useEffect(() => {
+ // Use a local variable instead of modifying the parameter directly
+    if (!newBaseId) {
+      const storedBaseId = localStorage.getItem('lastBaseId');
+      newBaseId = storedBaseId;
+    } else {
+      localStorage.setItem('lastBaseId', newBaseId);
+    }
+    console.log(`Editing item with knowledge: ${newBaseId}`);
+  }, [baseId]);
+  React.useEffect(() => {
+  if (newBaseId !== "-1"){
+    
     console.log("fetching is done !!!!!!!!!")
 
     const fetchData = async () => {
-      console.log("fetching baseId is done !!!!!!!!!", baseId)
+      console.log("fetching newBaseId is done !!!!!!!!!", newBaseId)
       
-      if (baseId && baseId != "-1") {
+      if (newBaseId && newBaseId !== "-1") {
         setIsLoading(true);
           console.log("fetching is done !!!!!!!!!")
         try {
@@ -106,7 +108,7 @@ const KnowledgeBaseForm = ({baseId}) => {
               'ngrok-skip-browser-warning': "1",
             })
           };
-          const response = await fetch(`${AUTH_API.GET_KNOWLEDGE_BASE}?baseId=${baseId}`, requestOptions);
+          const response = await fetch(`${AUTH_API.GET_KNOWLEDGE_BASE}?baseId=${newBaseId}`, requestOptions);
           const data = await response.json();
           console.log("fetching data is done !!!!!!!!!", data)
 
@@ -132,8 +134,8 @@ const KnowledgeBaseForm = ({baseId}) => {
     };
 
     fetchData();
-  }, []);
   }
+  }, []);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
@@ -161,7 +163,7 @@ const KnowledgeBaseForm = ({baseId}) => {
 
     try {
       let API = ""
-      if (baseId=="-1"){
+      if (newBaseId ==="-1"){
         API = AUTH_API.UPLOAD_DOCUMENT
       } else {
         API = `${AUTH_API.UPDATE_KNOWLEDGE_BASE}?unique_id=${base.unique_id}`
