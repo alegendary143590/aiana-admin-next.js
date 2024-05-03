@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, TextField, Typography, Button, Box, Paper, IconButton } from '@mui/material';
+import { Avatar, TextField, Typography, Button, Box, Paper, IconButton, CircularProgress } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const ChatPage = ({ botId, botName, color, avatar, visible, setVisible }) => {
     const [messages, setMessages] = useState([
         { isBot: true, text: "Hello! How can I assist you today?" },
-        { isBot: false, text: "I need help with my account." },
-        { isBot: true, text: "Hello! How can I assist you today?" },
-        { isBot: false, text: "I need help with my account." },
-        { isBot: true, text: "Hello! How can I assist you today?" },
         { isBot: false, text: "I need help with my account." }
+        // Other initial messages...
     ]);
     const [input, setInput] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const [visibleClass, setVisibleClass] = useState("hidden");
 
     useEffect(() => {
@@ -23,11 +21,18 @@ const ChatPage = ({ botId, botName, color, avatar, visible, setVisible }) => {
     }, [visible]);
 
     const handleSendMessage = () => {
+        if (input.trim() === "") return; // Prevent sending empty messages
+        setIsLoading(true); // Start loading
         setMessages([...messages, { text: input, isBot: false }]);
         setInput("");
-        // Add logic for bot's response here
-    };
 
+        // Simulate fetching response from the backend
+        setTimeout(() => {
+            // Simulate bot response
+            setMessages(prevMessages => [...prevMessages, { text: "This is a response from the bot.", isBot: true }]);
+            setIsLoading(false); // Stop loading after response
+        }, 2000); // Delay of 2 seconds to mimic backend call
+    };
     return (
         <div className={`w-[400px] h-[600px] absolute right-0 bottom-0 border-solid border-2 flex flex-col overflow-auto ${visibleClass}`}>
             <Paper elevation={4} className={`relative h-[70px]`} style={{ backgroundColor: color }}>
@@ -74,9 +79,10 @@ const ChatPage = ({ botId, botName, color, avatar, visible, setVisible }) => {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     className="mr-2"
+                    disabled={isLoading}
                 />
                 <Button variant="contained" color="primary" className="bg-[#1976D2]" onClick={handleSendMessage}>
-                    Send
+                    {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Send'}
                 </Button>
             </div>
         </div>
