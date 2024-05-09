@@ -23,13 +23,15 @@ const ChatPage = ({userId, botId, botName, color, avatar, visible, setVisible })
         }
     }, [visible]);
 
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+    
     useEffect(() => {
         scrollToBottom(); // Scroll to bottom whenever messages change
     }, [messages]);
 
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
+    
 
     const handleSendMessage = () => {
         if (input.trim() === "") return;
