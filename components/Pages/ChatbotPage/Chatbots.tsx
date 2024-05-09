@@ -18,6 +18,7 @@ const Chatbots = () => {
   const [botKnowledgeBase, setBotKnowledgeBase] = React.useState('')
   const [botThemeColor, setBotThemeColor] = React.useState('#1976D2')
   const [botActive, setBotActive] = React.useState(false)
+  const [user_id, setUserId] = React.useState('')
   const handleAddRow = () => {
     router.push(`/chatbot/edit?bot=-1`)
   }
@@ -25,6 +26,7 @@ const Chatbots = () => {
   React.useEffect(() => {
     setIsLoading(true)
     const userID = localStorage.getItem('userID');
+    if (userID) setUserId(userID)
      const requestOptions = {
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -128,7 +130,7 @@ const Chatbots = () => {
         ))}
        
       </div>
-      <ChatbotPage botId={botId} botName={botName} color={botThemeColor} avatar={botAvatar}  visible={botVisible} setVisible={setBotVisible} />
+      <ChatbotPage userId={user_id} botId={botId} botName={botName} color={botThemeColor} avatar={botAvatar}  visible={botVisible} setVisible={setBotVisible} />
       </>
   )
 }

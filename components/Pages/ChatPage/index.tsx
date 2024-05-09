@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios'
+import { AUTH_API } from '@/components/utils/serverURL';
 import { Avatar, TextField, Typography, Button, Box, Paper, IconButton, CircularProgress } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-const ChatPage = ({ botId, botName, color, avatar, visible, setVisible }) => {
+const ChatPage = ({userId, botId, botName, color, avatar, visible, setVisible }) => {
     const [messages, setMessages] = useState([
         { isBot: true, text: "Hello! How can I assist you today?" },
         { isBot: false, text: "I need help with my account." }
@@ -24,14 +26,27 @@ const ChatPage = ({ botId, botName, color, avatar, visible, setVisible }) => {
         if (input.trim() === "") return; // Prevent sending empty messages
         setIsLoading(true); // Start loading
         setMessages([...messages, { text: input, isBot: false }]);
-        setInput("");
+        
 
         // Simulate fetching response from the backend
-        setTimeout(() => {
-            // Simulate bot response
-            setMessages(prevMessages => [...prevMessages, { text: "This is a response from the bot.", isBot: true }]);
-            setIsLoading(false); // Stop loading after response
-        }, 2000); // Delay of 2 seconds to mimic backend call
+        axios
+        .post(AUTH_API.QUERY, {'bot_id':botId, 'query':input, 'user_id':userId })
+        .then((response) => {
+          // console.log(response)
+          if (response.status === 200) {
+            const {message} = response.data // Assuming the response contains user data in the expected format
+            setMessages(prevMessages => [...prevMessages, { text: message, isBot: true }]);
+            setIsLoading(false)
+          }
+          setInput("");
+          setIsLoading(false)
+        })
+        .catch((error) => {
+            setInput("");
+          // eslint-disable-next-line no-console
+          console.log("Here >>>>>", error)
+          setIsLoading(false)
+        })
     };
     return (
         <div className={`w-[400px] h-[600px] absolute right-0 bottom-0 border-solid border-2 flex flex-col overflow-auto ${visibleClass}`}>

@@ -19,4 +19,5 @@ export const AUTH_API = {
   UPDATE_KNOWLEDGE_BASE: `${SERVER_API_URL}/update_knowledge_base`,
   GET_CHATBOT: `${SERVER_API_URL}/get_chatbot`,
   UPDATE_CHATBOT: `${SERVER_API_URL}/update_chatbot`,
+  QUERY: `${SERVER_API_URL}/query`,
 }
