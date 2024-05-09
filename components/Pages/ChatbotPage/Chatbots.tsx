@@ -15,10 +15,8 @@ const Chatbots = () => {
   const [botVisible, setBotVisible] = React.useState(false)
   const [botName, setBotName] = React.useState('')
   const [botAvatar, setBotAvatar] = React.useState('')
-  const [botKnowledgeBase, setBotKnowledgeBase] = React.useState('')
   const [botThemeColor, setBotThemeColor] = React.useState('#1976D2')
-  const [botActive, setBotActive] = React.useState(false)
-  const [user_id, setUserId] = React.useState('')
+  const [userId, setUserId] = React.useState('')
   const handleAddRow = () => {
     router.push(`/chatbot/edit?bot=-1`)
   }
@@ -51,7 +49,7 @@ const Chatbots = () => {
     router.push(`/chatbot/edit?bot=${id}`)
   }
   const handleChatClickButton = (id: any) => {
-    const bot = bots.find((bot) => bot.id === id)
+    const bot = bots.find((b) => b.id === id)
     if (!bot.active) {
       toast.warn("This bot is not active yet. Please wait until it is active.", {
         position: toast.POSITION.TOP_RIGHT,
@@ -61,9 +59,7 @@ const Chatbots = () => {
     setBotId(id)
     setBotName(bot.name)
     setBotAvatar(bot.avatar)
-    setBotKnowledgeBase(bot.knowledge_base) // Assuming there's a knowledgeBase property
     setBotThemeColor(bot.color) // Assuming there's a themeColor property
-    setBotActive(bot.active)
     setBotVisible(true)
   }
   if(isLoading) {
@@ -130,7 +126,7 @@ const Chatbots = () => {
         ))}
        
       </div>
-      <ChatbotPage userId={user_id} botId={botId} botName={botName} color={botThemeColor} avatar={botAvatar}  visible={botVisible} setVisible={setBotVisible} />
+      <ChatbotPage userId={userId} botId={botId} botName={botName} color={botThemeColor} avatar={botAvatar}  visible={botVisible} setVisible={setBotVisible} />
       </>
   )
 }

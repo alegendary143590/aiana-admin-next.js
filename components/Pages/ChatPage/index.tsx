@@ -3,11 +3,11 @@ import axios from 'axios'
 import { AUTH_API } from '@/components/utils/serverURL';
 import { Avatar, TextField, Typography, Button, Box, Paper, IconButton, CircularProgress } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { v4 as uuidv4 } from 'uuid'; 
 
 const ChatPage = ({userId, botId, botName, color, avatar, visible, setVisible }) => {
     const [messages, setMessages] = useState([
-        { isBot: true, text: "Hello! How can I assist you today?" },
-        { isBot: false, text: "I need help with my account." }
+        { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
         // Other initial messages...
     ]);
     const [input, setInput] = useState("");
@@ -25,7 +25,7 @@ const ChatPage = ({userId, botId, botName, color, avatar, visible, setVisible })
     const handleSendMessage = () => {
         if (input.trim() === "") return; // Prevent sending empty messages
         setIsLoading(true); // Start loading
-        setMessages([...messages, { text: input, isBot: false }]);
+        setMessages([...messages, {id: uuidv4(), text: input, isBot: false }]);
         
 
         // Simulate fetching response from the backend
@@ -35,7 +35,7 @@ const ChatPage = ({userId, botId, botName, color, avatar, visible, setVisible })
           // console.log(response)
           if (response.status === 200) {
             const {message} = response.data // Assuming the response contains user data in the expected format
-            setMessages(prevMessages => [...prevMessages, { text: message, isBot: true }]);
+            setMessages(prevMessages => [...prevMessages, {id: uuidv4(), text: message, isBot: true }]);
             setIsLoading(false)
           }
           setInput("");
@@ -50,7 +50,7 @@ const ChatPage = ({userId, botId, botName, color, avatar, visible, setVisible })
     };
     return (
         <div className={`w-[400px] h-[600px] absolute right-0 bottom-0 border-solid border-2 flex flex-col overflow-auto ${visibleClass}`}>
-            <Paper elevation={4} className={`relative h-[70px]`} style={{ backgroundColor: color }}>
+            <Paper elevation={4} className="relative h-[70px]" style={{ backgroundColor: color }}>
                 <Box display="flex" justifyContent="space-between" alignItems="center" p={1}>
                     <Box display="flex" alignItems="center">
                         <Avatar src={avatar} alt="bot avatar" />
@@ -64,7 +64,7 @@ const ChatPage = ({userId, botId, botName, color, avatar, visible, setVisible })
             <div className="overflow-auto flex flex-col flex-grow mt-2 mx-1 space-y-2">
                 {messages.map((message, index) => (
                     <Paper
-                        key={index}
+                        key={message.id}
                         elevation={3}
                         className={`p-2 rounded-lg ${message.isBot ? 'bg-blue-500 text-gray-900' : 'bg-gray-200 text-black'} flex items-center ${message.isBot ? '' : 'justify-end'}`}
                         style={{
