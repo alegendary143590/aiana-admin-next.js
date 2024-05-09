@@ -62,7 +62,7 @@ const ChatPage = ({userId, botId, botName, color, avatar, visible, setVisible })
                 </Box>
             </Paper>
             <div className="overflow-auto flex flex-col flex-grow mt-2 mx-1 space-y-2">
-                {messages.map((message, index) => (
+                {messages.map((message) => (
                     <Paper
                         key={message.id}
                         elevation={3}
