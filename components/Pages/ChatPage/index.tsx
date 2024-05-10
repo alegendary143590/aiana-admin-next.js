@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { AUTH_API } from '@/components/utils/serverURL';
-import { Avatar, TextField, Typography, Button, Box, Paper, IconButton, CircularProgress } from '@mui/material';
+import { Avatar, Typography, Button, Box, Paper, IconButton, CircularProgress } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -34,13 +34,13 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         }
     }, [visible]);
 
-    useEffect(() => {
-        scrollToBottom(); // Scroll to bottom whenever messages change
-    }, [messages]);
-
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
+
+    useEffect(() => {
+        scrollToBottom(); // Scroll to bottom whenever messages change
+    }, [messages]);
 
     const handleSendMessage = () => {
         if (input.trim() === "") return;
@@ -69,7 +69,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         if (event.key === 'Enter') {
             if (event.ctrlKey) {
                 event.preventDefault();
-                setInput(prev => prev + "\n"); // Update input state with newline
+                setInput(prev => `${prev}\n`);
             } else {
                 event.preventDefault(); // Prevent the default newline behavior
                 handleSendMessage();
