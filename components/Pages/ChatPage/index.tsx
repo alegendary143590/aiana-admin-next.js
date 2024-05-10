@@ -19,6 +19,18 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
             setVisibleClass("");
         } else {
             setVisibleClass("hidden");
+            
+            axios.post(AUTH_API.DEL_MESSAGE, { bot_id: botId})
+            .then((response) => {
+                if (response.status === 200) {
+                    setMessages([
+                        { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
+                    ])
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         }
     }, [visible]);
 
