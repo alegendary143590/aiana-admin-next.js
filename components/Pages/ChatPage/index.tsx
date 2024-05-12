@@ -22,7 +22,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
             
             axios.post(AUTH_API.DEL_MESSAGE, { bot_id: botId})
             .then((response) => {
-                if (response.status === 200) {
+                if (response.status === 201) {
                     setMessages([
                         { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
                     ])
@@ -47,7 +47,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         setIsLoading(true);
         const newMessage = { id: uuidv4(), text: input, isBot: false };
         setMessages([...messages, newMessage]);
-
+        setInput("");
         axios.post(AUTH_API.QUERY, { bot_id: botId, query: input, user_id: userId })
             .then((response) => {
                 if (response.status === 200) {
