@@ -47,7 +47,8 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         const newMessage = { id: uuidv4(), text: input, isBot: false };
         setMessages([...messages, newMessage]);
         setInput("");
-        axios.post(AUTH_API.QUERY, { bot_id: botId, session_id:sessionId, query: input, user_id: userId })
+        const currentDateAndTime: Date = new Date();
+        axios.post(AUTH_API.QUERY, { bot_id: botId, session_id:sessionId, query: input, user_id: userId, created_at:currentDateAndTime.toISOString() })
             .then((response) => {
                 if (response.status === 200) {
                     const { message, solve } = response.data;
@@ -148,7 +149,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
             )}
             {showForm && (
                 <Paper elevation={4} className="p-4 mt-2">
-                    <Typography variant="h6" gutterBottom>Please provide your email and content</Typography>
+                    <Typography variant="h6" className='text-center' gutterBottom>Please provide your email and content to book a ticket</Typography>
                     <input
                         type="email"
                         placeholder="Email"
