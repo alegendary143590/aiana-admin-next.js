@@ -11,9 +11,14 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
     ]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [isBook, setIsBook] = useState(false)
     const [visibleClass, setVisibleClass] = useState("hidden");
     const messagesEndRef = useRef(null);
     const [sessionId, setSessionId] = useState("");
+    const [showYesNo, setShowYesNo] = useState(false)
+    const [showForm, setShowForm] = useState(false); // State to manage whether to show the form
+    const [email, setEmail] = useState(""); // State to store email input
+    const [content, setContent] = useState(""); // State to store content input
 
     useEffect(() => {
         if (visible) {
@@ -45,9 +50,13 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         axios.post(AUTH_API.QUERY, { bot_id: botId, session_id:sessionId, query: input, user_id: userId })
             .then((response) => {
                 if (response.status === 200) {
-                    const { message } = response.data;
+                    const { message, solve } = response.data;
                     const botResponse = { id: uuidv4(), text: message, isBot: true };
                     setMessages(prevMessages => [...prevMessages, botResponse]);
+                    if (!solve) {
+                        setShowYesNo(true); // Show the form if solve is false
+                        setIsBook(true);
+                    }
                 }
                 setInput("");
                 setIsLoading(false);
@@ -69,6 +78,27 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
                 handleSendMessage();
             }
         }
+    };
+
+    const handleYesClick = () => {
+        setShowForm(true); // Show the form when user clicks "Yes"\
+        setShowYesNo(false);
+    };
+
+    const handleNoClick = () => {
+        setShowYesNo(false);
+        setIsBook(false);
+    };
+
+    const handleCancelClick = () => {
+        setShowForm(false); // Hide the form when user clicks "Cancel"
+        setIsBook(false);
+    };
+
+    const handleOkayClick = () => {
+        // Logic to handle the form submission (e.g., send email and content to backend)
+        setShowForm(false); // Hide the form after submission
+        setIsBook(false);
     };
 
     return (
@@ -110,6 +140,35 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
                 ))}
                 <div ref={messagesEndRef} />
             </div>
+            {showYesNo && (
+                <div className="flex justify-center mt-2">
+                    <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" onClick={handleYesClick}>Yes</Button>
+                    <Button variant="outlined" color="secondary" onClick={handleNoClick}>No</Button>
+                </div>
+            )}
+            {showForm && (
+                <Paper elevation={4} className="p-4 mt-2">
+                    <Typography variant="h6" gutterBottom>Please provide your email and content</Typography>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        className="w-full mb-2 p-2 border border-gray-300 rounded-md"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <textarea
+                        placeholder="Content"
+                        className="w-full mb-2 p-2 border border-gray-300 rounded-md"
+                        rows={4}
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                    />
+                    <div className="flex justify-end">
+                        <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" onClick={handleOkayClick}>Okay</Button>
+                        <Button variant="outlined" color="secondary" onClick={handleCancelClick}>Cancel</Button>
+                    </div>
+                </Paper>
+            )}
             <div className="flex p-2 h-16">
             <style>
                     {`
@@ -133,7 +192,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    disabled={isLoading}
+                    disabled={isLoading || isBook}
                 />
                 <Button variant="contained" color="primary" className="bg-[#1976D2]" onClick={handleSendMessage}>
                     {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Send'}
