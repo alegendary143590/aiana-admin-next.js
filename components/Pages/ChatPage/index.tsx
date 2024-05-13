@@ -13,24 +13,18 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
     const [isLoading, setIsLoading] = useState(false);
     const [visibleClass, setVisibleClass] = useState("hidden");
     const messagesEndRef = useRef(null);
+    const [sessionId, setSessionId] = useState("");
 
     useEffect(() => {
         if (visible) {
             setVisibleClass("");
+            const session = uuidv4().toString();
+            setSessionId(session);
+            setMessages([
+                { id: session, isBot: true, text: "Hello! How can I assist you today?" }
+            ]);
         } else {
             setVisibleClass("hidden");
-            
-            axios.post(AUTH_API.DEL_MESSAGE, { bot_id: botId})
-            .then((response) => {
-                if (response.status === 201) {
-                    setMessages([
-                        { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
-                    ])
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
         }
     }, [visible]);
 
@@ -48,7 +42,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         const newMessage = { id: uuidv4(), text: input, isBot: false };
         setMessages([...messages, newMessage]);
         setInput("");
-        axios.post(AUTH_API.QUERY, { bot_id: botId, query: input, user_id: userId })
+        axios.post(AUTH_API.QUERY, { bot_id: botId, session_id:sessionId, query: input, user_id: userId })
             .then((response) => {
                 if (response.status === 200) {
                     const { message } = response.data;
