@@ -3,6 +3,8 @@ import axios from 'axios';
 import { AUTH_API } from '@/components/utils/serverURL';
 import { Avatar, Typography, Button, Box, Paper, IconButton, CircularProgress } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { ToastContainer, toast } from "react-toastify"
+
 import { v4 as uuidv4 } from 'uuid';
 
 const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }) => {
@@ -97,9 +99,30 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
     };
 
     const handleOkayClick = () => {
+        if (email === "" || content ===""){
+            toast.error("Please provide an email and content!", { position: toast.POSITION.TOP_RIGHT });
+            return;
+        }
         // Logic to handle the form submission (e.g., send email and content to backend)
         setShowForm(false); // Hide the form after submission
         setIsBook(false);
+        axios.post(AUTH_API.BOOK, { user_id: userId, bot_id:botId, email: email, content: content })
+            .then((response) => {
+                if (response.status === 200) {
+                    const { message} = response.data;
+                    if (message === 'success'){
+                        toast.success("Successfully Booked!", { position: toast.POSITION.TOP_RIGHT })
+                    } else {
+                        toast.error("Busy Network! Try again!", { position: toast.POSITION.TOP_RIGHT })
+                    }
+                }
+                setInput("");
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                setInput("");
+                toast.error(error, { position: toast.POSITION.TOP_RIGHT })
+            });
     };
 
     return (
@@ -199,6 +222,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
                     {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Send'}
                 </Button>
             </div>
+            <ToastContainer />
         </div>
     );
 };
