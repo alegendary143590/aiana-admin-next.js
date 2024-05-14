@@ -109,7 +109,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         axios.post(AUTH_API.BOOK, { session_id: sessionId, bot_id:botId, email: email, content: content })
             .then((response) => {
                 if (response.status === 201) {
-                    const { message } = response.data;
+                    const  message  = response.data.message;
                     if (message === 'success'){
                         toast.success("Successfully Booked!", { position: toast.POSITION.TOP_RIGHT })
                     } else {
