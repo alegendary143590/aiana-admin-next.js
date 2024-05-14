@@ -50,8 +50,8 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         setMessages([...messages, newMessage]);
         setInput("");
         const currentDateAndTime = new Date();
-        const created_at = currentDateAndTime.toISOString();
-        axios.post(AUTH_API.QUERY, { botId, sessionId, input, userId, created_at })
+        const createdAt = currentDateAndTime.toISOString();
+        axios.post(AUTH_API.QUERY, { botId, sessionId, input, userId, createdAt })
             .then((response) => {
                 if (response.status === 200) {
                     const { message, solve } = response.data;
