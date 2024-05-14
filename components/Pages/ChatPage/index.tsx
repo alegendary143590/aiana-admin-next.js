@@ -106,21 +106,25 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         // Logic to handle the form submission (e.g., send email and content to backend)
         setShowForm(false); // Hide the form after submission
         setIsBook(false);
-        axios.post(AUTH_API.BOOK, { user_id: userId, bot_id:botId, email: email, content: content })
+        axios.post(AUTH_API.BOOK, { session_id: sessionId, bot_id:botId, email: email, content: content })
             .then((response) => {
-                if (response.status === 200) {
-                    const { message} = response.data;
+                if (response.status === 201) {
+                    const { message } = response.data;
                     if (message === 'success'){
                         toast.success("Successfully Booked!", { position: toast.POSITION.TOP_RIGHT })
                     } else {
                         toast.error("Busy Network! Try again!", { position: toast.POSITION.TOP_RIGHT })
                     }
+                    setEmail("")
+                    setContent("")
                 }
                 setInput("");
                 setIsLoading(false);
             })
             .catch((error) => {
                 setInput("");
+                setEmail("")
+                setContent("")
                 toast.error(error, { position: toast.POSITION.TOP_RIGHT })
             });
     };
