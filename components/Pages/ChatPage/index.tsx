@@ -50,7 +50,8 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         setMessages([...messages, newMessage]);
         setInput("");
         const currentDateAndTime = new Date();
-        axios.post(AUTH_API.QUERY, { bot_id: botId, session_id:sessionId, query: input, user_id: userId, created_at:currentDateAndTime.toISOString() })
+        const created_at = currentDateAndTime.toISOString();
+        axios.post(AUTH_API.QUERY, { botId, sessionId, input, userId, created_at })
             .then((response) => {
                 if (response.status === 200) {
                     const { message, solve } = response.data;
@@ -106,7 +107,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         // Logic to handle the form submission (e.g., send email and content to backend)
         setShowForm(false); // Hide the form after submission
         setIsBook(false);
-        axios.post(AUTH_API.BOOK, { sessionId: sessionId, botId:botId, email: email, content: content })
+        axios.post(AUTH_API.BOOK, { sessionId, botId, email, content })
             .then((response) => {
                 if (response.status === 201) {
                     const  {message}  = response.data;
