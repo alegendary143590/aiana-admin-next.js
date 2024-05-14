@@ -3,6 +3,8 @@ import axios from 'axios';
 import { AUTH_API } from '@/components/utils/serverURL';
 import { Avatar, Typography, Button, Box, Paper, IconButton, CircularProgress } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { ToastContainer, toast } from "react-toastify"
+
 import { v4 as uuidv4 } from 'uuid';
 
 const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }) => {
@@ -11,26 +13,25 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
     ]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [isBook, setIsBook] = useState(false)
     const [visibleClass, setVisibleClass] = useState("hidden");
     const messagesEndRef = useRef(null);
+    const [sessionId, setSessionId] = useState("");
+    const [showYesNo, setShowYesNo] = useState(false)
+    const [showForm, setShowForm] = useState(false); // State to manage whether to show the form
+    const [email, setEmail] = useState(""); // State to store email input
+    const [content, setContent] = useState(""); // State to store content input
 
     useEffect(() => {
         if (visible) {
             setVisibleClass("");
+            const session = uuidv4().toString();
+            setSessionId(session);
+            setMessages([
+                { id: session, isBot: true, text: "Hello! How can I assist you today?" }
+            ]);
         } else {
             setVisibleClass("hidden");
-            
-            axios.post(AUTH_API.DEL_MESSAGE, { bot_id: botId})
-            .then((response) => {
-                if (response.status === 201) {
-                    setMessages([
-                        { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
-                    ])
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
         }
     }, [visible]);
 
@@ -48,12 +49,18 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         const newMessage = { id: uuidv4(), text: input, isBot: false };
         setMessages([...messages, newMessage]);
         setInput("");
-        axios.post(AUTH_API.QUERY, { bot_id: botId, query: input, user_id: userId })
+        const currentDateAndTime = new Date();
+        const createdAt = currentDateAndTime.toISOString();
+        axios.post(AUTH_API.QUERY, { botId, sessionId, input, userId, createdAt })
             .then((response) => {
                 if (response.status === 200) {
-                    const { message } = response.data;
+                    const { message, solve } = response.data;
                     const botResponse = { id: uuidv4(), text: message, isBot: true };
                     setMessages(prevMessages => [...prevMessages, botResponse]);
+                    if (!solve) {
+                        setShowYesNo(true); // Show the form if solve is false
+                        setIsBook(true);
+                    }
                 }
                 setInput("");
                 setIsLoading(false);
@@ -75,6 +82,52 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
                 handleSendMessage();
             }
         }
+    };
+
+    const handleYesClick = () => {
+        setShowForm(true); // Show the form when user clicks "Yes"\
+        setShowYesNo(false);
+    };
+
+    const handleNoClick = () => {
+        setShowYesNo(false);
+        setIsBook(false);
+    };
+
+    const handleCancelClick = () => {
+        setShowForm(false); // Hide the form when user clicks "Cancel"
+        setIsBook(false);
+    };
+
+    const handleOkayClick = () => {
+        if (email === "" || content ===""){
+            toast.error("Please provide an email and content!", { position: toast.POSITION.TOP_RIGHT });
+            return;
+        }
+        // Logic to handle the form submission (e.g., send email and content to backend)
+        setShowForm(false); // Hide the form after submission
+        setIsBook(false);
+        axios.post(AUTH_API.BOOK, { sessionId, botId, email, content })
+            .then((response) => {
+                if (response.status === 201) {
+                    const  {message}  = response.data;
+                    if (message === 'success'){
+                        toast.success("Successfully Booked!", { position: toast.POSITION.TOP_RIGHT })
+                    } else {
+                        toast.error("Busy Network! Try again!", { position: toast.POSITION.TOP_RIGHT })
+                    }
+                    setEmail("")
+                    setContent("")
+                }
+                setInput("");
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                setInput("");
+                setEmail("")
+                setContent("")
+                toast.error(error, { position: toast.POSITION.TOP_RIGHT })
+            });
     };
 
     return (
@@ -116,6 +169,35 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
                 ))}
                 <div ref={messagesEndRef} />
             </div>
+            {showYesNo && (
+                <div className="flex justify-center mt-2">
+                    <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" onClick={handleYesClick}>Yes</Button>
+                    <Button variant="outlined" color="secondary" onClick={handleNoClick}>No</Button>
+                </div>
+            )}
+            {showForm && (
+                <Paper elevation={4} className="p-4 mt-2">
+                    <Typography variant="h6" className='text-center' gutterBottom>Please provide your email and content to book a ticket</Typography>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        className="w-full mb-2 p-2 border border-gray-300 rounded-md"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <textarea
+                        placeholder="Content"
+                        className="w-full mb-2 p-2 border border-gray-300 rounded-md"
+                        rows={4}
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                    />
+                    <div className="flex justify-end">
+                        <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" onClick={handleOkayClick}>Okay</Button>
+                        <Button variant="outlined" color="secondary" onClick={handleCancelClick}>Cancel</Button>
+                    </div>
+                </Paper>
+            )}
             <div className="flex p-2 h-16">
             <style>
                     {`
@@ -139,12 +221,13 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    disabled={isLoading}
+                    disabled={isLoading || isBook}
                 />
                 <Button variant="contained" color="primary" className="bg-[#1976D2]" onClick={handleSendMessage}>
                     {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Send'}
                 </Button>
             </div>
+            <ToastContainer />
         </div>
     );
 };

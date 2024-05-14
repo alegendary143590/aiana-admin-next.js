@@ -21,4 +21,5 @@ export const AUTH_API = {
   UPDATE_CHATBOT: `${SERVER_API_URL}/update_chatbot`,
   QUERY: `${SERVER_API_URL}/query`,
   DEL_MESSAGE: `${SERVER_API_URL}/del_messages`,
+  BOOK: `${SERVER_API_URL}/book`,
 }
