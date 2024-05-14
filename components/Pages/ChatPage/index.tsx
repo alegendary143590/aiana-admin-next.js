@@ -49,7 +49,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         const newMessage = { id: uuidv4(), text: input, isBot: false };
         setMessages([...messages, newMessage]);
         setInput("");
-        const currentDateAndTime: Date = new Date();
+        const currentDateAndTime = new Date();
         axios.post(AUTH_API.QUERY, { bot_id: botId, session_id:sessionId, query: input, user_id: userId, created_at:currentDateAndTime.toISOString() })
             .then((response) => {
                 if (response.status === 200) {
