@@ -217,6 +217,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
                     `}
                 </style>
                 <textarea 
+                    id='input'
                     className="custom-input"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}

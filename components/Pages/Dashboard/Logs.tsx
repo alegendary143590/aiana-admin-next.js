@@ -1,23 +1,74 @@
-import * as React from "react"
+import {useState, useEffect} from "react"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 import Paper from "@mui/material/Paper"
 import Link from "@mui/material/Link"
 import { Typography } from "@mui/material"
 import BackArrow from "@mui/icons-material/ArrowBack"
+import axios from "axios"
+import { AUTH_API } from "@/components/utils/serverURL"
+import formatDateString from "@/components/utils/common"
 
-const Logs = () => {
-  console.log("here is log")
+const Logs = ({session}) => {
+  const INITIAL_BOT_OBJ = {
+    bot_name: "",
+    greetings: "Hello! How can I assist you today?",
+    avatar: "",
+    start_time: "",
+  }
+  const [isLoading, setIsLoading] = useState(false);
+  const [bot, setBot] = useState(INITIAL_BOT_OBJ)
+  const [conversation, setConversation] = useState([])
+
+  useEffect(() => {
+    if (session !== undefined) {
+      setIsLoading(true)
+      axios
+        .post(AUTH_API.GET_LOG_DATA, { session })
+        .then((response) => {
+          if (response.data && response.data.log) {
+            console.log(response.data)
+            // Assuming log contains keys like bot_name and created_at
+            const updatedBot = {
+              ...INITIAL_BOT_OBJ,
+              bot_name: response.data.log.bot_name || INITIAL_BOT_OBJ.bot_name,
+              start_time: formatDateString(response.data.log.created_at || INITIAL_BOT_OBJ.start_time),
+              avatar: response.data.log.avatar || INITIAL_BOT_OBJ.avatar,
+              greetings: response.data.log.greetings || INITIAL_BOT_OBJ.greetings,
+
+              // Add more mappings as needed based on the structure of response.data.log
+            };
+            setBot(updatedBot);
+          }
+          if (response.data && response.data.conversation){
+            setConversation(response.data.conversation)
+          }
+          setIsLoading(false)
+        })
+        .catch((error) => {
+          // eslint-disable-next-line no-console
+          console.log("Here >>>>>", error)
+          setIsLoading(false)
+        })
+    }
+  }, [session])
+
+  if(isLoading){
+    return (
+      <div>Loading...</div>
+    )
+  }
   return (
     <>
       <div className="w-full h-[50px] relative flex items-center justify-start text-black_8 pt-[20px] mb-[10px] text-[20px]">
-        Chat log 15:30 24/03/2025
-        <Typography
-          className={`m-0 bg-[#33a186] ml-5
-            rounded-[5px] px-2 text-white inline-block text-[12px]`}
+      <Typography
+          className={`m-0 ml-5
+             px-2 text-black inline-block text-[24px]`}
         >
-          Resolved
+          ChatLog
         </Typography>
+        {bot.start_time}
+        
         <Link
           underline="none"
           href="/dashboard"
@@ -39,31 +90,53 @@ const Logs = () => {
                     alt="avatar"
                   />
                   <div>
-                    <Typography className="font-bold text-black">Laura</Typography>
+                    <Typography className="font-bold text-black">{bot.bot_name}</Typography>
                     <Typography className="text-[14px] text-gray-600">
-                      Hi, Ask me anything and I will help you further.
+                      {bot.greetings}
                     </Typography>
                   </div>
                 </div>
-                <Typography>15:30 24/03/2025</Typography>
+                <Typography>{bot.start_time}</Typography>
               </div>
 
-              <div className="flex flex-row justify-between w-full pl-10">
-                <div className="flex flex-row ">
-                  <img
-                    src="/images/face.png"
-                    className="w-[30px] h-[30px] rounded-[50px] mr-4 mt-1"
-                    alt="avatar"
-                  />
-                  <div>
-                    <Typography className="font-bold text-black">Website visitor</Typography>
-                    <Typography className="text-[14px] text-gray-600">
-                      Hi, Ask me anything and I will help you further.
-                    </Typography>
+              {conversation.map((conv)=>(
+                <div key={conv.id} className="flex flex-col w-full">
+                <div className="flex flex-row justify-between w-full pl-10">
+                  <div className="flex flex-row items-center gap-2">
+                    <img
+                      src="/images/face.png"
+                      className="w-[30px]! h-[30px]! rounded-full mr-4 mt-1" // Changed rounded-[50px] to rounded-full for better clarity
+                      alt="avatar"
+                    />
+                    <div>
+                      <Typography className="font-bold text-black">Website visitor</Typography>
+                      <Typography className="text-[14px] text-gray-600">
+                        {conv.user_message}
+                      </Typography>
+                    </div>
                   </div>
+                  <Typography>{formatDateString(conv.created_at)}</Typography>
                 </div>
-                <Typography>15:32</Typography>
+                <div className="flex flex-row justify-between w-full pl-10 mt-2">
+                  <div className="flex flex-row items-center gap-2 w-[70%]">
+                    <img
+                      src="/images/users/avatar-2.jpg"
+                      className="w-[30px] h-[30px] rounded-full mr-4 mt-1" // Changed rounded-[50px] to rounded-full for better clarity
+                      alt="avatar"
+                    />
+                    <div>
+                      <Typography className="font-bold text-black">{bot.bot_name}</Typography>
+                      <Typography className="text-[14px] text-gray-600">
+                        {conv.response}
+                      </Typography>
+                    </div>
+                  </div>
+                  <Typography>{formatDateString(conv.created_at)}</Typography>
+                </div>
               </div>
+              
+                
+              ))}
             </ListItem>
           </List>
         </Paper>

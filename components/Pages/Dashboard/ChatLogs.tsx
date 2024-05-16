@@ -1,4 +1,4 @@
-import * as React from "react"
+import { useState, useEffect} from "react"
 import { styled } from "@mui/material/styles"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
@@ -7,8 +7,9 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
-import { Typography } from "@mui/material"
+import { AUTH_API } from "@/components/utils/serverURL"
 import router from "next/router"
+import axios from "axios"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -23,7 +24,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }))
 
-const Users = () => {
+const ChatLogs = () => {
+  const [userID, setUserID] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [chatLog, setChatLog] = useState([]);
+
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     "&:nth-of-type(odd)": {
       backgroundColor: theme.palette.action.hover,
@@ -34,18 +39,36 @@ const Users = () => {
     },
   }))
 
-  function createData(id: number, name: string, result: string, start: string, end: string) {
-    return { id, name, result, start, end }
+  useEffect(() => {
+    setUserID(localStorage.getItem("userID"))
+    if (userID !== "") {
+      setIsLoading(true)
+      axios
+        .post(AUTH_API.GET_CHAT, { userID })
+        .then((response) => {
+          // console.log(response)
+          if (response.status === 200) {
+            const chatLogs = response.data // Assuming the response contains user data in the expected format
+            setChatLog(chatLogs);
+          }
+          setIsLoading(false)
+        })
+        .catch((error) => {
+          // eslint-disable-next-line no-console
+          console.log(error)
+          setIsLoading(false)
+        })
+    }
+  }, [userID])
+
+  const handleRowClick = (sessionId) => {
+    router.push(`/log/log?sessionId=${sessionId}`);
   }
 
-  const rows = [
-    createData(1, "Laura", "Resolved", "15:05 21/03/2024", "15:11 21/03/2024"),
-    createData(2, "Laura", "E-mail sent", "15:05 21/03/2024", "15:11 21/03/2024"),
-    createData(3, "Laura", "Resolved", "15:05 21/03/2024", "15:11 21/03/2024"),
-  ]
-
-  const handleRowClick = () => {
-    router.push("/log")
+  if (isLoading) {
+    return (
+      <div>Loading...</div>
+    )
   }
 
   return (
@@ -60,24 +83,23 @@ const Users = () => {
               <StyledTableCell>Start</StyledTableCell>
               <StyledTableCell align="center">End</StyledTableCell>
               <StyledTableCell align="center">Chatbot</StyledTableCell>
-              <StyledTableCell align="center">Result</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.id} onClick={handleRowClick}>
-                <StyledTableCell align="center">{row.start}</StyledTableCell>
-                <StyledTableCell align="center">{row.end}</StyledTableCell>
-                <StyledTableCell align="center">{row.name}</StyledTableCell>
-                <StyledTableCell align="center">
+            {chatLog.map((row) => (
+              <StyledTableRow key={row.id} onClick={()=>handleRowClick(row.session_id)}>
+                <StyledTableCell align="center">{row.created_at}</StyledTableCell>
+                <StyledTableCell align="center">{row.ended_at}</StyledTableCell>
+                <StyledTableCell align="center">{row.bot_name}</StyledTableCell>
+                {/* <StyledTableCell align="center">
                   <Typography
                     className={`m-0 ${
                       row.result === "Resolved" ? "bg-[#33a186]" : "bg-sky-400"
                     }  rounded-[5px] px-2 text-white inline-block text-[12px]`}
                   >
                     {row.result}
-                  </Typography>
-                </StyledTableCell>
+                  </Typography> */}
+                {/* </StyledTableCell> */}
               </StyledTableRow>
             ))}
           </TableBody>
@@ -87,4 +109,4 @@ const Users = () => {
   )
 }
 
-export default Users
+export default ChatLogs

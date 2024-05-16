@@ -1,10 +1,10 @@
 import Layout from "../../Layout"
-import Users from "./Users"
+import ChatLogs from "./ChatLogs"
 
 const DashboardPage = () => (
   <Layout type="admin">
     <div className="px-[20px] py-[20px] w-full h-full flex flex-col">
-      <Users />
+      <ChatLogs />
     </div>
   </Layout>
 )
