@@ -3,10 +3,10 @@ import Chatlog from "@/components/Pages/Dashboard/Chatlog"
 
 const Log = () => {
     const router = useRouter()
-    const { session_id } = router.query;
-    console.log("[log] page session_id is >>>>",session_id)
+    const { sessionId } = router.query;
+    console.log("[log] page session_id is >>>>",sessionId)
     return (
-        <Chatlog session={session_id}/>
+        <Chatlog session={sessionId}/>
     )
 }
 
