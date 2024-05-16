@@ -107,7 +107,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         // Logic to handle the form submission (e.g., send email and content to backend)
         setShowForm(false); // Hide the form after submission
         setIsBook(false);
-        axios.post(AUTH_API.BOOK, { sessionId, botId, email, content })
+        axios.post(AUTH_API.BOOK, { userId, sessionId, botId, email, content })
             .then((response) => {
                 if (response.status === 201) {
                     const  {message}  = response.data;

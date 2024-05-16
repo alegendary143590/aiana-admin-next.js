@@ -24,4 +24,6 @@ export const AUTH_API = {
   BOOK: `${SERVER_API_URL}/book`,
   GET_CHAT: `${SERVER_API_URL}/get_chat`,
   GET_LOG_DATA: `${SERVER_API_URL}/get_log_data`,
+  GET_TICKETS: `${SERVER_API_URL}/get_tickets`,
+  DEL_TICKET: `${SERVER_API_URL}/del_ticket`,
 }
