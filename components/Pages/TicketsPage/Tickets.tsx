@@ -9,7 +9,6 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
 import { AUTH_API } from "@/components/utils/serverURL"
-import router from "next/router"
 import axios from "axios"
 import formatDateString from '@/components/utils/common'
 import { Button } from "@mui/material"
@@ -85,7 +84,7 @@ const Tickets = () => {
             })
             .catch((error) => {
               // eslint-disable-next-line no-console
-              toast.error("Failed Deleting!", { position: toast.POSITION.TOP_RIGHT })
+              toast.error(error, { position: toast.POSITION.TOP_RIGHT })
             })
     }
 
