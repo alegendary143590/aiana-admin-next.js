@@ -22,4 +22,6 @@ export const AUTH_API = {
   QUERY: `${SERVER_API_URL}/query`,
   DEL_MESSAGE: `${SERVER_API_URL}/del_messages`,
   BOOK: `${SERVER_API_URL}/book`,
+  GET_CHAT: `${SERVER_API_URL}/get_chat`,
+  GET_LOG_DATA: `${SERVER_API_URL}/get_log_data`,
 }
