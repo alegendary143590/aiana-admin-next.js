@@ -91,15 +91,7 @@ const ChatLogs = () => {
                 <StyledTableCell align="center">{row.created_at}</StyledTableCell>
                 <StyledTableCell align="center">{row.ended_at}</StyledTableCell>
                 <StyledTableCell align="center">{row.bot_name}</StyledTableCell>
-                {/* <StyledTableCell align="center">
-                  <Typography
-                    className={`m-0 ${
-                      row.result === "Resolved" ? "bg-[#33a186]" : "bg-sky-400"
-                    }  rounded-[5px] px-2 text-white inline-block text-[12px]`}
-                  >
-                    {row.result}
-                  </Typography> */}
-                {/* </StyledTableCell> */}
+           
               </StyledTableRow>
             ))}
           </TableBody>

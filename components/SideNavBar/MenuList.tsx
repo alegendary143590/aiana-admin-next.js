@@ -3,6 +3,7 @@ import { useSideMenu } from "@/providers/SideMenuProvider"
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined"
 import LightbulbIcon from "@mui/icons-material/Lightbulb"
 import ChatIcon from "@mui/icons-material/Chat"
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
 const MenuList = ({ open }) => {
   const { push } = useRouter()
@@ -17,6 +18,7 @@ const MenuList = ({ open }) => {
     dashboardActive,
     createActive,
     knowledgeActive,
+    ticketsActive,
   } = useSideMenu()
 
   return (
@@ -114,6 +116,30 @@ const MenuList = ({ open }) => {
             style={{ fontSize: "18px", color: "#3980c0" }}
           >
             Logs
+          </p>
+        </div>
+      </button>
+      <button
+        type="button"
+        className="flex justify-center items-center w-full h-full"
+        // className={profileActive ? navActiveContainerClasses : navContainerClasses}
+        onClick={() => push("/tickets")}
+        style={{ height: "60px", marginBottom: "5px" }}
+      >
+        <div
+          className={`${
+            ticketsActive ? navActiveContainerClasses : navContainerClasses
+          } flex items-center justify-start`}
+          style={{ width: "230px", margin: "5px", borderRadius: "5px" }}
+        >
+          <div className={ticketsActive ? iconActiveClasses : iconClasses}>
+            <AssignmentIcon />
+          </div>
+          <p
+            className={`${open ? navClasses : "hidden"} ml-3 mb-1`}
+            style={{ fontSize: "18px", color: "#3980c0" }}
+          >
+            Tickets
           </p>
         </div>
       </button>

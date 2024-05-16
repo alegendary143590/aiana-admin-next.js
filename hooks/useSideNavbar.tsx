@@ -23,6 +23,7 @@ const useSideNavbar = () => {
   const profileActive = pathname.includes("/admin")
   const knowledgeActive = pathname.includes("/knowledge")
   const reviewsActive = pathname.includes("/reviews")
+  const ticketsActive = pathname.includes("/tickets")
   const sessionRequestsActive = pathname.includes("/session-requests")
   const projectRequestsActive = pathname.includes("/project-requests")
   const requestActive = sessionRequestsActive || projectRequestsActive
@@ -44,6 +45,7 @@ const useSideNavbar = () => {
     createActive,
     reviewsActive,
     requestActive,
+    ticketsActive,
     sessionRequestsActive,
     projectRequestsActive,
     activeProjectsActive,
