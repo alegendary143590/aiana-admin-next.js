@@ -61,8 +61,8 @@ const ChatLogs = () => {
     }
   }, [userID])
 
-  const handleRowClick = (session_id) => {
-    router.push(`/log/log?sessionId=${session_id}`);
+  const handleRowClick = (sessionId) => {
+    router.push(`/log/log?sessionId=${sessionId}`);
   }
 
   if (isLoading) {

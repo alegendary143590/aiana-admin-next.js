@@ -223,7 +223,6 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
                     disabled={isLoading || isBook}
-                    autoFocus={true}
                 />
                 <Button variant="contained" color="primary" className="bg-[#1976D2]" onClick={handleSendMessage}>
                     {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Send'}
