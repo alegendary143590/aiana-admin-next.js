@@ -394,6 +394,7 @@ function EmailPasswordForm() {
         </Container>
       </Box>
       {/* <ErrorAlert text={errorMessage} visibility={errorMessage !== ""} /> */}
+      <ToastContainer />
     </Container>
   )
 }
