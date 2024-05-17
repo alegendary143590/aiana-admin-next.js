@@ -36,7 +36,16 @@ const ChatBot = ({ userId, botId }) => {
       setIsVisible(!isVisible);  // Toggle the visibility state
     };
 
+    // function base64Decode(value) {
+    //     return decodeURIComponent(atob(value));
+    //   }
+    
+    //   const decodedUserId = userId ? base64Decode(userId) : null;
+    //   const decodedBotId = botId ? base64Decode(botId) : null;
+
     useEffect(() => {
+        console.log("userID>>", userId);
+        console.log("botId>>>", botId);
         if (isVisible) {
             setVisibleClass("");
             const session = uuidv4().toString();
@@ -169,11 +178,11 @@ const ChatBot = ({ userId, botId }) => {
     };
 
   return (
-    <div style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: '1000' }}>
+    <div style={{ position: 'fixed', bottom: '10px', right: '10px', zIndex: '1000', borderRadius:'5px' }}>
         
     {isVisible ? (
         <div 
-            className={`border-solid border-2 flex flex-col overflow-auto ${visibleClass}`}
+            className={`flex flex-col overflow-auto ${visibleClass}`}
             style={{
             height: '600px',
             width: '400px',
@@ -183,16 +192,16 @@ const ChatBot = ({ userId, botId }) => {
             overflow: 'hidden',
             }}>
             <div className='w-full h-full flex flex-col flex-grow'>
-            <Paper elevation={4} className={`relative h-[70px] flex items-center w-full bg-[${bot.color}]`}>
-            <Box display="flex" justifyContent="space-between" alignItems="center" p={1} className="w-full">
-                <Box display="flex" alignItems="center" className="h-full">
-                    <Avatar src={bot.avatar} alt="bot avatar" />
-                    <Typography variant="body1" ml={1}>{bot.name}</Typography>
+            <Paper elevation={4} className={`relative h-[70px] flex items-center w-full `} style={{ backgroundColor: bot.color || '#fff', borderRadius:'0px' }}>
+                <Box display="flex" justifyContent="space-between" alignItems="center" p={1} className="w-full bg-none">
+                    <Box display="flex" alignItems="center" className="h-full">
+                        <Avatar src={bot.avatar} alt="bot avatar" />
+                        <Typography variant="body1" ml={1}>{bot.name}</Typography>
+                    </Box>
+                    <IconButton onClick={() => setIsVisible(!isVisible)}>
+                        <KeyboardArrowDownIcon />
+                    </IconButton>
                 </Box>
-                <IconButton onClick={() => setIsVisible(!isVisible)}>
-                    <KeyboardArrowDownIcon />
-                </IconButton>
-            </Box>
             </Paper>
             <div className="overflow-auto flex flex-col flex-grow mt-2 mx-1 space-y-2">
                 {messages.map((message) => (

@@ -5,14 +5,14 @@
     var userId = scriptTag.getAttribute('data-user-id');
     var botId = scriptTag.getAttribute('data-bot-id');
   
-    var src = "http://localhost:3000/chatbot?userId=" + encodeURIComponent(userId) + "&botId=" + encodeURIComponent(botId);
+    var src = "http://localhost:3000/embedding?userId=" + encodeURIComponent(userId) + "&botId=" + encodeURIComponent(botId);
   
     var iframe = document.createElement('iframe');
     iframe.src = src;
-    iframe.width = "400";
-    iframe.height = "600";
+    iframe.width = "410";
+    iframe.height = "610";
     iframe.frameBorder = "0";
-    iframe.style = "position: fixed; bottom: 20px; right: 20px;"; // Example positioning
+    iframe.style = "position: fixed; bottom: 10px; right: 10px;"; // Example positioning
   
     document.body.appendChild(iframe);
   })();
