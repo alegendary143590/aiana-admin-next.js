@@ -1,16 +1,26 @@
-import React, { useEffect, useState, useRef } from 'react';
+import {useState, useEffect, useRef} from 'react'
 import axios from 'axios';
 import { AUTH_API } from '@/components/utils/serverURL';
 import { Avatar, Typography, Button, Box, Paper, IconButton, CircularProgress } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ToastContainer, toast } from "react-toastify"
-
 import { v4 as uuidv4 } from 'uuid';
 
-const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }) => {
+const ChatBot = ({ userId, botId }) => {
+
+    const INITIAL_BOT_OBJ = {
+        id: "",
+        name: "",
+        avatar: "",
+        color: "",
+    }
+
     const [messages, setMessages] = useState([
         { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
     ]);
+
+    const [isVisible, setIsVisible] = useState(false)
+    const [bot, setBot] = useState(INITIAL_BOT_OBJ);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isBook, setIsBook] = useState(false)
@@ -22,8 +32,12 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
     const [email, setEmail] = useState(""); // State to store email input
     const [content, setContent] = useState(""); // State to store content input
 
+    const toggleChatbot = () => {
+      setIsVisible(!isVisible);  // Toggle the visibility state
+    };
+
     useEffect(() => {
-        if (visible) {
+        if (isVisible) {
             setVisibleClass("");
             const session = uuidv4().toString();
             setSessionId(session);
@@ -33,7 +47,31 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         } else {
             setVisibleClass("hidden");
         }
-    }, [visible]);
+    }, [isVisible]);
+
+    useEffect(()=> {
+        const requestOptions = {
+            headers: new Headers({
+            'Content-Type': 'application/json',
+            'ngrok-skip-browser-warning': "1",
+            })
+        };
+        if (botId) {
+        setIsLoading(true)
+
+        fetch(`${AUTH_API.GET_CHATBOT}?botId=${botId}`, requestOptions)
+        .then(response => response.json())
+        .then(data => {
+        setBot({id:data.id, name:data.name, avatar:data.avatar, color:data.color})
+            console.log(data);
+            setIsLoading(false);
+        })
+        .catch(error => {
+            console.error('Error fetching knowledge bases:', error);
+            setIsLoading(false);
+        });
+        }
+    }, [botId])
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -130,18 +168,31 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
             });
     };
 
-    return (
-        <div className={`w-[400px] h-[600px] absolute right-0 bottom-0 border-solid border-2 flex flex-col overflow-auto ${visibleClass}`}>
-            <Paper elevation={4} className="relative h-[70px] flex items-center" style={{ backgroundColor: color }}>
-                <Box display="flex" justifyContent="space-between" alignItems="center" className="w-full" p={1}>
-                    <Box display="flex" alignItems="center">
-                        <Avatar src={avatar} alt="bot avatar" />
-                        <Typography variant="body1" ml={1}>{botName}</Typography>
-                    </Box>
-                    <IconButton onClick={() => setVisible(!visible)}>
-                        <KeyboardArrowDownIcon />
-                    </IconButton>
+  return (
+    <div style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: '1000' }}>
+        
+    {isVisible ? (
+        <div 
+            className={`border-solid border-2 flex flex-col overflow-auto ${visibleClass}`}
+            style={{
+            height: '600px',
+            width: '400px',
+            backgroundColor: 'white',
+            border: '1px solid #ccc',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            overflow: 'hidden',
+            }}>
+            <div className='w-full h-full flex flex-col flex-grow'>
+            <Paper elevation={4} className={`relative h-[70px] flex items-center w-full bg-[${bot.color}]`}>
+            <Box display="flex" justifyContent="space-between" alignItems="center" p={1} className="w-full">
+                <Box display="flex" alignItems="center" className="h-full">
+                    <Avatar src={bot.avatar} alt="bot avatar" />
+                    <Typography variant="body1" ml={1}>{bot.name}</Typography>
                 </Box>
+                <IconButton onClick={() => setIsVisible(!isVisible)}>
+                    <KeyboardArrowDownIcon />
+                </IconButton>
+            </Box>
             </Paper>
             <div className="overflow-auto flex flex-col flex-grow mt-2 mx-1 space-y-2">
                 {messages.map((message) => (
@@ -199,7 +250,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
                 </Paper>
             )}
             <div className="flex p-2 h-16">
-            <style>
+                <style>
                     {`
                     .custom-input {
                         width: 100%;
@@ -211,7 +262,6 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
                         box-sizing: border-box;
                     }
                     .custom-input:focus {
-                        border: none;
                         box-shadow: none;
                     }
                     `}
@@ -228,9 +278,26 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
                     {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Send'}
                 </Button>
             </div>
-            <ToastContainer />
+            </div>
+                
         </div>
-    );
-};
+        ) : (
+        <button type='button' onClick={toggleChatbot} style={{
+            cursor: 'pointer',
+            width: '50px',
+            height: '50px',
+            borderRadius: '50%',
+            background: 'blue',
+            color: 'white',
+            fontSize: '24px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+        }}>+</button>
+        )}
+        <ToastContainer />      
+    </div>
+  )
+}
 
-export default ChatPage;
+export default ChatBot
