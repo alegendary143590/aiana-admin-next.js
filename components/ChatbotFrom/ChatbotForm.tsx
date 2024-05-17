@@ -97,13 +97,13 @@ const ChatbotForm = ({ bot }) => {
           setIsLoading(false);
         });
     }
-    if (bot!=='-1') {
+    if (bot!=='-1'&&bot) {
       setIsLoading(true);
 
       fetch(`${AUTH_API.GET_CHATBOT}?botId=${bot}`, requestOptions)
         .then(response => response.json())
         .then(data => {
-          console.log("Bot info >>>>.>",data)
+          console.log("Bot info >>>>>",data)
           setName(data.name)
           setActive(data.active)
           setKnowleBase(data.knowledge_base)
@@ -321,9 +321,9 @@ const ChatbotForm = ({ bot }) => {
             </Typography>
             <Autocomplete
               disablePortal
-              value={knowledgeBase}
+              value={knowledgeBase?knowledgeBase:''}
               id="knowledge_base"
-              options={knowledgeBases}
+              options={knowledgeBases?knowledgeBases:[]}
               onChange={(_, value) => handleKnowledgeBaseChange(value)}
               sx={{ width: 300 }}
               renderInput={(params) => <TextField {...params} />}

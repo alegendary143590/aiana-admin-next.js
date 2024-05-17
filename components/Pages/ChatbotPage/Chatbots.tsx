@@ -36,6 +36,8 @@ const Chatbots = () => {
         .then(response => response.json())
         .then(data => {
           setBots(data);
+          console.log(data)
+          setBotId(data[0]['id'])
           console.log(data);
           setIsLoading(false);
         })

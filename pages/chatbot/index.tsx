@@ -1,7 +1,7 @@
 import ChatbotPage from "@/components/Pages/ChatbotPage"
 
-const Chatbot = () => (
+const Chatbots = () => (
     <ChatbotPage />
 )
 
-export default Chatbot
+export default Chatbots
