@@ -62,7 +62,7 @@ const ChatBot = ({ userId, botId }) => {
         fetch(`${AUTH_API.GET_CHATBOT}?botId=${botId}`, requestOptions)
         .then(response => response.json())
         .then(data => {
-        setBot({id:data['id'], name:data['name'], avatar:data['avatar'], color:data['color']})
+        setBot({id:data.id, name:data.name, avatar:data.avatar, color:data.color})
             console.log(data);
             setIsLoading(false);
         })
@@ -173,7 +173,7 @@ const ChatBot = ({ userId, botId }) => {
         
     {isVisible ? (
         <div 
-            className='border-solid border-2 flex flex-col overflow-auto'
+            className={`border-solid border-2 flex flex-col overflow-auto ${visibleClass}`}
             style={{
             height: '600px',
             width: '400px',
@@ -282,7 +282,7 @@ const ChatBot = ({ userId, botId }) => {
                 
         </div>
         ) : (
-        <button onClick={toggleChatbot} style={{
+        <button type='button' onClick={toggleChatbot} style={{
             cursor: 'pointer',
             width: '50px',
             height: '50px',

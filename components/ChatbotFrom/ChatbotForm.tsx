@@ -321,9 +321,9 @@ const ChatbotForm = ({ bot }) => {
             </Typography>
             <Autocomplete
               disablePortal
-              value={knowledgeBase?knowledgeBase:''}
+              value={knowledgeBase || ""}
               id="knowledge_base"
-              options={knowledgeBases?knowledgeBases:[]}
+              options={knowledgeBases||[]}
               onChange={(_, value) => handleKnowledgeBaseChange(value)}
               sx={{ width: 300 }}
               renderInput={(params) => <TextField {...params} />}

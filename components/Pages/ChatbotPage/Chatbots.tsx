@@ -37,7 +37,7 @@ const Chatbots = () => {
         .then(data => {
           setBots(data);
           console.log(data)
-          setBotId(data[0]['id'])
+          setBotId(data[0].id)
           console.log(data);
           setIsLoading(false);
         })
