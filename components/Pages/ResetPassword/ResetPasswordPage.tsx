@@ -7,7 +7,6 @@ import {
   TextField,
   Button,
   Typography,
-  Link,
 } from "@mui/material"
 import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
@@ -20,10 +19,11 @@ const ResetPasswordPage = () => {
   const handleSaveButtonClick = () => {
     if( password ==="" || confirmPassword ===""){
       toast.warn("Please enter a new password and confirm password!", { position: toast.POSITION.TOP_RIGHT });
-      return;
+      return false;
     }
     if (password !== confirmPassword) {
       toast.error("Passwords are not match!", { position: toast.POSITION.TOP_RIGHT });
+      return false;
     }
 
     axios
@@ -33,13 +33,18 @@ const ResetPasswordPage = () => {
           // console.log("Login  >>>>>>>>>", data.userID);
           localStorage.setItem("userID", data.userID);
           router.push("/admin");
-          return;
+          return true;
         }
+
         console.log(data.error);
         alert("Invalid credentials!");
+        return false;
+
       })
       .catch(() => {
         toast.error("Invalid email or password!", { position: toast.POSITION.TOP_RIGHT });
+        return false;
+
       });
     return true;
   };
