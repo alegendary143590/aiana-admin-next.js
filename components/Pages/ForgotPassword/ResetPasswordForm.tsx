@@ -18,10 +18,18 @@ const ResetPasswordForm = () => {
 
   const handleSendButton = () => {
     if (email !== "") {
+
+      const requestOptions = {
+        headers: {
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': "1",
+        }
+      };
+      
       axios
         .post(AUTH_API.FORGOT_PASSWORD, {
           email,
-        })
+        }, requestOptions)
         .then((response) => {
           // console.log(response)
           if (response.status === 201) {
