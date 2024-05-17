@@ -32,8 +32,8 @@ const ResetPasswordForm = () => {
         }, requestOptions)
         .then((response) => {
           // console.log(response)
-          if (response.status === 201) {
-            toast.success("Reset link sent", { position: toast.POSITION.TOP_RIGHT })
+          if (response.status === 200) {
+            toast.success("Check your email.  Sent the reset password link!", { position: toast.POSITION.TOP_RIGHT })
           }
         })
         .catch((error) => {

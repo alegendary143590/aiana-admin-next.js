@@ -39,7 +39,7 @@ function EmailPasswordForm() {
   const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
 
   const handleInputChange = (id, value) => {
-    console.log(id, value)
+    // console.log(id, value)
     setFormState((prevState) => ({
       ...prevState,
       [id]: value,
@@ -49,7 +49,7 @@ function EmailPasswordForm() {
   const handleAuth = () => {
     setErrorMessage("")
     const validationerror = validateForm(formState)
-    console.log(validationerror)
+    // console.log(validationerror)
     if (validationerror !== "") {
       console.log(validationerror)
       setErrorMessage(validationerror)
@@ -57,8 +57,15 @@ function EmailPasswordForm() {
       return false
     }
 
+    const requestOptions = {
+      headers: {
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': "1",
+      }
+    };
+
     axios
-      .post(AUTH_API.REGISTER, formState)
+      .post(AUTH_API.REGISTER, formState, requestOptions)
       .then((response) => {
         console.log(response)
         if (response.status === 201) {

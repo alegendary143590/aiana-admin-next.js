@@ -217,9 +217,8 @@ const ChatBot = ({ userId, botId }) => {
                     >
                         <Box className={`flex items-center gap-2 ${message.isBot ? '' : 'flex-row-reverse'}`}>
                             <Avatar
-                                src={message.isBot ? "https://docs.material-tailwind.com/img/face-2.jpg" : "/images/users/avatar-1.jpg"}
+                                src={message.isBot ? bot.avatar : "/images/users/avatar-1.jpg"}
                                 alt="avatar"
-                                className="relative mr-2"
                             />
                             <Typography variant="body2" className="flex-grow" style={{ textAlign: message.isBot ? 'left' : 'right' }}>
                                 {message.text}
