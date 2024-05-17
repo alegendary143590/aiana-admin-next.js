@@ -17,6 +17,7 @@ import CustomSelect from "../../CustomSelect"
 import Country from "../../country"
 import Language from "../../Language"
 import { validateForm } from "./validation"
+import { toast, ToastContainer } from "react-toastify"
 
 function EmailPasswordForm() {
   const INITIAL_REGISTER_OBJ = {
@@ -76,6 +77,9 @@ function EmailPasswordForm() {
         alert(errorMessage)
       })
       .catch((error) => {
+        if(error.status=== 409){
+          toast.error("Email already exists!", { position:toast.POSITION.TOP_RIGHT })
+        }
         console.log(error)
       })
     return true
