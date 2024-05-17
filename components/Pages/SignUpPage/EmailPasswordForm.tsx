@@ -11,6 +11,7 @@ import {
 } from "@mui/material"
 import axios from "axios"
 import router from "next/router"
+import { toast, ToastContainer } from "react-toastify"
 
 import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSelect from "../../CustomSelect"
@@ -76,6 +77,9 @@ function EmailPasswordForm() {
         alert(errorMessage)
       })
       .catch((error) => {
+        if(error.status=== 409){
+          toast.error("Email already exists!", { position:toast.POSITION.TOP_RIGHT })
+        }
         console.log(error)
       })
     return true
@@ -390,6 +394,7 @@ function EmailPasswordForm() {
         </Container>
       </Box>
       {/* <ErrorAlert text={errorMessage} visibility={errorMessage !== ""} /> */}
+      <ToastContainer />
     </Container>
   )
 }
