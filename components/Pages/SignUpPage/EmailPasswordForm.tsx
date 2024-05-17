@@ -11,13 +11,13 @@ import {
 } from "@mui/material"
 import axios from "axios"
 import router from "next/router"
+import { toast, ToastContainer } from "react-toastify"
 
 import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSelect from "../../CustomSelect"
 import Country from "../../country"
 import Language from "../../Language"
 import { validateForm } from "./validation"
-import { toast, ToastContainer } from "react-toastify"
 
 function EmailPasswordForm() {
   const INITIAL_REGISTER_OBJ = {
