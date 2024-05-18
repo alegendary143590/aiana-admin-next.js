@@ -101,7 +101,7 @@ const Tickets = () => {
     return (
         <div>
             <div className="w-full h-[50px] flex items-center justify-start text-black_8 font-bold pt-[20px] mb-[10px] text-[20px]">
-                Chat logs
+                Tickets
             </div>
             <TableContainer component={Paper} className="p-5">
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
