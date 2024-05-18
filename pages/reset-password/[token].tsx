@@ -1,8 +1,23 @@
-// pages/reset-password/[token].js
+'use client!'
 import ResetPassword from '@/components/Pages/ResetPassword';
+import { useToken } from '@/providers/TokenContext';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
-// import { useRouter } from 'next/router';
+const ResetPass = () => {
+    const router = useRouter();
+    const { token } = router.query;
+    const { setToken } = useToken();
 
-const ResetPass = () => <ResetPassword />;
+    useEffect(() => {
+        if (token) {
+            setToken(token as string);
+        }
+    }, [token, setToken]);
+
+    return (
+            <ResetPassword /> 
+    );
+};
 
 export default ResetPass;

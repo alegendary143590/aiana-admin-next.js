@@ -12,8 +12,11 @@ import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
 import router from "next/router"
 import { AUTH_API } from "@/components/utils/serverURL"
+import { useToken } from "@/providers/TokenContext"
 
 const ResetPasswordPage = () => {
+
+  const {token} = useToken();
   const [confirmPassword, setConfirmPassword] = React.useState("")
   const [password, setPassword] = React.useState("")
   const handleSaveButtonClick = () => {
@@ -27,22 +30,23 @@ const ResetPasswordPage = () => {
     }
 
     axios
-      .post(AUTH_API.LOGIN, { password })
-      .then(({ data }) => { // Use object destructuring here
-        if (data) {
-          // console.log("Login  >>>>>>>>>", data.userID);
-          localStorage.setItem("userID", data.userID);
-          router.push("/admin");
+      .post(AUTH_API.RESET_PASSWORD, { password, token })
+      .then(( response ) => { // Use object destructuring here
+        if (response.status===201) {
+          toast.success("Successfully updated the password!", {position: toast.POSITION.TOP_RIGHT});
+          router.push('/signin');
           return true;
         }
-
-        console.log(data.error);
-        alert("Invalid credentials!");
         return false;
 
       })
-      .catch(() => {
-        toast.error("Invalid email or password!", { position: toast.POSITION.TOP_RIGHT });
+      .catch((error) => {
+        if(error.status===400){
+          toast.error("Token Expired!", { position: toast.POSITION.TOP_RIGHT });
+        }
+        if(error.status === 500){
+          toast.error("Server Error!", { position: toast.POSITION.TOP_RIGHT });
+        }
         return false;
 
       });
@@ -81,6 +85,7 @@ const ResetPasswordPage = () => {
                 value={password}
                 onChange={handlePasswordChange}
                 id="newPass"
+                type="password"
                 name="newPass"
                 autoComplete="newPass"
                 placeholder="Enter a new password"
