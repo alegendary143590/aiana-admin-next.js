@@ -1,4 +1,5 @@
-'use client!'
+"use client!"
+
 import ResetPassword from '@/components/Pages/ResetPassword';
 import { useToken } from '@/providers/TokenContext';
 import { useRouter } from 'next/router';
