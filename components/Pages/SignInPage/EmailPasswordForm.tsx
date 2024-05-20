@@ -32,6 +32,7 @@ const EmailPasswordForm = () => {
     catch (e) {
       console.log(e.message);
     }
+    return true;
     // axios
     //   .post(AUTH_API.LOGIN, { email, password })
     //   .then(({ data }) => { // Use object destructuring here
