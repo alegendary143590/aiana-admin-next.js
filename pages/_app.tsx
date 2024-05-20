@@ -10,10 +10,10 @@ import TokenProvider from "@/providers/TokenContext"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-  <TokenProvider >
-    <Component {...pageProps} />
-    <ToastContainer />
-    <Analytics />
+    <TokenProvider >
+      <Component {...pageProps} />
+      <ToastContainer />
+      <Analytics />
     </TokenProvider>
   )
 }

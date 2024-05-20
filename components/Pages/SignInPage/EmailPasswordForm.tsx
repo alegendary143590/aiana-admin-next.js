@@ -9,10 +9,10 @@ import {
   Typography,
   Link,
 } from "@mui/material"
-import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
 import router from "next/router"
-import { AUTH_API } from "@/components/utils/serverURL"
+
+import { loginUser } from "@/components/utils/common"
 
 const EmailPasswordForm = () => {
   const [email, setEmail] = React.useState("")
@@ -25,23 +25,27 @@ const EmailPasswordForm = () => {
       toast.error("Password is required!", { position: toast.POSITION.TOP_RIGHT });
       return false;
     }
-
-    axios
-      .post(AUTH_API.LOGIN, { email, password })
-      .then(({ data }) => { // Use object destructuring here
-        if (data) {
-          console.log("Login  >>>>>>>>>", data.userID);
-          localStorage.setItem("userID", data.userID);
-          router.push("/admin");
-          return;
-        }
-        console.log(data.error);
-        alert("Invalid credentials!");
-      })
-      .catch(() => {
-        toast.error("Invalid email or password!", { position: toast.POSITION.TOP_RIGHT });
-      });
-    return true;
+    if(loginUser(email, password)){
+      router.push("/admin");
+    } else {
+      toast.error("Invalid email or password!", { position: toast.POSITION.TOP_RIGHT });
+      return false;
+    }
+    // axios
+    //   .post(AUTH_API.LOGIN, { email, password })
+    //   .then(({ data }) => { // Use object destructuring here
+    //     if (data) {
+    //       console.log("Login  >>>>>>>>>", data.userID);
+    //       localStorage.setItem("userID", data.userID);
+    //       router.push("/admin");
+    //       return;
+    //     }
+    //     console.log(data.error);
+    //     alert("Invalid credentials!");
+    //   })
+    //   .catch(() => {
+    //     toast.error("Invalid email or password!", { position: toast.POSITION.TOP_RIGHT });
+    //   });
   };
   /* eslint-disable */
   const handleEmailChange = ({ target: { value } }) => {

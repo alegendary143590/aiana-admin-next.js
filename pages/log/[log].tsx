@@ -1,5 +1,6 @@
 import { useRouter } from "next/router"
 import Chatlog from "@/components/Pages/Dashboard/Chatlog"
+import withAuth from "@/providers/AuthContext"
 
 const Log = () => {
     const router = useRouter()
@@ -10,4 +11,4 @@ const Log = () => {
     )
 }
 
-export default Log
+export default withAuth(Log)

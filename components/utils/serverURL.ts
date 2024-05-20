@@ -1,4 +1,4 @@
-export const SERVER_API = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000"
+export const SERVER_API = process.env.NEXT_PUBLIC_BACKEND_URL
 
 export const SERVER_API_URL = `${SERVER_API}/api`
 
