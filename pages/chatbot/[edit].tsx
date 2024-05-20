@@ -2,6 +2,7 @@ import { useRouter } from "next/router"
 import { useEffect } from "react"
 import ChatbotForm from "@/components/ChatbotFrom"
 import Layout from "@/components/Layout"
+import withAuth from "@/providers/AuthContext"
 
 const EditPage = () => {
   const router = useRouter()
@@ -22,4 +23,4 @@ const EditPage = () => {
   )
 }
 
-export default EditPage
+export default withAuth(EditPage)

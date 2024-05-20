@@ -1,7 +1,8 @@
 import TicketsPage from "@/components/Pages/TicketsPage"
+import withAuth from "@/providers/AuthContext"
 
 const Dashboard = () => (
     <TicketsPage />
 )
 
-export default Dashboard
+export default withAuth(Dashboard)
