@@ -25,11 +25,12 @@ const EmailPasswordForm = () => {
       toast.error("Password is required!", { position: toast.POSITION.TOP_RIGHT });
       return false;
     }
-    if(loginUser(email, password)){
+    try {
+      loginUser(email, password);
       router.push("/admin");
-    } else {
-      toast.error("Invalid email or password!", { position: toast.POSITION.TOP_RIGHT });
-      return false;
+    }
+    catch (e) {
+      console.log(e.message);
     }
     // axios
     //   .post(AUTH_API.LOGIN, { email, password })

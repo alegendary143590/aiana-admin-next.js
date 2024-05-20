@@ -31,32 +31,7 @@ export async function loginUser(email:string, password:string) {
         localStorage.setItem('token', token);
         localStorage.setItem('userID', userId);
         localStorage.setItem('token_expiry', expiryTime.toString()); // Store expiration time
-        return true;
     } else {
         throw new Error(data.error);
     }
-}
-
-
-
-function parseJwt(token) {
-    try {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-
-        return JSON.parse(jsonPayload);
-    } catch (e) {
-        return null;
-    }
-}
-
-export function checkTokenExpiration(token) {
-    const decodedToken = parseJwt(token);
-    if (!decodedToken) return true; // Assume expired or invalid if decoding fails
-
-    const currentTimestamp = Math.floor(Date.now() / 1000); // Current time in seconds
-    return decodedToken.exp < currentTimestamp;
 }
