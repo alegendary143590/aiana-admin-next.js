@@ -18,7 +18,6 @@ const EditPage = () => {
   } else {
     localStorage.setItem('lastBaseId', baseId);
   }
-    console.log(`Editing item with knowledge: ${baseId}`)
   }, [baseId])
 
   return (

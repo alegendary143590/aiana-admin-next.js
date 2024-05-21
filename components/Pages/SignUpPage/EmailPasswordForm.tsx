@@ -40,7 +40,6 @@ function EmailPasswordForm() {
   const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
 
   const handleInputChange = (id, value) => {
-    // console.log(id, value)
     setFormState((prevState) => ({
       ...prevState,
       [id]: value,
@@ -50,9 +49,7 @@ function EmailPasswordForm() {
   const handleAuth = () => {
     setErrorMessage("")
     const validationerror = validateForm(formState)
-    // console.log(validationerror)
     if (validationerror !== "") {
-      console.log(validationerror)
       setErrorMessage(validationerror)
       alert(validationerror)
       return false
@@ -68,7 +65,6 @@ function EmailPasswordForm() {
     axios
       .post(AUTH_API.REGISTER, formState, requestOptions)
       .then((response) => {
-        console.log(response)
         if (response.status === 201) {
           router.push("/signin")
           return
@@ -80,7 +76,8 @@ function EmailPasswordForm() {
         if(error.status=== 409){
           toast.error("Email already exists!", { position:toast.POSITION.TOP_RIGHT })
         }
-        console.log(error)
+        toast.error(error.message, { position:toast.POSITION.TOP_RIGHT })
+
       })
     return true
   }

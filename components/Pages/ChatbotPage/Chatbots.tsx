@@ -29,21 +29,30 @@ const Chatbots = () => {
       headers: new Headers({
         'Content-Type': 'application/json',
         'ngrok-skip-browser-warning': "1",
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
       })
     };
-    if (userID) {
+    if (userID && userID!=="") {
       fetch(`${AUTH_API.GET_CHATBOTS}?userId=${userID}`, requestOptions)
-        .then(response => response.json())
+        .then(response => {
+          if (response.status === 401) {
+            // Handle 401 Unauthorized
+            toast.error("Session expired, please sign in again.", { position: toast.POSITION.TOP_RIGHT });
+            router.push('/signin'); // Redirect to sign-in page
+            setIsLoading(false); // Ensure loading state is updated
+            return; // Early return to stop further processing
+          }
+          return response.json(); // Continue to parse the JSON body
+        })
         .then(data => {
           setBots(data);
-          console.log(data)
           setBotId(data[0].id)
-          console.log(data);
           setIsLoading(false);
         })
         .catch(error => {
-          console.error('Error fetching knowledge bases:', error);
-          setIsLoading(false);
+            toast.error(error.message, {position:toast.POSITION.TOP_RIGHT});
+            router.push('/signin')
+            setIsLoading(false);
         });
     }
   }, []); // Empty dependency array means this effect will only run once after the initial render
@@ -83,7 +92,7 @@ const Chatbots = () => {
         </Box>
       </div>
       <div className="relative w-full h-fit flex flex-wrap mt-10 items-center justify-start">
-        {bots.map((bot) => (
+        {bots && bots.map((bot) => (
           <div key={bot.id} className="w-72 h-40 bg-white shadow-sm p-4 m-3">
             <div className="w-full h-fit flex flex-row items-center justify-center">
               <img

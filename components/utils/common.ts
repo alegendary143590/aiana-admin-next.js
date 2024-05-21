@@ -26,12 +26,58 @@ export async function loginUser(email:string, password:string) {
 
     const data = await response.json();
     if (response.ok) {
-        const { token, userId } = data;
+        const { access_token, refresh_token, userId } = data;
         const expiryTime = new Date().getTime() + (15 * 60 * 1000); // Current time + 15 mins
-        localStorage.setItem('token', token);
+        localStorage.setItem('token', access_token);
+        localStorage.setItem('refresh_token', refresh_token);
         localStorage.setItem('userID', userId);
         localStorage.setItem('token_expiry', expiryTime.toString()); // Store expiration time
     } else {
         throw new Error(data.error);
     }
 }
+export enum HttpMethod {
+    GET = 'GET',
+    POST = 'POST'
+}
+
+// Define the type for the function parameters
+export interface RequestOptions {
+    url: string;
+    method: HttpMethod;
+    data?: any;  // Use a more specific type for `data` if possible, depending on your data structure
+}
+
+/**
+ * A function to make HTTP requests to a given API endpoint.
+ * @param options - The options containing URL, method, and optional data for the request.
+ * @returns A promise that resolves to the JSON response.
+ */
+export async function makeRequest(options: RequestOptions): Promise<any> {
+    const headers = new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Assuming you store your token in localStorage
+    });
+
+    const config: RequestInit = {
+        method: options.method,
+        headers: headers,
+    };
+
+    if (options.method === HttpMethod.POST && options.data) {
+        config.body = JSON.stringify(options.data);
+    }
+
+    try {
+        const response = await fetch(options.url, config);
+        const jsonResponse = await response.json();
+        if (!response.ok) {
+            throw new Error(jsonResponse.message || 'Something went wrong with the API');
+        }
+        return jsonResponse;
+    } catch (error) {
+        console.error('Error making the request:', error);
+        throw error;
+    }
+}
+

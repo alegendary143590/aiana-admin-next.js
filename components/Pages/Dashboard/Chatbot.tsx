@@ -11,18 +11,7 @@ const Chatbot = () => {
     { text: "Hi, what can I do for you?", sender: "user" },
   ]
   const [inputValue, setInputValue] = useState("")
-  const [show, setShow] = useState(false)
-  console.log(inputValue)
-  //   const handleSendMessage = () => {
-  //     if (!inputValue.trim()) return
-
-  //     setMessages([...messages, { text: inputValue, sender: "user" }])
-  //     // Here you can send the message to your chatbot backend for processing and get a response
-  //     // For demo purposes, let's just simulate a simple response from the chatbot
-  //     setMessages([...messages, { text: "Hello! I am your friendly chatbot.", sender: "bot" }])
-  //     setInputValue("")
-  //   }
-
+  const [show, setShow] = useState(false);
   const handleInputChange = (e) => {
     setInputValue(e.target.value)
   }

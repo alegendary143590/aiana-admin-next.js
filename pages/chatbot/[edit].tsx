@@ -6,13 +6,7 @@ import withAuth from "@/providers/AuthContext"
 
 const EditPage = () => {
   const router = useRouter()
-  const { bot } = router.query
-
-  useEffect(() => {
-    // Fetch item details based on the chatbot query parameter
-    // You can make an API call here to fetch the item details
-    console.log(`Editing item with chatbot: ${bot}`)
-  }, [bot])
+  const { bot } = router.query;
 
   return (
     <Layout type="admin">

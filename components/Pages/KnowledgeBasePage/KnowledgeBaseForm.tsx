@@ -88,29 +88,24 @@ const KnowledgeBaseForm = ({baseId}) => {
     } else {
       localStorage.setItem('lastBaseId', newBaseId);
     }
-    console.log(`Editing item with knowledge: ${newBaseId}`);
   }, [baseId]);
   React.useEffect(() => {
   if (newBaseId !== "-1"){
     
-    console.log("fetching is done !!!!!!!!!")
 
     const fetchData = async () => {
-      console.log("fetching newBaseId is done !!!!!!!!!", newBaseId)
-      
       if (newBaseId && newBaseId !== "-1") {
         setIsLoading(true);
-          console.log("fetching is done !!!!!!!!!")
         try {
           const requestOptions = {
             headers: new Headers({
               'Content-Type': 'application/json',
               'ngrok-skip-browser-warning': "1",
+              'Authorization': `Bearer ${localStorage.getItem('token')}`,
             })
           };
           const response = await fetch(`${AUTH_API.GET_KNOWLEDGE_BASE}?baseId=${newBaseId}`, requestOptions);
           const data = await response.json();
-          console.log("fetching data is done !!!!!!!!!", data)
 
           setBase(data.base || {
             created_at: "",
@@ -123,7 +118,6 @@ const KnowledgeBaseForm = ({baseId}) => {
           setDocuments(data.documents || []);
           setUrls(data.websites || []);
           setQuestionAnswers(data.texts || []);
-          console.log("fetching is done !!!!!!!!!")
         } catch (error) {
           console.error('Error fetching knowledge bases:', error);
           toast.error("Failed to load data", { position: toast.POSITION.TOP_RIGHT });
@@ -177,7 +171,6 @@ const KnowledgeBaseForm = ({baseId}) => {
         toast.success("Uploaded Successfully!", { position: toast.POSITION.TOP_RIGHT })
         router.push("/knowledge")
       }
-      console.log("Response:", response.data);
     } catch (error) {
       toast.error("Error uploading knowledge base. Please try again.", { position: toast.POSITION.TOP_RIGHT });
     }

@@ -4,6 +4,7 @@ import { AUTH_API } from '@/components/utils/serverURL';
 import { Avatar, Typography, Button, Box, Paper, IconButton, CircularProgress } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ToastContainer, toast } from "react-toastify"
+import router from "next/router"
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -51,7 +52,12 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         setInput("");
         const currentDateAndTime = new Date();
         const createdAt = currentDateAndTime.toISOString();
-        axios.post(AUTH_API.QUERY, { botId, sessionId, input, userId, createdAt })
+        axios.post(AUTH_API.QUERY, { botId, sessionId, input, userId, createdAt },{
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+              'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+            }
+          })
             .then((response) => {
                 if (response.status === 200) {
                     const { message, solve } = response.data;
@@ -62,12 +68,19 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
                         setIsBook(true);
                     }
                 }
+                if (response.status === 401) {
+                    // Handle 401 Unauthorized
+                    toast.error("Session expired, please sign in again.", { position: toast.POSITION.TOP_RIGHT });
+                    router.push('/signin'); // Redirect to sign-in page
+                    setIsLoading(false); // Ensure loading state is updated
+                    return; // Early return to stop further processing
+                  }
                 setInput("");
                 setIsLoading(false);
             })
             .catch((error) => {
                 setInput("");
-                console.log("Here >>>>>", error);
+                toast.error(error.message, {position:toast.POSITION.TOP_RIGHT});
                 setIsLoading(false);
             });
     };
@@ -107,7 +120,12 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         // Logic to handle the form submission (e.g., send email and content to backend)
         setShowForm(false); // Hide the form after submission
         setIsBook(false);
-        axios.post(AUTH_API.BOOK, { userId, sessionId, botId, email, content })
+        axios.post(AUTH_API.BOOK, { userId, sessionId, botId, email, content }, {
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+              'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+            }
+          })
             .then((response) => {
                 if (response.status === 201) {
                     const  {message}  = response.data;

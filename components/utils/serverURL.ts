@@ -27,4 +27,5 @@ export const AUTH_API = {
   GET_TICKETS: `${SERVER_API_URL}/get_tickets`,
   DEL_TICKET: `${SERVER_API_URL}/del_ticket`,
   RESET_PASSWORD: `${SERVER_API_URL}/reset_with_token`,
+  REFRESH_TOKEN: `${SERVER_API_URL}/refresh`,
 }

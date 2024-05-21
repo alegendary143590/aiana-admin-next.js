@@ -17,37 +17,22 @@ import { loginUser } from "@/components/utils/common"
 const EmailPasswordForm = () => {
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
-  const handleAuth = () => {
+  const handleAuth = async () => {
     if (email === "") {
-      return false;
+      return false;  
     }
     if (password === "") {
       toast.error("Password is required!", { position: toast.POSITION.TOP_RIGHT });
       return false;
     }
     try {
-      loginUser(email, password);
+      await loginUser(email, password);
       router.push("/admin");
     }
-    catch (e) {
-      console.log(e.message);
+    catch (error) {
+      toast.error(error.message, {position:toast.POSITION.TOP_RIGHT})
     }
     return true;
-    // axios
-    //   .post(AUTH_API.LOGIN, { email, password })
-    //   .then(({ data }) => { // Use object destructuring here
-    //     if (data) {
-    //       console.log("Login  >>>>>>>>>", data.userID);
-    //       localStorage.setItem("userID", data.userID);
-    //       router.push("/admin");
-    //       return;
-    //     }
-    //     console.log(data.error);
-    //     alert("Invalid credentials!");
-    //   })
-    //   .catch(() => {
-    //     toast.error("Invalid email or password!", { position: toast.POSITION.TOP_RIGHT });
-    //   });
   };
   /* eslint-disable */
   const handleEmailChange = ({ target: { value } }) => {

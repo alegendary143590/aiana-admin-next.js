@@ -19,6 +19,7 @@ import { ToastContainer, toast } from "react-toastify"
 import { useRouter } from "next/router"
 import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSwitch from "../CustomSwitch"
+import { Toast } from "react-toastify/dist/components"
 
 
 const ChatbotForm = ({ bot }) => {
@@ -37,9 +38,7 @@ const ChatbotForm = ({ bot }) => {
 
   const router = useRouter()
   const [index, setIndex] = useState(0)
-  const [userId, setUserId] = useState(null)
-
-  console.log("Editing Bot:", bot)
+  const [userId, setUserId] = useState(null);
 
   const handleColorButtonClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -80,6 +79,7 @@ const ChatbotForm = ({ bot }) => {
       headers: new Headers({
         'Content-Type': 'application/json',
         'ngrok-skip-browser-warning': "1",
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
       })
     };
 
@@ -88,12 +88,11 @@ const ChatbotForm = ({ bot }) => {
         .then(response => response.json())
         .then((data) => {
           setBases(data)
-          console.log("bases", data)
           setIsLoading(false)
         })
 
         .catch(error => {
-          console.error('Error fetching knowledge bases:', error);
+          toast.error(error.message, {position:toast.POSITION.TOP_RIGHT});
           setIsLoading(false);
         });
     }
@@ -103,18 +102,16 @@ const ChatbotForm = ({ bot }) => {
       fetch(`${AUTH_API.GET_CHATBOT}?botId=${bot}`, requestOptions)
         .then(response => response.json())
         .then(data => {
-          console.log("Bot info >>>>>",data)
           setName(data.name)
           setActive(data.active)
           setKnowleBase(data.knowledge_base)
           setAvatarPreview(data.avatar)
           setTimeFrom(data.start_time)
           setTimeUntil(data.end_time)
-          console.log("bases", data)
           setIsLoading(false);
         })
         .catch(error => {
-          console.error('Error fetching knowledge bases:', error);
+          toast.error(error.message, {position:toast.POSITION.TOP_RIGHT});
           setIsLoading(false);
         });
     }
@@ -143,7 +140,6 @@ const ChatbotForm = ({ bot }) => {
 
   const handleSwitchChange = () => {
     setActive((prevActive) => !prevActive) // Toggle the value of active
-    console.log(active)
   }
 
   const handleTimeFromChange = (event) => {
@@ -201,7 +197,6 @@ const ChatbotForm = ({ bot }) => {
           "Content-Type": "multipart/form-data",
         },
       })
-      console.log("Success:", response.data)
       toast.success("Successulfy Created!", { position: toast.POSITION.TOP_RIGHT })
       router.push('/chatbot')
     } catch (error) {

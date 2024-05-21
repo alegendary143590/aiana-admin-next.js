@@ -7,6 +7,7 @@ import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSelect from "../../CustomSelect"
 import Country from "../../country"
 import Language from "../../Language"
+import { log } from "console"
 
 const Profile = () => {
   const INITIAL_REGISTER_OBJ = {
@@ -32,15 +33,19 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(false)
   useEffect(() => {
     setUserID(localStorage.getItem("userID"))
-    if (userID !== undefined) {
+    if (userID !== undefined && userID!=="") {
       setIsLoading(true)
       axios
-        .post(AUTH_API.GET_USER, { userID })
+        .post(AUTH_API.GET_USER, { userID }, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+            'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+          }
+        })
         .then((response) => {
-          // console.log(response)
           if (response.status === 200) {
             const userData = response.data // Assuming the response contains user data in the expected format
-            setFormState((prevState) => ({
+          setFormState((prevState) => ({
               ...prevState,
               first_name: userData.first_name,
               last_name: userData.last_name,
@@ -56,12 +61,13 @@ const Profile = () => {
               com_website: userData.com_website,
               // Update other fields as per the response data
             }))
-          }
+        }
           setIsLoading(false)
         })
         .catch((error) => {
-          // eslint-disable-next-line no-console
-          console.log("Here >>>>>", error)
+          if(error.status===401){
+            toast.error("Anthorized user", {position: toast.POSITION.TOP_RIGHT});
+          }
           setIsLoading(false)
         })
     }
@@ -97,17 +103,24 @@ const Profile = () => {
           com_postal: formState.com_postal,
           com_phone: formState.com_phone,
           com_website: formState.com_website,
+        }, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+            'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+          }
         })
         .then((response) => {
-          // console.log(response)
           if (response.status === 201) {
             toast.success("Successfully updated!", { position: toast.POSITION.TOP_RIGHT })
             setIsLoading(false)
+          } else if(response.status===401) {
+            toast.error("Session Expired! Please login again!", {position:toast.POSITION.TOP_RIGHT});
+          } else {
+            toast.error(response.data, {position:toast.POSITION.TOP_RIGHT});
           }
         })
         .catch((error) => {
-          // eslint-disable-next-line no-console
-          console.log("Here >>>>>", error)
+          toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
           setIsLoading(false)
         })
     }

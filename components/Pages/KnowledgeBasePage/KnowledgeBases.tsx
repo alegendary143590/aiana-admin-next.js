@@ -20,6 +20,7 @@ const KnowledgeBase = () => {
       headers: new Headers({
         'Content-Type': 'application/json',
         'ngrok-skip-browser-warning': "1",
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
       })
     };
     if (userID) {
