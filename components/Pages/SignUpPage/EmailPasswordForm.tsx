@@ -33,7 +33,7 @@ function EmailPasswordForm() {
     com_city: "",
     com_country: "",
     com_postal: "",
-    com_phone: "",
+    com_street_number: "",
     com_website: "",
   }
   const [errorMessage, setErrorMessage] = useState("")
@@ -171,6 +171,24 @@ function EmailPasswordForm() {
                         />
                       </Grid>
                     </Grid>
+                    
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          Street Number:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField
+                          id="com_street_number"
+                          value={formState.com_street_number}
+                          onChange={(e) => {
+                            handleInputChange("com_street_number", e.target.value)
+                          }}
+                          variant="outlined"
+                        />
+                      </Grid>
+                    </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
                       <Grid item>
                         <Typography variant="body1" className="text-primary">
@@ -201,23 +219,6 @@ function EmailPasswordForm() {
                           onChange={handleInputChange}
                           props={Country}
                           text="Select a country"
-                        />
-                      </Grid>
-                    </Grid>
-                    <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
-                        <Typography variant="body1" className="text-primary">
-                          Number:
-                        </Typography>
-                      </Grid>
-                      <Grid item>
-                        <TextField
-                          id="com_phone"
-                          value={formState.com_phone}
-                          onChange={(e) => {
-                            handleInputChange("com_phone", e.target.value)
-                          }}
-                          variant="outlined"
                         />
                       </Grid>
                     </Grid>
