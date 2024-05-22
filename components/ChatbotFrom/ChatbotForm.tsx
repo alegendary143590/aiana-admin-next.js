@@ -19,7 +19,6 @@ import { ToastContainer, toast } from "react-toastify"
 import { useRouter } from "next/router"
 import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSwitch from "../CustomSwitch"
-import { Toast } from "react-toastify/dist/components"
 
 
 const ChatbotForm = ({ bot }) => {
@@ -194,6 +193,7 @@ const ChatbotForm = ({ bot }) => {
       }
       const response = await axios.post(API_URL, formData, {
         headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, 
           "Content-Type": "multipart/form-data",
         },
       })

@@ -7,7 +7,6 @@ import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSelect from "../../CustomSelect"
 import Country from "../../country"
 import Language from "../../Language"
-import { log } from "console"
 
 const Profile = () => {
   const INITIAL_REGISTER_OBJ = {
@@ -31,6 +30,7 @@ const Profile = () => {
   const [change, setChange] = useState(false)
   const [userID, setUserID] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  
   useEffect(() => {
     setUserID(localStorage.getItem("userID"))
     if (userID !== undefined && userID!=="") {
