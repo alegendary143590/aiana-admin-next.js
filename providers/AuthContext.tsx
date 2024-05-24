@@ -12,6 +12,7 @@ function withAuth(Component) {
 
             if (!token || expiryTime < Date.now()) {
                 const refresh_token = localStorage.getItem('refresh_token');
+                console.log(refresh_token)
                 if(refresh_token){
                     axios
                     .post(AUTH_API.REFRESH_TOKEN, { refresh_token }, {

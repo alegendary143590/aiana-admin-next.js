@@ -164,7 +164,9 @@ const KnowledgeBaseForm = ({baseId}) => {
       }
       const response = await axios.post(API, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
+          'ngrok-skip-browser-warning': "1",
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
         }
       });
       if (response.status === 200){

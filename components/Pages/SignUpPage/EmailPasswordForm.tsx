@@ -69,16 +69,14 @@ function EmailPasswordForm() {
           router.push("/signin")
           return
         }
+        if (response.status === 409){
+          toast.error("User already exists!", { position:toast.POSITION.TOP_RIGHT })
+        }
         setErrorMessage(response.data.error)
-        alert(errorMessage)
       })
       .catch((error) => {
-        if(error.status=== 409){
-          toast.error("Email already exists!", { position:toast.POSITION.TOP_RIGHT })
-        }
-        toast.error(error.message, { position:toast.POSITION.TOP_RIGHT })
-
-      })
+          toast.error("User already exists!", { position:toast.POSITION.TOP_RIGHT })
+      });
     return true
   }
 

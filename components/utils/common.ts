@@ -26,10 +26,10 @@ export async function loginUser(email:string, password:string) {
 
     const data = await response.json();
     if (response.ok) {
-        const { access_token, refresh_token, userId } = data;
+        const { accessToken, refreshToken, userId } = data;
         const expiryTime = new Date().getTime() + (15 * 60 * 1000); // Current time + 15 mins
-        localStorage.setItem('token', access_token);
-        localStorage.setItem('refresh_token', refresh_token);
+        localStorage.setItem('token', accessToken);
+        localStorage.setItem('refresh_token', refreshToken);
         localStorage.setItem('userID', userId);
         localStorage.setItem('token_expiry', expiryTime.toString()); // Store expiration time
     } else {

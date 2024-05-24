@@ -191,7 +191,7 @@ const ChatbotForm = ({ bot }) => {
       } else {
         API_URL = AUTH_API.CREATE_BOT
       }
-      const response = await axios.post(API_URL, formData, {
+      await axios.post(API_URL, formData, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`, 
           "Content-Type": "multipart/form-data",

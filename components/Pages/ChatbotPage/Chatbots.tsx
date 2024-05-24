@@ -22,7 +22,6 @@ const Chatbots = () => {
   }
 
   React.useEffect(() => {
-    setIsLoading(true)
     const userID = localStorage.getItem('userID');
     if (userID) setUserId(userID)
      const requestOptions = {
@@ -33,6 +32,8 @@ const Chatbots = () => {
       })
     };
     if (userID && userID!=="") {
+      setIsLoading(true)
+
       fetch(`${AUTH_API.GET_CHATBOTS}?userId=${userID}`, requestOptions)
         .then(response => {
           if (response.status === 401) {
@@ -41,12 +42,11 @@ const Chatbots = () => {
             router.push('/signin'); // Redirect to sign-in page
             setIsLoading(false); // Ensure loading state is updated
             return; // Early return to stop further processing
-          }
+          }setIsLoading(false);
           return response.json(); // Continue to parse the JSON body
         })
         .then(data => {
           setBots(data);
-          setBotId(data[0].id)
           setIsLoading(false);
         })
         .catch(error => {
@@ -55,6 +55,7 @@ const Chatbots = () => {
             setIsLoading(false);
         });
     }
+    // return;
   }, []); // Empty dependency array means this effect will only run once after the initial render
   const handleEditClickButton = (id: any) => {
     router.push(`/chatbot/edit?bot=${id}`)
@@ -92,7 +93,7 @@ const Chatbots = () => {
         </Box>
       </div>
       <div className="relative w-full h-fit flex flex-wrap mt-10 items-center justify-start">
-        {bots && bots.map((bot) => (
+        {bots.length!==0 && bots.map((bot) => (
           <div key={bot.id} className="w-72 h-40 bg-white shadow-sm p-4 m-3">
             <div className="w-full h-fit flex flex-row items-center justify-center">
               <img

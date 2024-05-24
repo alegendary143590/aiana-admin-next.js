@@ -22,7 +22,7 @@ const Profile = () => {
     com_city: "",
     com_country: "",
     com_postal: "",
-    com_phone: "",
+    com_street_number: "",
     com_website: "",
   }
 
@@ -30,7 +30,7 @@ const Profile = () => {
   const [change, setChange] = useState(false)
   const [userID, setUserID] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  
+
   useEffect(() => {
     setUserID(localStorage.getItem("userID"))
     if (userID !== undefined && userID!=="") {
@@ -57,7 +57,7 @@ const Profile = () => {
               com_city: userData.com_city,
               com_country: userData.com_country,
               com_postal: userData.com_postal,
-              com_phone: userData.com_phone,
+              com_street_number: userData.com_street_number,
               com_website: userData.com_website,
               // Update other fields as per the response data
             }))
@@ -101,7 +101,7 @@ const Profile = () => {
           com_city: formState.com_city,
           com_country: formState.com_country,
           com_postal: formState.com_postal,
-          com_phone: formState.com_phone,
+          com_street_number: formState.com_street_number,
           com_website: formState.com_website,
         }, {
           headers: {
@@ -229,16 +229,15 @@ const Profile = () => {
               </Grid>
               <Grid item>
                 <TextField
-                  id="com_phone"
-                  value={formState.com_phone}
+                  id="com_street_number"
+                  value={formState.com_street_number}
                   onChange={(e) => {
-                    handleInputChange("com_phone", e.target.value)
+                    handleInputChange("com_street_number", e.target.value)
                   }}
                   variant="outlined"
                 />
               </Grid>
             </Grid>
-
             <Grid container spacing={2} alignItems="center" className="mt-1">
               <Grid item>
                 <Typography variant="body1" className="text-primary">
