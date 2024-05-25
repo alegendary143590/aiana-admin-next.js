@@ -41,8 +41,9 @@ const Chatbots = () => {
             toast.error("Session expired, please sign in again.", { position: toast.POSITION.TOP_RIGHT });
             router.push('/signin'); // Redirect to sign-in page
             setIsLoading(false); // Ensure loading state is updated
-            return; // Early return to stop further processing
-          }setIsLoading(false);
+            return response.json()
+          }
+          setIsLoading(false);
           return response.json(); // Continue to parse the JSON body
         })
         .then(data => {
@@ -55,7 +56,6 @@ const Chatbots = () => {
             setIsLoading(false);
         });
     }
-    return;
   }, []); // Empty dependency array means this effect will only run once after the initial render
   const handleEditClickButton = (id: any) => {
     router.push(`/chatbot/edit?bot=${id}`)
