@@ -61,8 +61,8 @@ export async function makeRequest(options: RequestOptions): Promise<any> {
 
     const config: RequestInit = {
         method: options.method,
-        headers: headers,
-    };
+        headers,
+    }
 
     if (options.method === HttpMethod.POST && options.data) {
         config.body = JSON.stringify(options.data);

@@ -51,7 +51,7 @@ function EmailPasswordForm() {
     const validationerror = validateForm(formState)
     if (validationerror !== "") {
       setErrorMessage(validationerror)
-      alert(validationerror)
+      toast.error(errorMessage, {position:toast.POSITION.TOP_RIGHT});
       return false
     }
 
@@ -75,6 +75,7 @@ function EmailPasswordForm() {
         setErrorMessage(response.data.error)
       })
       .catch((error) => {
+          console.log(error);
           toast.error("User already exists!", { position:toast.POSITION.TOP_RIGHT })
       });
     return true

@@ -55,7 +55,7 @@ const Chatbots = () => {
             setIsLoading(false);
         });
     }
-    // return;
+    return;
   }, []); // Empty dependency array means this effect will only run once after the initial render
   const handleEditClickButton = (id: any) => {
     router.push(`/chatbot/edit?bot=${id}`)
