@@ -51,7 +51,12 @@ const Tickets = () => {
         if (userIdFromStorage!=="") {
             setUserId(userIdFromStorage);
             
-            axios.post(AUTH_API.GET_TICKETS, { userId: userIdFromStorage })
+            axios.post(AUTH_API.GET_TICKETS, { userId: userIdFromStorage }, {
+                headers: {
+                  'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+                  'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+                }
+              })
                 .then((response) => {
                     if (response.status === 200) {
                         setTickets(response.data);
@@ -73,9 +78,13 @@ const Tickets = () => {
     const handleAgree = () => {
         setOpenDialog(false);
         axios
-            .post(AUTH_API.DEL_TICKET, { currentItem })
+            .post(AUTH_API.DEL_TICKET, { currentItem }, {
+                headers: {
+                  'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+                  'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+                }
+              })
             .then((response) => {
-              // console.log(response)
               if (response.status === 201) {
                 const updatedTickets = tickets.filter(ticket => ticket.id !== currentItem);
                 setTickets(updatedTickets);
@@ -103,37 +112,35 @@ const Tickets = () => {
             <div className="w-full h-[50px] flex items-center justify-start text-black_8 font-bold pt-[20px] mb-[10px] text-[20px]">
                 Tickets
             </div>
+            {tickets.length === 0? (
+                        <div className="text-center w-full">There is no ticket</div>
+                    ): (
             <TableContainer component={Paper} className="p-5">
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                    <StyledTableCell>No</StyledTableCell>
-                    <StyledTableCell align="center">Email</StyledTableCell>
-                    <StyledTableCell align="center">Content</StyledTableCell>
-                    <StyledTableCell align="center">Status</StyledTableCell>
-                    <StyledTableCell align="center">Created at</StyledTableCell>
-                    <StyledTableCell align="center">Action</StyledTableCell>
+                        <StyledTableCell>No</StyledTableCell>
+                        <StyledTableCell align="center">Email</StyledTableCell>
+                        <StyledTableCell align="center">Content</StyledTableCell>
+                        <StyledTableCell align="center">Status</StyledTableCell>
+                        <StyledTableCell align="center">Created at</StyledTableCell>
+                        <StyledTableCell align="center">Action</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {tickets.map((row) => (
-                    <StyledTableRow key={row.id}>
-                        <StyledTableCell align="center">{row.id}</StyledTableCell>
-                        <StyledTableCell align="center">{row.email}</StyledTableCell>
-                        <StyledTableCell align="center">{row.content}</StyledTableCell>
-                        <StyledTableCell align="center">{row.status}</StyledTableCell>
-                        <StyledTableCell align="center">{formatDateString(row.created_at)}</StyledTableCell>
-                        <StyledTableCell align="center"><Button color="error" variant="contained" className="bg-red-700 text-white" onClick={ ()=>handleCancelButton(row.id)}>Cancel</Button></StyledTableCell>
-                        
-                    </StyledTableRow>
-                    ))}
-                    {tickets.length === 0 && (
-                        <div className="text-center w-full">There is no ticket</div>
-                    )}
-                </TableBody>
-                
+                    { tickets.map((row) => (
+                        <StyledTableRow key={row.id}>
+                            <StyledTableCell align="center">{row.id}</StyledTableCell>
+                            <StyledTableCell align="center">{row.email}</StyledTableCell>
+                            <StyledTableCell align="center">{row.content}</StyledTableCell>
+                            <StyledTableCell align="center">{row.status}</StyledTableCell>
+                            <StyledTableCell align="center">{formatDateString(row.created_at)}</StyledTableCell>
+                            <StyledTableCell align="center"><Button color="error" variant="contained" className="bg-red-700 text-white" onClick={ ()=>handleCancelButton(row.id)}>Cancel</Button></StyledTableCell>
+                        </StyledTableRow>
+                        ))}
+                    </TableBody>
                 </Table>
-            </TableContainer>
+            </TableContainer> )}
             <AlertDialog
                 title="Confirm Delete"
                 description="Are you sure you want to delete this item? This action cannot be undone."

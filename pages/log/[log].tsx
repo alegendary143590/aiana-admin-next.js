@@ -5,7 +5,6 @@ import withAuth from "@/providers/AuthContext"
 const Log = () => {
     const router = useRouter()
     const { sessionId } = router.query;
-    console.log("[log] page session_id is >>>>",sessionId)
     return (
         <Chatlog session={sessionId}/>
     )

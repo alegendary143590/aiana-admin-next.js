@@ -57,12 +57,7 @@ function Input({
   const isInvalid = fieldError && fieldError?.message && formState?.isSubmitted
 
   const isValid = isFullyHooked && !fieldError?.message && canTrigger
-  useEffect(()=>{
-    console.log("FieldError: ", fieldError)
-    console.log("fieldError?.message: ", fieldError?.message)
-    console.log("formState?.isSubmitted: ", formState?.isSubmitted)
-  },[])
-  
+    
   useEffect(() => {
     if (name && hookToForm) {
       formContext.setValue(name, value)

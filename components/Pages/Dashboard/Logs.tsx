@@ -6,6 +6,7 @@ import Link from "@mui/material/Link"
 import { Typography } from "@mui/material"
 import BackArrow from "@mui/icons-material/ArrowBack"
 import axios from "axios"
+import { toast, ToastContainer } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 import formatDateString from "@/components/utils/common"
 
@@ -24,10 +25,14 @@ const Logs = ({session}) => {
     if (session !== undefined) {
       setIsLoading(true)
       axios
-        .post(AUTH_API.GET_LOG_DATA, { session })
+        .post(AUTH_API.GET_LOG_DATA, { session }, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+            'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+          }
+        })
         .then((response) => {
           if (response.data && response.data.log) {
-            console.log(response.data)
             // Assuming log contains keys like bot_name and created_at
             const updatedBot = {
               ...INITIAL_BOT_OBJ,
@@ -47,7 +52,7 @@ const Logs = ({session}) => {
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
-          console.log("Here >>>>>", error)
+          toast.error(error.message, {position:toast.POSITION.TOP_RIGHT});
           setIsLoading(false)
         })
     }
@@ -141,6 +146,7 @@ const Logs = ({session}) => {
           </List>
         </Paper>
       </div>
+      <ToastContainer />
     </>
   )
 }

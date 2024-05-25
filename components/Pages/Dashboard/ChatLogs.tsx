@@ -7,6 +7,7 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
+import { ToastContainer, toast } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 import router from "next/router"
 import axios from "axios"
@@ -44,18 +45,22 @@ const ChatLogs = () => {
     if (userID !== "") {
       setIsLoading(true)
       axios
-        .post(AUTH_API.GET_CHAT, { userID })
+        .post(AUTH_API.GET_CHAT, { userID }, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+            'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+          }
+        })
         .then((response) => {
-          // console.log(response)
           if (response.status === 200) {
-            const chatLogs = response.data // Assuming the response contains user data in the expected format
+            const chatLogs = response.data;
             setChatLog(chatLogs);
           }
           setIsLoading(false)
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
-          console.log(error)
+          toast.error(error.message, { position: toast.POSITION.TOP_RIGHT});
           setIsLoading(false)
         })
     }
@@ -97,6 +102,7 @@ const ChatLogs = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <ToastContainer />
     </>
   )
 }

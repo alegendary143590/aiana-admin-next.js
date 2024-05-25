@@ -33,14 +33,13 @@ function EmailPasswordForm() {
     com_city: "",
     com_country: "",
     com_postal: "",
-    com_phone: "",
+    com_street_number: "",
     com_website: "",
   }
   const [errorMessage, setErrorMessage] = useState("")
   const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
 
   const handleInputChange = (id, value) => {
-    // console.log(id, value)
     setFormState((prevState) => ({
       ...prevState,
       [id]: value,
@@ -50,11 +49,9 @@ function EmailPasswordForm() {
   const handleAuth = () => {
     setErrorMessage("")
     const validationerror = validateForm(formState)
-    // console.log(validationerror)
     if (validationerror !== "") {
-      console.log(validationerror)
       setErrorMessage(validationerror)
-      alert(validationerror)
+      toast.error(errorMessage, {position:toast.POSITION.TOP_RIGHT});
       return false
     }
 
@@ -68,20 +65,19 @@ function EmailPasswordForm() {
     axios
       .post(AUTH_API.REGISTER, formState, requestOptions)
       .then((response) => {
-        console.log(response)
         if (response.status === 201) {
           router.push("/signin")
           return
         }
+        if (response.status === 409){
+          toast.error("User already exists!", { position:toast.POSITION.TOP_RIGHT })
+        }
         setErrorMessage(response.data.error)
-        alert(errorMessage)
       })
       .catch((error) => {
-        if(error.status=== 409){
-          toast.error("Email already exists!", { position:toast.POSITION.TOP_RIGHT })
-        }
-        console.log(error)
-      })
+          console.log(error);
+          toast.error("User already exists!", { position:toast.POSITION.TOP_RIGHT })
+      });
     return true
   }
 
@@ -174,6 +170,24 @@ function EmailPasswordForm() {
                         />
                       </Grid>
                     </Grid>
+                    
+                    <Grid container spacing={2} alignItems="center" className="mt-1">
+                      <Grid item>
+                        <Typography variant="body1" className="text-primary">
+                          Street Number:
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <TextField
+                          id="com_street_number"
+                          value={formState.com_street_number}
+                          onChange={(e) => {
+                            handleInputChange("com_street_number", e.target.value)
+                          }}
+                          variant="outlined"
+                        />
+                      </Grid>
+                    </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
                       <Grid item>
                         <Typography variant="body1" className="text-primary">
@@ -204,23 +218,6 @@ function EmailPasswordForm() {
                           onChange={handleInputChange}
                           props={Country}
                           text="Select a country"
-                        />
-                      </Grid>
-                    </Grid>
-                    <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
-                        <Typography variant="body1" className="text-primary">
-                          Number:
-                        </Typography>
-                      </Grid>
-                      <Grid item>
-                        <TextField
-                          id="com_phone"
-                          value={formState.com_phone}
-                          onChange={(e) => {
-                            handleInputChange("com_phone", e.target.value)
-                          }}
-                          variant="outlined"
                         />
                       </Grid>
                     </Grid>

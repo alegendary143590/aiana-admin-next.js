@@ -36,16 +36,7 @@ const ChatBot = ({ userId, botId }) => {
       setIsVisible(!isVisible);  // Toggle the visibility state
     };
 
-    // function base64Decode(value) {
-    //     return decodeURIComponent(atob(value));
-    //   }
-    
-    //   const decodedUserId = userId ? base64Decode(userId) : null;
-    //   const decodedBotId = botId ? base64Decode(botId) : null;
-
     useEffect(() => {
-        console.log("userID>>", userId);
-        console.log("botId>>>", botId);
         if (isVisible) {
             setVisibleClass("");
             const session = uuidv4().toString();
