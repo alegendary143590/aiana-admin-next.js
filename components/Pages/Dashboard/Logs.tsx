@@ -9,6 +9,7 @@ import axios from "axios"
 import { toast, ToastContainer } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 import formatDateString from "@/components/utils/common"
+import router from "next/router"
 
 const Logs = ({session}) => {
   const INITIAL_BOT_OBJ = {
@@ -32,6 +33,10 @@ const Logs = ({session}) => {
           }
         })
         .then((response) => {
+          if ( response.status === 401){
+            toast.error("Please login!", {position: toast.POSITION.TOP_RIGHT});
+            router.push("/signin");
+          }
           if (response.data && response.data.log) {
             // Assuming log contains keys like bot_name and created_at
             const updatedBot = {
