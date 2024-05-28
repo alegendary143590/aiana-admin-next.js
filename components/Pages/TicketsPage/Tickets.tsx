@@ -14,6 +14,7 @@ import formatDateString from '@/components/utils/common'
 import { Button } from "@mui/material"
 import AlertDialog from "@/components/AlertDialog"
 import { ToastContainer, toast } from "react-toastify"
+import router from "next/router"
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -60,6 +61,11 @@ const Tickets = () => {
                 .then((response) => {
                     if (response.status === 200) {
                         setTickets(response.data);
+                    }
+                    if ( response.status === 401){
+                      toast.error("Please login!", {position: toast.POSITION.TOP_RIGHT});
+                      router.push("/signin");
+            
                     }
                     setIsLoading(false);
                 })

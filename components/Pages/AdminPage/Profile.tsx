@@ -63,6 +63,11 @@ const Profile = () => {
               // Update other fields as per the response data
             }))
         }
+        if ( response.status === 401){
+          toast.error("Please login!", {position: toast.POSITION.TOP_RIGHT});
+          router.push("/signin");
+
+        }
           setIsLoading(false)
         })
         .catch((error) => {
