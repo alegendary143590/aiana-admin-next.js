@@ -1,3 +1,3 @@
 import ChatbotForm from "./ChatbotForm"
 
-export default ChatbotForm
+export default ChatbotForm  
