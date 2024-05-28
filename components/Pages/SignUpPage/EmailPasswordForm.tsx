@@ -79,7 +79,7 @@ function EmailPasswordForm() {
       })
       .catch((error) => {
           console.log(error);
-          toast.error("User already exists!", { position:toast.POSITION.TOP_RIGHT })
+          toast.error("Invalid Request!", { position:toast.POSITION.TOP_RIGHT })
       });
     return true
   }
