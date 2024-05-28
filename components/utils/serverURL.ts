@@ -1,4 +1,4 @@
-export const SERVER_API = process.env.NEXT_PUBLIC_BACKEND_URL
+export const SERVER_API = "https://7008-194-87-199-27.ngrok-free.app"
 
 export const SERVER_API_URL = `${SERVER_API}/api`
 
