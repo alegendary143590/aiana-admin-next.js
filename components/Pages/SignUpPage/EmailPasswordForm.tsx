@@ -72,6 +72,9 @@ function EmailPasswordForm() {
         if (response.status === 409){
           toast.error("User already exists!", { position:toast.POSITION.TOP_RIGHT })
         }
+        if (response.status === 400){
+          toast.error("Invalid email!", { position:toast.POSITION.TOP_RIGHT })
+        }
         setErrorMessage(response.data.error)
       })
       .catch((error) => {
