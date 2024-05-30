@@ -51,7 +51,7 @@ function EmailPasswordForm() {
     const validationerror = validateForm(formState)
     if (validationerror !== "") {
       setErrorMessage(validationerror)
-      toast.error(errorMessage, {position:toast.POSITION.TOP_RIGHT});
+      toast.error(validationerror, {position:toast.POSITION.TOP_RIGHT});
       return false
     }
 
