@@ -36,7 +36,6 @@ function EmailPasswordForm() {
     com_street_number: "",
     com_website: "",
   }
-  const [errorMessage, setErrorMessage] = useState("")
   const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
 
   const handleInputChange = (id, value) => {
@@ -47,10 +46,8 @@ function EmailPasswordForm() {
   }
 
   const handleAuth = () => {
-    setErrorMessage("")
     const validationerror = validateForm(formState)
     if (validationerror !== "") {
-      setErrorMessage(validationerror)
       toast.error(validationerror, {position:toast.POSITION.TOP_RIGHT});
       return false
     }
@@ -75,7 +72,6 @@ function EmailPasswordForm() {
         if (response.status === 400){
           toast.error("Invalid email!", { position:toast.POSITION.TOP_RIGHT })
         }
-        setErrorMessage(response.data.error)
       })
       .catch((error) => {
           console.log(error);
