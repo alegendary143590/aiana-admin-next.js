@@ -25,7 +25,16 @@ const KnowledgeBase = () => {
     };
     if (userID) {
       fetch(`${AUTH_API.GET_KNOWLEDGE_BASES}?userId=${userID}`, requestOptions)
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            if( response.status === 401){
+              router.push("/signin");
+              return;
+            }
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
         .then(data => {
           setBases(data);
           setIsLoading(false);
