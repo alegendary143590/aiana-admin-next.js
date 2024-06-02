@@ -36,7 +36,7 @@ const ChatbotForm = ({ bot }) => {
   const [knowledgeBases, setKnowledgeBases] = useState([])
 
   const router = useRouter()
-  const [index, setIndex] = useState(0)
+  const [index, setIndex] = useState(-1)
   const [userId, setUserId] = useState(null);
 
   const handleColorButtonClick = (event) => {
@@ -101,9 +101,10 @@ const ChatbotForm = ({ bot }) => {
       fetch(`${AUTH_API.GET_CHATBOT}?botId=${bot}`, requestOptions)
         .then(response => response.json())
         .then(data => {
+          
           setName(data.name)
           setActive(data.active)
-          setKnowleBase(data.knowledge_base)
+          setKnowleBase(data.knowledge_base!=="-1"?data.knowledge_base:"")
           setAvatarPreview(data.avatar)
           setTimeFrom(data.start_time)
           setTimeUntil(data.end_time)
@@ -171,19 +172,24 @@ const ChatbotForm = ({ bot }) => {
 
   const handleSubmit = async () => {
     const formData = new FormData()
+    if(name === "") {
+      toast.error("Name is required!", {position: toast.POSITION.TOP_RIGHT});
+      return;
+    }
+
     formData.append("name", name)
     formData.append("avatar", avatar)
     formData.append("color", themeColor)
     formData.append("active", (active !== undefined ? active.toString() : "false"));
     formData.append("start_time", timeFrom)
     formData.append("end_time", timeUntil)
-    formData.append("knowledge_base", bases[index].unique_id)
-    formData.append("user_id", userId)
-    
-    if (!name || !knowledgeBase) {
-      toast.error("Name and Knowledge Base are required.", { position: toast.POSITION.TOP_RIGHT })
-      return;
+    if ( index === -1){
+      formData.append("knowledge_base", "-1");
+    } else {
+      formData.append("knowledge_base", bases[index].unique_id);
     }
+    formData.append("user_id", userId)
+  
     try {
       let API_URL = ''
       if (bot!=="-1"){
