@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import router from "next/router";
 import { AUTH_API } from "@/components/utils/serverURL"
+import { toast } from "react-toastify";
 
 const KnowledgeBase = () => {
   const [bases, setBases] = React.useState([]);
@@ -29,9 +30,9 @@ const KnowledgeBase = () => {
           if (!response.ok) {
             if( response.status === 401){
               router.push("/signin");
-              return;
             }
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            toast.error(`HTTP error! Status: ${response.status}`, {position:toast.POSITION.TOP_RIGHT});
+            return null;
           }
           return response.json();
         })

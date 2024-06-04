@@ -16,7 +16,7 @@ const SideMenuProvider = ({ children }) => {
   return <SideMenuContext.Provider value={value}>{children}</SideMenuContext.Provider>
 }
 
-export const useSideMenu = () => {
+export const useSideMenu = () => {  
   const context = useContext(SideMenuContext)
   if (!context) {
     throw new Error("useSideMenu must be used within a SideMenuProvider")

@@ -21,10 +21,10 @@ const EditPage = () => {
   }, [baseId])
 
   return (
-    <Layout type="admin">
+    <Layout type="admin">    
       <div className="px-[20px] py-[20px] w-full h-full flex flex-col">
         <KnowledgeBaseForm baseId={baseId} />
-      </div>
+      </div>    
     </Layout>
   )
 }
