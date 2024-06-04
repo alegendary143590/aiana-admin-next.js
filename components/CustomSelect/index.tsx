@@ -12,7 +12,7 @@ export default function CustomSelect({ props, text, id, value, onChange }) {
 
   return (
     // <div>
-    <FormControl sx={{ m: 1, minWidth: 120, maxHeight: "100px" }}>
+    <FormControl sx={{ minWidth: 120, maxHeight: "100px" }}>
       <Select
         id={id}
         value={val}
@@ -21,8 +21,9 @@ export default function CustomSelect({ props, text, id, value, onChange }) {
           onChange(id, e.target.value) // Pass the event to the parent component
         }}
         displayEmpty
+        className="input-width"
         inputProps={{ "aria-label": "Without label" }}
-        sx={{ width: "240px", height: "40px" }}
+        sx={{height: "40px" }}
         MenuProps={{
           PaperProps: {
             style: {

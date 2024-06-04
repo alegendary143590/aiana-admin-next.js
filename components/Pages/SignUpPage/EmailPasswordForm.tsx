@@ -85,7 +85,7 @@ function EmailPasswordForm() {
       data-layout="horizontal"
       data-sidebar="light"
       data-bs-theme="light"
-      className="!w-4/5 bg-transparent flex flex-col justify-center items-center"
+      className="md:!w-4/5 sm:w-full bg-transparent flex flex-col justify-center items-center"
     >
       <Box className="relative w-full">
         <Container className="d-flex flex-column">
@@ -119,14 +119,15 @@ function EmailPasswordForm() {
                       Your Company
                     </Typography>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={4}>
                         <Typography variant="body1" className="text-primary">
                           Name:
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={8}>
                         <TextField
                           id="com_name"
+                          className="input-width"
                           value={formState.com_name}
                           onChange={(e) => {
                             handleInputChange("com_name", e.target.value)
@@ -136,14 +137,15 @@ function EmailPasswordForm() {
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
+                    <Grid item sm={12} xs={12} md={4}>
                         <Typography variant="body1" className="text-primary">
                           VAT number:
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={8}>
                         <TextField
                           id="com_vat"
+                          className="input-width"
                           value={formState.com_vat}
                           onChange={(e) => {
                             handleInputChange("com_vat", e.target.value)
@@ -153,14 +155,15 @@ function EmailPasswordForm() {
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={4}>
                         <Typography variant="body1" className="text-primary">
                           Street:
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={8}>
                         <TextField
                           id="com_street"
+                          className="input-width"
                           value={formState.com_street}
                           onChange={(e) => {
                             handleInputChange("com_street", e.target.value)
@@ -171,14 +174,15 @@ function EmailPasswordForm() {
                     </Grid>
                     
                     <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={4}>
                         <Typography variant="body1" className="text-primary">
                           Street Number:
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={8}>
                         <TextField
                           id="com_street_number"
+                          className="input-width"
                           value={formState.com_street_number}
                           onChange={(e) => {
                             handleInputChange("com_street_number", e.target.value)
@@ -188,14 +192,15 @@ function EmailPasswordForm() {
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={4}>
                         <Typography variant="body1" className="text-primary">
                           City:
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={8}>
                         <TextField
                           id="com_city"
+                          className="input-width"
                           value={formState.com_city}
                           onChange={(e) => {
                             handleInputChange("com_city", e.target.value)
@@ -205,12 +210,12 @@ function EmailPasswordForm() {
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={4}>
                         <Typography variant="body1" className="text-primary">
                           Country:
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={8}>
                         <CustomSelect
                           id="com_country"
                           value={formState.com_country}
@@ -222,13 +227,14 @@ function EmailPasswordForm() {
                     </Grid>
 
                     <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={4}>
                         <Typography variant="body1" className="text-primary">
                           Postal code:
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={8}>
                         <TextField
+                          className="input-width"
                           id="com_postal"
                           value={formState.com_postal}
                           onChange={(e) => {
@@ -240,14 +246,15 @@ function EmailPasswordForm() {
                     </Grid>
 
                     <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={4}>
                         <Typography variant="body1" className="text-primary">
                           Website url:
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={8}>
                         <TextField
                           id="com_website"
+                          className="input-width"
                           value={formState.com_website}
                           onChange={(e) => {
                             handleInputChange("com_website", e.target.value)
@@ -262,14 +269,15 @@ function EmailPasswordForm() {
                       Your User
                     </Typography>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={4}>
                         <Typography variant="body1" className="text-primary">
                           First name:
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={8}>
                         <TextField
                           id="first_name"
+                          className="input-width"
                           value={formState.first_name}
                           onChange={(e) => {
                             handleInputChange("first_name", e.target.value)
@@ -279,14 +287,15 @@ function EmailPasswordForm() {
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={4}>
                         <Typography variant="body1" className="text-primary">
                           Last name:
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={8}>
                         <TextField
                           id="last_name"
+                          className="input-width"
                           value={formState.last_name}
                           onChange={(e) => {
                             handleInputChange("last_name", e.target.value)
@@ -296,14 +305,15 @@ function EmailPasswordForm() {
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={4}>
                         <Typography variant="body1" className="text-primary">
                           Email:
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={8}>
                         <TextField
                           id="email"
+                          className="input-width"
                           value={formState.email}
                           onChange={(e) => {
                             handleInputChange("email", e.target.value)
@@ -313,12 +323,12 @@ function EmailPasswordForm() {
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={4}>
                         <Typography variant="body1" className="text-primary">
                           Language:
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={8}>
                         <CustomSelect
                           id="language"
                           value={formState.language}
@@ -329,15 +339,16 @@ function EmailPasswordForm() {
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={4}>
                         <Typography variant="body1" className="text-primary">
                           Password:
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={8}>
                         <TextField
                           id="password"
                           type="password"
+                          className="input-width"
                           value={formState.password}
                           onChange={(e) => {
                             handleInputChange("password", e.target.value)
@@ -347,15 +358,16 @@ function EmailPasswordForm() {
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} alignItems="center" className="mt-1">
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={4}>
                         <Typography variant="body1" className="text-primary">
                           Repeat password:
                         </Typography>
                       </Grid>
-                      <Grid item>
+                      <Grid item sm={12} xs={12} md={8}>
                         <TextField
                           id="confirm_password"
                           type="password"
+                          className="input-width"
                           value={formState.confirm_password}
                           onChange={(e) => {
                             handleInputChange("confirm_password", e.target.value)
