@@ -95,6 +95,6 @@ const Text = ({questionAnswers, setQuestionAnswers}) => {
       </Grid>
     </Paper>
   )
-}
+}  
 
 export default Text
