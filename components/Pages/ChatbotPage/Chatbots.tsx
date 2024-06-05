@@ -39,9 +39,8 @@ const Chatbots = () => {
           if (response.status === 401) {
             // Handle 401 Unauthorized
             toast.error("Session expired, please sign in again.", { position: toast.POSITION.TOP_RIGHT });
-            router.push('/signin'); // Redirect to sign-in page
             setIsLoading(false); // Ensure loading state is updated
-            return response.json()
+            router.push('/signin'); // Redirect to sign-in page
           }
           setIsLoading(false);
           return response.json(); // Continue to parse the JSON body
@@ -93,7 +92,7 @@ const Chatbots = () => {
         </Box>
       </div>
       <div className="relative w-full h-fit flex flex-wrap mt-10 items-center justify-start">
-        {bots.length!==0 && bots.map((bot) => (
+        {bots && bots.length!==0 && bots.map((bot) => (
           <div key={bot.id} className="w-72 h-40 bg-white shadow-sm p-4 m-3">
             <div className="w-full h-fit flex flex-row items-center justify-center">
               <img

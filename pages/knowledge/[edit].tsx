@@ -2,7 +2,6 @@ import { useRouter } from "next/router"
 import { useEffect } from "react"
 import Layout from "@/components/Layout"
 import KnowledgeBaseForm from "@/components/Pages/KnowledgeBasePage/KnowledgeBaseForm"
-import withAuth from "@/providers/AuthContext"
 
 const EditPage = () => {
   const router = useRouter()
@@ -29,4 +28,4 @@ const EditPage = () => {
   )
 }
 
-export default withAuth(EditPage)
+export default EditPage

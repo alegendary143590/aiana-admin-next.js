@@ -10,8 +10,6 @@ function withAuth(Component) {
             const expiryTime = parseInt(localStorage.getItem('token_expiry'));
 
             if (expiryTime < Date.now()) {
-                console.log("expiryTime >>", expiryTime);
-                console.log("currentTime >>", Date.now())
                 const refresh_token = localStorage.getItem('refresh_token');
                 // console.log(refresh_token)
                 if(refresh_token){
@@ -25,8 +23,8 @@ function withAuth(Component) {
                     .then((response) => {
                     if (response.status === 201) {
                           localStorage.setItem('token', response.data.access_token);
-                          const updatedExpiryTime = new Date().getTime() + (15 * 60 * 1000);
-                          localStorage.setItem('token_expiry', updatedExpiryTime.toString())
+                          const updatedExpiryTime = new Date().getTime() + (0.1 * 60 * 1000);
+                          localStorage.setItem('token_expiry', updatedExpiryTime.toString());
                         }
                     })
                     .catch(() => {

@@ -1,3 +1,4 @@
+import withAuth from "@/providers/AuthContext"
 import Layout from "../../Layout"
 import Tickets from "./Tickets"
 
@@ -9,4 +10,4 @@ const DashboardPage = () => (
   </Layout>
 )
 
-export default DashboardPage
+export default withAuth(DashboardPage)
