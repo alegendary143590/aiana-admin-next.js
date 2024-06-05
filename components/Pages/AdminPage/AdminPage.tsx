@@ -1,5 +1,7 @@
+import withAuth from "@/providers/AuthContext"
 import Layout from "../../Layout"
 import Profile from "./Profile"
+
 
 const AdminPage = () => (
   <Layout type="admin">
@@ -9,4 +11,4 @@ const AdminPage = () => (
   </Layout>
 )
 
-export default AdminPage
+export default withAuth(AdminPage)

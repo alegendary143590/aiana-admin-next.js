@@ -1,3 +1,4 @@
+import withAuth from "@/providers/AuthContext"
 import KnowledgeBasePage from "./KnowledgeBasePage"
 
-export default KnowledgeBasePage
+export default withAuth(KnowledgeBasePage)

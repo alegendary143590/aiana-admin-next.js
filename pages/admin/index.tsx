@@ -5,4 +5,4 @@ const Creator = () => (
     <AdminPage />
 )
 
-export default withAuth(Creator)
+export default Creator

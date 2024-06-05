@@ -1,3 +1,5 @@
 import ChatbotPage from "./ChatbotPage"
+import withAuth from "@/providers/AuthContext"
 
-export default ChatbotPage
+
+export default withAuth(ChatbotPage)
