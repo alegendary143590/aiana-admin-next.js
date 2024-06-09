@@ -69,7 +69,7 @@ const Document = ({documents, setDocuments, setFiles}) => {
             </Typography>
             <input
               type="file"
-              accept=".pdf,.txt"
+              accept=".pdf,.txt,.docx"
               onChange={handleDocumentChanged}
               multiple
               style={{ display: "none" }}
