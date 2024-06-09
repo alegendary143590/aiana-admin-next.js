@@ -23,7 +23,7 @@ function withAuth(Component) {
                     .then((response) => {
                     if (response.status === 201) {
                           localStorage.setItem('token', response.data.access_token);
-                          const updatedExpiryTime = new Date().getTime() + (0.1 * 60 * 1000);
+                          const updatedExpiryTime = new Date().getTime() + (15 * 60 * 1000);
                           localStorage.setItem('token_expiry', updatedExpiryTime.toString());
                         }
                     })
