@@ -66,7 +66,6 @@ const Chatbots = () => {
         position: toast.POSITION.TOP_RIGHT,
       })
     }
-    // Set the bot details
     setBotId(id)
     setBotName(bot.name)
     setBotAvatar(bot.avatar)

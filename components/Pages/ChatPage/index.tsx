@@ -149,7 +149,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
     };
 
     return (
-        <div className={`w-[400px] h-[600px] absolute right-0 bottom-0 border-solid border-2 flex flex-col overflow-auto ${visibleClass}`}>
+        <div className={`w-[400px] h-[600px] absolute right-0 bottom-0 border-solid border-2 flex flex-col bg-gray-100 overflow-auto ${visibleClass}`}>
             <Paper elevation={4} className="relative h-[70px] flex items-center" style={{ backgroundColor: color }}>
                 <Box display="flex" justifyContent="space-between" alignItems="center" className="w-full" p={1}>
                     <Box display="flex" alignItems="center">
@@ -161,7 +161,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
                     </IconButton>
                 </Box>
             </Paper>
-            <div className="overflow-auto flex flex-col flex-grow mt-2 mx-1 space-y-2">
+            <div className="overflow-auto flex flex-col flex-grow mt-2 mx-1 space-y-2 ">
                 {messages.map((message) => (
                     <Paper
                         key={message.id}
@@ -175,7 +175,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
                     >
                         <Box className={`flex items-center gap-2 ${message.isBot ? '' : 'flex-row-reverse'}`}>
                             <Avatar
-                                src={message.isBot ? "https://docs.material-tailwind.com/img/face-2.jpg" : "/images/users/avatar-1.jpg"}
+                                src={message.isBot ? avatar : "/images/users/avatar-1.jpg"}
                                 alt="avatar"
                                 className="relative mr-2"
                             />
