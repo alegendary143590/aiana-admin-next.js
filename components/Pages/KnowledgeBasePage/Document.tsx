@@ -116,14 +116,14 @@ const handleDisagree = ( ) => {
       <Grid container spacing={2} direction="column">
         <Grid item xs={8}>
           <List className="h-[300px] overflow-y-auto border-solid border border-gray-300 rounded-md mt-5 p-3">
-            {documents.map((doc, index) => (
+            {documents.map((doc, i) => (
               <ListItem key={doc.id} className="border-b border-gray-300">
                 <ListItemText primary={doc.filename} />
                 <ListItemSecondaryAction>
                   <IconButton
                     edge="end"
                     aria-label="delete"
-                    onClick={() => handleDelete(doc.id, index)}
+                    onClick={() => handleDelete(doc.id, i)}
                   >
                     <DeleteIcon />
                   </IconButton>
