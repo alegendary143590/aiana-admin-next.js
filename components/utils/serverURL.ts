@@ -1,5 +1,5 @@
-// export const SERVER_API = "https://3d40-194-87-199-27.ngrok-free.app"
-export const SERVER_API = "https://bck.aiana.io"
+export const SERVER_API = "https://3d40-194-87-199-27.ngrok-free.app"
+// export const SERVER_API = "https://bck.aiana.io"
 
 export const SERVER_API_URL = `${SERVER_API}/api`
 
@@ -29,4 +29,5 @@ export const AUTH_API = {
   DEL_TICKET: `${SERVER_API_URL}/del_ticket`,
   RESET_PASSWORD: `${SERVER_API_URL}/reset_with_token`,
   REFRESH_TOKEN: `${SERVER_API_URL}/refresh`,
+  DELETE_DOCUMENT: `${SERVER_API_URL}/del_document`,
 }
