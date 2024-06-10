@@ -152,7 +152,7 @@ const KnowledgeBaseForm = ({baseId}) => {
     formData.append("docs", JSON.stringify(documents))
     files.forEach(doc => formData.append("files", doc))
     formData.append("urls", JSON.stringify(urls))
-    console.log(urls)
+    // console.log(urls)
     formData.append("qa", JSON.stringify(questionAnswers))
     formData.append("userID", userID)
 

@@ -13,17 +13,18 @@ import {
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from "@mui/icons-material/InfoRounded";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import { AUTH_API } from "@/components/utils/serverURL";
+import AlertDialog from "@/components/AlertDialog"
 
 
-// interface DocumentObject {
-//  created_at: string;
-//  filename: string;
-//  id: number;
-//  type: string;
-//  unique_id: string;
-// }
+
 
 const Document = ({documents, setDocuments, setFiles}) => {
+  const [ openDialog, setOpenDialog]= React.useState(false);
+  const [id, setId] = React.useState("");
+  const [index, setIndex] = React.useState("");
   
 
   const handleDocumentChanged = (event) => {
@@ -39,12 +40,53 @@ const Document = ({documents, setDocuments, setFiles}) => {
     setDocuments([...documents, ...newDocs]);
   };
 
-  const handleDeleteDocument = (index) => {
+  const handleDelete = (id, index) => {
+    setId(id);
+    setIndex(index);
+    setOpenDialog(true);
+  }
+  const handleAgree = () => {
+    setOpenDialog(false);
+    handleDeleteDocument();
+  }
+
+const handleDisagree = ( ) => {
+    setOpenDialog(false);
+}
+
+  const handleDeleteDocument = () => {
+    const requestOptions = {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': "1",
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      })
+    };
+
+    axios
+      .post(AUTH_API.DELETE_DOCUMENT, {id}, 
+        {
+          headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+          'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+          'ngrok-skip-browser-warning': "1",
+        }
+      })
+      .then((response) => {
+        if (response.status === 201) {
+          toast.success("Successfully deleted!", {position:toast.POSITION.TOP_RIGHT});
+        } else {
+          toast.error("Invalid Request!", { position:toast.POSITION.TOP_RIGHT })
+        }
+      })
+      .catch((error) => {
+          console.log(error);
+          toast.error("Invalid Request!", { position:toast.POSITION.TOP_RIGHT })
+      });
     const updatedDocuments = documents.filter((_, i) => i !== index);
     setDocuments(updatedDocuments);
-  };
 
-  
+  };
 
   return (
     <Paper elevation={3} className="w-[700px] h-[90%] p-5 mt-20 overflow-y-auto">
@@ -87,7 +129,7 @@ const Document = ({documents, setDocuments, setFiles}) => {
                   <IconButton
                     edge="end"
                     aria-label="delete"
-                    onClick={() => handleDeleteDocument(index)}
+                    onClick={() => handleDelete(doc.id, index)}
                   >
                     <DeleteIcon />
                   </IconButton>
@@ -98,6 +140,15 @@ const Document = ({documents, setDocuments, setFiles}) => {
         </Grid>
         
       </Grid>
+      <AlertDialog
+          title="Confirm Delete"
+          description="Are you sure you want to delete this item? This action cannot be undone."
+          handleAgree={handleAgree}
+          handleDisagree={handleDisagree}
+          open={openDialog}
+          setOpen={setOpenDialog}
+          />
+      <ToastContainer />
     </Paper>
   )
 }

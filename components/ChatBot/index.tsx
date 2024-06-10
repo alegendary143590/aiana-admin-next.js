@@ -63,7 +63,7 @@ const ChatBot = ({ userId, botId }) => {
         .then(response => response.json())
         .then(data => {
         setBot({id:data.id, name:data.name, avatar:data.avatar, color:data.color})
-            console.log(data);
+            // console.log(data);
             setIsLoading(false);
         })
         .catch(error => {

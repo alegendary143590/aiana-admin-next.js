@@ -43,7 +43,7 @@ const Profile = () => {
           }
         })
         .then((response) => {
-          console.log(response.status)
+          // console.log(response.status)
           if (response.status === 200) {
             const userData = response.data // Assuming the response contains user data in the expected format
           setFormState((prevState) => ({
