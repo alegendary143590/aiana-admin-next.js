@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { Box, Typography, Grid, TextField, Button } from "@mui/material"
 import { ToastContainer, toast } from "react-toastify"
-import router from "next/router"
+import { useRouter } from "next/router" // Corrected import
 import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSelect from "../../CustomSelect"
 import Country from "../../country"
@@ -28,12 +28,14 @@ const Profile = () => {
 
   const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
   const [change, setChange] = useState(false)
-  const [userID, setUserID] = useState("")
+  const [userId, setUserId] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter() // Use the router from useRouter
 
   useEffect(() => {
-    setUserID(localStorage.getItem("userID"))
-    if (userID !== undefined && userID!=="") {
+    const userID = localStorage.getItem("userID")
+    if (userID) {
+      setUserId(userID)
       setIsLoading(true)
       axios
         .post(AUTH_API.GET_USER, { userID }, {
@@ -43,10 +45,9 @@ const Profile = () => {
           }
         })
         .then((response) => {
-          // console.log(response.status)
           if (response.status === 200) {
             const userData = response.data // Assuming the response contains user data in the expected format
-          setFormState((prevState) => ({
+            setFormState((prevState) => ({
               ...prevState,
               first_name: userData.first_name,
               last_name: userData.last_name,
@@ -62,25 +63,28 @@ const Profile = () => {
               com_website: userData.com_website,
               // Update other fields as per the response data
             }))
-        }
-        if ( response.status === 401){
-          toast.error("Please login!", {position: toast.POSITION.TOP_RIGHT});
-          router.push("/signin");
-
-        }
+          } else if (response.status === 401) {
+            toast.error("Please login!", { position: toast.POSITION.TOP_RIGHT })
+            router.push("/signin")
+          }
           setIsLoading(false)
         })
         .catch((error) => {
-          if(error.status===401){
-            toast.error("Anthorized user", {position: toast.POSITION.TOP_RIGHT});
+          if (error.response && error.response.status === 401) {
+            toast.error("Unauthorized user", { position: toast.POSITION.TOP_RIGHT })
+            router.push("/signin")
+          } else {
+            toast.error("An error occurred", { position: toast.POSITION.TOP_RIGHT })
           }
           setIsLoading(false)
         })
     }
-  }, [userID])
+  }, [router]) // Add router to dependencies to avoid ESLint warnings
 
   useEffect(() => {
-    setChange(true)
+    if (change) {
+      setChange(false)
+    }
   }, [formState])
 
   const handleInputChange = (id, value) => {
@@ -88,13 +92,15 @@ const Profile = () => {
       ...prevState,
       [id]: value,
     }))
+    setChange(true)
   }
+
   const handleSubmit = () => {
     if (change) {
       setIsLoading(true)
       axios
         .post(AUTH_API.UPDATE_USER, {
-          userID,
+          userId,
           first_name: formState.first_name,
           last_name: formState.last_name,
           password: formState.password,
@@ -118,23 +124,25 @@ const Profile = () => {
         .then((response) => {
           if (response.status === 201) {
             toast.success("Successfully updated!", { position: toast.POSITION.TOP_RIGHT })
-            setIsLoading(false)
-          } else if(response.status===401) {
-            toast.error("Session Expired! Please login again!", {position:toast.POSITION.TOP_RIGHT});
+          } else if (response.status === 401) {
+            toast.error("Session Expired! Please login again!", { position: toast.POSITION.TOP_RIGHT })
+            router.push("/signin")
           } else {
-            toast.error(response.data, {position:toast.POSITION.TOP_RIGHT});
+            toast.error(response.data, { position: toast.POSITION.TOP_RIGHT })
           }
+          setIsLoading(false)
         })
         .catch((error) => {
           toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
           setIsLoading(false)
         })
     }
-    router.push("/admin")
   }
-  if(isLoading){
+
+  if (isLoading) {
     return <div>Loading...</div>
   }
+
   return (
     <div className="d-flex flex-column bg-transparent">
       <Box className="row justify-content-center my-auto px-8">
@@ -153,9 +161,7 @@ const Profile = () => {
                 <TextField
                   id="com_name"
                   value={formState.com_name}
-                  onChange={(e) => {
-                    handleInputChange("com_name", e.target.value)
-                  }}
+                  onChange={(e) => handleInputChange("com_name", e.target.value)}
                   variant="outlined"
                 />
               </Grid>
@@ -170,9 +176,7 @@ const Profile = () => {
                 <TextField
                   id="com_vat"
                   value={formState.com_vat}
-                  onChange={(e) => {
-                    handleInputChange("com_vat", e.target.value)
-                  }}
+                  onChange={(e) => handleInputChange("com_vat", e.target.value)}
                   variant="outlined"
                 />
               </Grid>
@@ -187,9 +191,7 @@ const Profile = () => {
                 <TextField
                   id="com_street"
                   value={formState.com_street}
-                  onChange={(e) => {
-                    handleInputChange("com_street", e.target.value)
-                  }}
+                  onChange={(e) => handleInputChange("com_street", e.target.value)}
                   variant="outlined"
                 />
               </Grid>
@@ -204,9 +206,7 @@ const Profile = () => {
                 <TextField
                   id="com_city"
                   value={formState.com_city}
-                  onChange={(e) => {
-                    handleInputChange("com_city", e.target.value)
-                  }}
+                  onChange={(e) => handleInputChange("com_city", e.target.value)}
                   variant="outlined"
                 />
               </Grid>
@@ -237,9 +237,7 @@ const Profile = () => {
                 <TextField
                   id="com_street_number"
                   value={formState.com_street_number}
-                  onChange={(e) => {
-                    handleInputChange("com_street_number", e.target.value)
-                  }}
+                  onChange={(e) => handleInputChange("com_street_number", e.target.value)}
                   variant="outlined"
                 />
               </Grid>
@@ -254,9 +252,7 @@ const Profile = () => {
                 <TextField
                   id="com_postal"
                   value={formState.com_postal}
-                  onChange={(e) => {
-                    handleInputChange("com_postal", e.target.value)
-                  }}
+                  onChange={(e) => handleInputChange("com_postal", e.target.value)}
                   variant="outlined"
                 />
               </Grid>
@@ -272,9 +268,7 @@ const Profile = () => {
                 <TextField
                   id="com_website"
                   value={formState.com_website}
-                  onChange={(e) => {
-                    handleInputChange("com_website", e.target.value)
-                  }}
+                  onChange={(e) => handleInputChange("com_website", e.target.value)}
                   variant="outlined"
                 />
               </Grid>
@@ -294,9 +288,7 @@ const Profile = () => {
                 <TextField
                   id="first_name"
                   value={formState.first_name}
-                  onChange={(e) => {
-                    handleInputChange("first_name", e.target.value)
-                  }}
+                  onChange={(e) => handleInputChange("first_name", e.target.value)}
                   variant="outlined"
                 />
               </Grid>
@@ -311,9 +303,7 @@ const Profile = () => {
                 <TextField
                   id="last_name"
                   value={formState.last_name}
-                  onChange={(e) => {
-                    handleInputChange("last_name", e.target.value)
-                  }}
+                  onChange={(e) => handleInputChange("last_name", e.target.value)}
                   variant="outlined"
                 />
               </Grid>
@@ -328,9 +318,7 @@ const Profile = () => {
                 <TextField
                   id="email"
                   value={formState.email}
-                  onChange={(e) => {
-                    handleInputChange("email", e.target.value)
-                  }}
+                  onChange={(e) => handleInputChange("email", e.target.value)}
                   variant="outlined"
                 />
               </Grid>
@@ -362,9 +350,7 @@ const Profile = () => {
                   id="password"
                   type="password"
                   value={formState.password}
-                  onChange={(e) => {
-                    handleInputChange("password", e.target.value)
-                  }}
+                  onChange={(e) => handleInputChange("password", e.target.value)}
                   variant="outlined"
                 />
               </Grid>
@@ -380,9 +366,7 @@ const Profile = () => {
                   id="confirm_password"
                   type="password"
                   value={formState.confirm_password}
-                  onChange={(e) => {
-                    handleInputChange("confirm_password", e.target.value)
-                  }}
+                  onChange={(e) => handleInputChange("confirm_password", e.target.value)}
                   variant="outlined"
                 />
               </Grid>

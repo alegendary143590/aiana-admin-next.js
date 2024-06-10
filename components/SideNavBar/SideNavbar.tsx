@@ -4,7 +4,11 @@ import Box from "@mui/material/Box"
 import MuiDrawer from "@mui/material/Drawer"
 import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
+import Button from '@mui/material/Button';
+import { Tooltip } from '@mui/material';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import MenuList from "./MenuList"
+
 
 const drawerWidth = 240
 
@@ -70,10 +74,10 @@ const SideNavBar = () => {
   }
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <Drawer variant="permanent" open={open}>
+    <Box sx={{display:"flex", position:"relative" }}>
+      <Drawer variant="permanent" open={open} >
         <DrawerHeader className="flex flex-row items-center justify-between my-1">
-          <IconButton onClick={handleDrawerOpen}>
+          <IconButton onClick={handleDrawerOpen} className="flex justify-between">
             <img src={logo} alt="logo" className="bg-cover h-10" />
           </IconButton>
           <IconButton
@@ -81,7 +85,7 @@ const SideNavBar = () => {
             aria-label="open drawer"
             onClick={handleDrawerClose}
             edge="start"
-            className=""
+            className="flex justify-between"
             sx={{
               ...(!open && { display: "none" }),
             }}
@@ -90,6 +94,9 @@ const SideNavBar = () => {
           </IconButton>
         </DrawerHeader>
         <MenuList open={open} />
+        <Tooltip title="Log out">
+          <Button variant="contained" sx={{ display: "flex", justifyContent: "center", position:"absolute", bottom:"10px", width:"90%", margin:"10px"}} color="error" className="bg-[#d32f2f]">{open?`Log out`:<KeyboardReturnIcon />}</Button>
+        </Tooltip>
       </Drawer>
     </Box>
   )
