@@ -8,11 +8,11 @@ import {
   Grid,
   TextField,
   Button,
+  Link,
 } from "@mui/material"
 import axios from "axios"
 import router from "next/router"
 import { toast, ToastContainer } from "react-toastify"
-
 import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSelect from "../../CustomSelect"
 import Country from "../../country"
@@ -387,6 +387,14 @@ function EmailPasswordForm() {
                 >
                   Start!
                 </Button>
+                <div className="text-center mt-2">
+                <Typography variant="body2">
+                  Already have an account?&nbsp;
+                  <Link underline="none" href="/signin" variant="body2" className="text-[#00d7ca]">
+                    Sign in now
+                  </Link>
+                </Typography>
+              </div>
               </CardContent>
             </Card>
           </Box>
