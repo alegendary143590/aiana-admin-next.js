@@ -378,9 +378,6 @@ function EmailPasswordForm() {
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid>
-                  
-                </Grid>
                 <Button
                   variant="contained"
                   color="primary"
@@ -412,7 +409,6 @@ function EmailPasswordForm() {
           </Box>
         </Container>
       </Box>
-      {/* <ErrorAlert text={errorMessage} visibility={errorMessage !== ""} /> */}
       <ToastContainer />
     </Container>
   )
