@@ -28,14 +28,14 @@ const Profile = () => {
 
   const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
   const [change, setChange] = useState(false)
-  const [userID, setUserID] = useState("")
+  const [userId, setUserId] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter() // Use the router from useRouter
 
   useEffect(() => {
     const userID = localStorage.getItem("userID")
     if (userID) {
-      setUserID(userID)
+      setUserId(userID)
       setIsLoading(true)
       axios
         .post(AUTH_API.GET_USER, { userID }, {
@@ -100,7 +100,7 @@ const Profile = () => {
       setIsLoading(true)
       axios
         .post(AUTH_API.UPDATE_USER, {
-          userID,
+          userId,
           first_name: formState.first_name,
           last_name: formState.last_name,
           password: formState.password,
