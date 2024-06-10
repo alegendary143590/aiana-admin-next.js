@@ -89,7 +89,7 @@ function EmailPasswordForm() {
     >
       <Box className="relative w-full">
         <Container className="d-flex flex-column">
-          <Box className="row justify-content-center my-auto">
+          <Box className="flex-row justify-content my-auto">
             <Card className="w-full">
               <CardContent className="p-10 ">
                 <Grid container spacing={2}>

@@ -85,7 +85,7 @@ const SideNavBar = () => {
             aria-label="open drawer"
             onClick={handleDrawerClose}
             edge="start"
-            className=""
+            className="flex justify-between"
             sx={{
               ...(!open && { display: "none" }),
             }}
@@ -95,7 +95,7 @@ const SideNavBar = () => {
         </DrawerHeader>
         <MenuList open={open} />
         <Tooltip title="Log out">
-          <Button variant="contained" sx={{ display: "flex", justifyContent: "center", position:"absolute", bottom:"10px", width:"90%", margin:"10px"}} color="error">{open?`Log out`:<KeyboardReturnIcon />}</Button>
+          <Button variant="contained" sx={{ display: "flex", justifyContent: "center", position:"absolute", bottom:"10px", width:"90%", margin:"10px"}} color="error" className="bg-[#d32f2f]">{open?`Log out`:<KeyboardReturnIcon />}</Button>
         </Tooltip>
       </Drawer>
     </Box>
