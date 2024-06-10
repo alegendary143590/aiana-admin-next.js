@@ -4,7 +4,9 @@ import Box from "@mui/material/Box"
 import MuiDrawer from "@mui/material/Drawer"
 import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
+import Button from '@mui/material/Button';
 import MenuList from "./MenuList"
+
 
 const drawerWidth = 240
 
@@ -90,6 +92,7 @@ const SideNavBar = () => {
           </IconButton>
         </DrawerHeader>
         <MenuList open={open} />
+        <Button variant="contained" className="absolute b-10" color="error">Contained</Button>
       </Drawer>
     </Box>
   )
