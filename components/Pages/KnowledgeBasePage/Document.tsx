@@ -40,29 +40,13 @@ const Document = ({documents, setDocuments, setFiles}) => {
     setDocuments([...documents, ...newDocs]);
   };
 
-  const handleDelete = (id, index) => {
-    setId(id);
-    setIndex(index);
+  const handleDelete = (_id, _index) => {
+    setId(_id);
+    setIndex(_index);
     setOpenDialog(true);
   }
-  const handleAgree = () => {
-    setOpenDialog(false);
-    handleDeleteDocument();
-  }
-
-const handleDisagree = ( ) => {
-    setOpenDialog(false);
-}
-
   const handleDeleteDocument = () => {
-    const requestOptions = {
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'ngrok-skip-browser-warning': "1",
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      })
-    };
-
+  
     axios
       .post(AUTH_API.DELETE_DOCUMENT, {id}, 
         {
@@ -87,6 +71,16 @@ const handleDisagree = ( ) => {
     setDocuments(updatedDocuments);
 
   };
+  const handleAgree = () => {
+    setOpenDialog(false);
+    handleDeleteDocument();
+  }
+
+const handleDisagree = ( ) => {
+    setOpenDialog(false);
+}
+
+
 
   return (
     <Paper elevation={3} className="w-[700px] h-[90%] p-5 mt-20 overflow-y-auto">
