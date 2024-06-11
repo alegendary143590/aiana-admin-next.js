@@ -68,20 +68,15 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
                         setIsBook(true);
                     }
                 }
-                if (response.status === 401) {
-                    // Handle 401 Unauthorized
-                    toast.error("Session expired, please sign in again.", { position: toast.POSITION.TOP_RIGHT });
-                    router.push('/signin'); // Redirect to sign-in page
-                    setIsLoading(false); // Ensure loading state is updated
-                    return; // Early return to stop further processing
-                  }
                 setInput("");
                 setIsLoading(false);
             })
-            .catch((error) => {
+            .catch(() => {
                 setInput("");
-                toast.error(error.message, {position:toast.POSITION.TOP_RIGHT});
+                toast.error("Session expired, please sign in again.", { position: toast.POSITION.TOP_RIGHT });
                 setIsLoading(false);
+                router.push('/signin');
+
             });
     };
 

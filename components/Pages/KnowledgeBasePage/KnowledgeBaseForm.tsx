@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
 import Box from "@mui/material/Box"
@@ -78,6 +78,11 @@ const KnowledgeBaseForm = ({baseId}) => {
     unique_id: "",
     user_id: 0,});
 
+  const documentRef = useRef([]);
+  const filesRef = useRef([]);
+  const urlsRef = useRef([]);
+  const qaRef = useRef([]);
+
   const [isLoading, setIsLoading] = React.useState(false);
   let newBaseId = baseId;
   React.useEffect(() => {
@@ -116,8 +121,11 @@ const KnowledgeBaseForm = ({baseId}) => {
           });
           setNameInputValue(data.base.name)
           setDocuments(data.documents || []);
+          documentRef.current = data.documents;
           setUrls(data.websites || []);
+          urlsRef.current = data.websites;
           setQuestionAnswers(data.texts || []);
+          qaRef.current = data.texts;
         } catch (error) {
           console.error('Error fetching knowledge bases:', error);
           toast.error("Failed to load data", { position: toast.POSITION.TOP_RIGHT });
@@ -149,11 +157,14 @@ const KnowledgeBaseForm = ({baseId}) => {
     const userID = localStorage.getItem("userID")
     const formData = new FormData()
     formData.append("name", nameInputValue)
-    formData.append("docs", JSON.stringify(documents))
-    files.forEach(doc => formData.append("files", doc))
-    formData.append("urls", JSON.stringify(urls))
-    // console.log(urls)
-    formData.append("qa", JSON.stringify(questionAnswers))
+    const updatedDocs = documents.filter(doc=> !documentRef.current.includes(doc));
+    formData.append("docs", JSON.stringify(updatedDocs));
+    const updatedFiles = files.filter(file=> !filesRef.current.includes(file));
+    updatedFiles.forEach(doc => formData.append("files", doc))
+    const updatedUrls = urls.filter(url=>!urlsRef.current.includes(url));
+    formData.append("urls", JSON.stringify(updatedUrls))
+    const updatedQa = questionAnswers.filter(qa=> !qaRef.current.includes(qa));
+    formData.append("qa", JSON.stringify(updatedQa));
     formData.append("userID", userID)
 
     try {
