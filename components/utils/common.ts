@@ -36,6 +36,19 @@ export async function loginUser(email:string, password:string) {
         throw new Error(data.error);
     }
 }
+
+export async function logOut() {
+    try {
+        localStorage.setItem('token', "");
+        localStorage.setItem('refresh_token', "");
+        localStorage.setItem('userID', "");
+        localStorage.setItem('token_expiry', "");
+        return true
+    } catch (e){
+        console.log(e.toString())
+        return false
+    }
+}
 export enum HttpMethod {
     GET = 'GET',
     POST = 'POST'

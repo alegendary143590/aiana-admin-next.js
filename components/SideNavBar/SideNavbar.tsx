@@ -7,6 +7,8 @@ import MenuIcon from "@mui/icons-material/Menu"
 import Button from '@mui/material/Button';
 import { Tooltip } from '@mui/material';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import { logOut } from "@/components/utils/common"
+import {useRouter} from "next/router"
 import MenuList from "./MenuList"
 
 
@@ -60,6 +62,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 )
 
 const SideNavBar = () => {
+  const router = useRouter();
   const [open, setOpen] = React.useState(true)
   const [logo, setLogo] = React.useState("/images/logo_big.png")
 
@@ -71,6 +74,12 @@ const SideNavBar = () => {
   const handleDrawerClose = () => {
     setOpen(false)
     setLogo("/images/logo_short.png")
+  }
+
+  const handleLogOut = () => {
+    if (logOut()) {
+      router.push("/signin")
+    } 
   }
 
   return (
@@ -94,7 +103,7 @@ const SideNavBar = () => {
         </DrawerHeader>
         <MenuList open={open} />
         <Tooltip title="Log out">
-          <Button variant="contained" sx={{ display: "flex", justifyContent: "center", position:"absolute", bottom:"10px", width:"90%", margin:"10px"}} color="error" className="bg-[#d32f2f]">{open?`Log out`:<KeyboardReturnIcon />}</Button>
+          <Button variant="contained" onClick={handleLogOut} sx={{ display: "flex", justifyContent: "center", position:"absolute", bottom:"10px", width:"90%", margin:"10px"}} color="error" className="bg-[#d32f2f]">{open?`Log out`:<KeyboardReturnIcon />}</Button>
         </Tooltip>
       </Drawer>
     </Box>
