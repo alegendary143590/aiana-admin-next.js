@@ -85,7 +85,6 @@ const SideNavBar = () => {
             aria-label="open drawer"
             onClick={handleDrawerClose}
             edge="start"
-            className="flex justify-between"
             sx={{
               ...(!open && { display: "none" }),
             }}
