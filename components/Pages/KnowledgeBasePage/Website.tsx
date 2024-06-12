@@ -71,8 +71,22 @@ const Website = ({urls, setUrls}) => {
       })
       .catch((error) =>  {
           
-          console.log(error);
-          toast.error("Invalid Request!", { position:toast.POSITION.TOP_RIGHT })
+        if (error.response) {
+          console.log('Error status code:', error.response.status);
+          console.log('Error response data:', error.response.data);
+          if (error.response.status === 401){
+            router.push("/signin")
+          }
+          // Handle the error response as needed
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log('Error request:', error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error message:', error.message);
+        }
+        console.log('Error config:', error.config);
+        toast.error("Invalid Request!", { position:toast.POSITION.TOP_RIGHT })
       });
     const updatedUrls = urls.filter((_, i) => i !== index);
     setUrls(updatedUrls);
@@ -124,11 +138,11 @@ const handleDisagree = ( ) => {
       <Grid container spacing={2} direction="column">
         <Grid item xs={8}>
           <List className="h-[350px] overflow-y-auto border-solid border border-gray-300 rounded-md mt-5 p-3">
-            {urls.map((url, index) => (
+            {urls.map((url, _index) => (
               <ListItem key={url.id} className="border-b border-gray-300" style={{width:"100%"}}>
                 <ListItemText primary={url.url} />
                 <ListItemSecondaryAction>
-                  <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteButton(url.id, index)}>
+                  <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteButton(url.id, _index)}>
                     <DeleteIcon />
                   </IconButton>
                 </ListItemSecondaryAction>
