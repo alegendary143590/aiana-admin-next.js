@@ -11,6 +11,7 @@ import {
   IconButton,
   TextField,
 } from "@mui/material"
+import { ToastContainer, toast } from "react-toastify";
 import DeleteIcon from "@mui/icons-material/Delete"
 import InfoIcon from "@mui/icons-material/InfoRounded"
 
@@ -20,7 +21,7 @@ const Text = ({questionAnswers, setQuestionAnswers}) => {
  
 
   const handleQAAdd = () => {
-    if (questionInputValue && answerInputValue) {
+    if (questionInputValue!=="" && answerInputValue!=="") {
       setQuestionAnswers([
         ...questionAnswers,
         { question: questionInputValue, answer: answerInputValue },
@@ -28,7 +29,7 @@ const Text = ({questionAnswers, setQuestionAnswers}) => {
       setQuestionInputValue("")
       setAnswerInputValue("")
     } else {
-      alert("Please enter both question and answer.")
+      toast.error("Question and Answer are required!", { position: toast.POSITION.TOP_RIGHT});
     }
   }
 
@@ -93,6 +94,7 @@ const Text = ({questionAnswers, setQuestionAnswers}) => {
           </List>
         </Grid>
       </Grid>
+      <ToastContainer />
     </Paper>
   )
 }  
