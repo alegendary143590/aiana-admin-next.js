@@ -62,7 +62,8 @@ const ChatBot = ({ userId, botId }) => {
         fetch(`${AUTH_API.GET_CHATBOT}?botId=${botId}`, requestOptions)
         .then(response => response.json())
         .then(data => {
-        setBot({id:data.id, name:data.name, avatar:data.avatar, color:data.color})
+        console.log("Here>>", data.avatar)
+        setBot({id:data.id, name:data.name, avatar:data.avatar===""?"/images/logo_short.png":data.avatar, color:data.color})
             // console.log(data);
             setIsLoading(false);
         })

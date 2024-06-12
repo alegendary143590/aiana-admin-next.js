@@ -13,7 +13,12 @@ import {
 } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import InfoIcon from "@mui/icons-material/InfoRounded"
-import { isValidUrl } from "./validation" // Import your URL validation library here
+import AlertDialog from "@/components/AlertDialog"
+import axios from "axios"
+import { ToastContainer, toast } from "react-toastify";
+import { AUTH_API } from "@/components/utils/serverURL";
+import { useRouter } from "next/router"
+import { isValidUrl } from "./validation"
 
 // Define the interface for a website object
 interface WebsiteObject {
@@ -23,16 +28,21 @@ interface WebsiteObject {
  url: string;
 }
 const Website = ({urls, setUrls}) => {
-  const [urlInputValue, setUrlInputValue] = useState("")
+  const router = useRouter();
+  const [urlInputValue, setUrlInputValue] = useState("");
+  const [ openDialog, setOpenDialog]= React.useState(false);
+  const [id, setId] = React.useState("");
+  const [index, setIndex] = React.useState("");
+
   
 
   const handleUrlAdd = () => {
     if (isValidUrl(urlInputValue)) {
-      // Example object creation. You might need to adjust this based on how you're generating these objects.
+      
       const newWebsite: WebsiteObject = {
-        created_at: new Date().toISOString(), // Example date
-        id: -1, // Example ID. Adjust based on your actual ID generation logic.
-        unique_id: "", // Example unique ID. Adjust based on your actual unique ID generation logic.
+        created_at: new Date().toISOString(), 
+        id: -1, // 
+        unique_id: "", 
         url: urlInputValue,
       };
       setUrls([...urls, newWebsite]);
@@ -42,10 +52,60 @@ const Website = ({urls, setUrls}) => {
     }
  };
 
- const handleDeleteUrl = (index) => {
+ const handleDeleteUrl = () =>{
+  axios
+      .post(AUTH_API.DELETE_URL, {id}, 
+        {
+          headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+          'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+          'ngrok-skip-browser-warning': "1",
+        }
+      })
+      .then((response) => {
+        if (response.status === 201) {
+          toast.success("Successfully deleted!", {position:toast.POSITION.TOP_RIGHT});
+        } else {
+          toast.error("Invalid Request!", { position:toast.POSITION.TOP_RIGHT })
+        }
+      })
+      .catch((error) =>  {
+          
+        if (error.response) {
+          console.log('Error status code:', error.response.status);
+          console.log('Error response data:', error.response.data);
+          if (error.response.status === 401){
+            router.push("/signin")
+          }
+          // Handle the error response as needed
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log('Error request:', error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error message:', error.message);
+        }
+        console.log('Error config:', error.config);
+        toast.error("Invalid Request!", { position:toast.POSITION.TOP_RIGHT })
+      });
     const updatedUrls = urls.filter((_, i) => i !== index);
     setUrls(updatedUrls);
+ }
+
+ const handleDeleteButton = (_id, _index) => {
+    setId(_id);
+    setIndex(_index);
+    setOpenDialog(true);
  };
+
+ const handleAgree = () => {
+  setOpenDialog(false);
+  handleDeleteUrl();
+}
+
+const handleDisagree = ( ) => {
+  setOpenDialog(false);
+}
 
   return (
     <Paper elevation={3} className="w-[700px] h-[90%] p-5 mt-20">
@@ -78,11 +138,11 @@ const Website = ({urls, setUrls}) => {
       <Grid container spacing={2} direction="column">
         <Grid item xs={8}>
           <List className="h-[350px] overflow-y-auto border-solid border border-gray-300 rounded-md mt-5 p-3">
-            {urls.map((url, index) => (
-              <ListItem key={url.id} className="border-b border-gray-300">
+            {urls.map((url, _index) => (
+              <ListItem key={url.id} className="border-b border-gray-300" style={{width:"100%"}}>
                 <ListItemText primary={url.url} />
                 <ListItemSecondaryAction>
-                  <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteUrl(index)}>
+                  <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteButton(url.id, _index)}>
                     <DeleteIcon />
                   </IconButton>
                 </ListItemSecondaryAction>
@@ -91,6 +151,15 @@ const Website = ({urls, setUrls}) => {
           </List>
         </Grid>
       </Grid>
+      <AlertDialog
+          title="Confirm Delete"
+          description="Are you sure you want to delete this item? This action cannot be undone."
+          handleAgree={handleAgree}
+          handleDisagree={handleDisagree}
+          open={openDialog}
+          setOpen={setOpenDialog}
+          />
+      <ToastContainer />
     </Paper>
   )
 }

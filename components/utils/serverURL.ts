@@ -30,4 +30,5 @@ export const AUTH_API = {
   RESET_PASSWORD: `${SERVER_API_URL}/reset_with_token`,
   REFRESH_TOKEN: `${SERVER_API_URL}/refresh`,
   DELETE_DOCUMENT: `${SERVER_API_URL}/del_document`,
+  DELETE_URL: `${SERVER_API_URL}/del_url`,
 }
