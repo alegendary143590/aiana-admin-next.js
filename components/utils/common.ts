@@ -37,7 +37,7 @@ export async function loginUser(email:string, password:string) {
     }
 }
 
-export async function logOut() {
+export function logOut() {
     try {
         localStorage.setItem('token', "");
         localStorage.setItem('refresh_token', "");
