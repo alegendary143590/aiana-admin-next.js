@@ -147,19 +147,20 @@ const Profile = () => {
     <div className="d-flex flex-column bg-transparent">
       <Box className="row justify-content-center my-auto px-8">
         <Grid container spacing={3} className="mt-2 max-h-[650px] overflow-hidden overflow-y-auto">
-          <Grid item xs={12} md={6}>
+          <Grid item sm={12} xs={12} md={6}>
             <Typography variant="subtitle1" className="text-primary" fontWeight="bold">
               Your Company
             </Typography>
             <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item>
+              <Grid item sm={12} xs={12} md={4}>
                 <Typography variant="body1" className="text-primary">
                   Name:
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid item sm={12} xs={12} md={8}>
                 <TextField
                   id="com_name"
+                  className="input-width"
                   value={formState.com_name}
                   onChange={(e) => handleInputChange("com_name", e.target.value)}
                   variant="outlined"
@@ -167,13 +168,14 @@ const Profile = () => {
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item>
+              <Grid item sm={12} xs={12} md={4}>
                 <Typography variant="body1" className="text-primary">
                   VAT number:
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid item sm={12} xs={12} md={8}>
                 <TextField
+                  className="input-width"
                   id="com_vat"
                   value={formState.com_vat}
                   onChange={(e) => handleInputChange("com_vat", e.target.value)}
@@ -182,14 +184,15 @@ const Profile = () => {
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item>
+              <Grid item sm={12} xs={12} md={4}>
                 <Typography variant="body1" className="text-primary">
                   Street:
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid item sm={12} xs={12} md={8}>
                 <TextField
                   id="com_street"
+                  className="input-width"
                   value={formState.com_street}
                   onChange={(e) => handleInputChange("com_street", e.target.value)}
                   variant="outlined"
@@ -197,14 +200,15 @@ const Profile = () => {
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item>
+              <Grid item sm={12} xs={12} md={4}>
                 <Typography variant="body1" className="text-primary">
                   City:
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid item sm={12} xs={12} md={8}>
                 <TextField
                   id="com_city"
+                  className="input-width"
                   value={formState.com_city}
                   onChange={(e) => handleInputChange("com_city", e.target.value)}
                   variant="outlined"
@@ -212,12 +216,12 @@ const Profile = () => {
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item>
+              <Grid item sm={12} xs={12} md={4}>
                 <Typography variant="body1" className="text-primary">
                   Country:
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid item sm={12} xs={12} md={8}>
                 <CustomSelect
                   id="com_country"
                   value={formState.com_country}
@@ -228,13 +232,14 @@ const Profile = () => {
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item>
+              <Grid item sm={12} xs={12} md={4}>
                 <Typography variant="body1" className="text-primary">
                   Number:
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid item sm={12} xs={12} md={8}>
                 <TextField
+                  className="input-width"
                   id="com_street_number"
                   value={formState.com_street_number}
                   onChange={(e) => handleInputChange("com_street_number", e.target.value)}
@@ -243,14 +248,15 @@ const Profile = () => {
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item>
+              <Grid item sm={12} xs={12} md={4}>
                 <Typography variant="body1" className="text-primary">
                   Postal code:
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid item sm={12} xs={12} md={8}>
                 <TextField
                   id="com_postal"
+                  className="input-width"
                   value={formState.com_postal}
                   onChange={(e) => handleInputChange("com_postal", e.target.value)}
                   variant="outlined"
@@ -259,14 +265,15 @@ const Profile = () => {
             </Grid>
 
             <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item>
+              <Grid item sm={12} xs={12} md={4}>
                 <Typography variant="body1" className="text-primary">
                   Website url:
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid item sm={12} xs={12} md={8}>
                 <TextField
                   id="com_website"
+                  className="input-width"
                   value={formState.com_website}
                   onChange={(e) => handleInputChange("com_website", e.target.value)}
                   variant="outlined"
@@ -274,19 +281,20 @@ const Profile = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item sm={12} xs={12} md={6}>
             <Typography variant="subtitle1" className="text-primary" fontWeight="bold">
               Your User
             </Typography>
             <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item>
+              <Grid item sm={12} xs={12} md={4}>
                 <Typography variant="body1" className="text-primary">
                   First name:
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid item sm={12} xs={12} md={8}>
                 <TextField
                   id="first_name"
+                  className="input-width"
                   value={formState.first_name}
                   onChange={(e) => handleInputChange("first_name", e.target.value)}
                   variant="outlined"
@@ -294,14 +302,15 @@ const Profile = () => {
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item>
+              <Grid item sm={12} xs={12} md={4}>
                 <Typography variant="body1" className="text-primary">
                   Last name:
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid item sm={12} xs={12} md={8}>
                 <TextField
                   id="last_name"
+                  className="input-width"
                   value={formState.last_name}
                   onChange={(e) => handleInputChange("last_name", e.target.value)}
                   variant="outlined"
@@ -309,14 +318,15 @@ const Profile = () => {
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item>
+              <Grid item sm={12} xs={12} md={4}>
                 <Typography variant="body1" className="text-primary">
                   Email:
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid item sm={12} xs={12} md={8}>
                 <TextField
                   id="email"
+                  className="input-width"
                   value={formState.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
                   variant="outlined"
@@ -324,12 +334,12 @@ const Profile = () => {
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item>
+              <Grid item sm={12} xs={12} md={4}>
                 <Typography variant="body1" className="text-primary">
                   Language:
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid item sm={12} xs={12} md={8}>
                 <CustomSelect
                   id="language"
                   value={formState.language}
@@ -340,31 +350,33 @@ const Profile = () => {
               </Grid>
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item>
+              <Grid item sm={12} xs={12} md={4}>
                 <Typography variant="body1" className="text-primary">
                   Password:
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid item sm={12} xs={12} md={8}>
                 <TextField
                   id="password"
                   type="password"
+                  className="input-width"
                   value={formState.password}
                   onChange={(e) => handleInputChange("password", e.target.value)}
                   variant="outlined"
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item>
+            <Grid container spacing={1} alignItems="center" className="mt-1">
+              <Grid item sm={12} xs={12} md={4}>
                 <Typography variant="body1" className="text-primary">
                   Repeat password:
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid item sm={12} xs={12} md={8}>
                 <TextField
                   id="confirm_password"
                   type="password"
+                  className="input-width"
                   value={formState.confirm_password}
                   onChange={(e) => handleInputChange("confirm_password", e.target.value)}
                   variant="outlined"
