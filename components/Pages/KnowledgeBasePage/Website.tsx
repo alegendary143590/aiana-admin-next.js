@@ -136,11 +136,11 @@ const handleDisagree = ( ) => {
         </Grid>
       </Grid>
       <Grid container spacing={2} direction="column">
-        <Grid item xs={8}>
+        <Grid item style={{width:"100%"}}>
           <List className="h-[350px] overflow-y-auto border-solid border border-gray-300 rounded-md mt-5 p-3">
             {urls.map((url, _index) => (
-              <ListItem key={url.id} className="border-b border-gray-300" style={{width:"100%"}}>
-                <ListItemText primary={url.url} />
+              <ListItem key={url.id} className="border-b border-gray-300">
+                <ListItemText primary={url.url} style={{ wordWrap: "break-word" }}/>
                 <ListItemSecondaryAction>
                   <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteButton(url.id, _index)}>
                     <DeleteIcon />

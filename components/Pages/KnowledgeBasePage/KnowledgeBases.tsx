@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import router from "next/router";
 import { AUTH_API } from "@/components/utils/serverURL"
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const KnowledgeBase = () => {
   const [bases, setBases] = React.useState([]);
@@ -51,6 +52,44 @@ const KnowledgeBase = () => {
      router.push(`/knowledge/edit?baseId=${baseId}`);
 
   }
+  const handleDeleteClick = (baseId) => {
+    axios
+      .post(AUTH_API.DELETE_KNOWLEDGEBASE, {baseId}, 
+        {
+          headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+          'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+          'ngrok-skip-browser-warning': "1",
+        }
+      })
+      .then((response) => {
+        if (response.status === 201) {
+          setBases(prevBases => prevBases.filter(prev => prev.id !== baseId));
+          toast.success("Successfully deleted!", {position:toast.POSITION.TOP_RIGHT});
+        } else {
+          toast.error("Invalid Request!", { position:toast.POSITION.TOP_RIGHT })
+        }
+      })
+      .catch((error) =>  {
+          
+        if (error.response) {
+          console.log('Error status code:', error.response.status);
+          console.log('Error response data:', error.response.data);
+          if (error.response.status === 401){
+            router.push("/signin")
+          }
+          // Handle the error response as needed
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log('Error request:', error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error message:', error.message);
+        }
+        console.log('Error config:', error.config);
+        toast.error("Invalid Request!", { position:toast.POSITION.TOP_RIGHT })
+      });
+  }
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -78,7 +117,7 @@ const KnowledgeBase = () => {
                 <Typography className="text-[20px]">{base.name}</Typography>
               </div>
             </div>
-            <div>
+            <div className="flex justify-between">
               <button
                 type="button"
                 className="w-12 h-8 text-[12px] my-1 rounded-sm bg-[#00D7CA] text-white"
@@ -86,6 +125,14 @@ const KnowledgeBase = () => {
                 onClick={()=>handleEditClick(base.id)}
               >
                 Edit
+              </button>
+              <button
+                type="button"
+                className="w-12 h-8 text-[12px] my-1 rounded-sm bg-red-500 text-white"
+                style={{ textTransform: "none" }}
+                onClick={()=>handleDeleteClick(base.id)}
+              >
+                Delete
               </button>
             </div>
           </div>
