@@ -236,6 +236,7 @@ const ChatbotForm = ({ bot }) => {
               <Input
                 fullWidth
                 inputProps={{ "aria-label": "description" }}
+                className="border border-solid border-gray-300"
                 disableUnderline
                 value={name}
                 onChange={handleNameChange}
