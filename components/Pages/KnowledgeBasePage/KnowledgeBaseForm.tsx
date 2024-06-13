@@ -187,7 +187,7 @@ const KnowledgeBaseForm = ({baseId}) => {
         if (!response.data.bad_url) {
           badAlert = "The knowledge base includes invalid url."
         }
-        toast.success("Uploaded Successfully!"+badAlert, { position: toast.POSITION.TOP_RIGHT })
+        toast.success(`Uploaded Successfully! ${badAlert}`, { position: toast.POSITION.TOP_RIGHT });
         router.push("/knowledge")
       }
     } catch (error) {
