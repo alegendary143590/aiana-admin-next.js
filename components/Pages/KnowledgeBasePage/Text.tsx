@@ -21,7 +21,7 @@ const Text = ({questionAnswers, setQuestionAnswers}) => {
  
 
   const handleQAAdd = () => {
-    if (questionInputValue!=="" && answerInputValue!=="") {
+    if (questionInputValue.trim() !== "" && answerInputValue.trim() !== "") {
       setQuestionAnswers([
         ...questionAnswers,
         { question: questionInputValue, answer: answerInputValue },
