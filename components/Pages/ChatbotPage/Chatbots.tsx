@@ -77,9 +77,9 @@ const Chatbots = () => {
     setBotVisible(true)
   }
 
-  const handleDelete = (botId) => {
+  const handleDelete = (bot) => {
     axios
-      .post(AUTH_API.DELETE_BOT, {botId}, 
+      .post(AUTH_API.DELETE_BOT, {botId:bot}, 
         {
           headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
@@ -89,7 +89,7 @@ const Chatbots = () => {
       })
       .then((response) => {
         if (response.status === 201) {
-          setBots(prevBases => prevBases.filter(prev => prev.id !== botId));
+          setBots(prevBases => prevBases.filter(prev => prev.id !== bot));
           toast.success("Successfully deleted!", {position:toast.POSITION.TOP_RIGHT});
         } else {
           toast.error("Invalid Request!", { position:toast.POSITION.TOP_RIGHT })
@@ -116,8 +116,8 @@ const Chatbots = () => {
       });
   }
 
-  const handleDeleteClickButton = (botId) => {
-    setIndex(botId);
+  const handleDeleteClickButton = (bot) => {
+    setIndex(bot);
     setOpenDialog(true);
   }
 
