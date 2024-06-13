@@ -141,7 +141,7 @@ const Tickets = () => {
                             <StyledTableCell align="center">{row.content}</StyledTableCell>
                             <StyledTableCell align="center">{row.status}</StyledTableCell>
                             <StyledTableCell align="center">{formatDateString(row.created_at)}</StyledTableCell>
-                            <StyledTableCell align="center"><Button color="error" variant="contained" className="bg-red-700 text-white" onClick={ ()=>handleCancelButton(row.id)}>Cancel</Button></StyledTableCell>
+                            <StyledTableCell align="center"><Button color="error" variant="contained" className="bg-red-700 text-white" onClick={ ()=>handleCancelButton(row.id)}>Delete</Button></StyledTableCell>
                         </StyledTableRow>
                         ))}
                     </TableBody>

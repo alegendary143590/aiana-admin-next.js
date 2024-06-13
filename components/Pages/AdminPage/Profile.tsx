@@ -88,6 +88,7 @@ const Profile = () => {
   }, [formState])
 
   const handleInputChange = (id, value) => {
+    console.log(id)
     setFormState((prevState) => ({
       ...prevState,
       [id]: value,
