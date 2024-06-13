@@ -183,11 +183,31 @@ const KnowledgeBaseForm = ({baseId}) => {
         }
       });
       if (response.status === 200){
-        toast.success("Uploaded Successfully!", { position: toast.POSITION.TOP_RIGHT })
+        let badAlert = ""
+        if (!response.data.bad_url) {
+          badAlert = "The knowledge base includes invalid url."
+        }
+        toast.success(`Uploaded Successfully! ${badAlert}`, { position: toast.POSITION.TOP_RIGHT });
         router.push("/knowledge")
       }
     } catch (error) {
-      toast.error("Error uploading knowledge base. Please try again.", { position: toast.POSITION.TOP_RIGHT });
+      if (error.response) {
+        console.log('Error status code:', error.response.status);
+        console.log('Error response data:', error.response.data);
+        if (error.response.status === 401){
+          toast.error("Session Expired!", { position:toast.POSITION.TOP_RIGHT })
+          router.push("/signin")
+        }
+        // Handle the error response as needed
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log('Error request:', error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error message:', error.message);
+      }
+      console.log('Error config:', error.config);
+      
     }
   };
 

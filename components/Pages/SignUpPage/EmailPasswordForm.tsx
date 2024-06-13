@@ -85,7 +85,7 @@ function EmailPasswordForm() {
       data-layout="horizontal"
       data-sidebar="light"
       data-bs-theme="light"
-      className="md:!w-4/5 sm:w-full bg-transparent flex flex-col justify-center items-center"
+      className="md:!w-4/5 sm:w-full bg-transparent flex flex-col justify-center items-start"
     >
       <Box className="relative w-full">
         <Container className="d-flex flex-column">
