@@ -21,7 +21,7 @@ const Text = ({questionAnswers, setQuestionAnswers}) => {
  
 
   const handleQAAdd = () => {
-    if (questionInputValue!=="" && answerInputValue!=="") {
+    if (questionInputValue.trim() !== "" && answerInputValue.trim() !== "") {
       setQuestionAnswers([
         ...questionAnswers,
         { question: questionInputValue, answer: answerInputValue },
@@ -34,7 +34,7 @@ const Text = ({questionAnswers, setQuestionAnswers}) => {
   }
 
   const handleDeleteQA = (index) => {
-    const updatedQuestionAnswers = questionAnswers.filter((qa, i) => i !== index)
+    const updatedQuestionAnswers = questionAnswers.filter((_, i) => i !== index)
     setQuestionAnswers(updatedQuestionAnswers)
   }
 
