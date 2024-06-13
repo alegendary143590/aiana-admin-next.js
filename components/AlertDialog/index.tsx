@@ -25,8 +25,8 @@ function AlertDialog({ title, description, handleAgree, handleDisagree, open, se
               </DialogContentText>
           </DialogContent>
           <DialogActions>
-              <Button onClick={handleDisagree}>No</Button>
-              <Button onClick={handleAgree} autoFocus>
+              <Button onClick={handleDisagree} className='bg-gray-500 text-white hover:bg-gray-200'>No</Button>
+              <Button onClick={handleAgree} autoFocus className='bg-red-500 hover:bg-gray-200 text-white'>
                   Yes
               </Button>
           </DialogActions>
