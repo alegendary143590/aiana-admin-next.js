@@ -32,4 +32,5 @@ export const AUTH_API = {
   DELETE_DOCUMENT: `${SERVER_API_URL}/del_document`,
   DELETE_URL: `${SERVER_API_URL}/del_url`,
   DELETE_KNOWLEDGEBASE: `${SERVER_API_URL}/del_knowledgebase`,
+  DELETE_BOT: `${SERVER_API_URL}/del_bot`,
 }

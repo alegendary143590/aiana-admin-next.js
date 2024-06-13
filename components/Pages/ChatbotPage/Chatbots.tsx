@@ -3,8 +3,10 @@ import { Box, Typography } from "@mui/material"
 import Button from "@mui/material/Button"
 import router from "next/router"
 import { AUTH_API } from "@/components/utils/serverURL"
+import AlertDialog from "@/components/AlertDialog"
 import ChatbotPage from "@/components/Pages/ChatPage"
 import { toast } from "react-toastify"
+import axios from "axios"
 
 
 const Chatbots = () => {
@@ -13,16 +15,18 @@ const Chatbots = () => {
   const [bots, setBots] = React.useState([]);
   const [botId, setBotId] = React.useState('')
   const [botVisible, setBotVisible] = React.useState(false)
+  const [ openDialog, setOpenDialog]= React.useState(false);
   const [botName, setBotName] = React.useState('')
   const [botAvatar, setBotAvatar] = React.useState('')
   const [botThemeColor, setBotThemeColor] = React.useState('#1976D2')
   const [userId, setUserId] = React.useState('')
+  const [index, setIndex] = React.useState('');
   const handleAddRow = () => {
     router.push(`/chatbot/edit?bot=-1`)
   }
 
   React.useEffect(() => {
-    const userID = localStorage.getItem('userID');
+  const userID = localStorage.getItem('userID');
     if (userID) setUserId(userID)
      const requestOptions = {
       headers: new Headers({
@@ -71,6 +75,59 @@ const Chatbots = () => {
     setBotAvatar(bot.avatar)
     setBotThemeColor(bot.color) // Assuming there's a themeColor property
     setBotVisible(true)
+  }
+
+  const handleDelete = (bot) => {
+    axios
+      .post(AUTH_API.DELETE_BOT, {botId:bot}, 
+        {
+          headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+          'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+          'ngrok-skip-browser-warning': "1",
+        }
+      })
+      .then((response) => {
+        if (response.status === 201) {
+          setBots(prevBases => prevBases.filter(prev => prev.id !== bot));
+          toast.success("Successfully deleted!", {position:toast.POSITION.TOP_RIGHT});
+        } else {
+          toast.error("Invalid Request!", { position:toast.POSITION.TOP_RIGHT })
+        }
+      })
+      .catch((error) =>  {
+          
+        if (error.response) {
+          console.log('Error status code:', error.response.status);
+          console.log('Error response data:', error.response.data);
+          if (error.response.status === 401){
+            router.push("/signin")
+          }
+          // Handle the error response as needed
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log('Error request:', error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error message:', error.message);
+        }
+        console.log('Error config:', error.config);
+        toast.error("Invalid Request!", { position:toast.POSITION.TOP_RIGHT })
+      });
+  }
+
+  const handleDeleteClickButton = (bot) => {
+    setIndex(bot);
+    setOpenDialog(true);
+  }
+
+  const handleAgree = ()=> {
+    setOpenDialog(false);
+    handleDelete(index);
+  }
+
+  const handleDisagree = ()=>{
+    setOpenDialog(false);
   }
   if(isLoading) {
     return <div>Loading...</div>
@@ -124,6 +181,16 @@ const Chatbots = () => {
               <div>
                 <button
                   type="button"
+                  className="w-12 h-8 text-[12px] my-1 rounded-sm bg-red-500 text-white"
+                  style={{ textTransform: "none" }}
+                  onClick={() => handleDeleteClickButton(bot.id)}
+                >
+                  Delete
+                </button>
+              </div>
+              <div>
+                <button
+                  type="button"
                   className="w-12 h-8 text-[12px] my-1 rounded-sm bg-[#4c4fe7] text-white"
                   style={{ textTransform: "none" }}
                   onClick={() => handleChatClickButton(bot.id)}
@@ -136,6 +203,14 @@ const Chatbots = () => {
         ))}
        
       </div>
+      <AlertDialog
+        title="Confirm Delete"
+        description="Are you sure you want to delete this item? This action cannot be undone."
+        handleAgree={handleAgree}
+        handleDisagree={handleDisagree}
+        open={openDialog}
+        setOpen={setOpenDialog}
+        />
       <ChatbotPage userId={userId} botId={botId} botName={botName} color={botThemeColor} avatar={botAvatar}  visible={botVisible} setVisible={setBotVisible} />
       </>
   )

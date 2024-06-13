@@ -3,12 +3,16 @@ import { Box, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import router from "next/router";
 import { AUTH_API } from "@/components/utils/serverURL"
+import AlertDialog from "@/components/AlertDialog"
 import { toast } from "react-toastify";
 import axios from "axios";
 
 const KnowledgeBase = () => {
   const [bases, setBases] = React.useState([]);
+  const [ index, setIndex] = React.useState();
   const [isLoading, setIsLoading] = React.useState(true);
+  const [ openDialog, setOpenDialog]= React.useState(false);
+
 
   const handleAddRow = () => {
     router.push(`/knowledge/edit?baseId=-1`);
@@ -52,6 +56,11 @@ const KnowledgeBase = () => {
      router.push(`/knowledge/edit?baseId=${baseId}`);
 
   }
+
+  const handleDeleteButton = (_index) => {
+    setIndex(_index);
+    setOpenDialog(true);
+  }
   const handleDeleteClick = (baseId) => {
     axios
       .post(AUTH_API.DELETE_KNOWLEDGEBASE, {baseId}, 
@@ -90,6 +99,15 @@ const KnowledgeBase = () => {
         toast.error("Invalid Request!", { position:toast.POSITION.TOP_RIGHT })
       });
   }
+  
+  const handleAgree = () => {
+    setOpenDialog(false);
+    handleDeleteClick(index);
+  }
+
+  const handleDisagree = ( ) => {
+    setOpenDialog(false);
+  }
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -98,7 +116,7 @@ const KnowledgeBase = () => {
     <>
       <div className="w-full h-[50px] flex items-center justify-center pt-[24px] mb-[10px] text-[28px]">
         <Typography className="text-[20px] w-2/3">Knowledge Base</Typography>
-        <Box sx={{ width: "30%", height: "fit-content" }}>
+        <Box sx={{ w_th: "30%", height: "fit-content" }}>
           <Button
             onClick={handleAddRow}
             className="bg-[#5b0c99] text-white font-bold py-2 px-4 rounded m-2"
@@ -130,7 +148,7 @@ const KnowledgeBase = () => {
                 type="button"
                 className="w-12 h-8 text-[12px] my-1 rounded-sm bg-red-500 text-white"
                 style={{ textTransform: "none" }}
-                onClick={()=>handleDeleteClick(base.id)}
+                onClick={()=>handleDeleteButton(base.id)}
               >
                 Delete
               </button>
@@ -138,6 +156,14 @@ const KnowledgeBase = () => {
           </div>
         ))}
       </div>
+      <AlertDialog
+        title="Confirm Delete"
+        description="Are you sure you want to delete this item? This action cannot be undone."
+        handleAgree={handleAgree}
+        handleDisagree={handleDisagree}
+        open={openDialog}
+        setOpen={setOpenDialog}
+        />
     </>
   );
 }
