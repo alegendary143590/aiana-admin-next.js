@@ -5,6 +5,7 @@ import { Avatar, Typography, Button, Box, Paper, IconButton, CircularProgress } 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ToastContainer, toast } from "react-toastify"
 import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from 'next/router';
 
 const ChatBot = ({ userId, botId }) => {
 
@@ -18,6 +19,7 @@ const ChatBot = ({ userId, botId }) => {
     const [messages, setMessages] = useState([
         { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
     ]);
+    const router = useRouter();
 
     const [isVisible, setIsVisible] = useState(false)
     const [bot, setBot] = useState(INITIAL_BOT_OBJ);
@@ -68,8 +70,26 @@ const ChatBot = ({ userId, botId }) => {
             setIsLoading(false);
         })
         .catch(error => {
-            console.error('Error fetching knowledge bases:', error);
-            setIsLoading(false);
+            if (error.response) {
+                console.log('Error status code:', error.response.status);
+                console.log('Error response data:', error.response.data);
+                if (error.response.status === 401){
+                  toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
+                  router.push("/signin")
+                }
+                // Handle the error response as needed
+              } else if (error.request) {
+                // The request was made but no response was received
+                console.log('Error request:', error.request);
+                toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+    
+              } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error message:', error.message);
+                toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+    
+              }
+              setIsLoading(false);
         });
         }
     }, [botId])
@@ -106,8 +126,27 @@ const ChatBot = ({ userId, botId }) => {
             })
             .catch((error) => {
                 setInput("");
-                console.log("Here >>>>>", error);
-                setIsLoading(false);
+                if (error.response) {
+                    console.log('Error status code:', error.response.status);
+                    console.log('Error response data:', error.response.data);
+                    if (error.response.status === 401){
+                      toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
+        
+                      router.push("/signin")
+                    }
+                    // Handle the error response as needed
+                  } else if (error.request) {
+                    // The request was made but no response was received
+                    console.log('Error request:', error.request);
+                    toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+        
+                  } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error message:', error.message);
+                    toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+        
+                  }
+                  setIsLoading(false);
             });
     };
 
@@ -162,10 +201,29 @@ const ChatBot = ({ userId, botId }) => {
                 setIsLoading(false);
             })
             .catch((error) => {
+                if (error.response) {
+                    console.log('Error status code:', error.response.status);
+                    console.log('Error response data:', error.response.data);
+                    if (error.response.status === 401){
+                      toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
+        
+                      router.push("/signin")
+                    }
+                    // Handle the error response as needed
+                  } else if (error.request) {
+                    // The request was made but no response was received
+                    console.log('Error request:', error.request);
+                    toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+        
+                  } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error message:', error.message);
+                    toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+        
+                  }
                 setInput("");
                 setEmail("")
                 setContent("")
-                toast.error(error, { position: toast.POSITION.TOP_RIGHT })
             });
     };
 
