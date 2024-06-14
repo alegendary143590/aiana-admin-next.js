@@ -108,7 +108,7 @@ const handleDisagree = ( ) => {
 }
 
   return (
-    <Paper elevation={3} className="w-[700px] h-[90%] p-5 mt-20">
+    <Paper elevation={3} className="w-[700px] h-[90%] p-5 mt-20 overflow-y-auto">
       <Grid container className="p-5">
         <Typography className="bg-[#e6f2ff] w-full mr-5 ml-5 p-3" sx={{ lineHeight: "2" }}>
           <InfoIcon className="text-[#33adff] mr-2 mb-1" />

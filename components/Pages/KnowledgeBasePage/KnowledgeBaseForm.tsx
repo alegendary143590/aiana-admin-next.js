@@ -147,7 +147,7 @@ const KnowledgeBaseForm = ({baseId}) => {
             toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
 
           }
-          setIsLoading(false);
+          setIsLoading(false)
         }
         
         setIsLoading(false);
