@@ -148,7 +148,6 @@ const KnowledgeBaseForm = ({baseId}) => {
 
           }
           setIsLoading(false);
-
         }
         
         setIsLoading(false);
