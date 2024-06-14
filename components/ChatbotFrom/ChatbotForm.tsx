@@ -111,7 +111,6 @@ const ChatbotForm = ({ bot }) => {
             toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
 
           }
-          setIsLoading(false);
         });
     }
     if (bot!=='-1'&&bot) {
@@ -120,10 +119,14 @@ const ChatbotForm = ({ bot }) => {
       fetch(`${AUTH_API.GET_CHATBOT}?botId=${bot}`, requestOptions)
         .then(response => response.json())
         .then(data => {
+          console.log(data)
           
           setName(data.name)
           setActive(data.active)
           setKnowleBase(data.knowledge_base!=="-1"?data.knowledge_base:"")
+          const i = knowledgeBases.findIndex(base => base.name === data.knowledge_base);
+          setIndex(i);
+          setThemeColor(data.color)
           setAvatarPreview(data.avatar)
           setTimeFrom(data.start_time)
           setTimeUntil(data.end_time)
