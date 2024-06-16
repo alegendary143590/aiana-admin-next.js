@@ -120,42 +120,7 @@ const ChatbotForm = () => {
           }
         });
     }
-    // if (bot!=='-1'&&bot) {
-    //   setIsLoading(true);
-
-    //   fetch(`${AUTH_API.GET_CHATBOT}?botId=${bot}`, requestOptions)
-    //     .then(response => {
-    //       if (!response.ok) {
-    //         throw new Error(`HTTP error! Status: ${response.status}`);
-    //       }
-    //       return response.json();
-    //     })
-    //     .then(data => {
-    //       console.log(data.knowledge_base)
-    //       console.log(bases)
-    //       setName(data.name)
-    //       setActive(data.active)
-    //       setKnowleBase(data.knowledge_base!=="-1"?data.knowledge_base:"")
-    //       const i = bases.findIndex(base => base.name === data.knowledge_base);
-    //       console.log("Index >>>>>", i)
-    //       setIndex(i);
-    //       setThemeColor(data.color)
-    //       setAvatarPreview(data.avatar)
-    //       setTimeFrom(data.start_time)
-    //       setTimeUntil(data.end_time)
-    //       setIsLoading(false);
-    //     })
-    //     .catch(error => {
-    //       if (error.message.includes('401')) {
-    //         toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
-    //         router.push("/signin");
-    //         return;
-    //       } else {
-    //         toast.error("An error occurred while fetching data.", { position: toast.POSITION.TOP_RIGHT });
-    //       }
-    //       setIsLoading(false);
-    //     });
-    // }
+    
   }, [bot]); // Empty dependency array means this effect will only run once after the initial render
 
 
