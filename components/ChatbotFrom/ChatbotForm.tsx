@@ -21,7 +21,7 @@ import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSwitch from "../CustomSwitch"
 
 
-const ChatbotForm = ({ bot }) => {
+const ChatbotForm = () => {
   const [name, setName] = useState("")
   const [active, setActive] = useState(false)
   const [knowledgeBase, setKnowleBase] = useState("")
@@ -36,16 +36,19 @@ const ChatbotForm = ({ bot }) => {
   const [knowledgeBases, setKnowledgeBases] = useState([])
 
   const router = useRouter()
+  const {bot} = router.query;
   const [index, setIndex] = useState(-1)
   const [userId, setUserId] = useState(null);
-
   const handleColorButtonClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
 
   const handleColorMenuItemClick = (color) => {
+    console.log("1",index)
+
     setThemeColor(color)
     setAnchorEl(null)
+    console.log(index)
   }
 
   const colors = [
@@ -83,79 +86,76 @@ const ChatbotForm = ({ bot }) => {
     };
 
     if (userID) {
-      fetch(`${AUTH_API.GET_KNOWLEDGE_BASES}?userId=${userID}`, requestOptions)
-        .then(response => response.json())
-        .then((data) => {
-          setBases(data)
-          setIsLoading(false)
-        })
-
-        .catch(error => {
-          if (error.response) {
-            console.log('Error status code:', error.response.status);
-            console.log('Error response data:', error.response.data);
-            if (error.response.status === 401){
-              toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
-
-              router.push("/signin")
-            }
-            // Handle the error response as needed
-          } else if (error.request) {
-            // The request was made but no response was received
-            console.log('Error request:', error.request);
-            toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
-
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error message:', error.message);
-            toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
-
+      fetch(`${AUTH_API.CHATBOT_DATA}?userId=${userID}&botId=${bot}`, requestOptions)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
           }
-        });
-    }
-    if (bot!=='-1'&&bot) {
-      setIsLoading(true);
-
-      fetch(`${AUTH_API.GET_CHATBOT}?botId=${bot}`, requestOptions)
-        .then(response => response.json())
+          return response.json();
+        })
         .then(data => {
-          console.log(data)
-          
-          setName(data.name)
-          setActive(data.active)
-          setKnowleBase(data.knowledge_base!=="-1"?data.knowledge_base:"")
-          const i = knowledgeBases.findIndex(base => base.name === data.knowledge_base);
+          setBases(data.knowledge);
+          const knowldgeBases = data.knowledge;
+          // console.log(data.bot_data.name)
+          setName(data.bot_data.name)
+          setActive(data.bot_data.active)
+          setKnowleBase(data.bot_data.knowledge_base!=="-1"?data.bot_data.knowledge_base:"")
+          const i = knowldgeBases.findIndex(base => base.name === data.bot_data.knowledge_base);
+          console.log("Index >>>>>", i)
           setIndex(i);
-          setThemeColor(data.color)
-          setAvatarPreview(data.avatar)
-          setTimeFrom(data.start_time)
-          setTimeUntil(data.end_time)
+          setThemeColor(data.bot_data.color)
+          setAvatarPreview(data.bot_data.avatar)
+          setTimeFrom(data.bot_data.start_time)
+          setTimeUntil(data.bot_data.end_time)
           setIsLoading(false);
+          // setIsLoading(false);
         })
         .catch(error => {
-          if (error.response) {
-            console.log('Error status code:', error.response.status);
-            console.log('Error response data:', error.response.data);
-            if (error.response.status === 401){
-              toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
-
-              router.push("/signin")
-            }
-            // Handle the error response as needed
-          } else if (error.request) {
-            // The request was made but no response was received
-            console.log('Error request:', error.request);
-            toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
-
+          
+          if (error.message.includes('401')) {
+            toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
+            router.push("/signin");
           } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error message:', error.message);
-            toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
-
+            toast.error("An error occurred while fetching data.", { position: toast.POSITION.TOP_RIGHT });
           }
-          setIsLoading(false);
         });
     }
+    // if (bot!=='-1'&&bot) {
+    //   setIsLoading(true);
+
+    //   fetch(`${AUTH_API.GET_CHATBOT}?botId=${bot}`, requestOptions)
+    //     .then(response => {
+    //       if (!response.ok) {
+    //         throw new Error(`HTTP error! Status: ${response.status}`);
+    //       }
+    //       return response.json();
+    //     })
+    //     .then(data => {
+    //       console.log(data.knowledge_base)
+    //       console.log(bases)
+    //       setName(data.name)
+    //       setActive(data.active)
+    //       setKnowleBase(data.knowledge_base!=="-1"?data.knowledge_base:"")
+    //       const i = bases.findIndex(base => base.name === data.knowledge_base);
+    //       console.log("Index >>>>>", i)
+    //       setIndex(i);
+    //       setThemeColor(data.color)
+    //       setAvatarPreview(data.avatar)
+    //       setTimeFrom(data.start_time)
+    //       setTimeUntil(data.end_time)
+    //       setIsLoading(false);
+    //     })
+    //     .catch(error => {
+    //       if (error.message.includes('401')) {
+    //         toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
+    //         router.push("/signin");
+    //         return;
+    //       } else {
+    //         toast.error("An error occurred while fetching data.", { position: toast.POSITION.TOP_RIGHT });
+    //       }
+    //       setIsLoading(false);
+    //     });
+    // }
   }, [bot]); // Empty dependency array means this effect will only run once after the initial render
 
 
@@ -248,6 +248,10 @@ const ChatbotForm = ({ bot }) => {
       router.push('/chatbot')
     } catch (error) {
       console.error("Error uploading:", error)
+      if (error.response && error.response.status === 401) {
+        // Redirect to the sign-in page if the response status is 401
+        router.push('/signin');
+      }
     }
   }
   const handleCancelClick = () => {

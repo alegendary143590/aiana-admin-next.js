@@ -1,4 +1,4 @@
-// export const SERVER_API = "https://86fd-194-87-199-27.ngrok-free.app"
+// export const SERVER_API = "https://0545-194-87-199-27.ngrok-free.app"
 export const SERVER_API = "https://bck.aiana.io"
 
 export const SERVER_API_URL = `${SERVER_API}/api`
@@ -33,4 +33,5 @@ export const AUTH_API = {
   DELETE_URL: `${SERVER_API_URL}/del_url`,
   DELETE_KNOWLEDGEBASE: `${SERVER_API_URL}/del_knowledgebase`,
   DELETE_BOT: `${SERVER_API_URL}/del_bot`,
+  CHATBOT_DATA:`${SERVER_API_URL}/get_chatbot_data`,
 }

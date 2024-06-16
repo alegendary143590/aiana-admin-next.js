@@ -1,18 +1,11 @@
-import { useRouter } from "next/router"
+
 import ChatbotForm from "@/components/ChatbotFrom"
 import Layout from "@/components/Layout"
 
-const EditPage = () => {
-  const router = useRouter()
-  const { bot } = router.query;
-
-  return (
+const EditPage = () => 
     <Layout type="admin">
       <div className="px-[20px] py-[20px] w-full h-full flex flex-col">
-        <ChatbotForm bot={bot} />
+        <ChatbotForm />
       </div>
     </Layout>
-  )
-}
-
 export default EditPage
