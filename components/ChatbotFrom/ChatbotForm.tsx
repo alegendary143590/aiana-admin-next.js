@@ -108,16 +108,14 @@ const ChatbotForm = () => {
           setTimeFrom(data.bot_data.start_time)
           setTimeUntil(data.bot_data.end_time)
           setIsLoading(false);
-          setIsLoading(false);
+          // setIsLoading(false);
         })
         .catch(error => {
           
           if (error.message.includes('401')) {
             toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
             router.push("/signin");
-            return;
           } else {
-            console.error('Error:', error);
             toast.error("An error occurred while fetching data.", { position: toast.POSITION.TOP_RIGHT });
           }
         });
