@@ -108,8 +108,10 @@ const ChatBot = ({ userId, botId }) => {
         const newMessage = { id: uuidv4(), text: input, isBot: false };
         setMessages([...messages, newMessage]);
         setInput("");
-        const currentDateAndTime = new Date();
-        const createdAt = currentDateAndTime.toISOString();
+        const createdAt = new Date();
+        // console.log(currentDateAndTime)
+        // const createdAt = currentDateAndTime.toISOString();
+        console.log("Here>>>>>>",createdAt)
         axios.post(AUTH_API.QUERY, { botId, sessionId, input, userId, createdAt })
             .then((response) => {
                 if (response.status === 200) {
