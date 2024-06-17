@@ -142,7 +142,7 @@ const Logs = ({session}) => {
                 <div className="flex flex-row justify-between w-full pl-10">
                   <div className="flex flex-row items-center gap-2">
                     <Image
-                      src="/images/face.png"
+                      src="/images/face.PNG"
                       width={30}
                       height={30}
                       className="w-[30px]! h-[30px]! rounded-full mr-4 mt-1" // Changed rounded-[50px] to rounded-full for better clarity
