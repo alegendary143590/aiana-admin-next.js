@@ -132,7 +132,7 @@ const ChatbotForm = () => {
 
   const handleAvatarChange = (event) => {
     const file = event.target.files && event.target.files[0]
-    setAvatar(file)
+    setAvatar(file)       
     const reader = new FileReader()
 
     reader.onload = () => {

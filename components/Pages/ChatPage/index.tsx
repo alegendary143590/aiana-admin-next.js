@@ -50,8 +50,19 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         const newMessage = { id: uuidv4(), text: input, isBot: false };
         setMessages([...messages, newMessage]);
         setInput("");
-        const currentDateAndTime = new Date();
-        const createdAt = currentDateAndTime.toISOString();
+        const options:Intl.DateTimeFormatOptions = { 
+            weekday: 'short', 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric', 
+            hour: 'numeric', 
+            minute: 'numeric', 
+            second: 'numeric'
+          };
+        const createdAt = new Date().toLocaleDateString('en-US', options);
+       
+        console.log(createdAt)
+        // const createdAt = currentDateAndTime.toISOString();
         axios.post(AUTH_API.QUERY, { botId, sessionId, input, userId, createdAt },{
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
