@@ -10,6 +10,7 @@ import { toast, ToastContainer } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 import formatDateString from "@/components/utils/common"
 import router from "next/router"
+import Image from 'next/image'
 
 const Logs = ({session}) => {
   const INITIAL_BOT_OBJ = {
@@ -21,6 +22,7 @@ const Logs = ({session}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [bot, setBot] = useState(INITIAL_BOT_OBJ)
   const [conversation, setConversation] = useState([])
+  const [botAvatar, setBotAvatar] = useState('/images/logo_short.png');
 
   useEffect(() => {
     if (session !== undefined) {
@@ -37,6 +39,8 @@ const Logs = ({session}) => {
             toast.error("Please login!", {position: toast.POSITION.TOP_RIGHT});
             router.push("/signin");
           }
+          // console.log("conversation >>>>>", response.data)
+
           if (response.data && response.data.log) {
             // Assuming log contains keys like bot_name and created_at
             const updatedBot = {
@@ -52,6 +56,9 @@ const Logs = ({session}) => {
           }
           if (response.data && response.data.conversation){
             setConversation(response.data.conversation)
+          }
+          if (response.data && response.data.bot_avatar){
+            setBotAvatar(response.data.bot_avatar)
           }
           setIsLoading(false)
         })
@@ -113,8 +120,10 @@ const Logs = ({session}) => {
             <ListItem className="border-b flex flex-col border-gray-300 text-gray-500">
               <div className="flex justify-between mb-5 w-full items-start">
                 <div className="flex flex-row">
-                  <img
-                    src="/images/users/avatar-2.jpg"
+                  <Image
+                    src={botAvatar}
+                    width={40}
+                    height={40}
                     className="w-[40px] h-[40px] rounded-[50px] mr-4"
                     alt="avatar"
                   />
@@ -132,8 +141,10 @@ const Logs = ({session}) => {
                 <div key={conv.id} className="flex flex-col w-full">
                 <div className="flex flex-row justify-between w-full pl-10">
                   <div className="flex flex-row items-center gap-2">
-                    <img
+                    <Image
                       src="/images/face.png"
+                      width={30}
+                      height={30}
                       className="w-[30px]! h-[30px]! rounded-full mr-4 mt-1" // Changed rounded-[50px] to rounded-full for better clarity
                       alt="avatar"
                     />
@@ -148,8 +159,10 @@ const Logs = ({session}) => {
                 </div>
                 <div className="flex flex-row justify-between w-full pl-10 mt-2">
                   <div className="flex flex-row items-center gap-2 w-[70%]">
-                    <img
-                      src="/images/users/avatar-2.jpg"
+                    <Image
+                      src={botAvatar}
+                      width={30}
+                      height={30}
                       className="w-[30px] h-[30px] rounded-full mr-4 mt-1" // Changed rounded-[50px] to rounded-full for better clarity
                       alt="avatar"
                     />
