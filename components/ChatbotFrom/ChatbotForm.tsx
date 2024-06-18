@@ -178,8 +178,8 @@ const ChatbotForm = ({bot}) => {
 
   const handleSubmit = async () => {
     const formData = new FormData()
-    if(name === "") {
-      toast.error("Name is required!", {position: toast.POSITION.TOP_RIGHT});
+    if(name === "" || knowledgeBase==="") {
+      toast.error("Name and Knowledge Base are required!", {position: toast.POSITION.TOP_RIGHT});
       return;
     }
 
