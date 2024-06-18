@@ -97,18 +97,20 @@ const ChatbotForm = () => {
           setBases(data.knowledge);
           const knowldgeBases = data.knowledge;
           // console.log(data.bot_data.name)
-          setName(data.bot_data.name)
-          setActive(data.bot_data.active)
-          setKnowleBase(data.bot_data.knowledge_base!=="-1"?data.bot_data.knowledge_base:"")
-          const i = knowldgeBases.findIndex(base => base.name === data.bot_data.knowledge_base);
-          console.log("Index >>>>>", i)
-          setIndex(i);
-          setThemeColor(data.bot_data.color)
-          setAvatarPreview(data.bot_data.avatar)
-          setTimeFrom(data.bot_data.start_time)
-          setTimeUntil(data.bot_data.end_time)
+          if (data.bot_data!=='-1'){
+            setName(data.bot_data.name)
+            setActive(data.bot_data.active)
+            setKnowleBase(data.bot_data.knowledge_base!=="-1"?data.bot_data.knowledge_base:"")
+            const i = knowldgeBases.findIndex(base => base.name === data.bot_data.knowledge_base);
+            console.log("Index >>>>>", i)
+            setIndex(i);
+            setThemeColor(data.bot_data.color)
+            setAvatarPreview(data.bot_data.avatar)
+            setTimeFrom(data.bot_data.start_time)
+            setTimeUntil(data.bot_data.end_time)
+            // setIsLoading(false);
+          }
           setIsLoading(false);
-          // setIsLoading(false);
         })
         .catch(error => {
           
