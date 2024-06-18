@@ -1,5 +1,3 @@
-"use client!"
-
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import {
@@ -21,7 +19,7 @@ import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSwitch from "../CustomSwitch"
 
 
-const ChatbotForm = () => {
+const ChatbotForm = ({bot}) => {
   const [name, setName] = useState("")
   const [active, setActive] = useState(false)
   const [knowledgeBase, setKnowleBase] = useState("")
@@ -36,7 +34,7 @@ const ChatbotForm = () => {
   const [knowledgeBases, setKnowledgeBases] = useState([])
 
   const router = useRouter()
-  const {bot} = router.query;
+  // console.log("inner >>>", bot)
   const [index, setIndex] = useState(-1)
   const [userId, setUserId] = useState(null);
   const handleColorButtonClick = (event) => {
@@ -44,7 +42,7 @@ const ChatbotForm = () => {
   }
 
   const handleColorMenuItemClick = (color) => {
-    console.log("1",index)
+    // console.log("1",index)
 
     setThemeColor(color)
     setAnchorEl(null)
@@ -102,7 +100,7 @@ const ChatbotForm = () => {
             setActive(data.bot_data.active)
             setKnowleBase(data.bot_data.knowledge_base!=="-1"?data.bot_data.knowledge_base:"")
             const i = knowldgeBases.findIndex(base => base.name === data.bot_data.knowledge_base);
-            console.log("Index >>>>>", i)
+            // console.log("Index >>>>>", i)
             setIndex(i);
             setThemeColor(data.bot_data.color)
             setAvatarPreview(data.bot_data.avatar)
