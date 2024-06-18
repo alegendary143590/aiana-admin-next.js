@@ -1,7 +1,7 @@
-
 import ChatbotForm from "@/components/ChatbotFrom"
 import Layout from "@/components/Layout"
 import { useRouter } from "next/router"
+
 const EditPage = () => {
   const router = useRouter();
   const {bot} = router.query;
