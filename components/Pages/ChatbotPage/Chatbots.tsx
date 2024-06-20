@@ -4,22 +4,27 @@ import Button from "@mui/material/Button"
 import router from "next/router"
 import { AUTH_API } from "@/components/utils/serverURL"
 import AlertDialog from "@/components/AlertDialog"
+import EmbedAlert from '@/components/Alerts/EmbedAlert'
 import ChatbotPage from "@/components/Pages/ChatPage"
 import { toast } from "react-toastify"
 import axios from "axios"
-
 
 const Chatbots = () => {
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [bots, setBots] = React.useState([]);
-  const [botId, setBotId] = React.useState('')
+  const [botId, setBotId] = React.useState('');
+  const [open, setOpen] = React.useState(false);
+  const [description, setDescription] = React.useState("");
+
   const [botVisible, setBotVisible] = React.useState(false)
   const [ openDialog, setOpenDialog]= React.useState(false);
   const [botName, setBotName] = React.useState('')
   const [botAvatar, setBotAvatar] = React.useState('')
   const [botThemeColor, setBotThemeColor] = React.useState('#1976D2')
   const [userId, setUserId] = React.useState('')
+  const [userIndex, setUserIndex] = React.useState('')
+  
   const [index, setIndex] = React.useState('');
   const handleAddRow = () => {
     router.push(`/chatbot/edit?bot=-1`)
@@ -27,6 +32,7 @@ const Chatbots = () => {
 
   React.useEffect(() => {
   const userID = localStorage.getItem('userID');
+  setUserIndex(localStorage.getItem('userIndex'));
     if (userID) setUserId(userID)
      const requestOptions = {
       headers: new Headers({
@@ -144,6 +150,17 @@ const Chatbots = () => {
     setOpenDialog(true);
   }
 
+  const handleEmbedClickButton = (bot) => {
+    const embeddingCode = `<script src="https://login.aiana.io/aiana.js" data-user-id=${userIndex} data-bot-id=${bot}></script>`;
+    setDescription(embeddingCode);
+    setOpen(true);
+  }
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(description);
+    toast.success("Successfully copied!", {position:toast.POSITION.TOP_RIGHT});
+  }
+
   const handleAgree = ()=> {
     setOpenDialog(false);
     handleDelete(index);
@@ -189,8 +206,9 @@ const Chatbots = () => {
                   {bot.active ? "Active" : "Inactive"}
                 </Button>
               </div>
+              
             </div>
-            <div className="flex flex-row justify-between mt-5 mx-5">
+            <div className="flex flex-row justify-between gap-3 mt-5 mx-5">
               <div>
                 <button
                   type="button"
@@ -221,7 +239,17 @@ const Chatbots = () => {
                   Chat
                 </button>
               </div>
+              <div>
+                <button
+                    type="button"
+                    className="w-12 h-8 text-[12px] my-1 rounded-sm bg-[#33A186] text-white mr-6"
+                    style={{ textTransform: "none" }}
+                    onClick={() => handleEmbedClickButton(bot.index)}
+                  >
+                    Embed
+                  </button>
               </div>
+            </div>
           </div>
         ))}
        
@@ -234,6 +262,8 @@ const Chatbots = () => {
         open={openDialog}
         setOpen={setOpenDialog}
         />
+        <EmbedAlert open={open} setOpen={setOpen} description={description} handleCopy={handleCopy}/>
+
       <ChatbotPage userId={userId} botId={botId} botName={botName} color={botThemeColor} avatar={botAvatar}  visible={botVisible} setVisible={setBotVisible} />
       </>
   )

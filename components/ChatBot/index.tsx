@@ -5,12 +5,12 @@ import { Avatar, Typography, Button, Box, Paper, IconButton, CircularProgress } 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ToastContainer, toast } from "react-toastify"
 import { v4 as uuidv4 } from 'uuid';
-import { useRouter } from 'next/router';
 
 const ChatBot = ({ userId, botId }) => {
 
     const INITIAL_BOT_OBJ = {
         id: "",
+        index:"",
         name: "",
         avatar: "",
         color: "",
@@ -19,7 +19,6 @@ const ChatBot = ({ userId, botId }) => {
     const [messages, setMessages] = useState([
         { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
     ]);
-    const router = useRouter();
 
     const [isVisible, setIsVisible] = useState(false)
     const [bot, setBot] = useState(INITIAL_BOT_OBJ);
@@ -49,23 +48,19 @@ const ChatBot = ({ userId, botId }) => {
         } else {
             setVisibleClass("hidden");
         }
-    }, [isVisible]);
-
-    useEffect(()=> {
         const requestOptions = {
             headers: new Headers({
             'Content-Type': 'application/json',
             'ngrok-skip-browser-warning': "1",
             })
         };
-        if (botId) {
+        if (botId!==undefined) {
         setIsLoading(true)
 
-        fetch(`${AUTH_API.GET_CHATBOT}?botId=${botId}`, requestOptions)
+        fetch(`${AUTH_API.GET_CHATBOT}?botIndex=${botId}`, requestOptions)
         .then(response => response.json())
         .then(data => {
-        console.log("Here>>", data.avatar)
-        setBot({id:data.id, name:data.name, avatar:data.avatar===""?"/images/logo_short.png":data.avatar, color:data.color})
+        setBot({id:data.bot.id, name:data.bot.name, avatar:data.bot.avatar===""?"/images/users/avatar-2.jpg":data.bot.avatar, color:data.bot.color, index:botId})
             // console.log(data);
             setIsLoading(false);
         })
@@ -73,10 +68,6 @@ const ChatBot = ({ userId, botId }) => {
             if (error.response) {
                 console.log('Error status code:', error.response.status);
                 console.log('Error response data:', error.response.data);
-                if (error.response.status === 401){
-                  toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
-                  router.push("/signin")
-                }
                 // Handle the error response as needed
               } else if (error.request) {
                 // The request was made but no response was received
@@ -92,7 +83,7 @@ const ChatBot = ({ userId, botId }) => {
               setIsLoading(false);
         });
         }
-    }, [botId])
+    }, [isVisible, botId]);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -109,10 +100,8 @@ const ChatBot = ({ userId, botId }) => {
         setMessages([...messages, newMessage]);
         setInput("");
         const createdAt = new Date();
-        // console.log(currentDateAndTime)
-        // const createdAt = currentDateAndTime.toISOString();
         console.log("Here>>>>>>",createdAt)
-        axios.post(AUTH_API.QUERY, { botId, sessionId, input, userId, createdAt })
+        axios.post(AUTH_API.QUERY, { botId:bot.id, sessionId, input, userId, createdAt })
             .then((response) => {
                 if (response.status === 200) {
                     const { message, solve } = response.data;
@@ -131,11 +120,6 @@ const ChatBot = ({ userId, botId }) => {
                 if (error.response) {
                     console.log('Error status code:', error.response.status);
                     console.log('Error response data:', error.response.data);
-                    if (error.response.status === 401){
-                      toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
-        
-                      router.push("/signin")
-                    }
                     // Handle the error response as needed
                   } else if (error.request) {
                     // The request was made but no response was received
@@ -187,7 +171,7 @@ const ChatBot = ({ userId, botId }) => {
         // Logic to handle the form submission (e.g., send email and content to backend)
         setShowForm(false); // Hide the form after submission
         setIsBook(false);
-        axios.post(AUTH_API.BOOK, { userId, sessionId, botId, email, content })
+        axios.post(AUTH_API.BOOK, { userId, sessionId, botId:bot.id, email, content })
             .then((response) => {
                 if (response.status === 201) {
                     const  {message}  = response.data;
@@ -206,11 +190,6 @@ const ChatBot = ({ userId, botId }) => {
                 if (error.response) {
                     console.log('Error status code:', error.response.status);
                     console.log('Error response data:', error.response.data);
-                    if (error.response.status === 401){
-                      toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
-        
-                      router.push("/signin")
-                    }
                     // Handle the error response as needed
                   } else if (error.request) {
                     // The request was made but no response was received
@@ -224,8 +203,8 @@ const ChatBot = ({ userId, botId }) => {
         
                   }
                 setInput("");
-                setEmail("")
-                setContent("")
+                setEmail("");
+                setContent("");
             });
     };
 
@@ -282,19 +261,19 @@ const ChatBot = ({ userId, botId }) => {
             </div>
             {showYesNo && (
                 <div className="flex justify-center mt-2">
-                    <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" onClick={handleYesClick}>Yes</Button>
-                    <Button variant="outlined" color="secondary" onClick={handleNoClick}>No</Button>
+                    <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" aria-label="Click Yes" onClick={handleYesClick}>Yes</Button>
+                    <Button variant="outlined" color="secondary" onClick={handleNoClick} aria-label="Click No">No</Button>
                 </div>
             )}
             {showForm && (
                 <Paper elevation={4} className="p-4 mt-2">
-                    <Typography variant="h6" className='text-center' gutterBottom>Please provide your email and content to book a ticket</Typography>
+                    <Typography variant="h6" className="text-center" gutterBottom>Please provide your email and content to book a ticket</Typography>
                     <input
                         type="email"
                         placeholder="Email"
                         className="w-full mb-2 p-2 border border-gray-300 rounded-md"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}  
                     />
                     <textarea
                         placeholder="Content"
@@ -304,8 +283,8 @@ const ChatBot = ({ userId, botId }) => {
                         onChange={(e) => setContent(e.target.value)}
                     />
                     <div className="flex justify-end">
-                        <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" onClick={handleOkayClick}>Okay</Button>
-                        <Button variant="outlined" color="secondary" onClick={handleCancelClick}>Cancel</Button>
+                        <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" aria-label="Click Okay" onClick={handleOkayClick}>Okay</Button>
+                        <Button variant="outlined" color="secondary" onClick={handleCancelClick} aria-label="Click Cancel">Cancel</Button>
                     </div>
                 </Paper>
             )}
@@ -334,7 +313,7 @@ const ChatBot = ({ userId, botId }) => {
                     onKeyDown={handleKeyDown}
                     disabled={isLoading || isBook}
                 />
-                <Button variant="contained" color="primary" className="bg-[#1976D2]" onClick={handleSendMessage}>
+                <Button variant="contained" color="primary" className="bg-[#1976D2]" aria-label="Send Button" onClick={handleSendMessage}>
                     {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Send'}
                 </Button>
             </div>
@@ -342,18 +321,22 @@ const ChatBot = ({ userId, botId }) => {
                 
         </div>
         ) : (
-        <button type='button' onClick={toggleChatbot} style={{
+        <button type='button' aria-label="Toggle Button" onClick={toggleChatbot} style={{
             cursor: 'pointer',
             width: '50px',
             height: '50px',
             borderRadius: '50%',
-            background: 'blue',
+            backgroundColor:'#ccccff',
             color: 'white',
             fontSize: '24px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
-        }}>+</button>
+            justifyContent: 'center',
+            backgroundImage: 'url("/images/logo_short.png")',
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center'
+        }}/>
         )}
         <ToastContainer />      
     </div>

@@ -18,7 +18,7 @@ export const AUTH_API = {
   GET_KNOWLEDGE_BASE: `${SERVER_API_URL}/get_knowledge_base`,
   GET_CHATBOTS: `${SERVER_API_URL}/get_chatbots`,
   UPDATE_KNOWLEDGE_BASE: `${SERVER_API_URL}/update_knowledge_base`,
-  GET_CHATBOT: `${SERVER_API_URL}/get_chatbot`,
+  GET_CHATBOT: `${SERVER_API_URL}/get_embedding`,
   UPDATE_CHATBOT: `${SERVER_API_URL}/update_chatbot`,
   QUERY: `${SERVER_API_URL}/query`,
   DEL_MESSAGE: `${SERVER_API_URL}/del_messages`,
