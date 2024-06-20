@@ -75,9 +75,14 @@ function EmailPasswordForm() {
       })
       .catch((error) => {
         if (error.response) {
-          console.log('Error status code:', error.response.status);
-          console.log('Error response data:', error.response.data);
-          toast.error(error.message, {position:toast.POSITION.TOP_RIGHT});
+          if (error.response.status === 409){
+            toast.error("User already exists!", { position: toast.POSITION.TOP_RIGHT });
+          } else {
+            console.log('Error status code:', error.response.status);
+            console.log('Error response data:', error.response.data);
+            toast.error(error.message, {position:toast.POSITION.TOP_RIGHT});
+          }
+         
           // Handle the error response as needed
         } else if (error.request) {
           // The request was made but no response was received
