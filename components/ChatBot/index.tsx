@@ -261,8 +261,8 @@ const ChatBot = ({ userId, botId }) => {
             </div>
             {showYesNo && (
                 <div className="flex justify-center mt-2">
-                    <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" onClick={handleYesClick}>Yes</Button>
-                    <Button variant="outlined" color="secondary" onClick={handleNoClick}>No</Button>
+                    <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" aria-label='Click Yes' onClick={handleYesClick}>Yes</Button>
+                    <Button variant="outlined" color="secondary" onClick={handleNoClick} aria-label='Click No'>No</Button>
                 </div>
             )}
             {showForm && (
@@ -273,7 +273,7 @@ const ChatBot = ({ userId, botId }) => {
                         placeholder="Email"
                         className="w-full mb-2 p-2 border border-gray-300 rounded-md"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}  
                     />
                     <textarea
                         placeholder="Content"
