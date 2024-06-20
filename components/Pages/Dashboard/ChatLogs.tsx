@@ -31,6 +31,7 @@ const ChatLogs = () => {
   const [chatLog, setChatLog] = useState([]);
 
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    cursor: "pointer",
     "&:nth-of-type(odd)": {
       backgroundColor: theme.palette.action.hover,
     },
@@ -115,7 +116,7 @@ const ChatLogs = () => {
           </TableHead>
           <TableBody>
             {chatLog.map((row) => (
-              <StyledTableRow key={row.id} onClick={()=>handleRowClick(row.session_id)}>
+              <StyledTableRow key={row.id} onClick={()=>handleRowClick(row.session_id)} >
                 <StyledTableCell align="center">{row.created_at}</StyledTableCell>
                 <StyledTableCell align="center">{row.ended_at}</StyledTableCell>
                 <StyledTableCell align="center">{row.bot_name}</StyledTableCell>

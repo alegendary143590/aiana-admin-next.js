@@ -11,6 +11,7 @@ const ChatBot = ({ userId, botId }) => {
 
     const INITIAL_BOT_OBJ = {
         id: "",
+        index:"",
         name: "",
         avatar: "",
         color: "",
@@ -49,23 +50,19 @@ const ChatBot = ({ userId, botId }) => {
         } else {
             setVisibleClass("hidden");
         }
-    }, [isVisible]);
-
-    useEffect(()=> {
         const requestOptions = {
             headers: new Headers({
             'Content-Type': 'application/json',
             'ngrok-skip-browser-warning': "1",
             })
         };
-        if (botId) {
+        if (botId!==undefined) {
         setIsLoading(true)
 
-        fetch(`${AUTH_API.GET_CHATBOT}?botId=${botId}`, requestOptions)
+        fetch(`${AUTH_API.GET_CHATBOT}?botIndex=${botId}`, requestOptions)
         .then(response => response.json())
         .then(data => {
-        console.log("Here>>", data.avatar)
-        setBot({id:data.id, name:data.name, avatar:data.avatar===""?"/images/logo_short.png":data.avatar, color:data.color})
+        setBot({id:data.bot.id, name:data.bot.name, avatar:data.bot.avatar===""?"/images/users/avatar-2.jpg":data.bot.avatar, color:data.bot.color, index:botId})
             // console.log(data);
             setIsLoading(false);
         })
@@ -73,10 +70,6 @@ const ChatBot = ({ userId, botId }) => {
             if (error.response) {
                 console.log('Error status code:', error.response.status);
                 console.log('Error response data:', error.response.data);
-                if (error.response.status === 401){
-                  toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
-                  router.push("/signin")
-                }
                 // Handle the error response as needed
               } else if (error.request) {
                 // The request was made but no response was received
@@ -92,7 +85,7 @@ const ChatBot = ({ userId, botId }) => {
               setIsLoading(false);
         });
         }
-    }, [botId])
+    }, [isVisible, botId]);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -109,10 +102,8 @@ const ChatBot = ({ userId, botId }) => {
         setMessages([...messages, newMessage]);
         setInput("");
         const createdAt = new Date();
-        // console.log(currentDateAndTime)
-        // const createdAt = currentDateAndTime.toISOString();
         console.log("Here>>>>>>",createdAt)
-        axios.post(AUTH_API.QUERY, { botId, sessionId, input, userId, createdAt })
+        axios.post(AUTH_API.QUERY, { botId:bot.id, sessionId, input, userId, createdAt })
             .then((response) => {
                 if (response.status === 200) {
                     const { message, solve } = response.data;
@@ -131,11 +122,6 @@ const ChatBot = ({ userId, botId }) => {
                 if (error.response) {
                     console.log('Error status code:', error.response.status);
                     console.log('Error response data:', error.response.data);
-                    if (error.response.status === 401){
-                      toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
-        
-                      router.push("/signin")
-                    }
                     // Handle the error response as needed
                   } else if (error.request) {
                     // The request was made but no response was received
@@ -187,7 +173,7 @@ const ChatBot = ({ userId, botId }) => {
         // Logic to handle the form submission (e.g., send email and content to backend)
         setShowForm(false); // Hide the form after submission
         setIsBook(false);
-        axios.post(AUTH_API.BOOK, { userId, sessionId, botId, email, content })
+        axios.post(AUTH_API.BOOK, { userId, sessionId, botId:bot.id, email, content })
             .then((response) => {
                 if (response.status === 201) {
                     const  {message}  = response.data;
@@ -206,11 +192,6 @@ const ChatBot = ({ userId, botId }) => {
                 if (error.response) {
                     console.log('Error status code:', error.response.status);
                     console.log('Error response data:', error.response.data);
-                    if (error.response.status === 401){
-                      toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
-        
-                      router.push("/signin")
-                    }
                     // Handle the error response as needed
                   } else if (error.request) {
                     // The request was made but no response was received
@@ -347,13 +328,17 @@ const ChatBot = ({ userId, botId }) => {
             width: '50px',
             height: '50px',
             borderRadius: '50%',
-            background: 'blue',
+            backgroundColor:'#ccccff',
             color: 'white',
             fontSize: '24px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
-        }}>+</button>
+            justifyContent: 'center',
+            backgroundImage: 'url("/images/logo_short.png")',
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+        }}></button>
         )}
         <ToastContainer />      
     </div>
