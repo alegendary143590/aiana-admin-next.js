@@ -264,7 +264,7 @@ const Chatbots = () => {
         />
         <EmbedAlert open={open} setOpen={setOpen} description={description} handleCopy={handleCopy}/>
 
-      <ChatbotPage userId={userId} botId={botId} botName={botName} color={botThemeColor} avatar={botAvatar}  visible={botVisible} setVisible={setBotVisible} />
+      <ChatbotPage userId={userId} userIndex={userIndex} botId={botId} botName={botName} color={botThemeColor} avatar={botAvatar}  visible={botVisible} setVisible={setBotVisible} />
       </>
   )
 }

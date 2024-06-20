@@ -8,7 +8,7 @@ import router from "next/router"
 
 import { v4 as uuidv4 } from 'uuid';
 
-const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }) => {
+const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, setVisible }) => {
     const [messages, setMessages] = useState([
         { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
     ]);
@@ -144,7 +144,7 @@ const ChatPage = ({ userId, botId, botName, color, avatar, visible, setVisible }
         // Logic to handle the form submission (e.g., send email and content to backend)
         setShowForm(false); // Hide the form after submission
         setIsBook(false);
-        axios.post(AUTH_API.BOOK, { userId, sessionId, botId, email, content }, {
+        axios.post(AUTH_API.BOOK, { userIndex, sessionId, botId, email, content }, {
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
               'Content-Type': 'application/json',  // Explicitly defining the Content-Type

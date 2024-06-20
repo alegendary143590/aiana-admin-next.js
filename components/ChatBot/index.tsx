@@ -6,7 +6,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ToastContainer, toast } from "react-toastify"
 import { v4 as uuidv4 } from 'uuid';
 
-const ChatBot = ({ userId, botId }) => {
+const ChatBot = ({ userIndex, botId }) => {
 
     const INITIAL_BOT_OBJ = {
         id: "",
@@ -22,13 +22,14 @@ const ChatBot = ({ userId, botId }) => {
 
     const [isVisible, setIsVisible] = useState(false)
     const [bot, setBot] = useState(INITIAL_BOT_OBJ);
+    const [userId, setUserId] = useState("");
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isBook, setIsBook] = useState(false)
     const [visibleClass, setVisibleClass] = useState("hidden");
     const messagesEndRef = useRef(null);
     const [sessionId, setSessionId] = useState("");
-    const [showYesNo, setShowYesNo] = useState(false)
+    const [showYesNo, setShowYesNo] = useState(false);
     const [showForm, setShowForm] = useState(false); // State to manage whether to show the form
     const [email, setEmail] = useState(""); // State to store email input
     const [content, setContent] = useState(""); // State to store content input
@@ -57,11 +58,11 @@ const ChatBot = ({ userId, botId }) => {
         if (botId!==undefined) {
         setIsLoading(true)
 
-        fetch(`${AUTH_API.GET_CHATBOT}?botIndex=${botId}`, requestOptions)
+        fetch(`${AUTH_API.GET_CHATBOT}?botIndex=${botId}&userIndex=${userIndex}`, requestOptions)
         .then(response => response.json())
         .then(data => {
-        setBot({id:data.bot.id, name:data.bot.name, avatar:data.bot.avatar===""?"/images/users/avatar-2.jpg":data.bot.avatar, color:data.bot.color, index:botId})
-            // console.log(data);
+            setBot({id:data.bot.id, name:data.bot.name, avatar:data.bot.avatar===""?"/images/users/avatar-2.jpg":data.bot.avatar, color:data.bot.color, index:botId})
+            setUserId(data.bot.user_id);
             setIsLoading(false);
         })
         .catch(error => {
@@ -72,12 +73,12 @@ const ChatBot = ({ userId, botId }) => {
               } else if (error.request) {
                 // The request was made but no response was received
                 console.log('Error request:', error.request);
-                toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+                toast.error(error.request, { position: toast.POSITION.BOTTOM_RIGHT });
     
               } else {
                 // Something happened in setting up the request that triggered an Error
                 console.log('Error message:', error.message);
-                toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+                toast.error(error.message, { position: toast.POSITION.BOTTOM_RIGHT });
     
               }
               setIsLoading(false);
@@ -124,12 +125,12 @@ const ChatBot = ({ userId, botId }) => {
                   } else if (error.request) {
                     // The request was made but no response was received
                     console.log('Error request:', error.request);
-                    toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+                    toast.error(error.request, { position: toast.POSITION.BOTTOM_RIGHT });
         
                   } else {
                     // Something happened in setting up the request that triggered an Error
                     console.log('Error message:', error.message);
-                    toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+                    toast.error(error.message, { position: toast.POSITION.BOTTOM_RIGHT });
         
                   }
                   setIsLoading(false);
@@ -165,20 +166,20 @@ const ChatBot = ({ userId, botId }) => {
 
     const handleOkayClick = () => {
         if (email === "" || content ===""){
-            toast.error("Please provide an email and content!", { position: toast.POSITION.TOP_RIGHT });
+            toast.error("Please provide an email and content!", { position: toast.POSITION.BOTTOM_RIGHT });
             return;
         }
         // Logic to handle the form submission (e.g., send email and content to backend)
         setShowForm(false); // Hide the form after submission
         setIsBook(false);
-        axios.post(AUTH_API.BOOK, { userId, sessionId, botId:bot.id, email, content })
+        axios.post(AUTH_API.BOOK, { userIndex, sessionId, botId:bot.id, email, content })
             .then((response) => {
                 if (response.status === 201) {
                     const  {message}  = response.data;
                     if (message === 'success'){
-                        toast.success("Successfully Booked!", { position: toast.POSITION.TOP_RIGHT })
+                        toast.success("Successfully Booked!", { position: toast.POSITION.BOTTOM_RIGHT })
                     } else {
-                        toast.error("Busy Network! Try again!", { position: toast.POSITION.TOP_RIGHT })
+                        toast.error("Busy Network! Try again!", { position: toast.POSITION.BOTTOM_RIGHT })
                     }
                     setEmail("")
                     setContent("")
@@ -194,12 +195,12 @@ const ChatBot = ({ userId, botId }) => {
                   } else if (error.request) {
                     // The request was made but no response was received
                     console.log('Error request:', error.request);
-                    toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+                    toast.error(error.request, { position: toast.POSITION.BOTTOM_RIGHT });
         
                   } else {
                     // Something happened in setting up the request that triggered an Error
                     console.log('Error message:', error.message);
-                    toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+                    toast.error(error.message, { position: toast.POSITION.BOTTOM_RIGHT });
         
                   }
                 setInput("");
