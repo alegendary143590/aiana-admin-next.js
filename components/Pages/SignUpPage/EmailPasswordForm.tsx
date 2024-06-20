@@ -63,6 +63,7 @@ function EmailPasswordForm() {
       .post(AUTH_API.REGISTER, formState, requestOptions)
       .then((response) => {
         if (response.status === 201) {
+          toast.success("Successfully registered!", { position:toast.POSITION.TOP_RIGHT })
           router.push("/signin")
           return
         }
