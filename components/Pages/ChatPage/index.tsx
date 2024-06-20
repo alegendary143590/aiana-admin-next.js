@@ -223,7 +223,7 @@ const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, s
                                 alt="avatar"
                                 className="relative mr-2"
                             />
-                            <Typography variant="body2" className="flex-grow" style={{ textAlign: message.isBot ? 'left' : 'right' }}>
+                            <Typography variant="body2" className="flex-grow" style={{ textAlign: message.isBot ? 'left' : 'right', overflowWrap: 'break-word' }}>
                                 {message.text}
                             </Typography>
                         </Box>

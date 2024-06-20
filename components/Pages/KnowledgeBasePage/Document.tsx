@@ -20,7 +20,7 @@ import { useRouter } from "next/router";
 import AlertDialog from "@/components/AlertDialog";
 
 
-
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB in bytes
 
 const Document = ({documents, setDocuments, setFiles}) => {
   const [ openDialog, setOpenDialog]= React.useState(false);
@@ -30,9 +30,21 @@ const Document = ({documents, setDocuments, setFiles}) => {
   
 
   const handleDocumentChanged = (event) => {
-     const fileList = event.target.files;
-     setFiles(Array.from(fileList));
-    const newDocs = Array.from(fileList).map((file: File) => ({
+    const fileList = event.target.files;
+    const validFiles = [];
+
+    for (let i = 0; i < fileList.length; i+=1) {
+      if (fileList[i].size <= MAX_FILE_SIZE) {
+        validFiles.push(fileList[i]);
+      } else {
+        toast.error(
+          `File "${fileList[i].name}" exceeds the maximum size of 5MB.`,
+          { position: toast.POSITION.TOP_RIGHT }
+        );
+      }
+    }
+    setFiles(validFiles); // Only set valid files
+    const newDocs = validFiles.map((file: File) => ({
       created_at: new Date().toISOString(),
       filename: file.name,
       id: -1,
