@@ -12,6 +12,7 @@ const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, s
     const [messages, setMessages] = useState([
         { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
     ]);
+    const [botAvatar, setBotAvatar] = useState('');
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isBook, setIsBook] = useState(false)
@@ -26,6 +27,7 @@ const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, s
     useEffect(() => {
         if (visible) {
             setVisibleClass("");
+            setBotAvatar(avatar===""?'/images/users/avatar-2.jpg':avatar)
             const session = uuidv4().toString();
             setSessionId(session);
             setMessages([
@@ -197,7 +199,7 @@ const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, s
             <Paper elevation={4} className="relative h-[70px] flex items-center" style={{ backgroundColor: color }}>
                 <Box display="flex" justifyContent="space-between" alignItems="center" className="w-full" p={1}>
                     <Box display="flex" alignItems="center">
-                        <Avatar src={avatar} alt="bot avatar" />
+                        <Avatar src={botAvatar} alt="bot avatar" />
                         <Typography variant="body1" ml={1}>{botName}</Typography>
                     </Box>
                     <IconButton onClick={() => setVisible(!visible)}>
@@ -219,7 +221,7 @@ const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, s
                     >
                         <Box className={`flex items-center gap-2 ${message.isBot ? '' : 'flex-row-reverse'}`}>
                             <Avatar
-                                src={message.isBot ? avatar : "/images/users/avatar-1.jpg"}
+                                src={message.isBot ? botAvatar : "/images/users/avatar-1.jpg"}
                                 alt="avatar"
                                 className="relative mr-2"
                             />
