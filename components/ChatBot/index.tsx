@@ -261,13 +261,13 @@ const ChatBot = ({ userId, botId }) => {
             </div>
             {showYesNo && (
                 <div className="flex justify-center mt-2">
-                    <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" aria-label='Click Yes' onClick={handleYesClick}>Yes</Button>
-                    <Button variant="outlined" color="secondary" onClick={handleNoClick} aria-label='Click No'>No</Button>
+                    <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" aria-label="Click Yes" onClick={handleYesClick}>Yes</Button>
+                    <Button variant="outlined" color="secondary" onClick={handleNoClick} aria-label="Click No">No</Button>
                 </div>
             )}
             {showForm && (
                 <Paper elevation={4} className="p-4 mt-2">
-                    <Typography variant="h6" className='text-center' gutterBottom>Please provide your email and content to book a ticket</Typography>
+                    <Typography variant="h6" className="text-center" gutterBottom>Please provide your email and content to book a ticket</Typography>
                     <input
                         type="email"
                         placeholder="Email"
@@ -283,8 +283,8 @@ const ChatBot = ({ userId, botId }) => {
                         onChange={(e) => setContent(e.target.value)}
                     />
                     <div className="flex justify-end">
-                        <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" aria-label='Click Okay' onClick={handleOkayClick}>Okay</Button>
-                        <Button variant="outlined" color="secondary" onClick={handleCancelClick} aria-label='Click Cancel'>Cancel</Button>
+                        <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" aria-label="Click Okay" onClick={handleOkayClick}>Okay</Button>
+                        <Button variant="outlined" color="secondary" onClick={handleCancelClick} aria-label="Click Cancel">Cancel</Button>
                     </div>
                 </Paper>
             )}
@@ -313,7 +313,7 @@ const ChatBot = ({ userId, botId }) => {
                     onKeyDown={handleKeyDown}
                     disabled={isLoading || isBook}
                 />
-                <Button variant="contained" color="primary" className="bg-[#1976D2]" onClick={handleSendMessage}>
+                <Button variant="contained" color="primary" className="bg-[#1976D2]" aria-label="Send Button" onClick={handleSendMessage}>
                     {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Send'}
                 </Button>
             </div>
@@ -321,7 +321,7 @@ const ChatBot = ({ userId, botId }) => {
                 
         </div>
         ) : (
-        <button type='button' onClick={toggleChatbot} style={{
+        <button type='button' aria-label="Toggle Button" onClick={toggleChatbot} style={{
             cursor: 'pointer',
             width: '50px',
             height: '50px',
@@ -335,7 +335,7 @@ const ChatBot = ({ userId, botId }) => {
             backgroundImage: 'url("/images/logo_short.png")',
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
+            backgroundPosition: 'center'
         }}/>
         )}
         <ToastContainer />      
