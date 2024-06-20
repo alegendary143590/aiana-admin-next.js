@@ -252,7 +252,7 @@ const ChatBot = ({ userIndex, botId }) => {
                                 src={message.isBot ? bot.avatar : "/images/users/avatar-1.jpg"}
                                 alt="avatar"
                             />
-                            <Typography variant="body2" className="flex-grow" style={{ textAlign: message.isBot ? 'left' : 'right' }}>
+                            <Typography variant="body2" className="flex-grow" style={{ textAlign: message.isBot ? 'left' : 'right' , overflowWrap: 'break-word'}}>
                                 {message.text}
                             </Typography>
                         </Box>
