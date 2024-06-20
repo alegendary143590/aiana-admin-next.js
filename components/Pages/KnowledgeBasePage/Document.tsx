@@ -33,7 +33,7 @@ const Document = ({documents, setDocuments, setFiles}) => {
     const fileList = event.target.files;
     const validFiles = [];
 
-    for (let i = 0; i < fileList.length; i=i+1) {
+    for (let i = 0; i < fileList.length; i+=1) {
       if (fileList[i].size <= MAX_FILE_SIZE) {
         validFiles.push(fileList[i]);
       } else {
