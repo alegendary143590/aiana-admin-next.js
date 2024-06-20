@@ -5,7 +5,6 @@ import { Avatar, Typography, Button, Box, Paper, IconButton, CircularProgress } 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ToastContainer, toast } from "react-toastify"
 import { v4 as uuidv4 } from 'uuid';
-import { useRouter } from 'next/router';
 
 const ChatBot = ({ userId, botId }) => {
 
@@ -20,7 +19,6 @@ const ChatBot = ({ userId, botId }) => {
     const [messages, setMessages] = useState([
         { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
     ]);
-    const router = useRouter();
 
     const [isVisible, setIsVisible] = useState(false)
     const [bot, setBot] = useState(INITIAL_BOT_OBJ);
@@ -205,8 +203,8 @@ const ChatBot = ({ userId, botId }) => {
         
                   }
                 setInput("");
-                setEmail("")
-                setContent("")
+                setEmail("");
+                setContent("");
             });
     };
 
@@ -285,8 +283,8 @@ const ChatBot = ({ userId, botId }) => {
                         onChange={(e) => setContent(e.target.value)}
                     />
                     <div className="flex justify-end">
-                        <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" onClick={handleOkayClick}>Okay</Button>
-                        <Button variant="outlined" color="secondary" onClick={handleCancelClick}>Cancel</Button>
+                        <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" aria-label='Click Okay' onClick={handleOkayClick}>Okay</Button>
+                        <Button variant="outlined" color="secondary" onClick={handleCancelClick} aria-label='Click Cancel'>Cancel</Button>
                     </div>
                 </Paper>
             )}
@@ -338,7 +336,7 @@ const ChatBot = ({ userId, botId }) => {
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
-        }}></button>
+        }}/>
         )}
         <ToastContainer />      
     </div>

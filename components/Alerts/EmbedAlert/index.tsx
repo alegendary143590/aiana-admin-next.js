@@ -11,9 +11,9 @@ export default function EmbedAlert({open, setOpen, description, handleCopy}) {
   const handleClose = () => {
     setOpen(false);
   };
+  const title = "To embed your chatbot onto your website, paste this snippet into your website's HTML file"
 
   return (
-    <React.Fragment>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -21,7 +21,7 @@ export default function EmbedAlert({open, setOpen, description, handleCopy}) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"To embed your chatbot onto your website, paste this snippet into your website's HTML file"}
+          {title}
         </DialogTitle>
         <DialogContent className="bg-gray-300 m-3 rounded-sm flex justify-center items-center">
           <DialogContentText id="alert-dialog-description" className="font-bold flex items-center">
@@ -35,6 +35,5 @@ export default function EmbedAlert({open, setOpen, description, handleCopy}) {
           </Button>
         </DialogActions>
       </Dialog>
-    </React.Fragment>
   );
 }
