@@ -221,18 +221,18 @@ const Chatbots = () => {
               </div>
               <div>
                 <button
-                  type="button"
-                  className="w-12 h-8 text-[12px] my-1 rounded-sm bg-red-500 text-white"
-                  style={{ textTransform: "none" }}
-                  onClick={() => handleDeleteClickButton(bot.id)}
-                >
-                  Delete
-                </button>
+                    type="button"
+                    className="w-12 h-8 text-[12px] my-1 rounded-sm bg-[#6290F0] text-white "
+                    style={{ textTransform: "none" }}
+                    onClick={() => handleEmbedClickButton(bot.index)}
+                  >
+                    Embed
+                  </button>
               </div>
               <div>
                 <button
                   type="button"
-                  className="w-12 h-8 text-[12px] my-1 rounded-sm bg-[#4c4fe7] text-white"
+                  className="w-12 h-8 text-[12px] my-1 rounded-sm bg-[#8166F4] text-white"
                   style={{ textTransform: "none" }}
                   onClick={() => handleChatClickButton(bot.id)}
                 >
@@ -241,14 +241,16 @@ const Chatbots = () => {
               </div>
               <div>
                 <button
-                    type="button"
-                    className="w-12 h-8 text-[12px] my-1 rounded-sm bg-[#33A186] text-white mr-6"
-                    style={{ textTransform: "none" }}
-                    onClick={() => handleEmbedClickButton(bot.index)}
-                  >
-                    Embed
-                  </button>
+                  type="button"
+                  className="w-12 h-8 text-[12px] my-1 rounded-sm bg-[#9B42F8] text-white mr-6"
+                  style={{ textTransform: "none" }}
+                  onClick={() => handleDeleteClickButton(bot.id)}
+                >
+                  Delete
+                </button>
               </div>
+             
+              
             </div>
           </div>
         ))}

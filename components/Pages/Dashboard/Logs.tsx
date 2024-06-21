@@ -140,16 +140,19 @@ const Logs = ({session}) => {
               {conversation.map((conv)=>(
                 <div key={conv.id} className="flex flex-col w-full">
                 <div className="flex flex-row justify-between w-full pl-10">
-                  <div className="flex flex-row items-center gap-2">
-                    <Image
-                      src="/images/face.PNG"
-                      width={30}
-                      height={30}
-                      className="w-[30px]! h-[30px]! rounded-full mr-4 mt-1" // Changed rounded-[50px] to rounded-full for better clarity
-                      alt="avatar"
-                    />
+                  <div className="flex flex-col items-start gap-1 ">
+                    <div className="flex flex-row gap-1">
+                      <div className=" w-[30px] h-[30px]"> 
+                        <Image
+                        src="/images/face.PNG"
+                        width={30}
+                        height={30}
+                        className="rounded-full mr-4 mt-1" // Changed rounded-[50px] to rounded-full for better clarity
+                        alt="avatar"
+                        />
+                      </div>
+                      <Typography className="font-bold text-black flex justify-center items-center mt-1">Website visitor</Typography></div>
                     <div>
-                      <Typography className="font-bold text-black">Website visitor</Typography>
                       <Typography className="text-[14px] text-gray-600">
                         {conv.user_message}
                       </Typography>
@@ -157,17 +160,23 @@ const Logs = ({session}) => {
                   </div>
                   <Typography>{formatDateString(conv.created_at)}</Typography>
                 </div>
-                <div className="flex flex-row justify-between w-full pl-10 mt-2">
-                  <div className="flex flex-row items-center gap-2 w-[70%]">
-                    <Image
-                      src={botAvatar}
-                      width={30}
-                      height={30}
-                      className="w-[30px] h-[30px] rounded-full mr-4 mt-1" // Changed rounded-[50px] to rounded-full for better clarity
-                      alt="avatar"
-                    />
-                    <div>
-                      <Typography className="font-bold text-black">{bot.bot_name}</Typography>
+                <div className="flex flex-row justify-between w-full pl-10">
+                  <div className="flex flex-col items-start gap-2 w-[70%]">
+                    <div className="flex flex-row gap-2">
+                      <div className="!w-[25px] !h-[25px] ">
+                        <Image
+                          src={botAvatar}
+                          width={30}
+                          height={30}
+                          className="rounded-full mr-4" // Changed rounded-[50px] to rounded-full for better clarity
+                          alt="avatar"
+                        />
+                      </div>
+                      <Typography className="font-bold text-black flex justify-center items-center mt-1">{bot.bot_name}</Typography>
+
+                    </div>
+                    
+                    <div className="flex-1">
                       <Typography className="text-[14px] text-gray-600">
                         {conv.response}
                       </Typography>

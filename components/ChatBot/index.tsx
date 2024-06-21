@@ -100,7 +100,16 @@ const ChatBot = ({ userIndex, botId }) => {
         const newMessage = { id: uuidv4(), text: input, isBot: false };
         setMessages([...messages, newMessage]);
         setInput("");
-        const createdAt = new Date();
+        const options:Intl.DateTimeFormatOptions = { 
+            weekday: 'short', 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric', 
+            hour: 'numeric', 
+            minute: 'numeric', 
+            second: 'numeric'
+          };
+        const createdAt = new Date().toLocaleDateString('en-US', options);
         console.log("Here>>>>>>",createdAt)
         axios.post(AUTH_API.QUERY, { botId:bot.id, sessionId, input, userId, createdAt })
             .then((response) => {
