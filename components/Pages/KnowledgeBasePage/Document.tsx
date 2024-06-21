@@ -22,13 +22,12 @@ import AlertDialog from "@/components/AlertDialog";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB in bytes
 
-const Document = ({documents, setDocuments, setFiles}) => {
+const Document = ({documents, documentRef, setDocuments, setFiles}) => {
   const [ openDialog, setOpenDialog]= React.useState(false);
   const [id, setId] = React.useState("");
   const [index, setIndex] = React.useState("");
   const router = useRouter();
   
-
   const handleDocumentChanged = (event) => {
     const fileList = event.target.files;
     const validFiles = [];
@@ -57,8 +56,19 @@ const Document = ({documents, setDocuments, setFiles}) => {
   const handleDelete = (_id, _index) => {
     setId(_id);
     setIndex(_index);
-    setOpenDialog(true);
+    const documentsArray = documentRef.current;
+
+  // Check if any document in the array has an ID matching _id
+  const documentExists = documentsArray.some(doc => doc.id === _id);
+    if (documentExists) {
+      setOpenDialog(true);
+
+    } else {
+      setDocuments(documents.filter(doc=>doc.id!==_id));
+
+    }
   }
+
   const handleDeleteDocument = () => {
   
     axios
@@ -103,6 +113,7 @@ const Document = ({documents, setDocuments, setFiles}) => {
     setDocuments(updatedDocuments);
 
   };
+
   const handleAgree = () => {
     setOpenDialog(false);
     handleDeleteDocument();

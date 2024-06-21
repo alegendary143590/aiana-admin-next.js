@@ -281,7 +281,7 @@ const KnowledgeBaseForm = ({baseId}) => {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Document documents={documents} setDocuments={setDocuments} setFiles={setFiles} />
+        <Document documents={documents} documentRef={documentRef} setDocuments={setDocuments} setFiles={setFiles} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <Website urls={urls} setUrls = {setUrls} />
