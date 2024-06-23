@@ -31,6 +31,31 @@ const MenuList = ({ open }) => {
 
   return (
     <div className="relative z-[4] w-full mt-3">
+      
+      <button
+        type="button"
+        className="flex justify-center items-center w-full h-full"
+        // className={profileActive ? navActiveContainerClasses : navContainerClasses}
+        onClick={() => push("/admin")}
+        style={{ height: "60px", marginBottom: "5px" }}
+      >
+        <div
+          className={`${
+            profileActive ? navActiveContainerClasses : navContainerClasses
+          } flex items-center justify-start`}
+          style={{ width: "230px", margin: "5px", borderRadius: "5px" }}
+        >
+          <div className={profileActive ? iconActiveClasses : iconClasses}>
+            <AccountCircleIcon />
+          </div>
+          <p
+            className={`${open ? navClasses : "hidden"} ml-3 mb-1`}
+            style={{ fontSize: "18px", color: "#3980c0" }}
+          >
+            My Account
+          </p>
+        </div>
+      </button>
       {userRole==="admin"&& 
       <button
         type="button"
@@ -56,30 +81,6 @@ const MenuList = ({ open }) => {
           </p>
         </div>
       </button>}
-      <button
-        type="button"
-        className="flex justify-center items-center w-full h-full"
-        // className={profileActive ? navActiveContainerClasses : navContainerClasses}
-        onClick={() => push("/admin")}
-        style={{ height: "60px", marginBottom: "5px" }}
-      >
-        <div
-          className={`${
-            profileActive ? navActiveContainerClasses : navContainerClasses
-          } flex items-center justify-start`}
-          style={{ width: "230px", margin: "5px", borderRadius: "5px" }}
-        >
-          <div className={profileActive ? iconActiveClasses : iconClasses}>
-            <AccountCircleIcon />
-          </div>
-          <p
-            className={`${open ? navClasses : "hidden"} ml-3 mb-1`}
-            style={{ fontSize: "18px", color: "#3980c0" }}
-          >
-            My Account
-          </p>
-        </div>
-      </button>
       <button
         type="button"
         className="flex justify-center items-center w-full h-full"
