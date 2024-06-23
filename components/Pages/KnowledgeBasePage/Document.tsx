@@ -18,6 +18,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { AUTH_API } from "@/components/utils/serverURL";
 import { useRouter } from "next/router";
 import AlertDialog from "@/components/AlertDialog";
+import { v4 as uuidv4 } from 'uuid';
 
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB in bytes
@@ -31,6 +32,8 @@ const Document = ({documents, documentRef, setDocuments, setFiles}) => {
   const handleDocumentChanged = (event) => {
     const fileList = event.target.files;
     const validFiles = [];
+    console.log(fileList.length)
+
 
     for (let i = 0; i < fileList.length; i+=1) {
       if (fileList[i].size <= MAX_FILE_SIZE) {
@@ -46,12 +49,13 @@ const Document = ({documents, documentRef, setDocuments, setFiles}) => {
     const newDocs = validFiles.map((file: File) => ({
       created_at: new Date().toISOString(),
       filename: file.name,
-      id: -1,
+      id: uuidv4(),
       type: file.type,
       unique_id: "",
     }))
     setDocuments([...documents, ...newDocs]);
   };
+  console.log(documents)
 
   const handleDelete = (_id, _index) => {
     setId(_id);
@@ -65,7 +69,6 @@ const Document = ({documents, documentRef, setDocuments, setFiles}) => {
 
     } else {
       setDocuments(documents.filter(doc=>doc.id!==_id));
-
     }
   }
 
