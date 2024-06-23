@@ -39,14 +39,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const UserList = () => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
-    const [userId, setUserId] = useState("");
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const userIdFromStorage = localStorage.getItem("userID");
         setIsLoading(true);
         if (userIdFromStorage!=="") {
-            setUserId(userIdFromStorage);
             
             axios.post(AUTH_API.GET_USERS, { userId: userIdFromStorage }, {
                 headers: {
@@ -124,7 +122,7 @@ const UserList = () => {
                         <StyledTableRow key={row.id}>
                             <StyledTableCell align="center">{index + 1}</StyledTableCell>
                             <StyledTableCell align="center">{row.email}</StyledTableCell>
-                            <StyledTableCell align="center">{row.first_name + ' ' + row.last_name}</StyledTableCell>
+                            <StyledTableCell align="center"> {`${row.first_name} ${row.last_name}`}</StyledTableCell>
                             <StyledTableCell align="center">{row.com_name}</StyledTableCell>
                             <StyledTableCell align="center">{row.role}</StyledTableCell>
                             <StyledTableCell align="center">{formatDateString(row.created_at)}</StyledTableCell>
