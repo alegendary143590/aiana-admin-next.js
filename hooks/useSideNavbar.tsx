@@ -19,6 +19,7 @@ const useSideNavbar = () => {
 
   const { pathname } = useRouter()
   const dashboardActive = pathname.includes("/dashboard")
+  const usersActive = pathname.includes("/users")
   const createActive = pathname.includes("/chatbot")
   const profileActive = pathname.includes("/admin")
   const knowledgeActive = pathname.includes("/knowledge")
@@ -46,6 +47,7 @@ const useSideNavbar = () => {
     reviewsActive,
     requestActive,
     ticketsActive,
+    usersActive,
     sessionRequestsActive,
     projectRequestsActive,
     activeProjectsActive,

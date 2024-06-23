@@ -16,7 +16,6 @@ import AlertDialog from "@/components/AlertDialog"
 import { ToastContainer, toast } from "react-toastify"
 import router from "next/router"
 
-
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.white,
@@ -46,7 +45,8 @@ const Tickets = () => {
           border: 0,
         },
       }));
-      useEffect(() => {
+
+    useEffect(() => {
         const userIdFromStorage = localStorage.getItem("userID");
         setIsLoading(true);
         if (userIdFromStorage!=="") {

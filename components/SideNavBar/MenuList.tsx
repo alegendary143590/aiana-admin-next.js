@@ -1,12 +1,19 @@
-import { useRouter } from "next/router"
-import { useSideMenu } from "@/providers/SideMenuProvider"
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined"
-import LightbulbIcon from "@mui/icons-material/Lightbulb"
-import ChatIcon from "@mui/icons-material/Chat"
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useSideMenu } from "@/providers/SideMenuProvider";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LightbulbIcon from "@mui/icons-material/Lightbulb";
+import ChatIcon from "@mui/icons-material/Chat";
+import PeopleIcon from '@mui/icons-material/People';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
 const MenuList = ({ open }) => {
-  const { push } = useRouter()
+  const { push } = useRouter();
+  const [userRole, setUserRole] = useState("");
+
+  useEffect (()=>{
+    setUserRole(localStorage.getItem("role"));
+  })
 
   const {
     navActiveContainerClasses,
@@ -19,10 +26,36 @@ const MenuList = ({ open }) => {
     createActive,
     knowledgeActive,
     ticketsActive,
+    usersActive,
   } = useSideMenu()
 
   return (
     <div className="relative z-[4] w-full mt-3">
+      {userRole==="admin1"&& 
+      <button
+        type="button"
+        className="flex justify-center items-center w-full h-full"
+        // className={profileActive ? navActiveContainerClasses : navContainerClasses}
+        onClick={() => push("/users")}
+        style={{ height: "60px", marginBottom: "5px" }}
+      >
+        <div
+          className={`${
+            usersActive ? navActiveContainerClasses : navContainerClasses
+          } flex items-center justify-start`}
+          style={{ width: "230px", margin: "5px", borderRadius: "5px" }}
+        >
+          <div className={usersActive ? iconActiveClasses : iconClasses}>
+            <PeopleIcon />
+          </div>
+          <p
+            className={`${open ? navClasses : "hidden"} ml-3 mb-1`}
+            style={{ fontSize: "18px", color: "#3980c0" }}
+          >
+            Users
+          </p>
+        </div>
+      </button>}
       <button
         type="button"
         className="flex justify-center items-center w-full h-full"
@@ -37,7 +70,7 @@ const MenuList = ({ open }) => {
           style={{ width: "230px", margin: "5px", borderRadius: "5px" }}
         >
           <div className={profileActive ? iconActiveClasses : iconClasses}>
-            <AccountCircleOutlinedIcon />
+            <AccountCircleIcon />
           </div>
           <p
             className={`${open ? navClasses : "hidden"} ml-3 mb-1`}
