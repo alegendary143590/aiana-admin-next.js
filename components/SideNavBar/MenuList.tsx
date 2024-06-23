@@ -31,7 +31,7 @@ const MenuList = ({ open }) => {
 
   return (
     <div className="relative z-[4] w-full mt-3">
-      {userRole==="admin1"&& 
+      {userRole==="admin"&& 
       <button
         type="button"
         className="flex justify-center items-center w-full h-full"
