@@ -8,17 +8,14 @@ import { Analytics } from "@vercel/analytics/react"
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
 
-import TokenProvider from "@/providers/TokenContext"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <TokenProvider >
       <ThemeProvider theme={theme} >
         <Component {...pageProps} />
         <ToastContainer />
         <Analytics />
       </ThemeProvider>
-    </TokenProvider>
   )
 }
 export default MyApp
