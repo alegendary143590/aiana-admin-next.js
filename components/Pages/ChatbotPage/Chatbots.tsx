@@ -189,7 +189,7 @@ const Chatbots = () => {
       </div>
       <div className="relative w-full h-fit flex flex-wrap mt-10 items-center justify-start">
         {bots && bots.length!==0 && bots.map((bot) => (
-          <div key={bot.id} className="w-72 h-40 bg-white shadow-sm p-4 m-3">
+          <div key={bot.id} className="w-72 h-40 bg-[#f2f2f2] shadow-sm p-4 m-3">
             <div className="w-full h-fit flex flex-row items-center justify-center">
               <img
                 src={bot.avatar ? bot.avatar : "/images/logo_short.png"}
