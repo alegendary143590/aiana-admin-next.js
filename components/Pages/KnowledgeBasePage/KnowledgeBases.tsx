@@ -152,7 +152,7 @@ const KnowledgeBase = () => {
       </div>
       <div className="w-full h-fit flex flex-wrap mt-10 items-center justify-start">
         {bases && bases.map((base) => (
-          <div key={base.id} className="w-72 h-30 bg-white shadow-sm p-4 m-3">
+          <div key={base.id} className="w-72 h-30 bg-[#e6e6e6] shadow-sm p-4 m-3">
             <div className="w-full h-fit flex flex-row items-center justify-center">
               <div className="flex-grow flex flex-col">
                 <Typography className="text-[20px]">{base.name}</Typography>

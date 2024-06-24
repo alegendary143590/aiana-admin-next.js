@@ -5,8 +5,7 @@ import SideNavbar from "../SideNavBar"
 
 const AdminLayout = ({ children }: ILayout) => (
   <div
-    className="relative flex
-    w-screen"
+    className="relative flex"
   >
     <SideMenuProvider>
       <SideNavbar />
