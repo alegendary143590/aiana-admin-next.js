@@ -3,7 +3,7 @@ import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 
-export default function CustomSelect({ props, text, id, value, onChange }) {
+export default function CustomSelect({ props, text, id, value, disabled, onChange }) {
   const [val, setVal] = React.useState(value)
 
   React.useEffect(() => {
@@ -21,6 +21,7 @@ export default function CustomSelect({ props, text, id, value, onChange }) {
           onChange(id, e.target.value) // Pass the event to the parent component
         }}
         displayEmpty
+        disabled={disabled}
         className="input-width"
         inputProps={{ "aria-label": "Without label" }}
         sx={{height: "40px" }}
