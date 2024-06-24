@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
-import { Box, Typography, Grid, TextField, Button } from "@mui/material"
+import { Box, Typography, Grid, TextField, Button, Link } from "@mui/material"
 import { ToastContainer, toast } from "react-toastify"
+import BackArrow from "@mui/icons-material/ArrowBack"
 import { useRouter } from "next/router" // Corrected import
 import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSelect from "../../CustomSelect"
@@ -30,15 +31,14 @@ const Profile = () => {
   const [change, setChange] = useState(false)
   const [userId, setUserId] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [isEdit, setIsEdit] = useState(false);
   const router = useRouter() // Use the router from useRouter
-
+  const {user} = router.query;
   useEffect(() => {
-    const userID = localStorage.getItem("userID")
-    if (userID) {
-      setUserId(userID)
-      setIsLoading(true)
+    if (user) {
+        setUserId(localStorage.getItem('userID'))
       axios
-        .post(AUTH_API.GET_USER, { userID }, {
+        .post(AUTH_API.GET_USER_AS_ADMIN, { user }, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
             'Content-Type': 'application/json',  // Explicitly defining the Content-Type
@@ -51,7 +51,7 @@ const Profile = () => {
               ...prevState,
               first_name: userData.first_name,
               last_name: userData.last_name,
-              email: userData.email,
+              email: userData.email,   
               language: userData.language,
               com_name: userData.com_name,
               com_vat: userData.com_vat,
@@ -105,65 +105,73 @@ const Profile = () => {
   }
 
   const handleSubmit = () => {
-      if (change) {
-          setIsLoading(true)
-          axios
-            .post(AUTH_API.UPDATE_USER, {
-              userId,
-              first_name: formState.first_name,
-              last_name: formState.last_name,
-              confirm_password: formState.confirm_password,
-              email: formState.email,
-              language: formState.language,
-              com_name: formState.com_name,
-              com_vat: formState.com_vat,
-              com_street: formState.com_street,
-              com_city: formState.com_city,
-              com_country: formState.com_country,
-              com_postal: formState.com_postal,
-              com_street_number: formState.com_street_number,
-              com_website: formState.com_website,
-            }, {
-              headers: {
+    console.log(isEdit, change)
+    if (isEdit&&change) {
+        
+        setIsLoading(true)
+        axios
+        .post(AUTH_API.UPDATE_USER, {
+            userID:userId,
+            first_name: formState.first_name,
+            last_name: formState.last_name,
+            email: formState.email,
+            language: formState.language,
+            com_name: formState.com_name,
+            com_vat: formState.com_vat,
+            com_street: formState.com_street,
+            com_city: formState.com_city,
+            com_country: formState.com_country,
+            com_postal: formState.com_postal,
+            com_street_number: formState.com_street_number,
+            com_website: formState.com_website,
+        }, 
+        {
+            headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
                 'Content-Type': 'application/json',  // Explicitly defining the Content-Type
-              }
-            })
-            .then((response) => {
-              if (response.status === 201) {
+            }
+        })
+        .then((response) => {
+            if (response.status === 201) {
                 toast.success("Successfully updated!", { position: toast.POSITION.TOP_RIGHT })
-              } else if (response.status === 401) {
+            } else if (response.status === 401) {
                 toast.error("Session Expired! Please login again!", { position: toast.POSITION.TOP_RIGHT })
                 router.push("/signin")
-              } else {
+            } else {
                 toast.error(response.data, { position: toast.POSITION.TOP_RIGHT })
-              }
-              setIsLoading(false)
-            })
-            .catch((error) => {
-              if (error.response) {
+        }
+        setIsLoading(false)
+        })
+        .catch((error) => {
+            if (error.response) {
                 console.log('Error status code:', error.response.status);
                 console.log('Error response data:', error.response.data);
                 if (error.response.status === 401){
-                  toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
+                toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
 
-                  router.push("/signin")
+                router.push("/signin")
                 }
                 // Handle the error response as needed
-              } else if (error.request) {
+            } else if (error.request) {
                 // The request was made but no response was received
                 console.log('Error request:', error.request);
                 toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
 
-              } else {
+            } else {
                 // Something happened in setting up the request that triggered an Error
                 console.log('Error message:', error.message);
                 toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
-
-              }
-              setIsLoading(false);
-            })
         }
+        setIsLoading(false);
+        }) 
+    }
+    setIsEdit(!isEdit);
+
+  }
+
+  const handleCancel = () => {
+    if (isEdit) setIsEdit(false)
+    else router.push('/users')
   }
 
   if (isLoading) {
@@ -172,6 +180,14 @@ const Profile = () => {
 
   return (
     <div className="d-flex flex-column bg-transparent">
+        <Link
+          underline="none"
+          href="/users"
+          className="text-gray-600 flex items-center absolute right-10 text-[16px] mr-[20px]"
+        >
+          <BackArrow className="h-[15px]" />
+          Back to Logs
+        </Link>
       <Box className="row justify-content-center my-auto px-8">
         <Grid container spacing={3} className="mt-2 max-h-[650px] overflow-hidden overflow-y-auto">
           <Grid item sm={12} xs={12} md={6}>
@@ -191,6 +207,7 @@ const Profile = () => {
                   value={formState.com_name}
                   onChange={(e) => handleInputChange("com_name", e.target.value)}
                   variant="outlined"
+                  disabled={!isEdit}
                 />
               </Grid>
             </Grid>
@@ -207,6 +224,7 @@ const Profile = () => {
                   value={formState.com_vat}
                   onChange={(e) => handleInputChange("com_vat", e.target.value)}
                   variant="outlined"
+                  disabled={!isEdit}
                 />
               </Grid>
             </Grid>
@@ -223,6 +241,7 @@ const Profile = () => {
                   value={formState.com_street}
                   onChange={(e) => handleInputChange("com_street", e.target.value)}
                   variant="outlined"
+                    disabled={!isEdit}
                 />
               </Grid>
             </Grid>
@@ -239,6 +258,7 @@ const Profile = () => {
                   value={formState.com_city}
                   onChange={(e) => handleInputChange("com_city", e.target.value)}
                   variant="outlined"
+                  disabled={!isEdit}
                 />
               </Grid>
             </Grid>
@@ -255,8 +275,7 @@ const Profile = () => {
                   onChange={handleInputChange}
                   props={Country}
                   text="Select a country"
-                  disabled={false}
-
+                  disabled={!isEdit}
                 />
               </Grid>
             </Grid>
@@ -273,6 +292,7 @@ const Profile = () => {
                   value={formState.com_street_number}
                   onChange={(e) => handleInputChange("com_street_number", e.target.value)}
                   variant="outlined"
+                  disabled={!isEdit}
                 />
               </Grid>
             </Grid>
@@ -289,6 +309,7 @@ const Profile = () => {
                   value={formState.com_postal}
                   onChange={(e) => handleInputChange("com_postal", e.target.value)}
                   variant="outlined"
+                  disabled={!isEdit}
                 />
               </Grid>
             </Grid>
@@ -306,6 +327,7 @@ const Profile = () => {
                   value={formState.com_website}
                   onChange={(e) => handleInputChange("com_website", e.target.value)}
                   variant="outlined"
+                  disabled={!isEdit}
                 />
               </Grid>
             </Grid>
@@ -327,6 +349,7 @@ const Profile = () => {
                   value={formState.first_name}
                   onChange={(e) => handleInputChange("first_name", e.target.value)}
                   variant="outlined"
+                  disabled={!isEdit}
                 />
               </Grid>
             </Grid>
@@ -343,6 +366,7 @@ const Profile = () => {
                   value={formState.last_name}
                   onChange={(e) => handleInputChange("last_name", e.target.value)}
                   variant="outlined"
+                  disabled={!isEdit}
                 />
               </Grid>
             </Grid>
@@ -359,6 +383,7 @@ const Profile = () => {
                   value={formState.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
                   variant="outlined"
+                  disabled={!isEdit}
                 />
               </Grid>
             </Grid>
@@ -375,8 +400,7 @@ const Profile = () => {
                   onChange={handleInputChange}
                   props={Language}
                   text="Select a language"
-                  disabled={false}
-
+                  disabled={!isEdit}
                 />
               </Grid>
             </Grid>
@@ -394,6 +418,7 @@ const Profile = () => {
                   value={formState.password}
                   onChange={(e) => handleInputChange("password", e.target.value)}
                   variant="outlined"
+                  disabled={!isEdit}
                 />
               </Grid>
             </Grid>
@@ -411,6 +436,7 @@ const Profile = () => {
                   value={formState.confirm_password}
                   onChange={(e) => handleInputChange("confirm_password", e.target.value)}
                   variant="outlined"
+                  disabled={!isEdit}
                 />
               </Grid>
             </Grid> */}
@@ -423,6 +449,7 @@ const Profile = () => {
               color="primary"
               className="mt-3 bg-[#fa6374] px-10 font-sans text-[16pxpx]"
               style={{ textTransform: "none" }}
+              onClick={handleCancel}
             >
               Cancel
             </Button>
@@ -433,7 +460,7 @@ const Profile = () => {
               style={{ textTransform: "none" }}
               onClick={handleSubmit}
             >
-              Save
+              {isEdit?'Save':'Edit'}
             </Button>
           </Box>
         </Box>

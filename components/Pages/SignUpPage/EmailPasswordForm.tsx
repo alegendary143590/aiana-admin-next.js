@@ -243,6 +243,8 @@ function EmailPasswordForm() {
                           onChange={handleInputChange}
                           props={Country}
                           text="Select a country"
+                          disabled={false}
+
                         />
                       </Grid>
                     </Grid>
@@ -356,6 +358,7 @@ function EmailPasswordForm() {
                           onChange={handleInputChange}
                           props={Language}
                           text="Select a language"
+                          disabled={false}
                         />
                       </Grid>
                     </Grid>
