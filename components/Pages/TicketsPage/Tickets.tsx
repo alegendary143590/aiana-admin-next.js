@@ -164,6 +164,7 @@ const Tickets = () => {
                     <TableRow>
                         <StyledTableCell>No</StyledTableCell>
                         <StyledTableCell align="center">Email</StyledTableCell>
+                        <StyledTableCell align="center">Website</StyledTableCell>
                         <StyledTableCell align="center">Content</StyledTableCell>
                         <StyledTableCell align="center">Status</StyledTableCell>
                         <StyledTableCell align="center">Created at</StyledTableCell>
@@ -175,6 +176,7 @@ const Tickets = () => {
                         <StyledTableRow key={row.id}>
                             <StyledTableCell align="center">{row.id}</StyledTableCell>
                             <StyledTableCell align="center">{row.email}</StyledTableCell>
+                            <StyledTableCell align="center">{row.website}</StyledTableCell>
                             <StyledTableCell align="center">{row.content}</StyledTableCell>
                             <StyledTableCell align="center">{row.status}</StyledTableCell>
                             <StyledTableCell align="center">{formatDateString(row.created_at)}</StyledTableCell>

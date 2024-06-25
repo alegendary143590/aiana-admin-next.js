@@ -146,7 +146,7 @@ const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, s
         // Logic to handle the form submission (e.g., send email and content to backend)
         setShowForm(false); // Hide the form after submission
         setIsBook(false);
-        axios.post(AUTH_API.BOOK, { userIndex, sessionId, botId, email, content }, {
+        axios.post(AUTH_API.BOOK, { userIndex, sessionId, botId, email, content, website:null }, {
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
               'Content-Type': 'application/json',  // Explicitly defining the Content-Type
