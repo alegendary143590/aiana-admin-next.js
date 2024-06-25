@@ -4,10 +4,10 @@ import ChatBot from '@/components/ChatBot'; // Ensure Chatbot can accept props f
 
 const ChatbotPage = () => {
   const router = useRouter();
-  const { userIndex, botId } = router.query;
+  const { userIndex, botId, website } = router.query;
   return (
     <div style={{ margin: 0, padding: 0 }}>
-      <ChatBot userIndex={userIndex} botId={botId} />
+      <ChatBot userIndex={userIndex} botId={botId} website={website} />
     </div>
   );
 };

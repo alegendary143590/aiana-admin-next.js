@@ -6,7 +6,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ToastContainer, toast } from "react-toastify"
 import { v4 as uuidv4 } from 'uuid';
 
-const ChatBot = ({ userIndex, botId }) => {
+const ChatBot = ({ userIndex, botId, website }) => {
 
     const INITIAL_BOT_OBJ = {
         id: "",
@@ -181,7 +181,7 @@ const ChatBot = ({ userIndex, botId }) => {
         // Logic to handle the form submission (e.g., send email and content to backend)
         setShowForm(false); // Hide the form after submission
         setIsBook(false);
-        axios.post(AUTH_API.BOOK, { userIndex, sessionId, botId:bot.id, email, content })
+        axios.post(AUTH_API.BOOK, { userIndex, sessionId, botId:bot.id, email, content, website })
             .then((response) => {
                 if (response.status === 201) {
                     const  {message}  = response.data;
