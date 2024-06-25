@@ -4,6 +4,7 @@ import { AUTH_API } from '@/components/utils/serverURL';
 import { Avatar, Typography, Button, Box, Paper, IconButton, CircularProgress } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ToastContainer, toast } from "react-toastify"
+import BasicSelect from '@/components/DropMenu';
 import router from "next/router"
 
 import { v4 as uuidv4 } from 'uuid';
@@ -13,9 +14,9 @@ const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, s
         { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
     ]);
     const [botAvatar, setBotAvatar] = useState('');
-    const [input, setInput] = useState("");
+    const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [isBook, setIsBook] = useState(false)
+    const [isBook, setIsBook] = useState(false);
     const [visibleClass, setVisibleClass] = useState("hidden");
     const messagesEndRef = useRef(null);
     const [sessionId, setSessionId] = useState("");
@@ -202,6 +203,7 @@ const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, s
                         <Avatar src={botAvatar} alt="bot avatar" />
                         <Typography variant="body1" ml={1}>{botName}</Typography>
                     </Box>
+                    <BasicSelect />
                     <IconButton onClick={() => setVisible(!visible)}>
                         <KeyboardArrowDownIcon />
                     </IconButton>
@@ -263,7 +265,8 @@ const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, s
                 </Paper>
             )}
             <div className="flex p-2 h-16">
-            <style>
+                
+                <style>
                     {`
                     .custom-input {
                         width: 100%;
@@ -287,9 +290,10 @@ const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, s
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
                     disabled={isLoading || isBook}
-                />
-                <Button variant="contained" color="primary" className="bg-[#1976D2]" onClick={handleSendMessage}>
-                    {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Send'}
+                />  
+                <Button color="primary" className="bg-[#3399ff] hover:bg-[#3399ff] text-white right-0 bottom-0" onClick={handleSendMessage}>
+                    {isLoading ? <CircularProgress size={16} color="inherit" /> : "Send"}
+                    {/* <>hello</> */}
                 </Button>
             </div>
             <ToastContainer />
