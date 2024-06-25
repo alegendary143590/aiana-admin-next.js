@@ -45,9 +45,9 @@ const EmailPasswordForm = () => {
   /* eslint-enable */
 
   return (
-    <Container className="w-[450px] bg-none flex flex-col justify-center items-center">
+    <Container className="w-[450px] h-full bg-none flex flex-col justify-center items-center">
       <div>
-        <Card className="w-full md:w-[450px]">
+        <Card className="w-full md:w-[450px] ">
           <CardContent>
             <div className="text-center mt-5">
               <img src="/images/logo_big.png" alt="Logo" className="mx-auto h-20" />
@@ -125,7 +125,7 @@ const EmailPasswordForm = () => {
           </CardContent>
         </Card>
       </div>
-      <div className="text-center text-muted mt-4 bottom-[100px]">
+      <div className="text-center text-muted mt-3 bottom-[100px]">
         <Typography variant="body2" color="textSecondary" className="text-gray-300">
           © {new Date().getFullYear()} aiana
         </Typography>

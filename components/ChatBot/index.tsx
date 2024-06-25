@@ -5,6 +5,7 @@ import { Avatar, Typography, Button, Box, Paper, IconButton, CircularProgress } 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ToastContainer, toast } from "react-toastify"
 import { v4 as uuidv4 } from 'uuid';
+import BasicSelect from '@/components/DropMenu'
 
 const ChatBot = ({ userIndex, botId, website }) => {
 
@@ -33,6 +34,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
     const [showForm, setShowForm] = useState(false); // State to manage whether to show the form
     const [email, setEmail] = useState(""); // State to store email input
     const [content, setContent] = useState(""); // State to store content input
+    const [lang, setLang] = useState(10);
 
     const toggleChatbot = () => {
       setIsVisible(!isVisible);  // Toggle the visibility state
@@ -110,8 +112,8 @@ const ChatBot = ({ userIndex, botId, website }) => {
             second: 'numeric'
           };
         const createdAt = new Date().toLocaleDateString('en-US', options);
-        console.log("Here>>>>>>",createdAt)
-        axios.post(AUTH_API.QUERY, { botId:bot.id, sessionId, input, userId, createdAt })
+        // console.log("Here>>>>>>",createdAt)
+        axios.post(AUTH_API.QUERY, { botId:bot.id, sessionId, input, userId, createdAt, lang })
             .then((response) => {
                 if (response.status === 200) {
                     const { message, solve } = response.data;
@@ -239,6 +241,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                         <Avatar src={bot.avatar} alt="bot avatar" />
                         <Typography variant="body1" ml={1}>{bot.name}</Typography>
                     </Box>
+                    <BasicSelect lang={lang} setLang={setLang}/>
                     <IconButton onClick={() => setIsVisible(!isVisible)}>
                         <KeyboardArrowDownIcon />
                     </IconButton>
@@ -256,7 +259,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        <Box className={`flex items-center gap-2 ${message.isBot ? '' : 'flex-row-reverse'}`}>
+                        <Box className={`flex gap-2 ${message.isBot ? '' : 'flex-row-reverse'}`}>
                             <Avatar
                                 src={message.isBot ? bot.avatar : "/images/users/avatar-1.jpg"}
                                 alt="avatar"
