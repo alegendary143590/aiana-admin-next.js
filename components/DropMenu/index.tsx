@@ -1,4 +1,3 @@
-import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -20,7 +19,7 @@ export default function SelectLabels({lang, setLang}) {
           sx={{color:'white', height:'30px'}}
         >
           <MenuItem value={10}>
-            <em>English</em>
+           English
           </MenuItem>
           <MenuItem value={20}>Dutch</MenuItem>
           <MenuItem value={30}>French</MenuItem>

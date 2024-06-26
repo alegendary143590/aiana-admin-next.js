@@ -38,15 +38,6 @@ export async function loginUser(email:string, password:string) {
         throw new Error(data.error);
     }
 }
-    export function splitContent(content) {
-        const parts = content.split('```');
-        return parts.map((part, index) => {
-        return {
-            type: index % 2 === 0 ? 'text' : 'code',
-            content: part,
-        };
-        });
-    }
 
 export function logOut() {
     try {
