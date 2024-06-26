@@ -155,17 +155,5 @@ textarea {
   }
 }
 
-.codeContainer {
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  padding: 10px;
-  overflow-x: auto;
-  white-space: pre-wrap; /* Ensures line breaks are respected */
-  word-wrap: break-word; /* Ensures long lines break and don't overflow */
-}
 
-code {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 14px;
-}
 
