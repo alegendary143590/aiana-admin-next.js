@@ -172,7 +172,7 @@ const Profile = () => {
 
   return (
     <div className="d-flex flex-column bg-transparent">
-      <Box className="row justify-content-center my-auto px-8">
+      <Box className="row justify-center my-auto px-8">
         <Grid container spacing={3} className="mt-2 max-h-[650px] overflow-hidden overflow-y-auto">
           <Grid item sm={12} xs={12} md={6}>
             <Typography variant="subtitle1"  fontWeight="bold">
