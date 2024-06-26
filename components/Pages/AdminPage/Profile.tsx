@@ -172,15 +172,15 @@ const Profile = () => {
 
   return (
     <div className="d-flex flex-column bg-transparent">
-      <Box className="row justify-content-center my-auto px-8">
+      <Box className="row justify-center my-auto px-8">
         <Grid container spacing={3} className="mt-2 max-h-[650px] overflow-hidden overflow-y-auto">
           <Grid item sm={12} xs={12} md={6}>
-            <Typography variant="subtitle1" className="text-primary" fontWeight="bold">
+            <Typography variant="subtitle1"  fontWeight="bold">
               Your Company
             </Typography>
             <Grid container spacing={2} alignItems="center" className="mt-1">
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Name:
                 </Typography>
               </Grid>
@@ -196,7 +196,7 @@ const Profile = () => {
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   VAT number:
                 </Typography>
               </Grid>
@@ -212,7 +212,7 @@ const Profile = () => {
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Street:
                 </Typography>
               </Grid>
@@ -228,7 +228,7 @@ const Profile = () => {
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   City:
                 </Typography>
               </Grid>
@@ -244,7 +244,7 @@ const Profile = () => {
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Country:
                 </Typography>
               </Grid>
@@ -262,7 +262,7 @@ const Profile = () => {
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Number:
                 </Typography>
               </Grid>
@@ -278,7 +278,7 @@ const Profile = () => {
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Postal code:
                 </Typography>
               </Grid>
@@ -295,7 +295,7 @@ const Profile = () => {
 
             <Grid container spacing={2} alignItems="center" className="mt-1">
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Website url:
                 </Typography>
               </Grid>
@@ -311,12 +311,12 @@ const Profile = () => {
             </Grid>
           </Grid>
           <Grid item sm={12} xs={12} md={6}>
-            <Typography variant="subtitle1" className="text-primary" fontWeight="bold">
+            <Typography variant="subtitle1"  fontWeight="bold">
               Your User
             </Typography>
             <Grid container spacing={2} alignItems="center" className="mt-1">
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   First name:
                 </Typography>
               </Grid>
@@ -332,7 +332,7 @@ const Profile = () => {
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Last name:
                 </Typography>
               </Grid>
@@ -348,7 +348,7 @@ const Profile = () => {
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Email:
                 </Typography>
               </Grid>
@@ -364,7 +364,7 @@ const Profile = () => {
             </Grid>
             <Grid container spacing={2} alignItems="center" className="mt-1">
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Language:
                 </Typography>
               </Grid>
@@ -382,7 +382,7 @@ const Profile = () => {
             </Grid>
             {/* <Grid container spacing={2} alignItems="center" className="mt-1">
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Password:
                 </Typography>
               </Grid>
@@ -399,7 +399,7 @@ const Profile = () => {
             </Grid>
             <Grid container spacing={1} alignItems="center" className="mt-1">
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Repeat password:
                 </Typography>
               </Grid>

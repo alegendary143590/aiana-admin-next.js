@@ -6,8 +6,7 @@
     var userId = scriptTag.getAttribute('data-user-id');
     var botId = scriptTag.getAttribute('data-bot-id');
     var websiteUrl = window.location.href;
-    console.log(websiteUrl);
-    var src = "http://localhost:3000/embedding?userIndex="+encodeURIComponent(userId)+"&botId="+encodeURIComponent(botId)+"&website="+encodeURIComponent(websiteUrl);
+    var src = "https://login.aiana.io/embedding?userIndex="+encodeURIComponent(userId)+"&botId="+encodeURIComponent(botId)+"&website="+encodeURIComponent(websiteUrl);
   
     var iframe = document.createElement('iframe');
     iframe.src = src;

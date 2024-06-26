@@ -6,13 +6,14 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ToastContainer, toast } from "react-toastify"
 import BasicSelect from '@/components/DropMenu';
 import router from "next/router"
-
 import { v4 as uuidv4 } from 'uuid';
 
 const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, setVisible }) => {
     const [messages, setMessages] = useState([
         { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
     ]);
+    const [lang, setLang] = useState(10);
+    const inputRef = useRef(null);
     const [botAvatar, setBotAvatar] = useState('');
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -64,9 +65,9 @@ const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, s
           };
         const createdAt = new Date().toLocaleDateString('en-US', options);
        
-        console.log(createdAt)
+        // console.log(createdAt)
         // const createdAt = currentDateAndTime.toISOString();
-        axios.post(AUTH_API.QUERY, { botId, sessionId, input, userId, createdAt },{
+        axios.post(AUTH_API.QUERY, { botId, sessionId, input, userId, createdAt, lang },{
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
               'Content-Type': 'application/json',  // Explicitly defining the Content-Type
@@ -76,7 +77,9 @@ const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, s
                 if (response.status === 200) {
                     const { message, solve } = response.data;
                     const botResponse = { id: uuidv4(), text: message, isBot: true };
+                    
                     setMessages(prevMessages => [...prevMessages, botResponse]);
+                    inputRef.current.focus();
                     if (!solve) {
                         setShowYesNo(true); // Show the form if solve is false
                         setIsBook(true);
@@ -197,13 +200,13 @@ const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, s
 
     return (
         <div className={`w-[400px] h-[600px] absolute right-0 bottom-0 border-solid border-2 flex flex-col bg-gray-100 overflow-auto ${visibleClass}`}>
-            <Paper elevation={4} className="relative h-[70px] flex items-center" style={{ backgroundColor: color }}>
+            <Paper elevation={4} className="relative h-[70px] flex" style={{ backgroundColor: color }}>
                 <Box display="flex" justifyContent="space-between" alignItems="center" className="w-full" p={1}>
                     <Box display="flex" alignItems="center">
                         <Avatar src={botAvatar} alt="bot avatar" />
                         <Typography variant="body1" ml={1}>{botName}</Typography>
                     </Box>
-                    <BasicSelect />
+                    <BasicSelect lang={lang} setLang={setLang}/>
                     <IconButton onClick={() => setVisible(!visible)}>
                         <KeyboardArrowDownIcon />
                     </IconButton>
@@ -214,20 +217,20 @@ const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, s
                     <Paper
                         key={message.id}
                         elevation={3}
-                        className={`p-2 rounded-lg ${message.isBot ? 'bg-blue-500 text-gray-900' : 'bg-gray-200 text-black'} flex items-center ${message.isBot ? '' : 'justify-end'}`}
+                        className={`p-2 rounded-lg ${message.isBot ? 'bg-blue-500 text-gray-900' : 'bg-gray-200 text-black'} flex ${message.isBot ? '' : 'justify-end'}`}
                         style={{
-                            maxWidth: '70%',
+                            maxWidth: '90%',
                             alignSelf: message.isBot ? 'flex-start' : 'flex-end',
                             wordWrap: 'break-word'
                         }}
                     >
-                        <Box className={`flex items-center gap-2 ${message.isBot ? '' : 'flex-row-reverse'}`}>
+                        <Box className={`flex gap-2 ${message.isBot ? '' : 'flex-row-reverse'}`}>
                             <Avatar
                                 src={message.isBot ? botAvatar : "/images/users/avatar-1.jpg"}
                                 alt="avatar"
                                 className="relative mr-2"
                             />
-                            <Typography variant="body2" className="flex-grow" style={{ textAlign: message.isBot ? 'left' : 'right', overflowWrap: 'break-word' }}>
+                            <Typography variant="body2" className="flex-grow" style={{ textAlign: message.isBot ? 'left' : 'right' , overflowWrap: 'break-word'}}>
                                 {message.text}
                             </Typography>
                         </Box>
@@ -290,6 +293,7 @@ const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, s
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
                     disabled={isLoading || isBook}
+                    ref={inputRef}
                 />  
                 <Button color="primary" className="bg-[#3399ff] hover:bg-[#3399ff] text-white right-0 bottom-0" onClick={handleSendMessage}>
                     {isLoading ? <CircularProgress size={16} color="inherit" /> : "Send"}

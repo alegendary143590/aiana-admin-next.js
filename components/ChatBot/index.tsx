@@ -5,6 +5,9 @@ import { Avatar, Typography, Button, Box, Paper, IconButton, CircularProgress } 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ToastContainer, toast } from "react-toastify"
 import { v4 as uuidv4 } from 'uuid';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const ChatBot = ({ userIndex, botId, website }) => {
 
@@ -33,9 +36,14 @@ const ChatBot = ({ userIndex, botId, website }) => {
     const [showForm, setShowForm] = useState(false); // State to manage whether to show the form
     const [email, setEmail] = useState(""); // State to store email input
     const [content, setContent] = useState(""); // State to store content input
+    const [lang, setLang] = useState(10);
 
     const toggleChatbot = () => {
       setIsVisible(!isVisible);  // Toggle the visibility state
+    };
+
+    const handleChange = (event: SelectChangeEvent) => {
+        setLang(parseInt(event.target.value, 10));
     };
 
     useEffect(() => {
@@ -110,8 +118,8 @@ const ChatBot = ({ userIndex, botId, website }) => {
             second: 'numeric'
           };
         const createdAt = new Date().toLocaleDateString('en-US', options);
-        console.log("Here>>>>>>",createdAt)
-        axios.post(AUTH_API.QUERY, { botId:bot.id, sessionId, input, userId, createdAt })
+        // console.log("Here>>>>>>",createdAt)
+        axios.post(AUTH_API.QUERY, { botId:bot.id, sessionId, input, userId, createdAt, lang})
             .then((response) => {
                 if (response.status === 200) {
                     const { message, solve } = response.data;
@@ -239,6 +247,24 @@ const ChatBot = ({ userIndex, botId, website }) => {
                         <Avatar src={bot.avatar} alt="bot avatar" />
                         <Typography variant="body1" ml={1}>{bot.name}</Typography>
                     </Box>
+                    <div style={{height:'30px'}}>
+                        <FormControl sx={{ m: 1, minWidth: 120}} size='small'>
+                        <Select
+                        value={lang.toString()}
+                        onChange={handleChange}
+                        displayEmpty
+                        inputProps={{ 'aria-label': 'Without label' }}
+                        sx={{color:'white', height:'30px'}}
+                        >
+                        <MenuItem value={10}>
+                            <em>English</em>
+                        </MenuItem>
+                        <MenuItem value={20}>Dutch</MenuItem>
+                        <MenuItem value={30}>French</MenuItem>
+                        <MenuItem value={40}>Spanish</MenuItem>
+                        </Select>
+                    </FormControl>
+                    </div>
                     <IconButton onClick={() => setIsVisible(!isVisible)}>
                         <KeyboardArrowDownIcon />
                     </IconButton>
@@ -256,7 +282,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        <Box className={`flex items-center gap-2 ${message.isBot ? '' : 'flex-row-reverse'}`}>
+                        <Box className={`flex gap-2 ${message.isBot ? '' : 'flex-row-reverse'}`}>
                             <Avatar
                                 src={message.isBot ? bot.avatar : "/images/users/avatar-1.jpg"}
                                 alt="avatar"
