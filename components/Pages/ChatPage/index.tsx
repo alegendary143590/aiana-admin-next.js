@@ -7,8 +7,9 @@ import { ToastContainer, toast } from "react-toastify"
 import BasicSelect from '@/components/DropMenu';
 import router from "next/router"
 import { v4 as uuidv4 } from 'uuid';
+import { isTimeBetween } from '@/components/utils/common';
 
-const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, setVisible }) => {
+const ChatPage = ({ userId, userIndex, startTime, endTime, botId, botName, color, avatar, visible, setVisible }) => {
     const [messages, setMessages] = useState([
         { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
     ]);
@@ -63,6 +64,11 @@ const ChatPage = ({ userId, userIndex, botId, botName, color, avatar, visible, s
             minute: 'numeric', 
             second: 'numeric'
           };
+          
+        if(!isTimeBetween(startTime, endTime)){
+            toast.error("It's not active time for this assistant!", {position:toast.POSITION.TOP_RIGHT});
+            return;
+        }
         const createdAt = new Date().toLocaleDateString('en-US', options);
        
         // console.log(createdAt)

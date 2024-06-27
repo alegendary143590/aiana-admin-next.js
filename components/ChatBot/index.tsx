@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { isTimeBetween } from '../utils/common';
 
 const ChatBot = ({ userIndex, botId, website }) => {
 
@@ -27,6 +28,8 @@ const ChatBot = ({ userIndex, botId, website }) => {
     const [bot, setBot] = useState(INITIAL_BOT_OBJ);
     const [userId, setUserId] = useState("");
     const [input, setInput] = useState("");
+    const [startTime, setStartTime] = useState("");
+    const [endTime, setEndTime] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isBook, setIsBook] = useState(false)
     const [visibleClass, setVisibleClass] = useState("hidden");
@@ -71,6 +74,8 @@ const ChatBot = ({ userIndex, botId, website }) => {
         .then(data => {
             setBot({id:data.bot.id, name:data.bot.name, avatar:data.bot.avatar===""?"/images/users/avatar-2.jpg":data.bot.avatar, color:data.bot.color, index:botId})
             setUserId(data.bot.user_id);
+            setStartTime(data.bot.start_time);
+            setEndTime(data.bot.end_time);
             setIsLoading(false);
         })
         .catch(error => {
@@ -117,6 +122,11 @@ const ChatBot = ({ userIndex, botId, website }) => {
             minute: 'numeric', 
             second: 'numeric'
           };
+        if (!isTimeBetween(startTime, endTime)){
+            toast.error("It's not the time to be active for this assistant!", {position:toast.POSITION.BOTTOM_RIGHT});
+            setIsLoading(false);
+            return;
+        }
         const createdAt = new Date().toLocaleDateString('en-US', options);
         // console.log("Here>>>>>>",createdAt)
         axios.post(AUTH_API.QUERY, { botId:bot.id, sessionId, input, userId, createdAt, lang})
