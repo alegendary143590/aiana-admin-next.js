@@ -11,6 +11,4 @@ const nextConfig = {
   reactStrictMode: true,
 }
 
-module.exports = {
-  fastRefresh: false
-}
+module.exports = nextConfig
