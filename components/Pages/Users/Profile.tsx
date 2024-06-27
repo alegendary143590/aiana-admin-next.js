@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
-import { Box, Typography, Grid, TextField, Button, Link } from "@mui/material"
+import { Box, Typography, Grid, CircularProgress, Button, Link } from "@mui/material"
 import { ToastContainer, toast } from "react-toastify"
 import BackArrow from "@mui/icons-material/ArrowBack"
 import { useRouter } from "next/router" // Corrected import
@@ -32,11 +32,13 @@ const Profile = () => {
   const [userId, setUserId] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [isEdit, setIsEdit] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const router = useRouter() // Use the router from useRouter
   const {user} = router.query;
   useEffect(() => {
     if (user) {
         setUserId(localStorage.getItem('userID'))
+        setIsLoading(true);
       axios
         .post(AUTH_API.GET_USER_AS_ADMIN, { user }, {
           headers: {
@@ -105,13 +107,12 @@ const Profile = () => {
   }
 
   const handleSubmit = () => {
-    console.log(isEdit, change)
     if (isEdit&&change) {
         
-        setIsLoading(true)
+        setIsSaving(true)
         axios
         .post(AUTH_API.UPDATE_USER, {
-            userID:userId,
+            userId,
             first_name: formState.first_name,
             last_name: formState.last_name,
             email: formState.email,
@@ -139,8 +140,10 @@ const Profile = () => {
                 router.push("/signin")
             } else {
                 toast.error(response.data, { position: toast.POSITION.TOP_RIGHT })
-        }
-        setIsLoading(false)
+            }
+            setIsSaving(false)
+            setIsEdit(false);
+
         })
         .catch((error) => {
             if (error.response) {
@@ -162,10 +165,14 @@ const Profile = () => {
                 console.log('Error message:', error.message);
                 toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
         }
-        setIsLoading(false);
+        setIsSaving(false);
+        setIsEdit(false);
+
         }) 
     }
-    setIsEdit(!isEdit);
+    else if(!isEdit){
+      setIsEdit(true);
+    }
 
   }
 
@@ -194,77 +201,81 @@ const Profile = () => {
             <Typography variant="subtitle1" className="text-primary" fontWeight="bold">
               Your Company
             </Typography>
-            <Grid container spacing={2} alignItems="center" className="mt-1">
+            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Name:
                 </Typography>
               </Grid>
               <Grid item sm={12} xs={12} md={8}>
-                <TextField
+                <input
+                  type="text"
                   id="com_name"
                   className="input-width"
+                  style={{height:'40px', borderRadius:'5px'}}
                   value={formState.com_name}
                   onChange={(e) => handleInputChange("com_name", e.target.value)}
-                  variant="outlined"
                   disabled={!isEdit}
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2} alignItems="center" className="mt-1">
+            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   VAT number:
                 </Typography>
               </Grid>
               <Grid item sm={12} xs={12} md={8}>
-                <TextField
+                <input
+                  type="text"
+                  style={{height:'40px', borderRadius:'5px'}}
                   className="input-width"
                   id="com_vat"
                   value={formState.com_vat}
                   onChange={(e) => handleInputChange("com_vat", e.target.value)}
-                  variant="outlined"
                   disabled={!isEdit}
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2} alignItems="center" className="mt-1">
+            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Street:
                 </Typography>
               </Grid>
               <Grid item sm={12} xs={12} md={8}>
-                <TextField
+                <input
                   id="com_street"
                   className="input-width"
                   value={formState.com_street}
                   onChange={(e) => handleInputChange("com_street", e.target.value)}
-                  variant="outlined"
-                    disabled={!isEdit}
-                />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
-                  City:
-                </Typography>
-              </Grid>
-              <Grid item sm={12} xs={12} md={8}>
-                <TextField
-                  id="com_city"
-                  className="input-width"
-                  value={formState.com_city}
-                  onChange={(e) => handleInputChange("com_city", e.target.value)}
-                  variant="outlined"
+                  type="text"
+                  style={{height:'40px', borderRadius:'5px'}}
                   disabled={!isEdit}
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2} alignItems="center" className="mt-1">
+            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
+                  City:
+                </Typography>
+              </Grid>
+              <Grid item sm={12} xs={12} md={8}>
+                <input
+                  id="com_city"
+                  className="input-width"
+                  value={formState.com_city}
+                  onChange={(e) => handleInputChange("com_city", e.target.value)}
+                  type="text"
+                  style={{height:'40px', borderRadius:'5px'}}
+                  disabled={!isEdit}
+                />
+              </Grid>
+            </Grid>
+            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
+              <Grid item sm={12} xs={12} md={4}>
+                <Typography variant="body1" >
                   Country:
                 </Typography>
               </Grid>
@@ -279,117 +290,123 @@ const Profile = () => {
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2} alignItems="center" className="mt-1">
+            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Number:
                 </Typography>
               </Grid>
               <Grid item sm={12} xs={12} md={8}>
-                <TextField
+                <input
                   className="input-width"
                   id="com_street_number"
                   value={formState.com_street_number}
                   onChange={(e) => handleInputChange("com_street_number", e.target.value)}
-                  variant="outlined"
+                  type="text"
+                  style={{height:'40px', borderRadius:'5px'}}
                   disabled={!isEdit}
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2} alignItems="center" className="mt-1">
+            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Postal code:
                 </Typography>
               </Grid>
               <Grid item sm={12} xs={12} md={8}>
-                <TextField
+                <input
                   id="com_postal"
                   className="input-width"
                   value={formState.com_postal}
                   onChange={(e) => handleInputChange("com_postal", e.target.value)}
-                  variant="outlined"
+                  type="text"
+                  style={{height:'40px', borderRadius:'5px'}}
                   disabled={!isEdit}
                 />
               </Grid>
             </Grid>
 
-            <Grid container spacing={2} alignItems="center" className="mt-1">
+            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Website url:
                 </Typography>
               </Grid>
               <Grid item sm={12} xs={12} md={8}>
-                <TextField
+                <input
                   id="com_website"
                   className="input-width"
                   value={formState.com_website}
                   onChange={(e) => handleInputChange("com_website", e.target.value)}
-                  variant="outlined"
+                  type="text"
+                  style={{height:'40px', borderRadius:'5px'}}
                   disabled={!isEdit}
                 />
               </Grid>
             </Grid>
           </Grid>
           <Grid item sm={12} xs={12} md={6}>
-            <Typography variant="subtitle1" className="text-primary" fontWeight="bold">
+            <Typography variant="subtitle1"  fontWeight="bold">
               Your User
             </Typography>
-            <Grid container spacing={2} alignItems="center" className="mt-1">
+            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   First name:
                 </Typography>
               </Grid>
               <Grid item sm={12} xs={12} md={8}>
-                <TextField
+                <input
                   id="first_name"
                   className="input-width"
                   value={formState.first_name}
                   onChange={(e) => handleInputChange("first_name", e.target.value)}
-                  variant="outlined"
+                  type="text"
+                  style={{height:'40px', borderRadius:'5px'}}
                   disabled={!isEdit}
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2} alignItems="center" className="mt-1">
+            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Last name:
                 </Typography>
               </Grid>
               <Grid item sm={12} xs={12} md={8}>
-                <TextField
+                <input
                   id="last_name"
                   className="input-width"
                   value={formState.last_name}
                   onChange={(e) => handleInputChange("last_name", e.target.value)}
-                  variant="outlined"
+                  type="text"
+                  style={{height:'40px', borderRadius:'5px'}}
                   disabled={!isEdit}
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2} alignItems="center" className="mt-1">
+            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Email:
                 </Typography>
               </Grid>
               <Grid item sm={12} xs={12} md={8}>
-                <TextField
+                <input
                   id="email"
                   className="input-width"
                   value={formState.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
-                  variant="outlined"
+                  type="text"
+                  style={{height:'40px', borderRadius:'5px'}}
                   disabled={!isEdit}
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2} alignItems="center" className="mt-1">
+            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
               <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
+                <Typography variant="body1" >
                   Language:
                 </Typography>
               </Grid>
@@ -445,22 +462,24 @@ const Profile = () => {
         <Box className="w-full flex justify-end gap-1">
           <Box className="mt-3 w-1/3 flex justify-start gap-1">
             <Button
-              variant="contained"
-              color="primary"
-              className="mt-3 bg-[#fa6374] px-10 font-sans text-[16pxpx]"
-              style={{ textTransform: "none" }}
+              style={{ textTransform: "none", backgroundColor:'#fa6374', textAlign:'center', color:'white' ,marginRight:'10px', marginTop:'3px', width:'70px' }}
               onClick={handleCancel}
             >
               Cancel
             </Button>
             <Button
-              variant="contained"
-              color="primary"
-              className="mt-3 bg-[#00d7ca] px-10 font-sans text-[16pxpx]"
-              style={{ textTransform: "none" }}
+              style={{ textTransform: "none", backgroundColor:'#00d7ca', textAlign:'center', color:'white', marginRight:'10px', marginTop:'3px' , width:'70px' }}
               onClick={handleSubmit}
             >
-              {isEdit?'Save':'Edit'}
+              {isEdit ? (
+                  isSaving ? (
+                    <CircularProgress size={24} color="inherit" />
+                  ) : (
+                    "Save"
+                  )
+                ) : (
+                  "Edit"
+              )}
             </Button>
           </Box>
         </Box>
