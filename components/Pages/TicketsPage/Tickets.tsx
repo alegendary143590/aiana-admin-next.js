@@ -172,9 +172,9 @@ const Tickets = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    { tickets.map((row) => (
+                    { tickets.map((row, index) => (
                         <StyledTableRow key={row.id}>
-                            <StyledTableCell align="center">{row.id}</StyledTableCell>
+                            <StyledTableCell align="center">{index+1}</StyledTableCell>
                             <StyledTableCell align="center">{row.email}</StyledTableCell>
                             <StyledTableCell align="center">{row.website}</StyledTableCell>
                             <StyledTableCell align="center">{row.content}</StyledTableCell>

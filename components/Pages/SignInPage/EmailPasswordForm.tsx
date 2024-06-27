@@ -45,21 +45,20 @@ const EmailPasswordForm = () => {
   /* eslint-enable */
 
   return (
-    <Container className="w-[450px] h-full bg-none flex flex-col justify-center items-center">
+    <Container sx={{ width: '450px', height: '100%', bgcolor: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
       <div>
-        <Card className="w-full md:w-[450px] ">
+        <Card sx={{ width: { xs: 'full', md: '450px' } }}>
           <CardContent>
-            <div className="text-center mt-5">
-              <img src="/images/logo_big.png" alt="Logo" className="mx-auto h-20" />
-              <Typography variant="h6" className="text-primary font-mono text-[#00d7ca]">
+            <div style={{ textAlign: 'center', marginTop: 5 }}>
+              <img src="/images/logo_big.png" alt="Logo" style={{ marginRight: 'auto', height: '80px' }} />
+              <Typography variant="h6" sx={{ color: '#00d7ca', fontFamily: 'monospace' }}>
                 Welcome!
               </Typography>
             </div>
-            <Box component="form" action="/admin" noValidate sx={{ mt: 3, m: "15px" }}>
-              <Typography variant="body1" className="text-primary font-mono !m-0">
+            <Box component="form" action="/admin" noValidate sx={{ mt: 3, m: '15px' }}>
+              <Typography variant="body1" sx={{ color: '#00d7ca', fontFamily: 'monospace', mb: 0 }}>
                 Username
               </Typography>
-
               <TextField
                 margin="normal"
                 required
@@ -71,9 +70,9 @@ const EmailPasswordForm = () => {
                 autoComplete="username"
                 placeholder="Enter a username"
                 autoFocus
-                className="bg-white mt-2"
+                sx={{ bgcolor: 'white', mt: 2 }}
               />
-              <Typography variant="body1" className="text-primary font-mono mt-2">
+              <Typography variant="body1" sx={{ color: '#00d7ca', fontFamily: 'monospace', mt: 2 }}>
                 Password
               </Typography>
               <TextField
@@ -87,35 +86,28 @@ const EmailPasswordForm = () => {
                 id="password"
                 placeholder="Enter a password"
                 autoComplete="current-password"
-                className="bg-white !mt-2"
+                sx={{ bgcolor: 'white', mt: 2 }}
               />
-              <div className="mt-4">
-                <Link
-                  underline="none"
-                  href="/forgot"
-                  variant="body2"
-                  className="text-muted text-gray-500"
-                >
+              <div style={{ marginTop: 4, textAlign: 'right' }}>
+                <Link underline="none" href="/forgot" variant="body2" sx={{ color: 'text.secondary' }}>
                   Forgot password?
                 </Link>
               </div>
-              <div className="mt-4 text-right">
+              <div style={{ marginTop: 4, textAlign: 'right' }}>
                 <Button
-                  type="button"
                   onClick={handleAuth}
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                  className="mt-3 bg-[#00d7ca] w-[95px]"
-                  style={{ textTransform: "none" }}
+                  style={{backgroundColor:'#005ce6'}}
+                  sx={{ marginTop: 3, marginBottom: 2, width: '95px', textTransform: 'none' }}
                 >
                   Log In
                 </Button>
               </div>
-              <div className="text-center mt-2">
+              <div style={{ textAlign: 'center', marginTop: 2 }}>
                 <Typography variant="body2">
                   Don&apos;t have an account?&nbsp;
-                  <Link underline="none" href="/signup" variant="body2" className="text-[#00d7ca]">
+                  <Link underline="none" href="/signup" variant="body2" sx={{ color: '#00d7ca' }}>
                     Sign up now
                   </Link>
                 </Typography>
@@ -125,12 +117,13 @@ const EmailPasswordForm = () => {
           </CardContent>
         </Card>
       </div>
-      <div className="text-center text-muted mt-3 bottom-[100px]">
-        <Typography variant="body2" color="textSecondary" className="text-gray-300">
+      <div style={{ textAlign: 'center', color: 'text.secondary', marginTop: 3, position: 'absolute', bottom: '100px' }}>
+        <Typography variant="body2" style={{ color: '#f2f2f2' }}>
           © {new Date().getFullYear()} aiana
         </Typography>
       </div>
-    </Container>
+</Container>
+
   )
 }
 

@@ -72,66 +72,7 @@ body {
     Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-::-webkit-scrollbar {
-  width: 3px;
-}
 
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  background-clip: padding-box;
-  background-color: #daeb02;
-}
-
-@layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-}
-
-/* Begin Calendar Customization */
-.session-calendar {
-  width: 100% !important;
-  background-color: #12121166 !important;
-  font-family: "URWGeometric" !important;
-  overflow: hidden !important;
-  border-radius: 24px !important;
-  padding-top: 0px !important; /* remove calendar initial padding top because header background color is different with calendar bg color */
-}
-
-/* Remove Fade CSS */
-.session-calendar .Calendar__yearSelectorWrapper::after,
-.Calendar__yearSelectorWrapper::before {
-  visibility: hidden !important;
-}
-
-.session-calendar .Calendar__section.-hiddenPrevious {
-  transform: translateX(-100%);
-}
-
-.session-calendar .Calendar__section.-hiddenNext {
-  transform: translateX(100%);
-}
-
-.session-calendar .Calendar__day.-disabled {
-  color: #414040 !important;
-}
-
-.session-calendar .Calendar__day.-disabled:hover {
-  color: #414040 !important;
-  background-image: none !important;
-  cursor: not-allowed !important;
-}
-
-/* End Calendar Customizaation */
 
 * {
   box-sizing: border-box;
