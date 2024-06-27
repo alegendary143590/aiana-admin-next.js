@@ -66,7 +66,7 @@ module.exports = {
         dropicons: ["Drop Icons", "sans-serif"],
         fabrands: ["Fabrands", "sans-serif"],
         material: ["Material Design Icons", "sans-serif"],
-        login_font: ["Be Vietnam", "sans-serif"],
+        login_font: ["Be Vietnam", "sans-serif"]
       },
       screens: {
         ios: "320px",
@@ -95,27 +95,7 @@ module.exports = {
           "linear-gradient(270deg, rgba(255, 106, 43, 1) -0.02%, rgba(255, 68, 43, 1) 100.01%)",
         gradient_p_2:
           "linear-gradient(270deg, rgba(255, 106, 43, 0.2) -0.02%, rgba(255, 68, 43, 0.2) 100.01%)",
-      },
-      colors: {
-        white: "white",
-        black: "black",
-        black_0: "#1A1A18",
-        black_1: "#1B1B19",
-        black_4: "rgba(18, 18, 17, 0.40)",
-        black_3: "rgba(18,18,18,86%)",
-        black_8: "#121211",
-        black_8_24: "rgb(18 18 17 / 24%)",
-        black_overlay_0: "#1a1a18e6",
-        gray_overlay_6: "#d2d2d20f",
-        gray_overlay_3: "#d2d2d208",
-        gray_2: "#8C8C8C",
-        gray_1: "#D2D2D2",
-        yellow: "#FFD600",
-        blue: "#19F1FF",
-        session: "rgba(161, 234, 4, 1)",
-        project: "rgba(255, 106, 43, 1)",
-        s_error: "#F3436D",
-      },
+      }
     },
   },
   variants: {
@@ -126,6 +106,7 @@ module.exports = {
   darkMode: ["class"],
   plugins: [
     require("@tailwindcss/forms"),
+    require("@mui/material/styles"),
     require("tailwind-scrollbar")({ nocompatible: true }),
     dropShadowColorPlugin,
   ],

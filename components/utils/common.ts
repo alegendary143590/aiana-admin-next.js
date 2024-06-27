@@ -39,6 +39,14 @@ export async function loginUser(email:string, password:string) {
     }
 }
 
+export function isTimeBetween(startTime: string, endTime: string): boolean {
+    const now = new Date();
+    const start = new Date(`${now.toDateString()} ${startTime}`);
+    const end = new Date(`${now.toDateString()} ${endTime}`);
+  
+    return now.getTime() >= start.getTime() && now.getTime() <= end.getTime();
+}
+
 export function logOut() {
     try {
         localStorage.setItem('token', "");

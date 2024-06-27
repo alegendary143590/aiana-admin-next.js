@@ -24,7 +24,8 @@ const Chatbots = () => {
   const [botThemeColor, setBotThemeColor] = React.useState('#1976D2')
   const [userId, setUserId] = React.useState('')
   const [userIndex, setUserIndex] = React.useState('')
-  
+  const [startTime, setStartTime] = React.useState('')
+  const [endTime, setEndTime] = React.useState('')
   const [index, setIndex] = React.useState('');
   const handleAddRow = () => {
     router.push(`/chatbot/edit?bot=-1`)
@@ -94,6 +95,8 @@ const Chatbots = () => {
         position: toast.POSITION.TOP_RIGHT,
       })
     }
+    setStartTime(bot.start_time)
+    setEndTime(bot.end_time)
     setBotId(id)
     setBotName(bot.name)
     setBotAvatar(bot.avatar)
@@ -266,7 +269,7 @@ const Chatbots = () => {
         />
         <EmbedAlert open={open} setOpen={setOpen} description={description} handleCopy={handleCopy}/>
 
-      <ChatbotPage userId={userId} userIndex={userIndex} botId={botId} botName={botName} color={botThemeColor} avatar={botAvatar}  visible={botVisible} setVisible={setBotVisible} />
+      <ChatbotPage userId={userId} userIndex={userIndex} startTime={startTime} endTime={endTime} botId={botId} botName={botName} color={botThemeColor} avatar={botAvatar}  visible={botVisible} setVisible={setBotVisible} />
       </>
   )
 }

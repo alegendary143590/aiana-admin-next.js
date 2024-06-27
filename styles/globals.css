@@ -149,7 +149,6 @@ textarea {
 
 .input-width {
   width: 240px; /* Default width for larger screens */
-
   @media (max-width: 800px) {
     width: 200px; /* Adjusted width for screens up to 600px (mobile mode) */
   }
