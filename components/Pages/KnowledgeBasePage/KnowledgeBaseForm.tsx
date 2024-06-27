@@ -7,7 +7,7 @@ import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { useRouter} from "next/router"
-
+import { CircularProgress } from "@mui/material"
 import Document from "./Document"
 import Website from "./Website"
 import Text from "./Text"
@@ -20,6 +20,7 @@ interface TabPanelProps {
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props
+
 
   return (
     <div
@@ -71,6 +72,7 @@ const KnowledgeBaseForm = ({baseId}) => {
   const [documents, setDocuments] = useState([])
   const [files, setFiles] = useState([])
   const [urls, setUrls] = useState([])
+  const [ isSaving, setIsSaving ] = useState(false)
   const [questionAnswers, setQuestionAnswers] = useState([])
   const [base, setBase] = React.useState<Base>({created_at: "",
     id: 0,
@@ -172,7 +174,7 @@ const KnowledgeBaseForm = ({baseId}) => {
       toast.error("Please input the data!", { position: toast.POSITION.TOP_RIGHT })
       return
     }
-
+    setIsSaving(true)
     const userID = localStorage.getItem("userID")
     const formData = new FormData()
     formData.append("name", nameInputValue)
@@ -203,6 +205,7 @@ const KnowledgeBaseForm = ({baseId}) => {
       });
       if (response.status === 200){
         let badAlert = ""
+        setIsSaving(false)
         if (!response.data.bad_url) {
           badAlert = "The knowledge base includes invalid url."
         }
@@ -210,6 +213,8 @@ const KnowledgeBaseForm = ({baseId}) => {
         router.push("/knowledge")
       }
     } catch (error) {
+      setIsSaving(false)
+
       if (error.response) {
         console.log('Error status code:', error.response.status);
         console.log('Error response data:', error.response.data);
@@ -265,7 +270,7 @@ const KnowledgeBaseForm = ({baseId}) => {
         </Grid>
         <Grid item xs={8} md={2} className="flex justify-start">
           <Button className="bg-[#0099ff]" variant="contained" onClick={handleSubmit}>
-            Save
+          {isSaving ? <CircularProgress size={16} color="inherit" /> : "Save"}
           </Button>
         </Grid>
       </Grid>
