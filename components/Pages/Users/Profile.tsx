@@ -184,9 +184,8 @@ const Profile = () => {
   function getEditContent() {
     if (isSaving) {
       return <CircularProgress size={24} color="inherit" />;
-    } else {
-      return <span style={{ color: 'white' }}>Save</span>;
     }
+      return <span style={{ color: 'white' }}>Save</span>;
   }
   
   function getViewContent() {
