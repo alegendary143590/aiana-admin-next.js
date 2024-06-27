@@ -181,6 +181,19 @@ const Profile = () => {
     else router.push('/users')
   }
 
+  function getEditContent() {
+    if (isSaving) {
+      return <CircularProgress size={24} color="inherit" />;
+    }
+      return <span style={{ color: 'white' }}>Save</span>;
+  }
+  
+  function getViewContent() {
+    return (
+      <span style={{ color: 'white' }}>Edit</span>
+    );
+  }
+
   if (isLoading) {
     return <div>Loading...</div>
   }
@@ -471,15 +484,7 @@ const Profile = () => {
               style={{ textTransform: "none", backgroundColor:'#00d7ca', textAlign:'center', color:'white', marginRight:'10px', marginTop:'3px' , width:'70px' }}
               onClick={handleSubmit}
             >
-              {isEdit ? (
-                  isSaving ? (
-                    <CircularProgress size={24} color="inherit" />
-                  ) : (
-                    "Save"
-                  )
-                ) : (
-                  "Edit"
-              )}
+              {isEdit ? getEditContent() : getViewContent()}
             </Button>
           </Box>
         </Box>

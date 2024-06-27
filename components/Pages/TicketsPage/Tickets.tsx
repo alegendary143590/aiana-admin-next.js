@@ -80,13 +80,9 @@ const Tickets = () => {
                     }
                     // Handle the error response as needed
                   } else if (error.request) {
-                    // The request was made but no response was received
-                    console.log('Error request:', error.request);
                     toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
         
                   } else {
-                    // Something happened in setting up the request that triggered an Error
-                    console.log('Error message:', error.message);
                     toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
         
                   }
