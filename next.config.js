@@ -12,6 +12,5 @@ const nextConfig = {
 }
 
 module.exports = {
-  nextConfig,
   fastRefresh: false
 }

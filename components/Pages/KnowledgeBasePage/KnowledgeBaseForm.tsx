@@ -269,7 +269,7 @@ const KnowledgeBaseForm = ({baseId}) => {
         </Grid>
         <Grid item xs={8} md={2} className="flex justify-start">
           <Button className="bg-[#0099ff]" variant="contained" onClick={handleSubmit}>
-          {isSaving ? <CircularProgress size={16} color="inherit" /> : "Save"}
+          {isSaving ? <CircularProgress size={20} color="inherit" /> : "Save"}
           </Button>
         </Grid>
       </Grid>
