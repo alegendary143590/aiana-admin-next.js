@@ -55,8 +55,7 @@ const UserList = () => {
               })
                 .then((response) => {
                     if (response.status === 200) {
-                        setUsers(response.data);
-                        console.log(response.data);
+                      setUsers(response.data);
                     }
                     if ( response.status === 401){
                       toast.error("Please login!", {position: toast.POSITION.TOP_RIGHT});
