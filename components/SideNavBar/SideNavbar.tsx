@@ -86,21 +86,22 @@ const SideNavBar = () => {
     <Box sx={{display:"flex", position:"relative" }}>
       <Drawer variant="permanent" open={open} >
       <DrawerHeader sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', my: 1 }}>
-        <IconButton onClick={handleDrawerOpen} sx={{ marginRight: 'auto' }}>
-          <img src={logo} alt="logo" style={{ height: '2.5rem' }} />
-        </IconButton>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerClose}
-          edge="start"
-          sx={{
-            display: { xs: 'none', md: 'flex' }, // Ocultar en tamaños pequeños como xs
-          }}
-        >
+      <IconButton onClick={handleDrawerOpen} sx={{ marginRight: 'auto' }}>
+        <img src={logo} alt="logo" style={{ height: '2.5rem' }} />
+      </IconButton>
+      {open && (
+      <IconButton
+        color="inherit"
+        aria-label="open drawer"
+        onClick={handleDrawerClose}
+        edge="start"
+        sx={{
+          display: { xs: 'none', md: 'flex' }, // Hide on small sizes like xs
+        }}
+      >
           <MenuIcon />
-        </IconButton>
-      </DrawerHeader>
+        </IconButton> )}
+    </DrawerHeader>
         <MenuList open={open} />
         <Tooltip title="Log out">
           <Button variant="contained" onClick={handleLogOut} sx={{ display: "flex", justifyContent: "center", position:"absolute", bottom:"10px", width:"90%", margin:"10px"}} color="error" className="bg-[#d32f2f]">{open?`Log out`:<KeyboardReturnIcon />}</Button>
