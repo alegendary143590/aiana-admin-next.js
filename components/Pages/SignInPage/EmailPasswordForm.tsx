@@ -117,7 +117,7 @@ const EmailPasswordForm = () => {
           </CardContent>
         </Card>
       </div>
-      <div style={{ textAlign: 'center', color: 'text.secondary', marginTop: 3, position: 'absolute', bottom: '100px' }}>
+      <div style={{ textAlign: 'center', marginTop: 3, position: 'absolute', bottom: '50px' }}>
         <Typography variant="body2" style={{ color: '#f2f2f2' }}>
           © {new Date().getFullYear()} aiana
         </Typography>
