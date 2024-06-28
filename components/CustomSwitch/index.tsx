@@ -5,6 +5,7 @@ import Switch from "@mui/material/Switch"
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
   padding: 8,
+  marginLeft:6,
   "& .MuiSwitch-track": {
     borderRadius: 22 / 2,
     "&::before, &::after": {
@@ -42,8 +43,8 @@ export default function CustomizedSwitches({value, onChange }) {
       control={<Android12Switch checked={value}/>}
       label="Active"
       value={value}
+      sx={{marginLeft:'0px'}}
       labelPlacement="start"
-      className="ml-0"
       onChange={onChange}
     />
   )
