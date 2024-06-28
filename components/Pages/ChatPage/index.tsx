@@ -309,11 +309,9 @@ const ChatPage = ({ userId, userIndex, startTime, endTime, botId, botName, color
                         '&:hover': {
                         backgroundColor: '#3399ff',
                         },
-                        width:'40px',
                         color: 'white',
-                        position: 'absolute',
-                        right: 10,
-                        bottom: 15,
+                        right: 0,
+                        bottom: 0,
                     }}
                     onClick={handleSendMessage}
                     >
