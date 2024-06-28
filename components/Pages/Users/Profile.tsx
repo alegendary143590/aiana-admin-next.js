@@ -203,7 +203,7 @@ const Profile = () => {
         <Link
           underline="none"
           href="/users"
-          className="text-gray-600 flex items-center absolute right-10 text-[16px] mr-[20px]"
+          className="text-gray-600 flex items-center absolute right-20 text-[16px] mr-[20px]"
         >
           <BackArrow className="h-[15px]" />
           Back
