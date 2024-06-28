@@ -97,7 +97,6 @@ const Profile = () => {
   }, [router]) // Add router to dependencies to avoid ESLint warnings
 
   const handleInputChange = (id, value) => {
-    console.log(id)
     setFormState((prevState) => ({
       ...prevState,
       [id]: value,

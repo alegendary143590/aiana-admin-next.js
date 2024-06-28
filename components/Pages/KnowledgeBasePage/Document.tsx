@@ -32,7 +32,6 @@ const Document = ({documents, documentRef, setDocuments, setFiles}) => {
   const handleDocumentChanged = (event) => {
     const fileList = event.target.files;
     const validFiles = [];
-    console.log(fileList.length)
 
 
     for (let i = 0; i < fileList.length; i+=1) {
@@ -55,7 +54,6 @@ const Document = ({documents, documentRef, setDocuments, setFiles}) => {
     }))
     setDocuments([...documents, ...newDocs]);
   };
-  console.log(documents)
 
   const handleDelete = (_id, _index) => {
     setId(_id);
