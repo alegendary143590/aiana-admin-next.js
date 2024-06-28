@@ -64,7 +64,7 @@ const ChatPage = ({ userId, userIndex, startTime, endTime, botId, botName, color
             minute: 'numeric', 
             second: 'numeric'
           };
-          
+
         if(!isTimeBetween(startTime, endTime)){
             toast.error("It's not active time for this assistant!", {position:toast.POSITION.TOP_RIGHT});
             return;
@@ -301,10 +301,28 @@ const ChatPage = ({ userId, userIndex, startTime, endTime, botId, botName, color
                     disabled={isLoading || isBook}
                     ref={inputRef}
                 />  
-                <Button color="primary" className="bg-[#3399ff] hover:bg-[#3399ff] text-white right-0 bottom-0" onClick={handleSendMessage}>
-                    {isLoading ? <CircularProgress size={16} color="inherit" /> : "Send"}
-                    {/* <>hello</> */}
-                </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                        backgroundColor: '#3399ff',
+                        '&:hover': {
+                        backgroundColor: '#3399ff',
+                        },
+                        width:'40px',
+                        color: 'white',
+                        position: 'absolute',
+                        right: 10,
+                        bottom: 15,
+                    }}
+                    onClick={handleSendMessage}
+                    >
+                    {isLoading ? (
+                        <CircularProgress size={24} color="inherit" />
+                    ) : (
+                        'Send'
+                    )}
+                    </Button>
             </div>
             <ToastContainer />
         </div>
