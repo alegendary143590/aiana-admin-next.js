@@ -348,12 +348,14 @@ const ChatbotForm = ({bot}) => {
           </Grid>
           <Box className="flex justify-end items-center " sx={{display:'flex', justifyContent:'flex-end', alignItems:'center', marginTop:'10px'}}>
             <button
+            type="button"
               style={{ textTransform: "none", backgroundColor:'#fa6374', width:'60px', height:'40px', marginRight:'10px', borderRadius:5, color:'white' }}
               onClick={handleCancelClick}
             >
             Cancel
             </button>
             <button
+            type="button"
               style={{ textTransform: "none", backgroundColor:'#00d7ca', width:'60px', height:'40px', borderRadius:5, color:'white'  }}
               onClick={handleSubmit}
               >
