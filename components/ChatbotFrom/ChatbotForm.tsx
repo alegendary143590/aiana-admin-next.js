@@ -236,30 +236,36 @@ const ChatbotForm = ({bot}) => {
           </Typography>
         </Grid>
         <div className="bg-none w-full rounded-lg p-4 flex flex-col gap-4 mt-1">
-          <Grid container direction="row" spacing={1} alignItems="center">
-            <Grid item alignItems="start" className="mr-3">
-              <Typography variant="body1" align="right">
-                Name:
-              </Typography>
-            </Grid>
-            <Grid item sm={12} md={4}>
+      <Grid container direction="row" spacing={1} alignItems="center">
+            <Grid item alignItems="start" sx={{marginTop:'10px'}}>
+          <Typography variant="body1" align="right">
+            Name:
+          </Typography>
+        </Grid>
+        <Grid item sm={12} md={4}>
               <Input
-                fullWidth
-                inputProps={{ "aria-label": "description" }}
-                className="border border-solid border-gray-300"
-                disableUnderline
-                value={name}
-                onChange={handleNameChange}
-              />
-            </Grid>
-          </Grid>
-          <Grid container direction="row" spacing={1} alignItems="center" className="mt-1">
-            <Grid item alignItems="start" className="mr-3">
+              fullWidth
+              inputProps={{ "aria-label": "description" }}
+                  sx={{
+                    border: "1px solid #d0d0d0",
+                    borderRadius: "4px",
+                    "& .MuiInputBase-input": {
+                      padding: "8px 12px",
+                    },
+                  }}
+                  disableUnderline
+                  value={name}
+                  onChange={handleNameChange}
+          />
+        </Grid>
+      </Grid>
+          <Grid container direction="row" spacing={1} alignItems="center" sx={{marginTop:'3px'}}>
+            <Grid item alignItems="start" sx={{marginTop:'5px'}}>
               <Typography variant="body1" align="right">
                 Avatar:
               </Typography>
             </Grid>
-            <Grid item xs={12} sm={8} className="flex items-center gap-2">
+            <Grid item xs={12} sm={8} sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <input
                 accept="image/*"
                 style={{ display: "none" }}
@@ -268,67 +274,67 @@ const ChatbotForm = ({bot}) => {
                 onChange={handleAvatarChange}
               />
               <label htmlFor="avatar-upload">
-                <Button variant="contained" component="span" className="bg-[#5b0c99]">
-                  <Typography variant="body1" className="ml-2" style={{ textTransform: "none" }}>
-                    + Upload Avatar
-                  </Typography>
+                    <Button variant="contained" component="span" className="bg-[#5b0c99]">
+                      <Typography variant="body1" className="ml-2" style={{ textTransform: "none" }}>
+                        + Upload Avatar
+                      </Typography>
                 </Button>
               </label>
               {avatarPreview && (
-                <div className="flex flex-col justify-center items-center">
+                    <div className="flex flex-col justify-center items-center">
                   <Avatar src={avatarPreview} sx={{ width: 70, height: 70, objectFit: "cover" }} />
-                </div>
+                    </div>
               )}
             </Grid>
+      </Grid>
+        <Grid container direction="row" spacing={1} alignItems="center" sx={{marginTop:'5px'}}>
+          <Grid item alignItems="start" sx={{marginRight:'6px'}}>
+            <Typography variant="body1" align="right">
+              Color:
+            </Typography>
           </Grid>
-          <Grid container direction="row" spacing={1} alignItems="center" className="mt-1">
-            <Grid item alignItems="start" className="mr-3">
-              <Typography variant="body1" align="right">
-                Color:
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={8}>
-              <Button
-                onClick={handleColorButtonClick}
+        <Grid item xs={12} sm={8}>
+          <Button
+            onClick={handleColorButtonClick}
                 className="!w-[30px] h-[30px]"
                 style={{ backgroundColor: themeColor }}
-              />
-              <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
+          />
+          <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
                 {colors.map((color) => (
-                  <MenuItem
-                    key={color}
-                    onClick={() => handleColorMenuItemClick(color)}
+              <MenuItem
+                key={color}
+                onClick={() => handleColorMenuItemClick(color)}
                     className="flex justify-start items-center"
-                  >
+              >
                     <Card className="w-6 h-6 mr-2 mb-1" style={{ backgroundColor: color }} />
-                    <Typography>{color}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Grid>
-          </Grid>
-          <Grid container direction="row" spacing={1} alignItems="center" className="mt-1">
-            <Grid item alignItems="start" className="mr-3">
-              <CustomSwitch value={active}  onChange={handleSwitchChange} />
-            </Grid>
-          </Grid>
-          <Grid container direction="row" spacing={1} alignItems="center" className="mt-2">
-            <Typography variant="body1" align="right" className="mr-2">
-              Timing:
-            </Typography>
+                <Typography>{color}</Typography>
+              </MenuItem>
+            ))}
+          </Menu>
+        </Grid>
+      </Grid>
+      <Grid container direction="row" spacing={1} alignItems="center" sx={{ marginTop: '4px' }}>
+        <Grid item alignItems="start" >
+          <CustomSwitch value={active} onChange={handleSwitchChange} />
+        </Grid>
+      </Grid> 
+        <Grid container direction="row" spacing={1} alignItems="center" sx={{marginTop:'5px'}}>
+          <Typography variant="body1" align="right" sx={{marginRight:'6px'}}>
+          Timing:
+        </Typography>
             <Input type="time" value={timeFrom} onChange={handleTimeFromChange} className="mr-2" />
-            <Typography variant="body1" align="right">
-              -
-            </Typography>
-            <Input
-              type="time"
-              value={timeUntil}
-              onChange={handleTimeUntilChange}
-              className="ml-2"
-            />
-          </Grid>
-          <Grid container spacing={1} alignItems="center" className="mt-3">
-            <Typography variant="body1" align="right">
+        <Typography variant="body1" align="right">
+          -
+        </Typography>
+          <Input
+            type="time"
+            value={timeUntil}
+            onChange={handleTimeUntilChange}
+            className="ml-2"
+          />
+      </Grid>
+          <Grid container spacing={1} alignItems="center" sx={{marginTop:'3px'}}>
+            <Typography variant="body1" align="right" sx={{marginRight:3, marginTop:3}} >
               Knowledge Base:
             </Typography>
             <Autocomplete
@@ -337,27 +343,25 @@ const ChatbotForm = ({bot}) => {
               id="knowledge_base"
               options={knowledgeBases||[]}
               onChange={(_, value) => handleKnowledgeBaseChange(value)}
-              sx={{ width: 300 }}
+              sx={{ width: 300, height:50, marginTop:3 }}
               renderInput={(params) => <TextField {...params} />}
             />
           </Grid>
-          <Box className="flex justify-end items-center ">
+          <Box className="flex justify-end items-center " sx={{display:'flex', justifyContent:'flex-end', alignItems:'center'}}>
             <Button
               variant="contained"
               color="primary"
-              className="bg-[#fa6374] w-24 h-10"
-              sx={{ textTransform: "none" }}
+              sx={{ textTransform: "none", backgroundColor:'#fa6374', width:'30px', height:'40px', marginRight:3 }}
               onClick={handleCancelClick}
             >
-              Cancel
+            Cancel
             </Button>
             <Button
               variant="contained"
               color="primary"
-              className="bg-[#00d7ca] w-24 h-10 ml-2"
-              sx={{ textTransform: "none" }}
+              sx={{ textTransform: "none", backgroundColor:'#00d7ca', width:'30px', height:'40px', marginLeft:2 }}
               onClick={handleSubmit}
-            >
+              >
               Save
             </Button>
           </Box>
