@@ -46,7 +46,6 @@ const ChatbotForm = ({bot}) => {
 
     setThemeColor(color)
     setAnchorEl(null)
-    console.log(index)
   }
 
   const colors = [

@@ -56,7 +56,6 @@ export function logOut() {
         localStorage.setItem('token_expiry', "");
         return true
     } catch (e){
-        console.log(e.toString())
         return false
     }
 }
