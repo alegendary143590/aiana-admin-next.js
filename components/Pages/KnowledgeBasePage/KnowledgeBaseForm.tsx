@@ -268,7 +268,7 @@ const KnowledgeBaseForm = ({baseId}) => {
           />
         </Grid>
         <Grid item xs={8} md={2} className={`${isSaving?"disabled":""}`}>
-          <Button className="bg-[#0099ff]" variant="contained" onClick={handleSubmit}>
+          <Button className="bg-[#0099ff]" variant="contained" disabled={isSaving} onClick={handleSubmit}>
           {isSaving ? <CircularProgress size={24} color="inherit" /> : "Save"}
           </Button>
         </Grid>

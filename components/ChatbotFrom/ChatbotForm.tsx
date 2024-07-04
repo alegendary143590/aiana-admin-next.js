@@ -192,7 +192,7 @@ const ChatbotForm = ({bot}) => {
       formData.append("knowledge_base", "-1");
     } else {
       formData.append("knowledge_base", bases[index].unique_id);
-    }
+    }  
     formData.append("user_id", userId)
   
     try {
@@ -202,7 +202,7 @@ const ChatbotForm = ({bot}) => {
       } else {
         API_URL = AUTH_API.CREATE_BOT
       }
-      await axios.post(API_URL, formData, {
+      await axios.post(API_URL, formData, {  
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`, 
           "Content-Type": "multipart/form-data",
@@ -329,7 +329,7 @@ const ChatbotForm = ({bot}) => {
             type="time"
             value={timeUntil}
             onChange={handleTimeUntilChange}
-            className="ml-2"
+            sx={{marginLeft:2}}
           />
       </Grid>
           <Grid container spacing={1} alignItems="center" sx={{marginTop:'3px'}}>
