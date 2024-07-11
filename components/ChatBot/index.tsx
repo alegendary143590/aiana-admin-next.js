@@ -239,7 +239,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
 
   if(isError) {
     return (
-        <></>
+        <div></div>
     )
   }
 
