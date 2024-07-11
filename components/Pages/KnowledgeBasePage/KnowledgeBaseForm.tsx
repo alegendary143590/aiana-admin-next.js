@@ -221,15 +221,19 @@ const KnowledgeBaseForm = ({baseId}) => {
           toast.error("Session Expired!", { position:toast.POSITION.TOP_RIGHT })
           router.push("/signin")
         }
+        else if (error.response.status === 504){
+          toast.error("It takes too much time to retrieve information from your document!", { position:toast.POSITION.TOP_RIGHT })
+          
+        }
         // Handle the error response as needed
       } else if (error.request) {
+        
         // The request was made but no response was received
-        console.log('Error request:', error.request);
+        console.log('Error request:', error.request.status);
       } else {
         // Something happened in setting up the request that triggered an Error
         console.log('Error message:', error.message);
       }
-      console.log('Error config:', error.config);
       
     }
   };
@@ -278,7 +282,7 @@ const KnowledgeBaseForm = ({baseId}) => {
           onChange={handleChange}
           aria-label="basic tabs example"
           textColor="secondary"
-        >
+          >
           <Tab label="Document" {...a11yProps(0)} />
           <Tab label="Website" {...a11yProps(1)} />
           <Tab label="Text" {...a11yProps(2)} />
