@@ -10,6 +10,16 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { isTimeBetween } from '../utils/common';
 
+const options:Intl.DateTimeFormatOptions = { 
+    weekday: 'short', 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric', 
+    hour: 'numeric', 
+    minute: 'numeric', 
+    second: 'numeric'
+  };
+
 const ChatBot = ({ userIndex, botId, website }) => {
 
     const INITIAL_BOT_OBJ = {
@@ -200,7 +210,9 @@ const ChatBot = ({ userIndex, botId, website }) => {
         // Logic to handle the form submission (e.g., send email and content to backend)
         setShowForm(false); // Hide the form after submission
         setIsBook(false);
-        axios.post(AUTH_API.BOOK, { userIndex, sessionId, botId:bot.id, email, content, website })
+        const createdAt = new Date().toLocaleDateString('en-US', options);
+
+        axios.post(AUTH_API.BOOK, { userIndex, sessionId, botId:bot.id, email, content, website,createdAt })
             .then((response) => {
                 if (response.status === 201) {
                     const  {message}  = response.data;
