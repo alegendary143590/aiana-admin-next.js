@@ -9,6 +9,16 @@ import router from "next/router"
 import { v4 as uuidv4 } from 'uuid';
 import { isTimeBetween } from '@/components/utils/common';
 
+const options:Intl.DateTimeFormatOptions = { 
+    weekday: 'short', 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric', 
+    hour: 'numeric', 
+    minute: 'numeric', 
+    second: 'numeric'
+  };
+
 const ChatPage = ({ userId, userIndex, startTime, endTime, botId, botName, color, avatar, visible, setVisible }) => {
     const [messages, setMessages] = useState([
         { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
@@ -55,16 +65,7 @@ const ChatPage = ({ userId, userIndex, startTime, endTime, botId, botName, color
         const newMessage = { id: uuidv4(), text: input, isBot: false };
         setMessages([...messages, newMessage]);
         setInput("");
-        const options:Intl.DateTimeFormatOptions = { 
-            weekday: 'short', 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric', 
-            hour: 'numeric', 
-            minute: 'numeric', 
-            second: 'numeric'
-          };
-
+        
         if(!isTimeBetween(startTime, endTime)){
             toast.error("It's not active time for this assistant!", {position:toast.POSITION.TOP_RIGHT});
             return;
@@ -156,7 +157,9 @@ const ChatPage = ({ userId, userIndex, startTime, endTime, botId, botName, color
         // Logic to handle the form submission (e.g., send email and content to backend)
         setShowForm(false); // Hide the form after submission
         setIsBook(false);
-        axios.post(AUTH_API.BOOK, { userIndex, sessionId, botId, email, content, website:null }, {
+        const createdAt = new Date().toLocaleDateString('en-US', options);
+
+        axios.post(AUTH_API.BOOK, { userIndex, sessionId, botId, email, content, website:null, createdAt }, {
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
               'Content-Type': 'application/json',  // Explicitly defining the Content-Type

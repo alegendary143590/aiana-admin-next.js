@@ -120,7 +120,10 @@ function EmailPasswordForm() {
                         Create your account
                       </Typography>
                       <Typography variant="body2" className="text-muted">
-                        Publish your chatbot today. (* Please fill out all information)
+                        Publish your chatbot today.
+                      </Typography>
+                      <Typography variant="body2" className="text-muted">
+                        (* Please fill out all information)
                       </Typography>
                     </Box>
                   </Grid>
