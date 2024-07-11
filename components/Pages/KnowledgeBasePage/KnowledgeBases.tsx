@@ -101,26 +101,26 @@ const KnowledgeBase = () => {
       .catch((error) =>  {
           
         if (error.response) {
-          console.log('Error status code:', error.response.status);
+          // console.log('Error status code:', error.response.status);
           console.log('Error response data:', error.response.data);
           if (error.response.status === 401){
             toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
 
             router.push("/signin")
           }
-          if (error.response.data.status === 'exist'){
+          if (error.response.status=== 400){
             toast.error("The knowledge base is being used!", { position: toast.POSITION.TOP_RIGHT });
 
           }
           // Handle the error response as needed
         } else if (error.request) {
           // The request was made but no response was received
-          console.log('Error request:', error.request);
+          // console.log('Error request:', error.request);
           toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
 
         } else {
           // Something happened in setting up the request that triggered an Error
-          console.log('Error message:', error.message);
+          // console.log('Error message:', error.message);
           toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
 
         }
