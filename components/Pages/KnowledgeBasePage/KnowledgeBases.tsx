@@ -108,6 +108,10 @@ const KnowledgeBase = () => {
 
             router.push("/signin")
           }
+          if (error.response.data.status === 'exist'){
+            toast.error("The knowledge base is being used!", { position: toast.POSITION.TOP_RIGHT });
+
+          }
           // Handle the error response as needed
         } else if (error.request) {
           // The request was made but no response was received
