@@ -124,15 +124,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
         const newMessage = { id: uuidv4(), text: input, isBot: false };
         setMessages([...messages, newMessage]);
         setInput("");
-        const options:Intl.DateTimeFormatOptions = { 
-            weekday: 'short', 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric', 
-            hour: 'numeric', 
-            minute: 'numeric', 
-            second: 'numeric'
-          };
+        
         if (!isTimeBetween(startTime, endTime)){
             toast.error("It's not the time to be active for this assistant!", {position:toast.POSITION.BOTTOM_RIGHT});
             setIsLoading(false);
