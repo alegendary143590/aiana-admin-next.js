@@ -23,7 +23,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
     const [messages, setMessages] = useState([
         { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
     ]);
-    const [error, setError] = useState(false)
+    const [isError, setIsError] = useState(false)
     const [isVisible, setIsVisible] = useState(false)
     const [bot, setBot] = useState(INITIAL_BOT_OBJ);
     const [userId, setUserId] = useState("");
@@ -79,7 +79,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
             setIsLoading(false);
         })
         .catch(error => {
-            setError(true)
+            setIsError(true)
             if (error.response) {
                 console.log('Error status code:', error.response.status);
                 console.log('Error response data:', error.response.data);
@@ -237,7 +237,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
             });
     };
 
-  if(error) {
+  if(isError) {
     return
   }
 
