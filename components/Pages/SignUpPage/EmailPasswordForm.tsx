@@ -120,7 +120,7 @@ function EmailPasswordForm() {
                         Create your account
                       </Typography>
                       <Typography variant="body2" className="text-muted">
-                        Publish your chatbot today.
+                        Publish your chatbot today. (* Please fill out all information)
                       </Typography>
                     </Box>
                   </Grid>
@@ -154,6 +154,7 @@ function EmailPasswordForm() {
                             handleInputChange("com_name", e.target.value)
                           }}
                           variant="outlined"
+                          required
                         />
                       </Grid>
                     </Grid>

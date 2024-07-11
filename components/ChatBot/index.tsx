@@ -23,7 +23,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
     const [messages, setMessages] = useState([
         { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
     ]);
-
+    const [isError, setIsError] = useState(false)
     const [isVisible, setIsVisible] = useState(false)
     const [bot, setBot] = useState(INITIAL_BOT_OBJ);
     const [userId, setUserId] = useState("");
@@ -79,6 +79,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
             setIsLoading(false);
         })
         .catch(error => {
+            setIsError(true)
             if (error.response) {
                 console.log('Error status code:', error.response.status);
                 console.log('Error response data:', error.response.data);
@@ -86,12 +87,12 @@ const ChatBot = ({ userIndex, botId, website }) => {
               } else if (error.request) {
                 // The request was made but no response was received
                 console.log('Error request:', error.request);
-                toast.error(error.request, { position: toast.POSITION.BOTTOM_RIGHT });
+                // toast.error(error.request, { position: toast.POSITION.BOTTOM_RIGHT });
     
               } else {
                 // Something happened in setting up the request that triggered an Error
                 console.log('Error message:', error.message);
-                toast.error(error.message, { position: toast.POSITION.BOTTOM_RIGHT });
+                // toast.error(error.message, { position: toast.POSITION.BOTTOM_RIGHT });
     
               }
               setIsLoading(false);
@@ -236,10 +237,14 @@ const ChatBot = ({ userIndex, botId, website }) => {
             });
     };
 
+  if(isError) {
+    return null;
+  }
+
   return (
     <div style={{ position: 'fixed', bottom: '10px', right: '10px', zIndex: '1000', borderRadius:'5px' }}>
         
-    {isVisible ? (
+    {isVisible? (
         <div 
             className={`flex flex-col overflow-auto ${visibleClass}`}
             style={{
