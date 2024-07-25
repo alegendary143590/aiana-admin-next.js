@@ -86,15 +86,14 @@ const Button: FC<ButtonProps> = ({
       {...rest}
     >
       <div
-        className={`absolute left-0 top-0 z-[100]
-        z-[10] size-full
+        className={`absolute left-0 top-0 z-[100] size-full
         !border-none bg-gradient-to-g from-blue-300 ${
           !disabled ? "!hidden" : ""
         }`}
       />
       <div
         className={`absolute left-0 top-0 z-[100]
-        z-[15] size-full !border-none bg-[#4d79ff] ${!disabled ? "!hidden" : ""}`}
+        size-full !border-none bg-[#4d79ff] ${!disabled ? "!hidden" : ""}`}
       />
       <div
         className={`absolute

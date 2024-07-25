@@ -1,17 +1,9 @@
 import React from "react"
-import {
-  Container,
-  Box,
-  Card,
-  CardContent,
-  TextField,
-  Button,
-  Typography,
-  Link,
-} from "@mui/material"
 import { ToastContainer, toast } from "react-toastify"
+import Link from "next/link"
 import router from "next/router"
-  
+import Image from "next/image"
+
 import { loginUser } from "@/components/utils/common"
 
 const EmailPasswordForm = () => {
@@ -19,21 +11,20 @@ const EmailPasswordForm = () => {
   const [password, setPassword] = React.useState("")
   const handleAuth = async () => {
     if (email === "") {
-      return false;  
+      return false
     }
     if (password === "") {
-      toast.error("Password is required!", { position: toast.POSITION.TOP_RIGHT });
-      return false;
+      toast.error("Password is required!", { position: toast.POSITION.TOP_RIGHT })
+      return false
     }
     try {
-      await loginUser(email, password);
-      router.push("/admin");
+      await loginUser(email, password)
+      router.push("/admin")
+    } catch (error) {
+      toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
     }
-    catch (error) {
-      toast.error(error.message, {position:toast.POSITION.TOP_RIGHT})
-    }
-    return true;
-  };
+    return true
+  }
   /* eslint-disable */
   const handleEmailChange = ({ target: { value } }) => {
     setEmail(value)
@@ -45,85 +36,85 @@ const EmailPasswordForm = () => {
   /* eslint-enable */
 
   return (
-    <Container sx={{ width: '450px', height: '100%', bgcolor: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-      <div>
-        <Card sx={{ width: { xs: 'full', md: '450px' } }}>
-          <CardContent>
-            <div style={{ textAlign: 'center', marginTop: 5 }}>
-              <img src="/images/logo_big.png" alt="Logo" style={{ marginRight: 'auto', height: '80px' }} />
-              <Typography variant="h6" sx={{ color: '#00d7ca', fontFamily: 'monospace' }}>
-                Welcome!
-              </Typography>
-            </div>
-            <Box component="form" action="/admin" noValidate sx={{ mt: 3, m: '15px' }}>
-              <Typography variant="body1" sx={{ color: '#00d7ca', fontFamily: 'monospace', mb: 0 }}>
-                Username
-              </Typography>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                value={email}
-                onChange={handleEmailChange}
-                id="username"
-                name="username"
-                autoComplete="username"
-                placeholder="Enter a username"
-                autoFocus
-                sx={{ bgcolor: 'white', mt: 2 }}
-              />
-              <Typography variant="body1" sx={{ color: '#00d7ca', fontFamily: 'monospace', mt: 2 }}>
-                Password
-              </Typography>
-              <TextField
-                margin="normal"
-                value={password}
-                onChange={handlePasswordChange}
-                required
-                fullWidth
-                name="password"
-                type="password"
-                id="password"
-                placeholder="Enter a password"
-                autoComplete="current-password"
-                sx={{ bgcolor: 'white', mt: 2 }}
-              />
-              <div style={{ marginTop: 4, textAlign: 'right' }}>
-                <Link underline="none" href="/forgot" variant="body2" sx={{ color: 'text.secondary' }}>
-                  Forgot password?
-                </Link>
-              </div>
-              <div style={{ marginTop: 4, textAlign: 'right' }}>
-                <Button
-                  onClick={handleAuth}
-                  fullWidth
-                  variant="contained"
-                  style={{backgroundColor:'#005ce6'}}
-                  sx={{ marginTop: 3, marginBottom: 2, width: '95px', textTransform: 'none' }}
-                >
-                  Log In
-                </Button>
-              </div>
-              <div style={{ textAlign: 'center', marginTop: 2 }}>
-                <Typography variant="body2">
-                  Don&apos;t have an account?&nbsp;
-                  <Link underline="none" href="/signup" variant="body2" sx={{ color: '#00d7ca' }}>
-                    Sign up now
-                  </Link>
-                </Typography>
-              </div>
-            </Box>
-            <ToastContainer />
-          </CardContent>
-        </Card>
-      </div>
-      <div style={{ textAlign: 'center', marginTop: 3, position: 'absolute', bottom: '50px' }}>
-        <Typography variant="body2" style={{ color: '#f2f2f2' }}>
-          © {new Date().getFullYear()} aiana
-        </Typography>
-      </div>
-</Container>
+    <div className="flex flex-col w-full h-full justify-center relative">
+      <div className="px-5 lg:3/5 md:w-5/6 w-full flex flex-col h-full mx-auto overflow-y-auto">
+        <div className="mt-10">
+          <img src="/images/logo_big.png" alt="Logo" className="h-12 sm:mb-10 mb-5" />
+          <div className="flex mb-5">
+            <h1 className="text-[1.3rem] font-bold">Welcome Back</h1>
+          </div>
+        </div>
+        <form className="sm:mt-10 w-full flex flex-col gap-[3vh]">
+          <div>
+            <label htmlFor="username" className="font-bold">
+              Username/Email
+            </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={email}
+              onChange={handleEmailChange}
+              className="rounded-lg border-gray-400 w-full text-[.9rem]"
+              placeholder="Enter your username/email"
+            />
+          </div>
 
+          <div>
+            <label htmlFor="password" className="font-bold">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={handlePasswordChange}
+              className="rounded-lg border-gray-400 w-full text-[.9rem]"
+              placeholder="Enter your password"
+            />
+          </div>
+          <div className="flex flex-col">
+            <button
+              id="signin"
+              type="button"
+              className="mt-1 mb-5 rounded-lg w-full h-[48px] bg-[linear-gradient(180deg,#6BA4F1_0%,#A438FA_100%)] text-white font-bold text-[16px] transition duration-200 ease-in-out hover:shadow-lg hover:scale-[1.01] active:scale-[.99]"
+              onClick={handleAuth}
+            >
+              Log In
+            </button>
+
+            <Link href="/forgot">
+              <span className="ml-auto text-sm text-gray-600 hover:text-gray-800 cursor-pointer">
+                Forgot password?
+              </span>
+            </Link>
+          </div>
+        </form>
+        <div className="text-center mt-5 ">
+          <p>
+            Already have an account?&nbsp;
+            <Link href="/signup">
+              <span className="pl-3 font-bold cursor-pointer">Sign up</span>
+            </Link>
+          </p>
+        </div>
+        <div className="text-center sm:p-2 px-5 mt-[10vh] lg:3/5 md:w-5/6 w-full mx-auto">
+          By continuing, you agree to our{" "}
+          <Link href="/tos">
+            <span className="font-bold underline cursor-pointer">Terms of Service</span>
+          </Link>{" "}
+          and{" "}
+          <Link href="/privacy">
+            <span className="font-bold underline cursor-pointer">Privacy Policy</span>
+          </Link>
+          .
+        </div>
+        <div className="absolute right-5 bottom-5 sm:right-0 sm:bottom-0 cursor-pointer">
+          <Image src="/images/chatbot.png" alt="chatbot" width={50} height={50} />
+        </div>
+      </div>
+    </div>
   )
 }
 

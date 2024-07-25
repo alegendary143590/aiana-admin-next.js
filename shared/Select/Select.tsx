@@ -123,7 +123,7 @@ const Select: FC<ISelect> = ({
             blurLink={ErrorBlurIcon}
             containerClasses="w-[12px] h-[12px]"
           />
-          <pre className="font-urwgeometric_medium leading-[100%]">
+          <pre className="leading-[100%]">
             {fieldError?.message as string}
           </pre>
         </div>

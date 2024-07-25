@@ -14,7 +14,7 @@ const MultipleList = ({ options, onChange, value, label }) => (
               isActive ? "bg-gradient_s_1 text-black_0" : "bg-gray_overlay_6 text-gray_1"
             }`}
           >
-            <p className="font-urwgeometric_medium text-[16px]">{option.label}</p>
+            <p className="text-[16px]">{option.label}</p>
           </button>
         )
       })}
