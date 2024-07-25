@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import Image from "next/image"
 
-const CustomDropdown = ({ countries, onSelect }) => {
+const CustomDropdown = ({ countries }) => {
   const [selectedCountry, setSelectedCountry] = useState<any>({
     name: "",
     flgURL: "",
@@ -9,12 +9,12 @@ const CustomDropdown = ({ countries, onSelect }) => {
 
   const handleCountryChange = (country: any) => {
     setSelectedCountry(country) // Update the selected country state
-    onSelect(country) // Call the passed onSelect prop function
   }
 
   return (
     <div className="relative">
       <button
+        type="button"
         onClick={() => document.getElementById("custom-dropdown-menu").classList.toggle("hidden")}
         aria-label="Toggle menu"
         className="border-2 border-[#D2D2D2] rounded-xl py-2 px-4 inline-flex items-center justify-between w-full"
@@ -43,7 +43,7 @@ const CustomDropdown = ({ countries, onSelect }) => {
           </>
         )}
         <svg
-          className="fill-current h-4 w-4 ml-2"
+          className="fill-current size-4 ml-2"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
         >
@@ -55,7 +55,8 @@ const CustomDropdown = ({ countries, onSelect }) => {
         className="absolute hidden mt-1 bg-white shadow-lg max-h-60 rounded-md py-1 text-base z-10 overflow-auto focus:outline-none"
       >
         {countries.map((country: any) => (
-          <li
+          <button
+            type="button"
             key={country.name}
             onClick={() => handleCountryChange(country)}
             className="cursor-pointer hover:bg-blue-500 hover:text-white p-2 flex items-center"
@@ -70,7 +71,7 @@ const CustomDropdown = ({ countries, onSelect }) => {
               />
               <span className="ml-2">{country.name}</span>
             </div>
-          </li>
+          </button>
         ))}
       </ul>
     </div>
