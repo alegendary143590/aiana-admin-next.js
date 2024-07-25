@@ -1,15 +1,12 @@
 import React, { useState } from "react"
-import axios from "axios"
-import router from "next/router"
-import { toast, ToastContainer } from "react-toastify"
-import { AUTH_API } from "@/components/utils/serverURL"
-import CustomSelect from "../../CustomSelect"
-import Country from "../../country"
-import Language from "../../Language"
-import { validateForm } from "./validation"
-import Button from "@/shared/Button"
 import Link from "next/link"
 import Image from "next/image"
+import router from "next/router"
+import axios from "axios"
+import { toast, ToastContainer } from "react-toastify"
+import { AUTH_API } from "@/components/utils/serverURL"
+
+import { validateForm } from "./validation"
 
 function EmailPasswordForm() {
   const INITIAL_REGISTER_OBJ = {

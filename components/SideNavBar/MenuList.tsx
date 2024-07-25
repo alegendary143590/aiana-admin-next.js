@@ -1,16 +1,15 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { useSideMenu } from "@/providers/SideMenuProvider"
-import { FaAngleLeft } from "react-icons/fa"
 import Image from "next/image"
 
 const MenuList = ({ open }) => {
   const { push } = useRouter()
   const [userRole, setUserRole] = useState("admin")
 
-  // useEffect(() => {
-  //   setUserRole(localStorage.getItem("role"))
-  // })
+  useEffect(() => {
+    setUserRole(localStorage.getItem("role"))
+  })
 
   const {
     navActiveContainerClasses,

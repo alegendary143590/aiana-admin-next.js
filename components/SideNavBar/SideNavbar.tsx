@@ -1,9 +1,10 @@
 import * as React from "react"
+import Image from "next/image"
 import { logOut } from "@/components/utils/common"
 import { useRouter } from "next/router"
-import MenuList from "./MenuList"
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
-import Image from "next/image"
+
+import MenuList from "./MenuList"
 
 const SideNavBar = () => {
   const router = useRouter()
@@ -33,11 +34,12 @@ const SideNavBar = () => {
           open ? "sm:w-[300px] w-[95%]" : "sm:w-16 w-0 overflow-hidden"
         }`}
       >
-        <button onClick={handleDrawerOpen} className={`${open ? "p-5" : "sm:mx-auto sm:pt-5"}`}>
+        <button type="button" onClick={handleDrawerOpen} className={`${open ? "p-5" : "sm:mx-auto sm:pt-5"}`}>
           <img src={logo} alt="logo" style={{ height: "2.5rem" }} />
         </button>
         {open && (
           <button
+            type="button"
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerClose}
@@ -61,6 +63,7 @@ const SideNavBar = () => {
         </button>
       </div>
       <button
+        type="button"
         color="inherit"
         aria-label="open drawer"
         onClick={handleDrawerOpen}

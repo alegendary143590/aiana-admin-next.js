@@ -19,11 +19,13 @@ const WelcomeText = () => {
       >
         {isMobile ? (
           <>
-            <ClipSpan>AIANA</ClipSpan> is the world of seamless automation and personalized support with AI-driven chatbots
+            <ClipSpan>AIANA</ClipSpan> is the world of seamless automation and personalized support
+            with AI-driven chatbots
           </>
         ) : (
           <>
-            &nbsp;&nbsp;<ClipSpan>AIANA</ClipSpan> is the world of seamless automation and personalized support <br /> with AI-driven chatbots
+            &nbsp;&nbsp;<ClipSpan>AIANA</ClipSpan> is the world of seamless automation and
+            personalized support <br /> with AI-driven chatbots
           </>
         )}
       </p>

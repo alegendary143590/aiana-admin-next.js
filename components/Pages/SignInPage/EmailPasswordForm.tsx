@@ -114,6 +114,7 @@ const EmailPasswordForm = () => {
           <Image src="/images/chatbot.png" alt="chatbot" width={50} height={50} />
         </div>
       </div>
+      <ToastContainer />
     </div>
   )
 }
