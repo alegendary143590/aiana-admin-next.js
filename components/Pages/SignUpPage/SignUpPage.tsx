@@ -1,11 +1,11 @@
 import EmailPasswordForm from "./EmailPasswordForm"
 
 const SignUpPage = () => (
-  <div
-    className="relative flex h-[100vh] overflow-auto w-screen bg-center bg-cover items-start lg:pt-[100px] pt-[30px]  justify-center"
-    style={{ backgroundImage: "url('/images/auth-bg-1.jpg')" }}
-  >
-    <EmailPasswordForm />
+  <div className="relative w-full h-screen md:flex flex-row overflow-y-auto sm:p-10 ">
+    <div className="md:w-1/2 display-none bg-[url('/images/sign-banner.png')] bg-center bg-no-repeat bg-contain bg-[#F0F0F0]" />
+    <div className="w-full md:w-1/2 h-full">
+      <EmailPasswordForm />
+    </div>
   </div>
 )
 

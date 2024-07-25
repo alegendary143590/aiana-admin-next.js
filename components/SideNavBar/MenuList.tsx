@@ -1,18 +1,14 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useSideMenu } from "@/providers/SideMenuProvider";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import LightbulbIcon from "@mui/icons-material/Lightbulb";
-import ChatIcon from "@mui/icons-material/Chat";
-import PeopleIcon from '@mui/icons-material/People';
-import AssignmentIcon from '@mui/icons-material/Assignment';
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
+import { useSideMenu } from "@/providers/SideMenuProvider"
+import Image from "next/image"
 
 const MenuList = ({ open }) => {
-  const { push } = useRouter();
-  const [userRole, setUserRole] = useState("");
+  const { push } = useRouter()
+  const [userRole, setUserRole] = useState("admin")
 
-  useEffect (()=>{
-    setUserRole(localStorage.getItem("role"));
+  useEffect(() => {
+    setUserRole(localStorage.getItem("role"))
   })
 
   const {
@@ -22,7 +18,10 @@ const MenuList = ({ open }) => {
     navContainerClasses,
     navClasses,
     profileActive,
+    dashboardPageActive,
     dashboardActive,
+    helpActive,
+    settingsActive,
     createActive,
     knowledgeActive,
     ticketsActive,
@@ -31,153 +30,184 @@ const MenuList = ({ open }) => {
 
   return (
     <div className="relative z-[4] w-full mt-3">
-      
+      <div className={`text-white font-["Roboto-Thin"] sm:mb-3 px-5 ${open ? "" : "invisible"}`}>
+        QUICK ACCESS
+      </div>
       <button
         type="button"
-        className="flex justify-center items-center w-full h-full"
+        className="flex justify-center items-center w-full"
+        // className={profileActive ? navActiveContainerClasses : navContainerClasses}
+        onClick={() => push("/dashboardpage")}
+      >
+        <div
+          className={`${
+            dashboardPageActive ? navActiveContainerClasses : navContainerClasses
+          } flex items-center justify-start`}
+        >
+          <div className={dashboardPageActive ? iconActiveClasses : iconClasses}>
+            <Image src="/images/navbar/icon_dashboard.svg" width={18} height={20} />
+          </div>
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>Dashboard</p>
+        </div>
+      </button>
+      <button
+        type="button"
+        className="flex justify-center items-center w-full"
         // className={profileActive ? navActiveContainerClasses : navContainerClasses}
         onClick={() => push("/admin")}
-        style={{ height: "60px", marginBottom: "5px" }}
       >
         <div
           className={`${
             profileActive ? navActiveContainerClasses : navContainerClasses
           } flex items-center justify-start`}
-          style={{ width: "230px", margin: "5px", borderRadius: "5px" }}
         >
           <div className={profileActive ? iconActiveClasses : iconClasses}>
-            <AccountCircleIcon />
+            <Image src="/images/navbar/icon_account.svg" width={18} height={20} />
           </div>
-          <p
-            className={`${open ? navClasses : "hidden"} ml-3 mb-1`}
-            style={{ fontSize: "18px", color: "#3980c0" }}
-          >
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>
             My Account
           </p>
         </div>
       </button>
-      {userRole==="admin"&& 
-      <button
-        type="button"
-        className="flex justify-center items-center w-full h-full"
-        // className={profileActive ? navActiveContainerClasses : navContainerClasses}
-        onClick={() => push("/users")}
-        style={{ height: "60px", marginBottom: "5px" }}
-      >
-        <div
-          className={`${
-            usersActive ? navActiveContainerClasses : navContainerClasses
-          } flex items-center justify-start`}
-          style={{ width: "230px", margin: "5px", borderRadius: "5px" }}
+      {userRole === "admin" && (
+        <button
+          type="button"
+          className="flex justify-center items-center w-full"
+          // className={profileActive ? navActiveContainerClasses : navContainerClasses}
+          onClick={() => push("/users")}
         >
-          <div className={usersActive ? iconActiveClasses : iconClasses}>
-            <PeopleIcon />
-          </div>
-          <p
-            className={`${open ? navClasses : "hidden"} ml-3 mb-1`}
-            style={{ fontSize: "18px", color: "#3980c0" }}
+          <div
+            className={`${
+              usersActive ? navActiveContainerClasses : navContainerClasses
+            } flex items-center justify-start`}
           >
-            Users
-          </p>
-        </div>
-      </button>}
+            <div className={usersActive ? iconActiveClasses : iconClasses}>
+              <Image src="/images/navbar/icon_users.svg" width={18} height={20} />
+            </div>
+            <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>Users</p>
+          </div>
+        </button>
+      )}
+      <div
+        className={`text-white sm:mb-3 font-["Roboto-Thin"] mt-5 px-5 ${
+          open ? "" : "invisible"
+        }`}
+      >
+        APPS & FEATURES
+      </div>
       <button
         type="button"
-        className="flex justify-center items-center w-full h-full"
+        className="flex justify-center items-center w-full"
         // className={profileActive ? navActiveContainerClasses : navContainerClasses}
         onClick={() => push("/chatbot")}
-        style={{ height: "60px", marginBottom: "5px" }}
       >
         <div
           className={`${
             createActive ? navActiveContainerClasses : navContainerClasses
           } flex items-center justify-start`}
-          style={{ width: "230px", margin: "5px", borderRadius: "5px" }}
         >
           <div className={createActive ? iconActiveClasses : iconClasses}>
-            <img src="/images/speech-bubble.png" className="w-[18px]" />
+            <Image src="/images/navbar/icon_chatbot.svg" width={30} height={24} />
           </div>
-          <p
-            className={`${open ? navClasses : "hidden"} ml-3 mb-1`}
-            style={{ fontSize: "18px", color: "#3980c0" }}
-          >
-            Chatbot
-          </p>
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>Chatbot</p>
         </div>
       </button>
       <button
         type="button"
-        className="flex justify-center items-center w-full h-full"
+        className="flex justify-center items-center w-full"
         // className={profileActive ? navActiveContainerClasses : navContainerClasses}
         onClick={() => push("/knowledge")}
-        style={{ height: "60px", marginBottom: "5px" }}
       >
         <div
           className={`${
             knowledgeActive ? navActiveContainerClasses : navContainerClasses
           } flex items-center justify-start`}
-          style={{ width: "230px", margin: "5px", borderRadius: "5px" }}
         >
           <div className={knowledgeActive ? iconActiveClasses : iconClasses}>
-            <LightbulbIcon />
+            <Image src="/images/navbar/icon_knowledge.svg" width={18} height={20} />
           </div>
-          <p
-            className={`${open ? navClasses : "hidden"} ml-3 mb-1`}
-            style={{ fontSize: "18px", color: "#3980c0" }}
-          >
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>
             Knowledge Base
           </p>
         </div>
       </button>
       <button
         type="button"
-        className="flex justify-center items-center w-full h-full"
+        className="flex justify-center items-center w-full"
         // className={profileActive ? navActiveContainerClasses : navContainerClasses}
         onClick={() => push("/dashboard")}
-        style={{ height: "60px", marginBottom: "5px" }}
       >
         <div
           className={`${
             dashboardActive ? navActiveContainerClasses : navContainerClasses
           } flex items-center justify-start`}
-          style={{ width: "230px", margin: "5px", borderRadius: "5px" }}
         >
           <div className={dashboardActive ? iconActiveClasses : iconClasses}>
-            <ChatIcon />
+            <Image src="/images/navbar/icon_chatlogs.svg" width={18} height={20} />
           </div>
-          <p
-            className={`${open ? navClasses : "hidden"} ml-3 mb-1`}
-            style={{ fontSize: "18px", color: "#3980c0" }}
-          >
-            Logs
-          </p>
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>Chatlogs</p>
         </div>
       </button>
       <button
         type="button"
-        className="flex justify-center items-center w-full h-full"
+        className="flex justify-center items-center w-full"
         // className={profileActive ? navActiveContainerClasses : navContainerClasses}
         onClick={() => push("/tickets")}
-        style={{ height: "60px", marginBottom: "5px" }}
       >
         <div
           className={`${
             ticketsActive ? navActiveContainerClasses : navContainerClasses
           } flex items-center justify-start`}
-          style={{ width: "230px", margin: "5px", borderRadius: "5px" }}
         >
           <div className={ticketsActive ? iconActiveClasses : iconClasses}>
-            <AssignmentIcon />
+            <Image src="/images/navbar/icon_tickets.svg" width={18} height={20} />
           </div>
-          <p
-            className={`${open ? navClasses : "hidden"} ml-3 mb-1`}
-            style={{ fontSize: "18px", color: "#3980c0" }}
-          >
-            Tickets
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>Tickets</p>
+        </div>
+      </button>
+      <div
+        className={`text-white sm:mb-3 font-["Roboto-Thin"] mt-5 px-5 ${
+          open ? "" : "invisible"
+        }`}
+      >
+        SUPPORT
+      </div>
+      <button
+        type="button"
+        className="flex justify-center items-center w-full"
+        // className={profileActive ? navActiveContainerClasses : navContainerClasses}
+        onClick={() => push("/settings")}
+      >
+        <div
+          className={`${
+            settingsActive ? navActiveContainerClasses : navContainerClasses
+          } flex items-center justify-start`}
+        >
+          <div className={settingsActive ? iconActiveClasses : iconClasses}>
+            <Image src="/images/navbar/icon_settings.png" width={18} height={20} />
+          </div>
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>Settings</p>
+        </div>
+      </button>
+      <button
+        type="button"
+        className="flex justify-center items-center w-full"
+        // className={profileActive ? navActiveContainerClasses : navContainerClasses}
+        onClick={() => push("/help")}
+      >
+        <div
+          className={`${
+            helpActive ? navActiveContainerClasses : navContainerClasses
+          } flex items-center justify-start`}
+        >
+          <div className={helpActive ? iconActiveClasses : iconClasses}>
+            <Image src="/images/navbar/icon_help.svg" width={18} height={20} />
+          </div>
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>
+            Help Center
           </p>
         </div>
       </button>
-         
     </div>
   )
 }

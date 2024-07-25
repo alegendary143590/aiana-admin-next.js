@@ -10,7 +10,7 @@ const LogoutAlert = ({ handleClose }) => {
   }
   return (
     <div className="flex size-full flex-col">
-      <p className="font-urwgeometric_medium text-[48px] text-gray_1">
+      <p className="text-[48px] text-gray_1">
         Are you sure you want to <br />
         <span className="!text-s_error">log out</span>?
       </p>

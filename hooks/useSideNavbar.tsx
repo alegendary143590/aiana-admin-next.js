@@ -9,22 +9,25 @@ export enum SIDE_NAVS {
 }
 
 const useSideNavbar = () => {
-  const navClasses = "text-gray_2 text-[14px] font-urwgeometric_medium mt-[-7px]"
+  const navClasses = "text-gray_2 text-[14px]"
   const iconActiveClasses = `w-[32px] aspect-[1/1] flex justify-center items-center
       rounded-full relative z-[2]`
   const iconClasses = `w-[32px] aspect-[1/1] flex justify-center items-center
       rounded-full bg-gray_overlay_6`
-  const navContainerClasses = `relative z-[2] flex gap-x-[8px] w-full items-center py-[8px] px-[18px] p-3 cursor-pointer bg-gray_overlay_3`
-  const navActiveContainerClasses = `relative z-[2] flex gap-x-[8px] w-full items-center py-[8px] p-3 bg-[#e6f2ff] px-[18px] cursor-pointer`
+  const navContainerClasses = `relative z-[2] flex gap-x-[8px] w-full items-center sm:py-[8px] py-[4px] px-[18px] cursor-pointer bg-`
+  const navActiveContainerClasses = `relative z-[5] flex gap-x-[8px] w-full items-center sm:py-[8px] py-[4px] px-[18px] bg-gradient_s_2 cursor-pointer border-l-4 border-[#A23AF9]`
 
   const { pathname } = useRouter()
-  const dashboardActive = pathname.includes("/dashboard")
+  const dashboardPageActive = pathname.includes("/dashboardpage")
   const usersActive = pathname.includes("/users")
   const createActive = pathname.includes("/chatbot")
   const profileActive = pathname.includes("/admin")
   const knowledgeActive = pathname.includes("/knowledge")
   const reviewsActive = pathname.includes("/reviews")
   const ticketsActive = pathname.includes("/tickets")
+  const dashboardActive = pathname.includes("/dashboard")
+  const helpActive = pathname.includes("/help")
+  const settingsActive = pathname.includes("/settings")
   const sessionRequestsActive = pathname.includes("/session-requests")
   const projectRequestsActive = pathname.includes("/project-requests")
   const requestActive = sessionRequestsActive || projectRequestsActive
@@ -42,6 +45,9 @@ const useSideNavbar = () => {
     knowledgeActive,
     setSelectedNav,
     profileActive,
+    helpActive,
+    settingsActive,
+    dashboardPageActive,
     dashboardActive,
     createActive,
     reviewsActive,

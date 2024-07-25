@@ -47,6 +47,15 @@
   src: url("/fonts/materialdesignicons.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/Roboto-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto-Thin";
+  src: url("/fonts/Roboto-Thin.ttf") format("truetype");
+}
 
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
@@ -68,11 +77,8 @@ body {
   background-color: white;
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
-    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Roboto", -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", 'Inter', "Helvetica Neue", sans-serif;
 }
-
-
 
 * {
   box-sizing: border-box;
@@ -88,12 +94,9 @@ textarea {
   resize: none;
 }
 
-.input-width {
-  width: 240px; /* Default width for larger screens */
-  @media (max-width: 800px) {
-    width: 200px; /* Adjusted width for screens up to 600px (mobile mode) */
+@media screen and (max-width: 768px) {
+  html,
+  body {
+    font-size: 0.9rem;
   }
 }
-
-
-
