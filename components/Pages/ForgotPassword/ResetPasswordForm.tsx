@@ -18,43 +18,48 @@ const ResetPasswordForm = () => {
 
   const handleSendButton = () => {
     if (email !== "") {
-
       const requestOptions = {
         headers: {
-          'Content-Type': 'application/json',
-          'ngrok-skip-browser-warning': "1",
-        }
-      };
-      
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "1",
+        },
+      }
+
       axios
-        .post(AUTH_API.FORGOT_PASSWORD, {
-          email,
-        }, requestOptions)
+        .post(
+          AUTH_API.FORGOT_PASSWORD,
+          {
+            email,
+          },
+          requestOptions,
+        )
         .then((response) => {
           if (response.status === 200) {
-            toast.success("Check your email.  Sent the reset password link!", { position: toast.POSITION.TOP_RIGHT })
+            toast.success("Check your email.  Sent the reset password link!", {
+              position: toast.POSITION.TOP_RIGHT,
+            })
           }
         })
         .catch((error) => {
           if (error.response) {
-            const { status } = error.response; // Destructure status directly
+            const { status } = error.response // Destructure status directly
             if (status === 404) {
               toast.error("Unregistered email", {
                 position: toast.POSITION.TOP_RIGHT,
-              });
+              })
             } else if (status === 500) {
               toast.error("Internal Server Error: Something went wrong on the server", {
                 position: toast.POSITION.TOP_RIGHT,
-              });
+              })
             } else {
-              toast.error(`Error: ${status}`, { position: toast.POSITION.TOP_RIGHT });
+              toast.error(`Error: ${status}`, { position: toast.POSITION.TOP_RIGHT })
             }
           } else {
             toast.error("Network Error: Unable to connect to the server", {
               position: toast.POSITION.TOP_RIGHT,
-            });
+            })
           }
-        });
+        })
     } else {
       toast.error("Please enter your email", { position: toast.POSITION.TOP_RIGHT })
     }
