@@ -1,9 +1,10 @@
 import React from "react"
+import { FaBell } from "react-icons/fa"
 import SideMenuProvider from "@/providers/SideMenuProvider"
+
 import SideNavbar from "../SideNavBar"
 import CountrySelect from "../LangSelect"
 import Language from "../Language"
-import { FaBell } from "react-icons/fa"
 import { ILayout } from "./types"
 
 const AdminLayout = ({ children }: ILayout) => (
