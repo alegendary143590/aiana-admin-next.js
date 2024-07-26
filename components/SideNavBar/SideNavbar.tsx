@@ -30,7 +30,7 @@ const SideNavBar = () => {
   return (
     <>
       <div
-        className={`sm:flex flex-col h-screen bg-black sm:relative fixed z-[5] left-0 top-0 transition-all duration-300 ${
+        className={`sm:flex flex-col h-screen bg-black sm:relative fixed z-[15] left-0 top-0 transition-all duration-300 ${
           open ? "sm:w-[300px] w-[95%]" : "sm:w-16 w-0 overflow-hidden"
         }`}
       >
@@ -43,7 +43,7 @@ const SideNavBar = () => {
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerClose}
-            className="absolute top-10 -right-2"
+            className="absolute top-10 -right-2 z-10"
           >
             <div className="flex items-center justify-center border-[1px] border-[#BEBEBE] py-1 px-[1px] bg-white rounded-md shadow-[0px_5px_5px_0px_#0000003d]">
               <FaAngleLeft size={15} />
@@ -67,7 +67,7 @@ const SideNavBar = () => {
         color="inherit"
         aria-label="open drawer"
         onClick={handleDrawerOpen}
-        className={`absolute top-10 left-0 sm:hidden transition-all duration-300 ${open ? "invisible" : "block"}`}
+        className={`absolute top-10 left-0 sm:hidden transition-all duration-300 z-[15] ${open ? "invisible" : "block"}`}
       >
         <div className="flex items-center justify-center border-[1px] border-[#BEBEBE] py-1 px-[1px] bg-white rounded-md shadow-[0px_5px_5px_0px_#0000003d]">
           <FaAngleRight size={15} />

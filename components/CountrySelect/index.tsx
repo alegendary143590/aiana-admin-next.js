@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 
-const CustomDropdown = ({ countries }) => {
+const CustomDropdown = ({ countries, onSelect }) => {
 
   const menuRef = useRef(null);
 
@@ -13,7 +13,7 @@ const CustomDropdown = ({ countries }) => {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        document.getElementById("custom-dropdown-menu").classList.add("hidden")
+        document.getElementById("country-dropdown-menu").classList.add("hidden")
       }
     }
 
@@ -25,18 +25,19 @@ const CustomDropdown = ({ countries }) => {
 
   const handleCountryChange = (country: any) => {
     setSelectedCountry(country) // Update the selected country state
+    onSelect(country.name)
   }
 
   return (
     <div className="relative" ref={menuRef}>
       <button
         type="button"
-        onClick={() => document.getElementById("custom-dropdown-menu").classList.toggle("hidden")}
+        onClick={() => document.getElementById("country-dropdown-menu").classList.toggle("hidden")}
         aria-label="Toggle menu"
-        className="border-2 border-[#D2D2D2] rounded-xl py-2 px-4 inline-flex items-center justify-between w-full"
+        className="border-[1px] border-[#767676] rounded-md py-2 px-4 inline-flex items-center justify-between w-full"
       >
         {selectedCountry.name !== "" ? (
-          <>
+          <div className="flex items-center">
             <Image
               src={`/images/flags/${selectedCountry.flgURL}`}
               alt={selectedCountry.name}
@@ -45,9 +46,9 @@ const CustomDropdown = ({ countries }) => {
               height={20}
             />
             <span className="ml-2">{selectedCountry.name}</span>
-          </>
+          </div>
         ) : (
-          <>
+          <div className="flex items-center">
             <Image
               src={`/images/flags/${countries[0].flgURL}`}
               alt={countries[0].name}
@@ -56,7 +57,7 @@ const CustomDropdown = ({ countries }) => {
               height={20}
             />
             <span className="ml-2">{countries[0].name}</span>
-          </>
+          </div>
         )}
         <svg
           className="fill-current size-4 ml-2"
@@ -67,15 +68,15 @@ const CustomDropdown = ({ countries }) => {
         </svg>
       </button>
       <ul
-        id="custom-dropdown-menu"
-        className="absolute hidden mt-1 bg-white shadow-lg max-h-60 rounded-md py-1 text-base z-10 overflow-auto focus:outline-none px-3"
+        id="country-dropdown-menu"
+        className="absolute -top-60 hidden mt-1 bg-white shadow-lg max-h-60 rounded-md py-1 text-base z-10 overflow-auto focus:outline-none px-3"
       >
         {countries.map((country: any) => (
           <button
             type="button"
             key={country.name}
             onClick={() => handleCountryChange(country)}
-            className="cursor-pointer hover:bg-blue-500 hover:text-white p-2 flex items-center"
+            className="cursor-pointer hover:bg-blue-500 hover:text-white p-2 flex items-center w-full"
           >
             <div className="flex items-center">
               <Image
