@@ -18,10 +18,7 @@ const MenuList = ({ open }) => {
     navContainerClasses,
     navClasses,
     profileActive,
-    dashboardPageActive,
     dashboardActive,
-    helpActive,
-    settingsActive,
     createActive,
     knowledgeActive,
     ticketsActive,
@@ -33,23 +30,6 @@ const MenuList = ({ open }) => {
       <div className={`text-white font-["Roboto-Thin"] sm:mb-3 px-5 ${open ? "" : "invisible"}`}>
         QUICK ACCESS
       </div>
-      <button
-        type="button"
-        className="flex justify-center items-center w-full"
-        // className={profileActive ? navActiveContainerClasses : navContainerClasses}
-        onClick={() => push("/dashboardpage")}
-      >
-        <div
-          className={`${
-            dashboardPageActive ? navActiveContainerClasses : navContainerClasses
-          } flex items-center justify-start`}
-        >
-          <div className={dashboardPageActive ? iconActiveClasses : iconClasses}>
-            <Image src="/images/navbar/icon_dashboard.svg" width={18} height={20} />
-          </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>Dashboard</p>
-        </div>
-      </button>
       <button
         type="button"
         className="flex justify-center items-center w-full"
@@ -163,49 +143,6 @@ const MenuList = ({ open }) => {
             <Image src="/images/navbar/icon_tickets.svg" width={18} height={20} />
           </div>
           <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>Tickets</p>
-        </div>
-      </button>
-      <div
-        className={`text-white sm:mb-3 font-["Roboto-Thin"] mt-5 px-5 ${
-          open ? "" : "invisible"
-        }`}
-      >
-        SUPPORT
-      </div>
-      <button
-        type="button"
-        className="flex justify-center items-center w-full"
-        // className={profileActive ? navActiveContainerClasses : navContainerClasses}
-        onClick={() => push("/settings")}
-      >
-        <div
-          className={`${
-            settingsActive ? navActiveContainerClasses : navContainerClasses
-          } flex items-center justify-start`}
-        >
-          <div className={settingsActive ? iconActiveClasses : iconClasses}>
-            <Image src="/images/navbar/icon_settings.png" width={18} height={20} />
-          </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>Settings</p>
-        </div>
-      </button>
-      <button
-        type="button"
-        className="flex justify-center items-center w-full"
-        // className={profileActive ? navActiveContainerClasses : navContainerClasses}
-        onClick={() => push("/help")}
-      >
-        <div
-          className={`${
-            helpActive ? navActiveContainerClasses : navContainerClasses
-          } flex items-center justify-start`}
-        >
-          <div className={helpActive ? iconActiveClasses : iconClasses}>
-            <Image src="/images/navbar/icon_help.svg" width={18} height={20} />
-          </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>
-            Help Center
-          </p>
         </div>
       </button>
     </div>
