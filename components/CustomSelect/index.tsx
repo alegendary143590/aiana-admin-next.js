@@ -1,48 +1,53 @@
-import * as React from "react"
-import MenuItem from "@mui/material/MenuItem"
-import FormControl from "@mui/material/FormControl"
-import Select from "@mui/material/Select"
+import React, { useState, useEffect, useRef } from "react";
+import { FaChevronDown } from "react-icons/fa";
 
-export default function CustomSelect({ props, text, id, value, disabled, onChange }) {
-  const [val, setVal] = React.useState(value)
+export default function CustomSelect({ props, text, id, value, onChange }) {
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState(value);
 
-  React.useEffect(() => {
-    setVal(value)
-  }, [value])
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [value]);
+
+  const toggleOpen = () => setIsOpen(!isOpen);
+
+  const handleChange = (newValue) => {
+    setSelectedValue(newValue);
+    onChange(id, newValue); // Notify parent component about the change
+    setIsOpen(false); // Close the dropdown after selection
+  };
 
   return (
-    // <div>
-    <FormControl sx={{ minWidth: 120, maxHeight: "100px" }}>
-      <Select
-        id={id}
-        value={val}
-        onChange={(e) => {
-          setVal(e.target.value) // Update local state
-          onChange(id, e.target.value) // Pass the event to the parent component
-        }}
-        displayEmpty
-        disabled={disabled}
-        className="input-width"
-        inputProps={{ "aria-label": "Without label" }}
-        sx={{height: "40px" }}
-        MenuProps={{
-          PaperProps: {
-            style: {
-              maxHeight: "400px", // Set the maximum height of the menu
-            },
-          },
-        }}
-      >
-        <MenuItem value="">
-          <em>{text}</em>
-        </MenuItem>
-        {props.map((item) => (
-          <MenuItem key={item} value={item}>
-            {item}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-    // </div>
-  )
+    <div className="relative inline-block w-full text-left" ref={menuRef}>
+      <div>
+        <button type="button" onClick={toggleOpen} className="flex justify-between items-center w-full rounded-md border border-[#767676] shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:border-indigo-500" aria-haspopup="true" aria-expanded={isOpen}>
+          {selectedValue.name || text}
+          <FaChevronDown />
+        </button>
+      </div>
+
+      {isOpen && (
+        <div className="origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-[5]">
+          <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+            <div className="block px-4 py-2 text-sm text-gray-700" role="menuitem">{text}</div>
+            {props.map((item) => (
+              <button type="button" key={item} className="w-full block px-4 py-2 text-start text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" onClick={() => handleChange(item)}>
+                {item.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

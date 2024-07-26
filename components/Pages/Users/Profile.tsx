@@ -49,6 +49,7 @@ const Profile = () => {
         .then((response) => {
           if (response.status === 200) {
             const userData = response.data // Assuming the response contains user data in the expected format
+            localStorage.setItem("name", `${userData.first_name} ${userData.last_name[0]}`)
             setFormState((prevState) => ({
               ...prevState,
               first_name: userData.first_name,
@@ -298,7 +299,6 @@ const Profile = () => {
                   onChange={handleInputChange}
                   props={Country}
                   text="Select a country"
-                  disabled={!isEdit}
                 />
               </Grid>
             </Grid>
@@ -429,7 +429,6 @@ const Profile = () => {
                   onChange={handleInputChange}
                   props={Language}
                   text="Select a language"
-                  disabled={!isEdit}
                 />
               </Grid>
             </Grid>

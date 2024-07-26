@@ -55,7 +55,7 @@ const EmailPasswordForm = () => {
               name="username"
               value={email}
               onChange={handleEmailChange}
-              className="rounded-lg border-gray-400 w-full text-[.9rem]"
+              className="rounded-lg border-gray-400 w-full mt-1"
               placeholder="Enter your username/email"
             />
           </div>
@@ -70,7 +70,7 @@ const EmailPasswordForm = () => {
               name="password"
               value={password}
               onChange={handlePasswordChange}
-              className="rounded-lg border-gray-400 w-full text-[.9rem]"
+              className="rounded-lg border-gray-400 w-full mt-1"
               placeholder="Enter your password"
             />
           </div>

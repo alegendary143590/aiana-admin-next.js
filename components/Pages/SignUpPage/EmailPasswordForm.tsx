@@ -109,7 +109,7 @@ function EmailPasswordForm() {
                     <input
                       id="first_name"
                       type="text"
-                      className="rounded-lg border-gray-400 w-full text-[.9rem]"
+                      className="rounded-lg border-gray-400 w-full"
                       value={formState.first_name}
                       placeholder="Enter your first name"
                       onChange={(e) => {
@@ -124,7 +124,7 @@ function EmailPasswordForm() {
                     <input
                       id="last_name"
                       type="text"
-                      className="rounded-lg border-gray-400 w-full text-[.9rem]"
+                      className="rounded-lg border-gray-400 w-full"
                       value={formState.last_name}
                       placeholder="Enter your last name"
                       onChange={(e) => {
@@ -138,7 +138,7 @@ function EmailPasswordForm() {
                   <div className="px-[1px]">
                     <input
                       id="email"
-                      className="rounded-lg border-gray-400 w-full text-[.9rem]"
+                      className="rounded-lg border-gray-400 w-full"
                       value={formState.email}
                       placeholder="Enter your email address"
                       onChange={(e) => {
@@ -153,7 +153,7 @@ function EmailPasswordForm() {
                     <input
                       id="password"
                       type="password"
-                      className="rounded-lg border-gray-400 w-full text-[.9rem]"
+                      className="rounded-lg border-gray-400 w-full"
                       value={formState.password}
                       placeholder="Enter your password"
                       onChange={(e) => {
@@ -168,7 +168,7 @@ function EmailPasswordForm() {
                     <input
                       id="confirm_password"
                       type="password"
-                      className="rounded-lg border-gray-400 w-full text-[.9rem]"
+                      className="rounded-lg border-gray-400 w-full"
                       value={formState.confirm_password}
                       placeholder="Re-enter your password"
                       onChange={(e) => {

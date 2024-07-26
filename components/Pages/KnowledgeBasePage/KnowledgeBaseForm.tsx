@@ -6,7 +6,7 @@ import { Grid, TextField, Typography, Button, CircularProgress } from "@mui/mate
 import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
-import { useRouter} from "next/router"
+import { useRouter } from "next/router"
 import Document from "./Document"
 import Website from "./Website"
 import Text from "./Text"

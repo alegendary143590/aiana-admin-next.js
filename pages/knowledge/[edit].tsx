@@ -5,25 +5,24 @@ import KnowledgeBaseForm from "@/components/Pages/KnowledgeBasePage/KnowledgeBas
 
 const EditPage = () => {
   const router = useRouter()
-  let baseId: string | null = router.query.baseId as string;
+  let baseId: string | null = router.query.baseId as string
 
   // Check if baseId is not yet available and we have a stored value
- 
 
   useEffect(() => {
-     if (!baseId) {
-    const storedBaseId = localStorage.getItem('lastBaseId');
-    baseId = storedBaseId;
-  } else {
-    localStorage.setItem('lastBaseId', baseId);
-  }
+    if (!baseId) {
+      const storedBaseId = localStorage.getItem("lastBaseId")
+      baseId = storedBaseId
+    } else {
+      localStorage.setItem("lastBaseId", baseId)
+    }
   }, [baseId])
 
   return (
-    <Layout type="admin">    
+    <Layout type="admin">
       <div className="px-[20px] py-[20px] w-full h-full flex flex-col">
         <KnowledgeBaseForm baseId={baseId} />
-      </div>    
+      </div>
     </Layout>
   )
 }
