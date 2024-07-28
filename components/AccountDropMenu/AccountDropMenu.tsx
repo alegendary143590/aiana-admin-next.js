@@ -44,10 +44,7 @@ const AccountManagementDropdown = () => {
   const handleOptionClick = (option: string) => {
     switch (option) {
       case "Profile":
-        push("/profile")
-        break
-      case "Settings":
-        push("/settings")
+        push("/admin")
         break
       case "Logout":
         handleLogOut()
@@ -85,24 +82,16 @@ const AccountManagementDropdown = () => {
             <button
               type="button"
               onClick={() => handleOptionClick("Profile")}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 text-start"
               role="menuitem"
             >
               Profile
-            </button>
-            <button
-              type="button"
-              onClick={() => handleOptionClick("Settings")}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              role="menuitem"
-            >
-              Settings
             </button>
             <hr />
             <button
               type="button"
               onClick={() => handleOptionClick("Logout")}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 text-start"
               role="menuitem"
             >
               Logout
