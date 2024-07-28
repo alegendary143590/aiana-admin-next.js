@@ -1,39 +1,77 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import React from "react"
 
-export default function EmbedAlert({open, setOpen, description, handleCopy}) {
+export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
+  const alertRef = React.useRef(null)
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const title = "To embed your chatbot onto your website, paste this snippet into your website's HTML file"
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (alertRef.current && !alertRef.current.contains(event.target)) {
+        setOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
+  // const title = "To embed your chatbot onto your website, paste this snippet into your website's HTML file";
+  const title =
+    "To add a chatbubble to the bottom right of your website add this script tag to your html"
 
   return (
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+    open && (
+      <div
+        className="fixed z-10 inset-0 overflow-y-auto"
+        aria-labelledby="modal-title"
+        role="dialog"
+        aria-modal="true"
       >
-        <DialogTitle id="alert-dialog-title">
-          {title}
-        </DialogTitle>
-        <DialogContent className="bg-gray-300 m-3 rounded-sm flex justify-center items-center">
-          <DialogContentText id="alert-dialog-description" className="font-bold flex items-center">
-            <div className="font-bold mt-[20px]"> {description}</div>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} variant="contained" color="error" className='bg-[#d32f2f] text-white'>Cancel</Button>
-          <Button onClick={handleCopy} autoFocus variant="contained" className='bg-[#1976d2]'>
-            Copy
-          </Button>
-        </DialogActions>
-      </Dialog>
-  );
+        <div className="min-h-screen text-center block p-0">
+          {/* Background overlay */}
+          <div
+            className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+            aria-hidden="true"
+          />
+
+          {/* Dialog panel */}
+          <span
+            className="inline-block align-middle h-screen transition duration-150 ease-out"
+            aria-hidden="true"
+          >
+            &#8203;
+          </span>
+          <div
+            className="inline-block bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full max-sm:mx-5 align-middle"
+            ref={alertRef}
+          >
+            <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+              <h2 className="text-xl font-bold text-center ">https://www.aiana.io</h2>
+              <hr className="my-2" />
+              <h3
+                className="text-[14px] pt-3 pl-3 leading-6 font-medium text-[#767676]"
+                id="modal-title"
+              >
+                {title}
+              </h3>
+              <div className="mt-2">
+                <p className="text-sm text-[#070E0B] bg-[#F4E5FF] p-5 rounded-md">
+                  <div className="font-bold mt-2">{description}</div>
+                </p>
+              </div>
+              <div className="mt-5 sm:mt-6 flex justify-center">
+                <button
+                  type="button"
+                  onClick={handleCopy}
+                  className="mt-3 w-full inline-flex justify-center rounded-md border shadow-sm px-4 py-2 transition duration-150 ease-out border-[#A536FA] text-base font-medium hover:bg-[#A536FA] hover:text-white focus:outline-none sm:mt-0 sm:w-auto sm:text-sm"
+                >
+                  Copy Script
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  )
 }

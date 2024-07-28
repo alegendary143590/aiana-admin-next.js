@@ -8,8 +8,14 @@ import MenuList from "./MenuList"
 
 const SideNavBar = () => {
   const router = useRouter()
-  const [open, setOpen] = React.useState(true)
+  const [open, setOpen] = React.useState(false)
   const [logo, setLogo] = React.useState("/images/logo_big.png")
+
+  React.useEffect(() => {
+    if (window.innerWidth >= 768) {
+      setOpen(true)
+    }
+  }, [])
 
   const handleDrawerOpen = () => {
     setOpen(true)

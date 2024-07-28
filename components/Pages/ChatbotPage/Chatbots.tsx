@@ -2,12 +2,14 @@ import * as React from "react"
 import { FaCheck, FaEdit, FaLink, FaRegCommentAlt, FaRegTrashAlt } from "react-icons/fa"
 import router from "next/router"
 import Image from "next/image"
+import axios from "axios"
+import { toast } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
+import { isTimeBetween } from "@/components/utils/common"
 import AlertDialog from "@/components/AlertDialog"
 import EmbedAlert from "@/components/Alerts/EmbedAlert"
 import ChatbotPage from "@/components/Pages/ChatPage"
-import { toast } from "react-toastify"
-import axios from "axios"
+
 
 const Chatbots = () => {
   const [isLoading, setIsLoading] = React.useState(false)
@@ -240,7 +242,7 @@ const Chatbots = () => {
           <button
             type="button"
             onClick={handleAddRow}
-            className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] flex items-center justify-center gap-1 text-white font-bold rounded-md"
+            className="bg-[#A536FA] w-[160px] h-[40px] flex items-center justify-center gap-1 text-white font-bold rounded-md"
           >
             <Image src="/images/icon_create.svg" alt="create" width={15} height={15} />
             <p>Create Chatbot</p>
@@ -263,20 +265,28 @@ const Chatbots = () => {
                   height={60}
                 />
                 <p className="font-bold text-xl ml-2">{bot.name}</p>
-                <div className="size-5 bg-[#2CA84D] ml-auto rounded-full flex items-center justify-center">
-                  <FaCheck className="text-white size-3" />
-                </div>
+                {isTimeBetween(bot.start_time, bot.end_time) ? (
+                  <div className="size-5 bg-[#2CA84D] ml-auto rounded-full flex items-center justify-center">
+                    <FaCheck className="text-white size-3" />
+                  </div>
+                ) : (
+                  <div className="size-5 border-[1px] border-[#767676] ml-auto rounded-full flex items-center justify-center" />
+                )}
               </div>
 
               <div className="flex-grow flex flex-col text-[.8rem]">
                 <div className="mt-3 flex items-center">
                   <p className="text-gray-600 w-1/2 ">Status</p>
-                  <p className="italic font-bold">{bot.active ? "Active" : "Inactive"}</p>
+                  <p className={`italic font-bold ${bot.active ? "text-black" : "text-[#D7263C]"}`}>{bot.active ? "Active" : "Inactive"}</p>
                 </div>
                 <div className="flex items-center">
                   <p className="text-gray-600 w-1/2">Knowledge Base</p>
-                  <p className="text-[#D7263C] italic font-bold">
-                    {bot.knowledge ? bot.knowledge : "Not Connected"}
+                  <p
+                    className={`italic font-bold ${
+                      bot.knowledgebase_name ? "text-black" : "text-[#D7263C]"
+                    }`}
+                  >
+                    {bot.knowledgebase_name ? bot.knowledgebase_name : "Not Connected"}
                   </p>
                 </div>
               </div>
