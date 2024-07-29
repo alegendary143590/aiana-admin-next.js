@@ -10,7 +10,6 @@ import AlertDialog from "@/components/AlertDialog"
 import EmbedAlert from "@/components/Alerts/EmbedAlert"
 import ChatbotPage from "@/components/Pages/ChatPage"
 
-
 const Chatbots = () => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [bots, setBots] = React.useState([])

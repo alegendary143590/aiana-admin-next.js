@@ -1,31 +1,80 @@
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { useEffect, useRef, useState } from "react"
+import { FaChevronDown } from "react-icons/fa"
+import Language from "@/components/Language"
 
-export default function SelectLabels({lang, setLang}) {
-  
-  const handleChange = (event: SelectChangeEvent) => {
-    setLang(event.target.value);
-  };
+interface ISelectOptions {
+  value: number
+  name: string
+  flgURL: string
+}
+
+export default function SelectLabels({ setLang }) {
+  const menuRef = useRef<HTMLDivElement>(null)
+  const [isOpen, setIsOpen] = useState(false)
+  const [selectedValue, setSelectedValue] = useState<ISelectOptions>({
+    value: 10,
+    name: "ENG",
+    flgURL: "https://flagicons.lipis.dev/flags/4x3/us.svg",
+  })
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
+  const toggleOpen = () => setIsOpen(!isOpen)
+
+  const handleChange = (item) => {
+    setLang(item.value)
+    setSelectedValue(item)
+    setIsOpen(false)
+  }
 
   return (
-      <div style={{height:'30px'}}>
-        <FormControl sx={{ m: 1, minWidth: 120}} size='small'>
-        <Select
-          value={lang}
-          onChange={handleChange}
-          displayEmpty
-          inputProps={{ 'aria-label': 'Without label' }}
-          sx={{color:'white', height:'30px'}}
+    <div className="relative inline-block w-full text-left">
+      <div className="w-full">
+        <button
+          type="button"
+          onClick={toggleOpen}
+          className="flex justify-between items-center w-full rounded-md border text-white border-white shadow-sm px-4 py-2 text-sm font-medium focus:outline-none focus:border-white"
+          aria-haspopup="true"
+          aria-expanded={isOpen}
         >
-          <MenuItem value={10}>
-           English
-          </MenuItem>
-          <MenuItem value={20}>Dutch</MenuItem>
-          <MenuItem value={30}>French</MenuItem>
-          <MenuItem value={40}>Spanish</MenuItem>
-        </Select>
-      </FormControl>
-      </div>
-  );
+          {selectedValue.name}
+          <FaChevronDown />
+        </button>
+      </div >
+
+      {isOpen && (
+        <div className="origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-[5]" ref={menuRef}>
+          <div
+            className="py-1"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="options-menu"
+          >
+            {Language.map((item) => (
+              <button
+                type="button"
+                key={item.value}
+                className="w-full block px-4 py-2 text-start text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                role="menuitem"
+                onClick={() => handleChange(item)}
+              >
+                {item.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
 }

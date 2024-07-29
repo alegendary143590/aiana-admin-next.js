@@ -1,13 +1,16 @@
 import React, { useEffect, useState, useRef } from "react"
 import axios from "axios"
-import { AUTH_API } from "@/components/utils/serverURL"
-import { Avatar, Typography, Button, Box, Paper, IconButton, CircularProgress } from "@mui/material"
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
-import { ToastContainer, toast } from "react-toastify"
-import BasicSelect from "@/components/DropMenu"
-import router from "next/router"
 import { v4 as uuidv4 } from "uuid"
+import router from "next/router"
+import Image from "next/image"
+import { ToastContainer, toast } from "react-toastify"
+import { FaCaretDown } from "react-icons/fa"
+
+import { AUTH_API } from "@/components/utils/serverURL"
+import BasicSelect from "@/components/DropMenu"
 import { isTimeBetween } from "@/components/utils/common"
+import Spinner from "@/components/Spinner"
+import Avatar from "../../Avatar"
 
 const options: Intl.DateTimeFormatOptions = {
   weekday: "short",
@@ -229,80 +232,83 @@ const ChatPage = ({
 
   return (
     <div
-      className={`w-[400px] transition-all duration-300 ease-in-out absolute right-0 bottom-0 border-solid border-2 flex flex-col bg-gray-100 overflow-auto ${visibleClass}`}
+      className={`sm:w-[400px] w-full transition-all rounded-md duration-300 ease-in-out absolute right-0 bottom-0 border-solid border-2 flex flex-col overflow-auto bg-white ${visibleClass}`}
     >
-      <Paper elevation={4} className="relative h-[70px] flex" style={{ backgroundColor: color }}>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          className="w-full"
-          p={1}
+      <div className="relative h-[70px] flex">
+        <div
+          className="w-full flex justify-between items-center p-3"
+          style={{ backgroundColor: color }}
         >
-          <Box display="flex" alignItems="center">
-            <Avatar src={botAvatar} alt="bot avatar" />
-            <Typography variant="body1" ml={1}>
-              {botName}
-            </Typography>
-          </Box>
-          <BasicSelect lang={lang} setLang={setLang} />
-          <IconButton onClick={() => setVisible(!visible)}>
-            <KeyboardArrowDownIcon />
-          </IconButton>
-        </Box>
-      </Paper>
-      <div className="overflow-auto flex flex-col flex-grow mt-2 mx-1 space-y-2 ">
+          <div className="flex items-center">
+            <Avatar src={botAvatar} name="bot avatar" className="mr-2 size-12 rounded-full" />
+            <h3 className="ml-2 text-[16px] font-bold text-white">{botName}</h3>
+          </div>
+          <div className="flex items-center w-32">
+            <BasicSelect setLang={setLang} />
+          </div>
+          <button type="button" className="w-8" onClick={() => setVisible(false)}>
+            <FaCaretDown />
+          </button>
+        </div>
+      </div>
+      <hr className="mb-2 font-bold" />
+      <div className="overflow-auto flex flex-col flex-grow space-y-2 p-2">
         {messages.map((message) => (
-          <Paper
+          <div
             key={message.id}
-            elevation={3}
-            className={`p-2 rounded-lg ${
-              message.isBot ? "bg-blue-500 text-gray-900" : "bg-gray-200 text-black"
-            } flex ${message.isBot ? "" : "justify-end"}`}
+            className={`p-2 flex gap-3 ${message.isBot ? "" : "justify-end"}`}
             style={{
               maxWidth: "90%",
               alignSelf: message.isBot ? "flex-start" : "flex-end",
-              wordWrap: "break-word",
             }}
           >
-            <Box className={`flex gap-2 ${message.isBot ? "" : "flex-row-reverse"}`}>
-              <Avatar
-                src={message.isBot ? botAvatar : "/images/users/avatar-1.jpg"}
-                alt="avatar"
-                className="relative mr-2"
-              />
-              <Typography
-                variant="body2"
+            <Avatar
+              src={message.isBot ? botAvatar : "/images/users/avatar-1.jpg"}
+              name="avatar"
+              className={`rounded-full size-12 ${!message.isBot && "hidden"}`}
+            />
+
+            <div
+              className={`flex gap-2 p-2 rounded-lg break-words ${
+                message.isBot
+                  ? "bg-[#EBEBEB] text-[#070E0B]"
+                  : "flex-row-reverse bg-[#A536FA] text-white"
+              }`}
+            >
+              <p
                 className="flex-grow"
                 style={{ textAlign: message.isBot ? "left" : "right", overflowWrap: "break-word" }}
               >
                 {message.text}
-              </Typography>
-            </Box>
-          </Paper>
+              </p>
+            </div>
+          </div>
         ))}
         <div ref={messagesEndRef} />
       </div>
       {showYesNo && (
         <div className="flex justify-center mt-2">
-          <Button
-            variant="contained"
-            color="primary"
-            className="mr-2 bg-[#1976d2]"
+          <button
+            type="button"
+            className="mr-2 py-2 px-4 text-white bg-[#A536FA]"
             onClick={handleYesClick}
           >
             Yes
-          </Button>
-          <Button variant="outlined" color="secondary" onClick={handleNoClick}>
+          </button>
+          <button
+            type="button"
+            className="py-2 px-4 text-[#A536FA] border-[#A536FA] border"
+            onClick={handleNoClick}
+          >
             No
-          </Button>
+          </button>
         </div>
       )}
       {showForm && (
-        <Paper elevation={4} className="p-4 mt-2">
-          <Typography variant="h6" className="text-center" gutterBottom>
+        <div className="p-4 mt-2">
+          <p className="text-center text-[#070E0B]">
             Please provide your email and content to book a ticket
-          </Typography>
+          </p>
           <input
             type="email"
             placeholder="Email"
@@ -318,63 +324,38 @@ const ChatPage = ({
             onChange={(e) => setContent(e.target.value)}
           />
           <div className="flex justify-end">
-            <Button
-              variant="contained"
-              color="primary"
-              className="mr-2 bg-[#1976d2]"
+            <button
+              type="button"
+              className="mr-2 py-2 px-4 text-white bg-[#A536FA]"
               onClick={handleOkayClick}
             >
               Okay
-            </Button>
-            <Button variant="outlined" color="secondary" onClick={handleCancelClick}>
+            </button>
+            <button
+              type="button"
+              className="py-2 px-4 text-[#A536FA] border-[#A536FA] border"
+              onClick={handleCancelClick}
+            >
               Cancel
-            </Button>
+            </button>
           </div>
-        </Paper>
+        </div>
       )}
       <div className="flex p-2 h-16">
-        <style>
-          {`
-                    .custom-input {
-                        width: 100%;
-                        padding: 8px;
-                        font-size: 16px;
-                        border: 1px solid #ccc;
-                        border-radius: 4px;
-                        outline: none;
-                        box-sizing: border-box;
-                    }
-                    .custom-input:focus {
-                        border: none;
-                        box-shadow: none;
-                    }
-                    `}
-        </style>
-        <textarea
-          id="input"
-          className="custom-input"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          disabled={isLoading || isBook}
-          ref={inputRef}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{
-            backgroundColor: "#3399ff",
-            "&:hover": {
-              backgroundColor: "#3399ff",
-            },
-            color: "white",
-            right: 0,
-            bottom: 0,
-          }}
-          onClick={handleSendMessage}
-        >
-          {isLoading ? <CircularProgress size={24} color="inherit" /> : "Send"}
-        </Button>
+        <div className="relative w-full">
+          <textarea
+            id="input"
+            className="w-full h-full h-15 pt-3 pr-10 border border-gray-300 rounded-md"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            disabled={isLoading || isBook}
+            ref={inputRef}
+          />
+          <button type="button" className="absolute bottom-1/2 translate-y-1/2 flex right-3 items-center" onClick={handleSendMessage}>
+            {isLoading ? <Spinner color="#A536FA" /> : <Image src="/images/icon_send.svg" alt="send" width={20} height={20} />}
+          </button>
+        </div>
       </div>
       <ToastContainer />
     </div>
