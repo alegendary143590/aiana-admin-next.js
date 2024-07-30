@@ -1,10 +1,11 @@
-const Spinner = () => (
+const Spinner = ({ color }) => (
   <div role="status" className="flex justify-center items-center">
     <svg
       aria-hidden="true"
-      className="w-8 h-8 text-white animate-spin dark:text-gray-600 fill-[#44D7C9]"
+      className="w-8 h-8 text-white animate-spin dark:text-gray-600
+      "
       viewBox="0 0 100 101"
-      fill="none"
+      fill={color || "#44D7C9"}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

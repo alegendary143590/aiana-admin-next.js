@@ -455,7 +455,7 @@ const Profile = () => {
             className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] text-white font-bold rounded-md"
             onClick={handleSubmit}
           >
-            {isSaving ? <Spinner /> : "Save Changes"}
+            {isSaving ? <Spinner color="" /> : "Save Changes"}
           </button>
         </div>
       </div>
