@@ -1,51 +1,23 @@
 import * as React from "react"
-import { styled } from "@mui/material/styles"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Switch from "@mui/material/Switch"
 
-const Android12Switch = styled(Switch)(({ theme }) => ({
-  padding: 8,
-  marginLeft:6,
-  "& .MuiSwitch-track": {
-    borderRadius: 22 / 2,
-    "&::before, &::after": {
-      content: '""',
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      width: 16,
-      height: 16,
-    },
-    "&::before": {
-      backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
-        theme.palette.getContrastText(theme.palette.primary.main),
-      )}" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/></svg>')`,
-      left: 12,
-    },
-    "&::after": {
-      backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
-        theme.palette.getContrastText(theme.palette.primary.main),
-      )}" d="M19,13H5V11H19V13Z" /></svg>')`,
-      right: 12,
-    },
-  },
-  "& .MuiSwitch-thumb": {
-    boxShadow: "none",
-    width: 16,
-    height: 16,
-    margin: 2,
-  },
-}))
-
-export default function CustomizedSwitches({value, onChange }) {
+export default function CustomizedSwitches({ value, onChange }) {
   return (
-    <FormControlLabel
-      control={<Android12Switch checked={value}/>}
-      label="Active"
-      value={value}
-      sx={{marginLeft:'0px'}}
-      labelPlacement="start"
-      onChange={onChange}
-    />
+    <div className="flex items-center gap-1">
+      <label
+        className="inline-block text-[#767676] hover:cursor-pointer"
+        htmlFor="flexSwitchCheckDefault"
+        >Inactive</label>
+      <input
+        className="text-[#A438FA] h-6 w-10 appearance-none rounded-full bg-white before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:mt-[0.06rem] after:ml-[0.15rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-[#767676] after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-none checked:after:absolute checked:after:bg-white checked:after:z-[2] checked:after:mt-[0.06rem] checked:after:ml-[1.05rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
+        type="checkbox"
+        role="switch"
+        value={value}
+        onChange={onChange}
+        id="flexSwitchCheckDefault" />
+      <label
+        className="inline-block text-[#A438FA] pl-[0.15rem] hover:cursor-pointer"
+        htmlFor="flexSwitchCheckDefault"
+      >Active</label>
+    </div>
   )
 }
