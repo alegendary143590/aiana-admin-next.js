@@ -3,7 +3,7 @@ import KnowledgeBases from "./KnowledgeBases"
 
 const KnowledgeBasePage = () => (
   <Layout type="admin">
-    <div className="px-[20px] py-[20px] w-full h-full flex flex-col gap-y-[20px]">
+    <div className="p-[20px] w-full h-full flex flex-col">
       <KnowledgeBases />
     </div>
   </Layout>
