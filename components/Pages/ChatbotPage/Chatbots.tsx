@@ -248,7 +248,7 @@ const Chatbots = () => {
           </button>
         </div>
       </div>
-      <div className="relative w-full h-fit flex flex-wrap mt-10 items-center justify-start">
+      <div className="relative w-full h-fit flex flex-wrap mt-10 items-center justify-around">
         {bots.map((bot) => (
           <div
             key={bot.id}

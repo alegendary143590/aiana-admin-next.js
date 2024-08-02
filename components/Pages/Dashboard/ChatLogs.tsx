@@ -1,45 +1,16 @@
-import { useState, useEffect} from "react"
-import { styled } from "@mui/material/styles"
-import Table from "@mui/material/Table"
-import TableBody from "@mui/material/TableBody"
-import TableCell, { tableCellClasses } from "@mui/material/TableCell"
-import TableContainer from "@mui/material/TableContainer"
-import TableHead from "@mui/material/TableHead"
-import TableRow from "@mui/material/TableRow"
-import Paper from "@mui/material/Paper"
-import { ToastContainer, toast } from "react-toastify"
-import { AUTH_API } from "@/components/utils/serverURL"
+import { useState, useEffect } from "react"
 import router from "next/router"
 import axios from "axios"
+import { ToastContainer, toast } from "react-toastify"
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.white,
-    color: theme.palette.common.black,
-    fontWeight: "bold",
-    textAlign: "left",
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-    textAlign: "left",
-  },
-}))
+import { AUTH_API } from "@/components/utils/serverURL"
+import Avatar from "@/components/Avatar"
+import Image from "next/image"
 
 const ChatLogs = () => {
   const [userID, setUserID] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [chatLog, setChatLog] = useState([]);
-
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    cursor: "pointer",
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    "&:last-child td, &:last-child th": {
-      border: 0,
-    },
-  }))
 
   useEffect(() => {
     setUserID(localStorage.getItem("userID"))
@@ -57,8 +28,8 @@ const ChatLogs = () => {
             const chatLogs = response.data;
             setChatLog(chatLogs);
           }
-          if ( response.status === 401){
-            toast.error("Please login!", {position: toast.POSITION.TOP_RIGHT});
+          if (response.status === 401) {
+            toast.error("Please login!", { position: toast.POSITION.TOP_RIGHT });
             router.push("/signin");
           }
           setIsLoading(false)
@@ -68,7 +39,7 @@ const ChatLogs = () => {
           if (error.response) {
             console.log('Error status code:', error.response.status);
             console.log('Error response data:', error.response.data);
-            if (error.response.status === 401){
+            if (error.response.status === 401) {
               toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
 
               router.push("/signin")
@@ -90,6 +61,26 @@ const ChatLogs = () => {
     }
   }, [userID])
 
+  const handleDeleteButton = (sessionId) => {
+    axios
+      .post(`${AUTH_API.DELETE_CHATLOG}`, { sessionId }, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+          'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+        }
+      })
+      .then((response) => {
+        if (response.status === 201) {
+          const updatedChatLog = chatLog.filter((log) => log.session_id !== sessionId);
+          setChatLog(updatedChatLog);
+          toast.success("Chatlog deleted successfully!", { position: toast.POSITION.TOP_RIGHT })
+        }
+      })
+      .catch(() => {
+        toast.error("Failed to delete chatlog. Please try again later!", { position: toast.POSITION.TOP_RIGHT });
+      });
+  }
+
   const handleRowClick = (sessionId) => {
     router.push(`/log/log?sessionId=${sessionId}`);
   }
@@ -102,33 +93,61 @@ const ChatLogs = () => {
 
   return (
     <>
-      <div className="w-full h-[50px] flex items-center justify-start text-black_8 font-bold pt-[20px] mb-[10px] text-[20px]">
-        Chat logs
+      <div className="w-full mx-auto p-5">
+        <div className="w-full h-[50px] flex items-center justify-between pt-[24px] mb-[10px]">
+          <h3 className="font-bold text-2xl">Chatlogs</h3>
+        </div>
       </div>
-      
-      <TableContainer component={Paper} className="p-5">
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Start</StyledTableCell>
-              <StyledTableCell align="center">End</StyledTableCell>
-              <StyledTableCell align="center">Chatbot</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {chatLog.map((row) => (
-              <StyledTableRow key={row.id} onClick={()=>handleRowClick(row.session_id)} >
-                <StyledTableCell align="center">{row.created_at}</StyledTableCell>
-                <StyledTableCell align="center">{row.ended_at}</StyledTableCell>
-                <StyledTableCell align="center">{row.bot_name}</StyledTableCell>
-           
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <table className="w-full rounded-table min-w-[600px]" aria-label="table">
+        <thead className="bg-[#EEEEEE] text-[#767676] text-sm ">
+          <tr>
+            <th className="px-4 py-2 text-start">CHATBOT NAME</th>
+            <th className="px-4 py-2 text-start">STARTED ON</th>
+            <th className="px-4 py-2 text-start">ENDED ON</th>
+            <th className="px-4 py-2 text-start">STATUS</th>
+            <th className="px-4 py-2 text-start">ACTION</th>
+          </tr>
+        </thead>
+        <tbody className="gap-3 my-2">
+          {chatLog.map((row) => (
+            <>
+              <tr className="h-3" />
+              <tr key={row.id} className="hover:bg-gray-100 cursor-pointer border border-[#BEBEBE] border-round">
+
+                <td >
+                  <button type="button" onClick={() => handleRowClick(row.session_id)} className="px-4 py-2 w-full h-full flex justify-start items-center gap-3 font-bold">
+                    <Avatar src={row.bot_avatar || "/images/logo_sm.png"} name="avatar" className="size-10 rounded-full" />
+                    {row.bot_name}
+                  </button>
+
+                </td>
+                <td className="px-4 py-2">
+                  <button type="button" onClick={() => handleRowClick(row.session_id)} className="w-full h-full py-4 text-start">
+                    {row.created_at}
+                  </button>
+                </td>
+                <td className="px-4 py-2"><button type="button" onClick={() => handleRowClick(row.session_id)} className="w-full h-full py-4 text-start">{row.ended_at}</button></td>
+                <td className={`px-4 py-2 italic font-bold ${row.bot_active > 0 ? "text-black" : "text-[#BA1126]"}`}><button type="button" onClick={() => handleRowClick(row.session_id)} className="w-full h-full py-4 text-start">{row.bot_active > 0 ? "Active" : "Inactive"}</button></td>
+                <td className="px-4 py-2">
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteButton(row.session_id)}
+                    className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md"
+                  >
+                    <Image src="/images/icon_trash.svg" width={18} height={18} />
+                  </button>
+                </td>
+              </tr>
+            </>
+
+
+          ))}
+        </tbody>
+
+      </table>
       <ToastContainer />
     </>
+
   )
 }
 

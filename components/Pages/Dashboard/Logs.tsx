@@ -101,8 +101,12 @@ const Logs = ({ session }) => {
         </div>
       </div>
       <div className="max-w-[1000px] overflow-y-auto border border-[#CFCFCF] rounded-md">
-        <div className="sm:w-[400px] w-full mx-auto overflow-y-auto rounded-md mt-5 p-3">
-          <div className="flex flex-col text-gray-500">
+        <div className="sm:w-[400px] w-full mx-auto rounded-md mt-5 p-3">
+          <div>
+            <Avatar src={botAvatar} name="avatar" className="rounded-full size-12" />
+          </div>
+          <hr />
+          <div className="flex flex-col text-gray-500 overflow-y-auto">
             {conversation.map((conv) => (
               <div key={conv.id} className="flex flex-col m-2">
                 <div className="flex flex-row justify-end items-center w-full pl-10 pb-2">

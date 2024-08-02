@@ -188,7 +188,7 @@ const KnowledgeBase = () => {
           <p>Create Knowledge Base</p>
         </button>
       </div>
-      <div className="relative w-full h-fit flex flex-wrap mt-10 items-center justify-start">
+      <div className="relative w-full h-fit flex flex-wrap mt-10 items-center justify-around">
         {bases && bases.map((base) => (
           <div key={base.id} className="w-[300px] h-fit border-2 border-[#A438FA] shadow-sm rounded-lg m-3">
             <div className="w-full h-fit flex flex-row items-center justify-center">
