@@ -13,11 +13,11 @@ const AdminLayout = ({ children }: ILayout) => (
       <SideNavbar />
 
       <div className="w-screen h-screen overflow-auto">
-        <div className="fixed w-full flex justify-end items-center space-x-5 py-5 pr-10 right-0 top-0 z-10 border-bottom bg-white">
+        <div className="fixed w-full h-[85px] flex justify-end items-center space-x-5 py-5 pr-10 right-0 top-0 z-10 border-bottom bg-white">
           <CountrySelect countries={Language} />
           <AccountManagementDropdown />
         </div>
-        <hr className="fixed w-full top-[85px] right-0" />
+        <hr className="fixed w-full top-[85px] right-0 z-10" />
         <div className="mt-[85px]">
           {children}
         </div>

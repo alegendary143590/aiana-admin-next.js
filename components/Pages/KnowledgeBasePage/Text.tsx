@@ -1,24 +1,12 @@
 import React, { useState } from "react"
-import {
-  Grid,
-  Typography,
-  Button,
-  Paper,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  IconButton,
-  TextField,
-} from "@mui/material"
+import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
-import DeleteIcon from "@mui/icons-material/Delete"
-import InfoIcon from "@mui/icons-material/InfoRounded"
+import { FaInfoCircle } from "react-icons/fa";
 
-const Text = ({questionAnswers, setQuestionAnswers}) => {
+const Text = ({ questionAnswers, setQuestionAnswers }) => {
   const [questionInputValue, setQuestionInputValue] = useState("")
   const [answerInputValue, setAnswerInputValue] = useState("")
- 
+
 
   const handleQAAdd = () => {
     if (questionInputValue.trim() !== "" && answerInputValue.trim() !== "") {
@@ -29,7 +17,7 @@ const Text = ({questionAnswers, setQuestionAnswers}) => {
       setQuestionInputValue("")
       setAnswerInputValue("")
     } else {
-      toast.error("Question and Answer are required!", { position: toast.POSITION.TOP_RIGHT});
+      toast.error("Question and Answer are required!", { position: toast.POSITION.TOP_RIGHT });
     }
   }
 
@@ -39,64 +27,70 @@ const Text = ({questionAnswers, setQuestionAnswers}) => {
   }
 
   return (
-    <Paper elevation={3} className="w-[700px] h-[90%] p-5 mt-20 overflow-y-auto">
-      <Grid container className="p-5">
-        <Typography className="bg-[#e6f2ff] w-full mr-5 ml-5 p-3" sx={{ lineHeight: "2" }}>
-          <InfoIcon className="text-[#33adff] mr-2 mb-1" />
-          Add question and answer pairs to build your chatbot&apos;s knowledge base. These pairs
-          help train your chatbot to answer questions accurately.
-        </Typography>
-      </Grid>
-      <Grid item xs={12} className="flex justify-end items-end ">
-        <Button className="bg-[#0099ff]" variant="contained" onClick={handleQAAdd}>
-          + Add
-        </Button>
-      </Grid>
-      <Grid container spacing={2} className="mt-1">
-        <Grid item xs={1} className="flex justify-end items-center">
-          <Typography>Q:</Typography>
-        </Grid>
-        <Grid item xs={11}>
-          <TextField
-            type="text"
+    <div className="w-full overflow-y-auto">
+      <div className="text-center bg-[#F5E8FF] py-2 sm:mx-7 mx-3">
+        <span className="text-[#343434] text-sm text-center">
+          <FaInfoCircle className="text-[#A536FA] size-5 inline-block" />
+          Note: Add custom texts/questions to build your chatbot’s knowledge base. These texts help train your chatbot to answer questions accurately.
+        </span>
+      </div>
+      <div className="flex max-md:flex-col">
+        <div className="w-full md:inline-flex justify-end flex-col p-10 max-md:space-y-5 flex-1">
+          <p className="w-[100px] text-lg font-bold mb-2">Question</p>
+          <textarea
             value={questionInputValue}
             onChange={(e) => setQuestionInputValue(e.target.value)}
-            className="w-full"
+            className="w-full border border-[#D9D9D9] rounded-md"
             id="questionInput"
           />
-        </Grid>
-        <Grid item xs={1} className="flex justify-end items-center">
-          <Typography>A:</Typography>
-        </Grid>
-        <Grid item xs={11}>
-          <TextField
-            type="text"
+          <p className="w-[100px] text-lg font-bold mt-5 mb-2">Answer</p>
+          <textarea
             value={answerInputValue}
             onChange={(e) => setAnswerInputValue(e.target.value)}
-            className="w-full"
+            className="w-full border border-[#D9D9D9] rounded-md h-32"
             id="answerInput"
           />
-        </Grid>
-      </Grid>
-      <Grid container spacing={2} direction="column">
-        <Grid item xs={8}>
-          <List className="h-[350px] overflow-y-auto border-solid border border-gray-300 rounded-md mt-5 p-3">
-            {questionAnswers.map((qa, index) => (
-              <ListItem key={qa.question} className="border-b border-gray-300">
-                <ListItemText primary={`Q: ${qa.question} `} secondary={`A: ${qa.answer}`} />
-                <ListItemSecondaryAction>
-                  <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteQA(index)}>
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-          </List>
-        </Grid>
-      </Grid>
+          <button className="bg-[#A438FA] ml-auto mt-5 px-2 py-2 text-white text-center rounded-md w-[150px]" type="button" onClick={handleQAAdd}>
+            +Add
+          </button>
+        </div>
+        <div className="flex flex-1 flex-col">
+          <div className="w-full justify-between flex mb-5 mt-10 sm:px-7 px-3">
+            <h4 className="text-lg font-bold">Questions List</h4>
+            <p className="text-[#767676] text-sm">{questionAnswers.length} question added</p>
+          </div>
+          <div className="md:px-7 max-h-[300px] overflow-y-auto">
+            {questionAnswers && questionAnswers.map((questionAnswer, i) =>
+              // {`Q: ${qa.question} `} secondary={`A: ${qa.answer}
+              <div key={questionAnswer.id}>
+                <p className="text-[#070E0B] my-1"><i className="w-24 inline-block">#Question {i + 1}:</i>{questionAnswer.question}
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteQA(i)}
+                    className="focus:outline-none focus:ring-2 ml-2 focus:ring-blue-500 bg-[#F2E3FE] size-7 rounded-md inline-flex justify-center items-center"
+                  >
+                    <Image src="/images/icon_trash_1.svg" width={15} height={15} />
+                  </button>
+                </p>
+                <p className="text-[#070E0B] my-1"><i className="w-24 inline-block">#Answer {i + 1}:</i>{questionAnswer.answer}</p>
+
+              </div>
+            )
+            }
+            {
+              questionAnswers.length === 0 && (
+                <div className="w-full text-center py-5">
+                  <p className="text-[#767676]">No question added yet</p>
+                </div>
+              )
+            }
+          </div>
+        </div>
+      </div>
       <ToastContainer />
-    </Paper>
+
+    </div>
   )
-}  
+}
 
 export default Text
