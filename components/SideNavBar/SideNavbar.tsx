@@ -24,7 +24,7 @@ const SideNavBar = () => {
 
   const handleDrawerClose = () => {
     setOpen(false)
-    setLogo("/images/logo_short.png")
+    setLogo("/images/logo_sm.png")
   }
 
   const handleLogOut = () => {

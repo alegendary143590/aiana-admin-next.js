@@ -17,7 +17,7 @@ const AdminLayout = ({ children }: ILayout) => (
           <CountrySelect countries={Language} />
           <AccountManagementDropdown />
         </div>
-        <hr className="fixed w-full top-[85px] right-0 z-10" />
+        <hr className="fixed w-full top-[85px] right-0 z-4" />
         <div className="mt-[85px]">
           {children}
         </div>

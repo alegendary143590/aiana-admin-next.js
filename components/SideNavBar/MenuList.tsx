@@ -26,8 +26,8 @@ const MenuList = ({ open }) => {
   } = useSideMenu()
 
   return (
-    <div className="relative z-[4] w-full mt-3">
-      <div className={`text-white font-["Roboto-Thin"] sm:mb-3 px-5 ${open ? "" : "invisible"}`}>
+    <div className={`relative z-[4] w-full ${open ? "mt-3" : "mt-10"}`}>
+      <div className={`text-white font-["Roboto-Thin"] sm:mb-3 px-5 ${open ? "" : "hidden"}`}>
         QUICK ACCESS
       </div>
       <button
@@ -70,7 +70,7 @@ const MenuList = ({ open }) => {
       )}
       <div
         className={`text-white sm:mb-3 font-["Roboto-Thin"] mt-5 px-5 ${
-          open ? "" : "invisible"
+          open ? "" : "hidden"
         }`}
       >
         APPS & FEATURES
@@ -85,9 +85,10 @@ const MenuList = ({ open }) => {
           className={`${
             createActive ? navActiveContainerClasses : navContainerClasses
           } flex items-center justify-start`}
+          style={{ paddingRight: !open && "14px", paddingLeft: !open && "14px" }}
         >
           <div className={createActive ? iconActiveClasses : iconClasses}>
-            <Image src="/images/navbar/icon_chatbot.svg" width={30} height={24} />
+            <Image src="/images/navbar/icon_chatbot.svg" width={24} height={20} />
           </div>
           <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>Chatbot</p>
         </div>

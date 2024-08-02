@@ -203,7 +203,7 @@ const KnowledgeBase = () => {
                   base.bot_avatar && base.bot_avatar.map((avatar) => (
                     <Image
                       key={avatar}
-                      src={avatar}
+                      src={avatar || "/images/logo_sm.png"}
                       alt="bot_avatar"
                       width={40}
                       height={40}
