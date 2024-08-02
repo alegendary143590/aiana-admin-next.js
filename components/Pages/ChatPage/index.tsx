@@ -54,7 +54,7 @@ const ChatPage = ({
   useEffect(() => {
     if (visible) {
       setVisibleClass("h-[600px]")
-      setBotAvatar(avatar === "" ? "/images/users/avatar-2.jpg" : avatar)
+      setBotAvatar(avatar === "" ? "/images/logo_sm.png" : avatar)
       const session = uuidv4().toString()
       setSessionId(session)
       setMessages([{ id: session, isBot: true, text: "Hello! How can I assist you today?" }])
@@ -263,7 +263,7 @@ const ChatPage = ({
             }}
           >
             <Avatar
-              src={message.isBot ? botAvatar : "/images/users/avatar-1.jpg"}
+              src={message.isBot ? botAvatar : "/images/logo_sm.png"}
               name="avatar"
               className={`rounded-full size-12 ${!message.isBot && "hidden"}`}
             />
