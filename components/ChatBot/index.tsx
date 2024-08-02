@@ -387,7 +387,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundImage: 'url("/images/logo_short.png")',
+            backgroundImage: 'url("/images/logo_sm.png")',
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center'

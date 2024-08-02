@@ -257,7 +257,7 @@ const Chatbots = () => {
             <div className="w-full h-fit px-5 pt-5">
               <div className="w-full flex items-center">
                 <Image
-                  src={bot.avatar ? bot.avatar : "/images/logo_short.png"}
+                  src={bot.avatar ? bot.avatar : "/images/logo_sm.png"}
                   className="rounded-full mr-4"
                   alt="avatar"
                   width={60}
