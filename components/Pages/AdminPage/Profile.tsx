@@ -3,7 +3,6 @@ import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
 import { useRouter } from "next/router" // Corrected import
 import Image from "next/image"
-import PhoneInput from "react-phone-input-2"
 
 import { AUTH_API } from "@/components/utils/serverURL"
 import Spinner from "@/components/Spinner"
@@ -30,7 +29,6 @@ const Profile = () => {
     com_street_number: "",
     com_website: "",
   }
-  const [phoneNumber, setphoneNumber] = useState("")
   const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
   const [role, setRole] = useState("user")
   const [change, setChange] = useState(false)
@@ -63,6 +61,7 @@ const Profile = () => {
               `${userData.first_name} ${userData.last_name[0].toUpperCase()}.`,
             )
             setRole(userData.role)
+            localStorage.setItem("role", userData.role)
             setFormState((prevState) => ({
               ...prevState,
               first_name: userData.first_name,
@@ -395,14 +394,6 @@ const Profile = () => {
                     onChange={(e) => handleInputChange("email", e.target.value)}
                     type="text"
                   />
-                </div>
-              </div>
-              <div>
-                <div>
-                  <p className="text-[#767676]">Contact Number</p>
-                </div>
-                <div className="max-sm:w-full w-3/4 lg:w-full">
-                  <PhoneInput country="us" value={phoneNumber} onChange={setphoneNumber} />
                 </div>
               </div>
             </div>

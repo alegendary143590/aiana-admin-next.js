@@ -26,6 +26,7 @@ const CustomDropdown = ({ countries, onSelect }) => {
   const handleCountryChange = (country: any) => {
     setSelectedCountry(country) // Update the selected country state
     onSelect(country.name)
+    document.getElementById("country-dropdown-menu").classList.toggle("hidden")
   }
 
   return (
@@ -71,7 +72,7 @@ const CustomDropdown = ({ countries, onSelect }) => {
         id="country-dropdown-menu"
         className="absolute -top-60 hidden mt-1 bg-white shadow-lg max-h-60 rounded-md py-1 text-base z-10 overflow-auto focus:outline-none px-3"
       >
-        {countries.map((country: any) => (
+       {countries.map((country: any) => (
           <button
             type="button"
             key={country.name}

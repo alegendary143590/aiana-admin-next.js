@@ -1,15 +1,10 @@
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
 import { useSideMenu } from "@/providers/SideMenuProvider"
 import Image from "next/image"
 
 const MenuList = ({ open }) => {
   const { push } = useRouter()
-  const [userRole, setUserRole] = useState("admin")
 
-  useEffect(() => {
-    setUserRole(localStorage.getItem("role"))
-  })
 
   const {
     navActiveContainerClasses,
@@ -23,17 +18,14 @@ const MenuList = ({ open }) => {
     knowledgeActive,
     ticketsActive,
     usersActive,
+    role
   } = useSideMenu()
 
   return (
     <div className={`relative z-[4] w-full ${open ? "mt-3" : "mt-10"}`}>
-      <div className={`text-white font-["Roboto-Thin"] sm:mb-3 px-5 ${open ? "" : "hidden"}`}>
-        QUICK ACCESS
-      </div>
       <button
         type="button"
         className="flex justify-center items-center w-full"
-        // className={profileActive ? navActiveContainerClasses : navContainerClasses}
         onClick={() => push("/admin")}
       >
         <div
@@ -42,18 +34,17 @@ const MenuList = ({ open }) => {
           } flex items-center justify-start`}
         >
           <div className={profileActive ? iconActiveClasses : iconClasses}>
-            <Image src="/images/navbar/icon_account.svg" width={18} height={20} />
+            <Image src="/images/navbar/icon_account.svg" width={18} height={20} className="opacity-90" />
           </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>
             My Account
           </p>
         </div>
       </button>
-      {userRole === "admin" && (
+      {role === "admin" && (
         <button
           type="button"
           className="flex justify-center items-center w-full"
-          // className={profileActive ? navActiveContainerClasses : navContainerClasses}
           onClick={() => push("/users")}
         >
           <div
@@ -62,23 +53,15 @@ const MenuList = ({ open }) => {
             } flex items-center justify-start`}
           >
             <div className={usersActive ? iconActiveClasses : iconClasses}>
-              <Image src="/images/navbar/icon_users.svg" width={18} height={20} />
+              <Image src="/images/navbar/icon_users.svg" width={18} height={20} className="opacity-90" />
             </div>
-            <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>Users</p>
+            <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>Users</p>
           </div>
         </button>
       )}
-      <div
-        className={`text-white sm:mb-3 font-["Roboto-Thin"] mt-5 px-5 ${
-          open ? "" : "hidden"
-        }`}
-      >
-        APPS & FEATURES
-      </div>
       <button
         type="button"
         className="flex justify-center items-center w-full"
-        // className={profileActive ? navActiveContainerClasses : navContainerClasses}
         onClick={() => push("/chatbot")}
       >
         <div
@@ -88,15 +71,14 @@ const MenuList = ({ open }) => {
           style={{ paddingRight: !open && "14px", paddingLeft: !open && "14px" }}
         >
           <div className={createActive ? iconActiveClasses : iconClasses}>
-            <Image src="/images/navbar/icon_chatbot.svg" width={24} height={20} />
+            <Image src="/images/navbar/icon_chatbot.svg" width={24} height={20} className="opacity-90" />
           </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>Chatbot</p>
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>Chatbot</p>
         </div>
       </button>
       <button
         type="button"
         className="flex justify-center items-center w-full"
-        // className={profileActive ? navActiveContainerClasses : navContainerClasses}
         onClick={() => push("/knowledge")}
       >
         <div
@@ -105,9 +87,9 @@ const MenuList = ({ open }) => {
           } flex items-center justify-start`}
         >
           <div className={knowledgeActive ? iconActiveClasses : iconClasses}>
-            <Image src="/images/navbar/icon_knowledge.svg" width={18} height={20} />
+            <Image src="/images/navbar/icon_knowledge.svg" width={18} height={20} className="opacity-90" />
           </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>
             Knowledge Base
           </p>
         </div>
@@ -115,7 +97,6 @@ const MenuList = ({ open }) => {
       <button
         type="button"
         className="flex justify-center items-center w-full"
-        // className={profileActive ? navActiveContainerClasses : navContainerClasses}
         onClick={() => push("/dashboard")}
       >
         <div
@@ -124,15 +105,14 @@ const MenuList = ({ open }) => {
           } flex items-center justify-start`}
         >
           <div className={dashboardActive ? iconActiveClasses : iconClasses}>
-            <Image src="/images/navbar/icon_chatlogs.svg" width={18} height={20} />
+            <Image src="/images/navbar/icon_chatlogs.svg" width={18} height={20} className="opacity-90" />
           </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>Chatlogs</p>
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>Chatlogs</p>
         </div>
       </button>
       <button
         type="button"
         className="flex justify-center items-center w-full"
-        // className={profileActive ? navActiveContainerClasses : navContainerClasses}
         onClick={() => push("/tickets")}
       >
         <div
@@ -141,9 +121,9 @@ const MenuList = ({ open }) => {
           } flex items-center justify-start`}
         >
           <div className={ticketsActive ? iconActiveClasses : iconClasses}>
-            <Image src="/images/navbar/icon_tickets.svg" width={18} height={20} />
+            <Image src="/images/navbar/icon_tickets.svg" width={18} height={20} className="opacity-90" />
           </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white text-[16px]`}>Tickets</p>
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>Tickets</p>
         </div>
       </button>
     </div>
