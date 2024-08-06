@@ -99,12 +99,12 @@ textarea {
   width:100% !important;
 }
 
-table {
+.rounded-table table {
   border-collapse: separate;
   border-spacing: 0;
 }
 
-td {
+.rounded-table td {
   border: solid 2px #BEBEBE;
   border-style: solid none solid none;
   padding: 10px;
@@ -120,5 +120,5 @@ td {
 
 .border-round td:last-child { border-bottom-right-radius: 10px; border-right-style: solid;}
 
-tr:first-child td { border-top-style: solid; }
-tr td:first-child { border-left-style: solid; }
+.rounded-table tr:first-child td { border-top-style: solid; }
+.rounded-table tr td:first-child { border-left-style: solid; }

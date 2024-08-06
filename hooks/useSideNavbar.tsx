@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export enum SIDE_NAVS {
   DASHBOARD = "DASHBOARD",
@@ -35,6 +35,17 @@ const useSideNavbar = () => {
 
   const [selectedNav, setSelectedNav] = useState()
 
+  const [isOpen, setOpen] = useState(false)
+
+  const [role, setRole] = useState("user")
+
+  useEffect(() => {
+    if (window.innerWidth >= 768) {
+      setOpen(true)
+    }
+    setRole(localStorage.getItem("role"))
+  }, [])
+
   return {
     navActiveContainerClasses,
     iconActiveClasses,
@@ -57,6 +68,10 @@ const useSideNavbar = () => {
     sessionRequestsActive,
     projectRequestsActive,
     activeProjectsActive,
+    isOpen,
+    setOpen,
+    role,
+    setRole
   }
 }
 

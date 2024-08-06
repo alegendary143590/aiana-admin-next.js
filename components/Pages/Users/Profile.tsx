@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
-import { Box, Typography, Grid, CircularProgress, Button, Link } from "@mui/material"
-import { ToastContainer, toast } from "react-toastify"
-import BackArrow from "@mui/icons-material/ArrowBack"
 import { useRouter } from "next/router" // Corrected import
+import Image from "next/image"
+import { ToastContainer, toast } from "react-toastify"
+import { FaArrowLeft } from "react-icons/fa"
+
 import { AUTH_API } from "@/components/utils/serverURL"
+import Countries from "@/components/Countries"
+import Spinner from "@/components/Spinner"
+import CustomDropdown from "@/components/CountrySelect"
 import CustomSelect from "../../CustomSelect"
-import Country from "../../country"
 import Language from "../../Language"
 
 const Profile = () => {
@@ -34,11 +37,11 @@ const Profile = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const router = useRouter() // Use the router from useRouter
-  const {user} = router.query;
+  const { user } = router.query;
   useEffect(() => {
     if (user) {
-        setUserId(localStorage.getItem('userID'))
-        setIsLoading(true);
+      setUserId(localStorage.getItem('userID'))
+      setIsLoading(true);
       axios
         .post(AUTH_API.GET_USER_AS_ADMIN, { user }, {
           headers: {
@@ -54,7 +57,7 @@ const Profile = () => {
               ...prevState,
               first_name: userData.first_name,
               last_name: userData.last_name,
-              email: userData.email,   
+              email: userData.email,
               language: userData.language,
               com_name: userData.com_name,
               com_vat: userData.com_vat,
@@ -76,7 +79,7 @@ const Profile = () => {
           if (error.response) {
             console.log('Error status code:', error.response.status);
             console.log('Error response data:', error.response.data);
-            if (error.response.status === 401){
+            if (error.response.status === 401) {
               toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
 
               router.push("/signin")
@@ -107,70 +110,70 @@ const Profile = () => {
   }
 
   const handleSubmit = () => {
-    if (isEdit&&change) {
-        
-        setIsSaving(true)
-        axios
+    if (isEdit && change) {
+
+      setIsSaving(true)
+      axios
         .post(AUTH_API.UPDATE_USER, {
-            userId,
-            first_name: formState.first_name,
-            last_name: formState.last_name,
-            email: formState.email,
-            language: formState.language,
-            com_name: formState.com_name,
-            com_vat: formState.com_vat,
-            com_street: formState.com_street,
-            com_city: formState.com_city,
-            com_country: formState.com_country,
-            com_postal: formState.com_postal,
-            com_street_number: formState.com_street_number,
-            com_website: formState.com_website,
-        }, 
-        {
+          userId,
+          first_name: formState.first_name,
+          last_name: formState.last_name,
+          email: formState.email,
+          language: formState.language,
+          com_name: formState.com_name,
+          com_vat: formState.com_vat,
+          com_street: formState.com_street,
+          com_city: formState.com_city,
+          com_country: formState.com_country,
+          com_postal: formState.com_postal,
+          com_street_number: formState.com_street_number,
+          com_website: formState.com_website,
+        },
+          {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
-                'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+              'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+              'Content-Type': 'application/json',  // Explicitly defining the Content-Type
             }
-        })
+          })
         .then((response) => {
-            if (response.status === 201) {
-                toast.success("Successfully updated!", { position: toast.POSITION.TOP_RIGHT })
-            } else if (response.status === 401) {
-                toast.error("Session Expired! Please login again!", { position: toast.POSITION.TOP_RIGHT })
-                router.push("/signin")
-            } else {
-                toast.error(response.data, { position: toast.POSITION.TOP_RIGHT })
-            }
-            setIsSaving(false)
-            setIsEdit(false);
+          if (response.status === 201) {
+            toast.success("Successfully updated!", { position: toast.POSITION.TOP_RIGHT })
+          } else if (response.status === 401) {
+            toast.error("Session Expired! Please login again!", { position: toast.POSITION.TOP_RIGHT })
+            router.push("/signin")
+          } else {
+            toast.error(response.data, { position: toast.POSITION.TOP_RIGHT })
+          }
+          setIsSaving(false)
+          setIsEdit(false);
 
         })
         .catch((error) => {
-            if (error.response) {
-                console.log('Error status code:', error.response.status);
-                console.log('Error response data:', error.response.data);
-                if (error.response.status === 401){
-                toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
+          if (error.response) {
+            console.log('Error status code:', error.response.status);
+            console.log('Error response data:', error.response.data);
+            if (error.response.status === 401) {
+              toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
 
-                router.push("/signin")
-                }
-                // Handle the error response as needed
-            } else if (error.request) {
-                // The request was made but no response was received
-                console.log('Error request:', error.request);
-                toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+              router.push("/signin")
+            }
+            // Handle the error response as needed
+          } else if (error.request) {
+            // The request was made but no response was received
+            console.log('Error request:', error.request);
+            toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
 
-            } else {
-                // Something happened in setting up the request that triggered an Error
-                console.log('Error message:', error.message);
-                toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
-        }
-        setIsSaving(false);
-        setIsEdit(false);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error message:', error.message);
+            toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+          }
+          setIsSaving(false);
+          setIsEdit(false);
 
-        }) 
+        })
     }
-    else if(!isEdit){
+    else if (!isEdit) {
       setIsEdit(true);
     }
 
@@ -181,312 +184,213 @@ const Profile = () => {
     else router.push('/users')
   }
 
-  function getEditContent() {
-    if (isSaving) {
-      return <CircularProgress size={24} color="inherit" />;
-    }
-      return <span style={{ color: 'white' }}>Save</span>;
-  }
-  
-  function getViewContent() {
-    return (
-      <span style={{ color: 'white' }}>Edit</span>
-    );
-  }
-
   if (isLoading) {
     return <div>Loading...</div>
   }
 
   return (
     <div className="d-flex flex-column bg-transparent">
-        <Link
-          underline="none"
-          href="/users"
-          className="text-gray-600 flex items-center absolute right-20 text-[16px] mr-[20px]"
-        >
-          <BackArrow className="h-[15px]" />
-          Back
-        </Link>
-      <Box className="row justify-content-center my-auto px-8">
-        <Grid container spacing={3} className="mt-2 max-h-[650px] overflow-hidden overflow-y-auto">
-          <Grid item sm={12} xs={12} md={6}>
-            <Typography variant="subtitle1" className="text-primary" fontWeight="bold">
-              Your Company
-            </Typography>
-            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
-              <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" >
-                  Name:
-                </Typography>
-              </Grid>
-              <Grid item sm={12} xs={12} md={8}>
+      <div className="row justify-center w-[90%] mx-auto p-5">
+        <div className="bg-none w-full rounded-lg flex items-center gap-3">
+          <button type="button" className="bg-[#F4F4F4] text-[#767676] font-[300] p-3 rounded-md" onClick={() => router.push("/chatbot")}>
+            <FaArrowLeft />
+          </button>
+          <h3 className="text-lg font-bold">Users</h3>
+        </div>
+        <div className="flex max-md:flex-col mx-auto">
+          <div className="md:w-1/2 w-full">
+            <h4 className="font-[600] text-[#767676] mt-5 mb-3">COMPANY INFORMATION</h4>
+            <div className="flex flex-col gap-3">
+              <div>
+                <p className="text-[#767676]">Company Name</p>
                 <input
                   type="text"
                   id="com_name"
-                  className="input-width"
-                  style={{height:'40px', borderRadius:'5px'}}
+                  className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
                   value={formState.com_name}
                   onChange={(e) => handleInputChange("com_name", e.target.value)}
-                  disabled={!isEdit}
                 />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
-              <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" >
-                  VAT number:
-                </Typography>
-              </Grid>
-              <Grid item sm={12} xs={12} md={8}>
-                <input
-                  type="text"
-                  style={{height:'40px', borderRadius:'5px'}}
-                  className="input-width"
-                  id="com_vat"
-                  value={formState.com_vat}
-                  onChange={(e) => handleInputChange("com_vat", e.target.value)}
-                  disabled={!isEdit}
-                />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
-              <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" >
-                  Street:
-                </Typography>
-              </Grid>
-              <Grid item sm={12} xs={12} md={8}>
-                <input
-                  id="com_street"
-                  className="input-width"
-                  value={formState.com_street}
-                  onChange={(e) => handleInputChange("com_street", e.target.value)}
-                  type="text"
-                  style={{height:'40px', borderRadius:'5px'}}
-                  disabled={!isEdit}
-                />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
-              <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" >
-                  City:
-                </Typography>
-              </Grid>
-              <Grid item sm={12} xs={12} md={8}>
-                <input
-                  id="com_city"
-                  className="input-width"
-                  value={formState.com_city}
-                  onChange={(e) => handleInputChange("com_city", e.target.value)}
-                  type="text"
-                  style={{height:'40px', borderRadius:'5px'}}
-                  disabled={!isEdit}
-                />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
-              <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" >
-                  Country:
-                </Typography>
-              </Grid>
-              <Grid item sm={12} xs={12} md={8}>
-                <CustomSelect
-                  id="com_country"
-                  value={formState.com_country}
-                  onChange={handleInputChange}
-                  props={Country}
-                  text="Select a country"
-                />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
-              <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" >
-                  Number:
-                </Typography>
-              </Grid>
-              <Grid item sm={12} xs={12} md={8}>
-                <input
-                  className="input-width"
-                  id="com_street_number"
-                  value={formState.com_street_number}
-                  onChange={(e) => handleInputChange("com_street_number", e.target.value)}
-                  type="text"
-                  style={{height:'40px', borderRadius:'5px'}}
-                  disabled={!isEdit}
-                />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
-              <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" >
-                  Postal code:
-                </Typography>
-              </Grid>
-              <Grid item sm={12} xs={12} md={8}>
-                <input
-                  id="com_postal"
-                  className="input-width"
-                  value={formState.com_postal}
-                  onChange={(e) => handleInputChange("com_postal", e.target.value)}
-                  type="text"
-                  style={{height:'40px', borderRadius:'5px'}}
-                  disabled={!isEdit}
-                />
-              </Grid>
-            </Grid>
-
-            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
-              <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" >
-                  Website url:
-                </Typography>
-              </Grid>
-              <Grid item sm={12} xs={12} md={8}>
+              </div>
+              <div>
+                <p className="text-[#767676]">Company URL</p>
                 <input
                   id="com_website"
-                  className="input-width"
+                  className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
                   value={formState.com_website}
                   onChange={(e) => handleInputChange("com_website", e.target.value)}
                   type="text"
-                  style={{height:'40px', borderRadius:'5px'}}
-                  disabled={!isEdit}
                 />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item sm={12} xs={12} md={6}>
-            <Typography variant="subtitle1"  fontWeight="bold">
-              Your User
-            </Typography>
-            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
-              <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" >
-                  First name:
-                </Typography>
-              </Grid>
-              <Grid item sm={12} xs={12} md={8}>
+              </div>
+              <div>
+                <p className="text-[#767676]">VAT number:</p>
                 <input
-                  id="first_name"
-                  className="input-width"
-                  value={formState.first_name}
-                  onChange={(e) => handleInputChange("first_name", e.target.value)}
                   type="text"
-                  style={{height:'40px', borderRadius:'5px'}}
-                  disabled={!isEdit}
+                  className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
+                  id="com_vat"
+                  value={formState.com_vat}
+                  onChange={(e) => handleInputChange("com_vat", e.target.value)}
                 />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
-              <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" >
-                  Last name:
-                </Typography>
-              </Grid>
-              <Grid item sm={12} xs={12} md={8}>
-                <input
-                  id="last_name"
-                  className="input-width"
-                  value={formState.last_name}
-                  onChange={(e) => handleInputChange("last_name", e.target.value)}
-                  type="text"
-                  style={{height:'40px', borderRadius:'5px'}}
-                  disabled={!isEdit}
-                />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
-              <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" >
-                  Email:
-                </Typography>
-              </Grid>
-              <Grid item sm={12} xs={12} md={8}>
-                <input
-                  id="email"
-                  className="input-width"
-                  value={formState.email}
-                  onChange={(e) => handleInputChange("email", e.target.value)}
-                  type="text"
-                  style={{height:'40px', borderRadius:'5px'}}
-                  disabled={!isEdit}
-                />
-              </Grid>
-            </Grid>
-            <Grid container spacing={2} alignItems="center" sx={{marginTop:'5px'}}>
-              <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" >
-                  Language:
-                </Typography>
-              </Grid>
-              <Grid item sm={12} xs={12} md={8}>
-                <CustomSelect
-                  id="language"
-                  value={formState.language}
-                  onChange={handleInputChange}
-                  props={Language}
-                  text="Select a language"
-                />
-              </Grid>
-            </Grid>
-            {/* <Grid container spacing={2} alignItems="center" className="mt-1">
-              <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
-                  Password:
-                </Typography>
-              </Grid>
-              <Grid item sm={12} xs={12} md={8}>
-                <TextField
-                  id="password"
-                  type="password"
-                  className="input-width"
-                  value={formState.password}
-                  onChange={(e) => handleInputChange("password", e.target.value)}
-                  variant="outlined"
-                  disabled={!isEdit}
-                />
-              </Grid>
-            </Grid>
-            <Grid container spacing={1} alignItems="center" className="mt-1">
-              <Grid item sm={12} xs={12} md={4}>
-                <Typography variant="body1" className="text-primary">
-                  Repeat password:
-                </Typography>
-              </Grid>
-              <Grid item sm={12} xs={12} md={8}>
-                <TextField
-                  id="confirm_password"
-                  type="password"
-                  className="input-width"
-                  value={formState.confirm_password}
-                  onChange={(e) => handleInputChange("confirm_password", e.target.value)}
-                  variant="outlined"
-                  disabled={!isEdit}
-                />
-              </Grid>
-            </Grid> */}
-          </Grid>
-        </Grid>
-        <Box className="w-full flex justify-end gap-1">
-          <Box className="mt-3 w-1/3 flex justify-start gap-1">
-            <Button
-              style={{ textTransform: "none", backgroundColor:'#fa6374', textAlign:'center', color:'white' ,marginRight:'10px', marginTop:'3px', width:'70px' }}
-              onClick={handleCancel}
-            >
-              Cancel
-            </Button>
-            <Button
-              style={{ textTransform: "none", backgroundColor:'#00d7ca', textAlign:'center', color:'white', marginRight:'10px', marginTop:'3px' , width:'70px' }}
-              onClick={handleSubmit}
-            >
-              {isEdit ? getEditContent() : getViewContent()}
-            </Button>
-          </Box>
-        </Box>
-      </Box>
+              </div>
+            </div>
+            <h4 className="font-[600] text-[#767676] mt-5 mb-3">COMPANY ADDRESS</h4>
+            <div className="flex flex-col gap-3">
+              <div>
+                <div>
+                  <p className="text-[#767676]">Address/Sreet</p>
+                </div>
+                <div>
+                  <input
+                    id="com_street"
+                    className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
+                    value={formState.com_street}
+                    onChange={(e) => handleInputChange("com_street", e.target.value)}
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div>
+                <div>
+                  <p className="text-[#767676]">Street Number</p>
+                </div>
+                <div>
+                  <input
+                    className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
+                    id="com_street_number"
+                    value={formState.com_street_number}
+                    onChange={(e) => handleInputChange("com_street_number", e.target.value)}
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div>
+                <div>
+                  <p className="text-[#767676]">City</p>
+                </div>
+                <div>
+                  <input
+                    id="com_city"
+                    className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
+                    value={formState.com_city}
+                    onChange={(e) => handleInputChange("com_city", e.target.value)}
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div>
+                <div>
+                  <p className="text-[#767676]">Postal code</p>
+                </div>
+                <div>
+                  <input
+                    id="com_postal"
+                    className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
+                    value={formState.com_postal}
+                    onChange={(e) => handleInputChange("com_postal", e.target.value)}
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div>
+                <div>
+                  <p className="text-[#767676]">Country</p>
+                </div>
+                <div className="max-sm:w-full w-3/4">
+                  <CustomDropdown onSelect={handleInputChange} countries={Countries} />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="md:w-1/2 w-full">
+            <div className="max-md:mt-5 flex max-sm:w-full max-md:w-3/4 max-md:justify-center">
+              <Image src="/images/users/avatar-default.svg" alt="avatar" width={100} height={100} />
+            </div>
+            <h4 className="font-[600] text-[#767676] mt-5 mb-3">USER INFORMATION</h4>
+            <div className="flex flex-col gap-3">
+              <div className="flex max-lg:flex-col lg:justify-between">
+                <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
+                  <div>
+                    <p className="text-[#767676]">First Name</p>
+                  </div>
+                  <div>
+                    <input
+                      id="first_name"
+                      className="rounded-md border-[#767676] py-[5px] w-full sm:w-full md:w-3/4 lg:w-full"
+                      value={formState.first_name}
+                      onChange={(e) => handleInputChange("first_name", e.target.value)}
+                      type="text"
+                    />
+                  </div>
+                </div>
+                <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
+                  <div>
+                    <p className="text-[#767676]">Last Name</p>
+                  </div>
+                  <div>
+                    <input
+                      id="last_name"
+                      className="rounded-md border-[#767676] py-[5px] w-full sm:w-full md:w-3/4 lg:w-full"
+                      value={formState.last_name}
+                      onChange={(e) => handleInputChange("last_name", e.target.value)}
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="flex max-lg:flex-col lg:justify-between">
+                <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
+                  <div>
+                    <p className="text-[#767676]">Language</p>
+                  </div>
+                  <div className="w-full sm:w-full md:w-3/4 lg:w-full">
+                    <CustomSelect
+                      id="language"
+                      value={formState.language}
+                      onChange={handleInputChange}
+                      props={Language}
+                      text="Select a language"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h4 className="font-[600] text-[#767676] mt-5 mb-3">CONTACT INFORMATION</h4>
+
+            <div className="flex flex-col gap-3">
+              <div>
+                <div>
+                  <p className="text-[#767676]">Email Address</p>
+                </div>
+                <div>
+                  <input
+                    id="email"
+                    className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4 lg:w-full"
+                    value={formState.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="w-full flex sm:flex-row flex-col-reverse items-center justify-end gap-5 mt-3">
+          <button
+            type="button"
+            className="bg-[url('/images/button-bg-white.png')] max-sm:bg-[length:100%_40px] bg-[length:160px_40px] rounded-md bg-center bg-no-repeat max-sm:w-full w-[160px] h-[40px] text-[#A536FA] font-bold"
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] text-white font-bold rounded-md"
+            onClick={handleSubmit}
+          >
+            {isSaving ? <Spinner color="" /> : "Save Changes"}
+          </button>
+        </div>
+      </div>
       <ToastContainer />
     </div>
   )
