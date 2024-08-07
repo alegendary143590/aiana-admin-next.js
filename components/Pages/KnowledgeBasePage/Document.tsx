@@ -8,6 +8,8 @@ import { FaInfoCircle } from "react-icons/fa";
 
 import { AUTH_API } from "@/components/utils/serverURL";
 import AlertDialog from "@/components/AlertDialog";
+import { formatDateStringOnly } from "@/components/utils/common"
+
 
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB in bytes
@@ -174,15 +176,17 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
                     {(() => {
                       switch (doc.type) {
                         case "text/plain":
+                        case ".txt":
                           return <Image src="/images/icon_txt.svg" alt="Text Document" width={20} height={20} className="ml-2" />;
                         case "application/pdf":
+                        case ".pdf":
                           return <Image src="/images/icon_pdf.svg" alt="PDF Document" width={20} height={20} className="ml-2" />;
                         default:
                           return <Image src="/images/icon_doc.svg" alt="Other Document" width={20} height={20} className="ml-2" />;
                       }
                     })()}
                   </td>
-                  <td className="sm:px-7 px-3 py-2">{doc.created_at}</td>
+                  <td className="sm:px-7 px-3 py-2">{formatDateStringOnly(doc.created_at)}</td>
                   <td className="sm:px-7 px-3 py-2">
                     <button
                       type="button"

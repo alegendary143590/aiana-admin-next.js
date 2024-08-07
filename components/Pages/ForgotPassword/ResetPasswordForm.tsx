@@ -1,16 +1,8 @@
 import React, { useState } from "react"
 import { ToastContainer, toast } from "react-toastify"
+import Link from "next/link"
 import axios from "axios"
-import {
-  Container,
-  Box,
-  Card,
-  CardContent,
-  TextField,
-  Button,
-  Typography,
-  Link,
-} from "@mui/material"
+
 import { AUTH_API } from "@/components/utils/serverURL"
 
 const ResetPasswordForm = () => {
@@ -66,92 +58,69 @@ const ResetPasswordForm = () => {
   }
 
   return (
-    <Container className="w-[450px] bg-gray-100 flex flex-col justify-center items-center">
-      <div>
-        <Card className="w-full md:w-[450px]">
-          <CardContent>
-            <div className="flex flex-col text-center mt-5">
-              <div className="relative ">
-                <img
-                  src="/images/logo_big.png"
-                  alt="Logo"
-                  className="absolute right-0 mx-auto h-20"
-                />
-              </div>
-              <Typography variant="h5" className="text-primary mt-[100px] font-mono text-[#00d7ca]">
-                Reset Password
-              </Typography>
-              Forgot your password?
-              <br /> No problem.
-            </div>
-            <div className="bg-[#D6ECE7] h-[50px] text-[14px] mt-10 m-[15px] flex items-center justify-center">
-              Enter your Email and instructions will be sent to you!
-            </div>
-
-            <Box
-              className="mt-10"
-              component="form"
-              action="/admin"
-              noValidate
-              sx={{ mt: 3, m: "15px" }}
-            >
-              <Typography variant="body1" className="text-primary font-mono !m-0">
-                Email
-              </Typography>
-
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value)
-                }}
-                id="email"
-                name="email"
-                autoComplete="email"
-                placeholder="Enter email"
-                autoFocus
-                className="bg-white mt-2"
+    <div className="w-[450px] bg-gray-100 flex flex-col justify-center items-center md:p-5 p-2">
+      <div className="w-full">
+        <div>
+          <div className="flex flex-col text-center text-sm">
+            <div className="relative ">
+              <img
+                src="/images/logo_big.png"
+                alt="Logo"
+                className="absolute left-1/2 -translate-x-1/2 mx-auto h-20"
               />
+            </div>
+            <h5 className="text-primary mt-[100px] font-bold text-xl">
+              Reset Password
+            </h5>
+            Forgot your password? No problem.
+          </div>
+          <div className="bg-[#44D7C9] p-3 text-[14px] mt-10 m-[15px] flex items-center justify-center">
+            Enter your email and instructions will be sent to you!
+          </div>
 
-              <div className="mt-2 text-right">
-                <Button
-                  type="button"
-                  onClick={handleSendButton}
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                  className="mt-3 bg-[#00d7ca] w-[95px]"
-                  style={{ textTransform: "none" }}
-                >
-                  Reset
-                </Button>
-              </div>
-              <div className="text-center">
-                <Typography variant="body2">
-                  Or go to&nbsp;
-                  <Link underline="none" href="/signin" variant="body2" className="text-[#00d7ca]">
-                    Sign in
-                  </Link>
-                </Typography>
-              </div>
-            </Box>
-            <ToastContainer />
-          </CardContent>
-        </Card>
+          <div
+            className="mt-10 flex flex-col mx-3"
+          >
+            <label htmlFor="email" className="text-primary font-mono">
+              Email
+            </label>
+
+            <input
+              required
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value)
+              }}
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              placeholder="Enter email"
+              className="bg-white mt-1 rounded-md text-sm"
+            />
+
+            <div className="mt-2 text-right">
+              <button
+                type="button"
+                onClick={handleSendButton}
+                className="mt-3 bg-[#A438FA] w-[95px] text-white rounded-md p-1"
+              >
+                Reset
+              </button>
+            </div>
+            <div className="text-center">
+              <p>
+                Or go to&nbsp;
+                <Link href="/signin">
+                  <span className="text-black font-bold cursor-pointer">Sign in</span>
+                </Link>
+              </p>
+            </div>
+          </div>
+          <ToastContainer />
+        </div>
       </div>
-      <div className="text-center text-muted  mt-4 absolute bottom-20">
-        <Typography
-          variant="body2"
-          color="textSecondary"
-          className="text-gray-300"
-          suppressHydrationWarning
-        >
-          © {new Date().getFullYear()} aiana
-        </Typography>
-      </div>
-    </Container>
+    </div>
   )
 }
 

@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from "react"
 import { useRouter } from "next/router"
 import Image from "next/image"
+import { useSideMenu } from "@/providers/SideMenuProvider"
 import { logOut } from "../utils/common"
 
 const AccountManagementDropdown = () => {
   const { push } = useRouter()
+  const { setRole } = useSideMenu()
 
   const [isOpen, setIsOpen] = useState(false)
   const [userRole, setUserRole] = useState("Guest")
@@ -22,6 +24,7 @@ const AccountManagementDropdown = () => {
     const role = localStorage.getItem("role")
     const name = localStorage.getItem("name")
     if (role) {
+      setRole(role)
       setUserRole(role)
     }
     if (name) {

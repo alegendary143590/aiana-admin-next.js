@@ -25,7 +25,7 @@ const CustomDropdown = ({ countries, onSelect }) => {
 
   const handleCountryChange = (country: any) => {
     setSelectedCountry(country) // Update the selected country state
-    onSelect(country.name)
+    onSelect("com_country", country.name)
     document.getElementById("country-dropdown-menu").classList.toggle("hidden")
   }
 
