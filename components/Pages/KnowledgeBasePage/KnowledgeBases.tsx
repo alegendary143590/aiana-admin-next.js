@@ -146,7 +146,7 @@ const KnowledgeBase = () => {
         <div className="w-full h-[50px] flex items-center justify-between pt-[24px] mb-[10px]">
           <h3 className="font-bold text-2xl">Knowledge Base</h3>
         </div>
-        <div className="max-sm:w-full w-[300px] h-fit mx-auto mt-10 flex flex-col items-center justify-between">
+        <div className="max-sm:w-full w-[350px] h-fit mx-auto mt-10 flex flex-col items-center justify-between">
           <Image src="/images/icon_noKnowledge.svg" alt="no_bot" width={100} height={100} />
           <p className="text-xl font-bold text-center mt-10">No knowledge base created yet</p>
           <p className="text-[#767676] text-center my-5">

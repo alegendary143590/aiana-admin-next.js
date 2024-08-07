@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { useRouter } from "next/router"
-import { FaEdit, FaRegTrashAlt } from "react-icons/fa"
+import { FaEdit } from "react-icons/fa"
 import { ToastContainer, toast } from "react-toastify"
 
 import formatDateString from '@/components/utils/common'
@@ -97,8 +97,7 @@ const UserList = () => {
                   <td><p className="text-[#070E0B] font-bold">{row.com_country}</p><p className="text-[#343434]">{row.com_city}</p></td>
                   <td className="font-bold text-[#070E0B]">{formatDateString(row.created_at)}</td>
                   <td className="text-[#343434]">{row.role}</td>
-                  <td><button type="button" onClick={() => handleRowClick(row.index)} className="p-2 bg-[#F4F4F4] rounded-md mr-5"><FaEdit className="w-5 h-5 text-[#767676]" aria-label="edit icon" /></button><button type="button" className="p-2 bg-[#F4F4F4] rounded-md" onClick={() => console.log('1')}><FaRegTrashAlt className="w-5 h-5 text-[#767676]" aria-label="delete icon" />
-                  </button></td>
+                  <td><button type="button" onClick={() => handleRowClick(row.index)} className="p-2 bg-[#F4F4F4] rounded-md mr-5"><FaEdit className="w-5 h-5 text-[#767676]" aria-label="edit icon" /></button></td>
                 </tr>
               ))}
             </tbody>
