@@ -34,6 +34,7 @@ export const AUTH_API = {
   DELETE_KNOWLEDGEBASE: `${SERVER_API_URL}/del_knowledgebase`,
   DELETE_BOT: `${SERVER_API_URL}/del_bot`,
   DELETE_CHATLOG: `${SERVER_API_URL}/del_chatlog`,
+  DELETE_USER: `${SERVER_API_URL}/del_user`,
   CHATBOT_DATA:`${SERVER_API_URL}/get_chatbot_data`,
   GET_USERS:`${SERVER_API_URL}/get_users`,
   GET_USER_AS_ADMIN: `${SERVER_API_URL}/get_user_as_admin`,
