@@ -3,6 +3,7 @@ import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
 import { useRouter } from "next/router" // Corrected import
 import Image from "next/image"
+import { FaStarOfLife } from "react-icons/fa"
 
 import { AUTH_API } from "@/components/utils/serverURL"
 import Spinner from "@/components/Spinner"
@@ -10,6 +11,7 @@ import CustomDropdown from "@/components/CountrySelect"
 import CustomSelect from "../../CustomSelect"
 import Countries from "../../Countries"
 import Language from "../../Language"
+import { validateForm } from "./validation"
 import "react-phone-input-2/lib/style.css"
 
 const Profile = () => {
@@ -119,6 +121,11 @@ const Profile = () => {
   }
 
   const handleSubmit = () => {
+    const validationError = validateForm(formState)
+    if (validationError !== "") {
+      toast.error(validationError, { position: toast.POSITION.TOP_RIGHT })
+      return ;
+    }
     if (change) {
       setIsSaving(true)
       axios
@@ -320,7 +327,7 @@ const Profile = () => {
               <div className="flex max-lg:flex-col lg:justify-between">
                 <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
                   <div>
-                    <p className="text-[#767676]">First Name</p>
+                    <p className="text-[#767676]">First Name<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
                   </div>
                   <div>
                     <input
@@ -334,7 +341,7 @@ const Profile = () => {
                 </div>
                 <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
                   <div>
-                    <p className="text-[#767676]">Last Name</p>
+                    <p className="text-[#767676]">Last Name<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
                   </div>
                   <div>
                     <input
@@ -384,7 +391,7 @@ const Profile = () => {
             <div className="flex flex-col gap-3">
               <div>
                 <div>
-                  <p className="text-[#767676]">Email Address</p>
+                  <p className="text-[#767676]">Email Address<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
                 </div>
                 <div>
                   <input

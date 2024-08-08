@@ -11,6 +11,7 @@ const EmailPasswordForm = () => {
   const [password, setPassword] = React.useState("")
   const handleAuth = async () => {
     if (email === "") {
+      toast.error("Email is required!", { position: toast.POSITION.TOP_RIGHT })
       return false
     }
     if (password === "") {
@@ -93,7 +94,7 @@ const EmailPasswordForm = () => {
         </form>
         <div className="text-center mt-5 ">
           <p>
-            Already have an account?&nbsp;
+            Don&apos;t have an account?&nbsp;
             <Link href="/signup">
               <span className="pl-3 font-bold cursor-pointer">Sign up</span>
             </Link>

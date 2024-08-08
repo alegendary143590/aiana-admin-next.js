@@ -2,19 +2,29 @@ import { AUTH_API } from "./serverURL";
 
 export default function formatDateString(isoDateString: string): string {
     const date = new Date(isoDateString);
-    
+
     // Get day, month, year, hours, and minutes
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based
     const year = date.getFullYear();
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
-  
+
     // Construct the new date format
     return `${hours}:${minutes} ${day}/${month}/${year}`;
 }
 
-export async function loginUser(email:string, password:string) {
+export function formatDateStringOnly(isoDateString: string): string {
+    const date = new Date(isoDateString);
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const day = String(date.getDate()).padStart(2, '0');
+    const monthIndex = date.getMonth(); // getMonth() returns month index starting from 0 for January
+    const year = date.getFullYear();
+
+    return `${day} ${monthNames[monthIndex]} ${year}`;
+}
+
+export async function loginUser(email: string, password: string) {
     const response = await fetch((`${AUTH_API.LOGIN}`), {
         method: 'POST',
         headers: {
@@ -43,7 +53,7 @@ export function isTimeBetween(startTime: string, endTime: string): boolean {
     const now = new Date();
     const start = new Date(`${now.toDateString()} ${startTime}`);
     const end = new Date(`${now.toDateString()} ${endTime}`);
-  
+
     return now.getTime() >= start.getTime() && now.getTime() <= end.getTime();
 }
 
@@ -55,7 +65,7 @@ export function logOut() {
         localStorage.setItem('userID', "");
         localStorage.setItem('token_expiry', "");
         return true
-    } catch (e){
+    } catch (e) {
         return false
     }
 }

@@ -23,7 +23,7 @@ export default function CustomSelect({ props, text, id, value, onChange }) {
 
   const handleChange = (newValue) => {
     setSelectedValue(newValue);
-    onChange(id, newValue); // Notify parent component about the change
+    onChange(id, newValue.name); // Notify parent component about the change
     setIsOpen(false); // Close the dropdown after selection
   };
 

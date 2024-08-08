@@ -205,6 +205,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
             className="w-full rounded-lg py-4 px-7 text-xl font-bold border-none focus:ring-0"
             type="text"
             value={nameInputValue}
+            placeholder="Enter name of new knowledge base"
             onChange={(e) => setNameInputValue(e.target.value)}
           />
           <hr className="w-full" />
