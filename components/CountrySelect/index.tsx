@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 
-const CustomDropdown = ({ countries, onSelect }) => {
+const CustomDropdown = ({ selectedOption, countries, onSelect }) => {
 
   const menuRef = useRef(null);
 
@@ -9,6 +9,13 @@ const CustomDropdown = ({ countries, onSelect }) => {
     name: "",
     flgURL: "",
   })
+
+  useEffect(() => {
+    const selected = countries.find(item => item.name === selectedOption); // Find the selected country from
+    if (selected) {
+      setSelectedCountry(selected)
+    }
+  }, [selectedOption])
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {

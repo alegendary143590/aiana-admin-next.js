@@ -7,6 +7,10 @@ export default function CustomSelect({ props, text, id, value, onChange }) {
   const [selectedValue, setSelectedValue] = useState(value);
 
   useEffect(() => {
+    setSelectedValue(props.find((option) => option.text === value) || props[0]); // Set initial selected value based on provided value
+  }, [value]);
+
+  useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsOpen(false);
@@ -17,13 +21,13 @@ export default function CustomSelect({ props, text, id, value, onChange }) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     }
-  }, [value]);
+  }, []);
 
   const toggleOpen = () => setIsOpen(!isOpen);
 
   const handleChange = (newValue) => {
     setSelectedValue(newValue);
-    onChange(id, newValue.name); // Notify parent component about the change
+    onChange(id, newValue.text); // Notify parent component about the change
     setIsOpen(false); // Close the dropdown after selection
   };
 

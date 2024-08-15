@@ -200,7 +200,7 @@ const Profile = () => {
     <div className="d-flex flex-column bg-transparent">
       <div className="row justify-center w-[90%] mx-auto p-5">
         <div className="bg-none w-full rounded-lg flex items-center gap-3">
-          <button type="button" className="bg-[#F4F4F4] text-[#767676] font-[300] p-3 rounded-md" onClick={() => router.push("/chatbot")}>
+          <button type="button" className="bg-[#F4F4F4] text-[#767676] font-[300] p-3 rounded-md" onClick={() => router.push("/users")}>
             <FaArrowLeft />
           </button>
           <h3 className="text-lg font-bold">Users</h3>
@@ -303,7 +303,7 @@ const Profile = () => {
                   <p className="text-[#767676]">Country</p>
                 </div>
                 <div className="max-sm:w-full w-3/4">
-                  <CustomDropdown onSelect={handleInputChange} countries={Countries} />
+                  <CustomDropdown selectedOption={formState.com_country} onSelect={handleInputChange} countries={Countries} />
                 </div>
               </div>
             </div>
@@ -317,7 +317,7 @@ const Profile = () => {
               <div className="flex max-lg:flex-col lg:justify-between">
                 <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
                   <div>
-                    <p className="text-[#767676]">First Name<FaStarOfLife className="text-red-700" />
+                    <p className="text-[#767676]">First Name<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" />
                     </p>
                   </div>
                   <div>

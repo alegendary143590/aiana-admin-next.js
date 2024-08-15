@@ -197,7 +197,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
         <button type="button" className="bg-[#F4F4F4] text-[#767676] font-[300] p-3 rounded-md" onClick={() => router.push("/knowledge")}>
           <FaArrowLeft />
         </button>
-        <h3 className="text-lg font-bold">Create Knowledge Base</h3>
+        <h3 className="text-lg font-bold">{newBaseId !== "-1" ? 'Edit Knowledge Base' : 'Create Knowledge Base'}</h3>
       </div>
       <div className="bg-none w-full rounded-lg flex flex-col mt-1 border border-[#CFCFCF]">
         <div className="flex flex-col w-full items-center">

@@ -215,21 +215,28 @@ const KnowledgeBase = () => {
             </div>
             <hr className="my-5" />
             <div className="flex flex-row justify-end gap-3 mx-5 mb-5">
-              <button
-                type="button"
-                className="size-8 text-[12px] rounded-full border-2 border-[#2CA84D] text-[#2CA84D] flex justify-center items-center"
-                onClick={() => handleEditClick(base.id)}
-              >
-                <FaEdit className="w-4 h-4" />
-              </button>
+              <div className="group relative flex justify-center">
+                <button
+                  type="button"
+                  className="size-8 text-[12px] rounded-full border-2 border-[#2CA84D] text-[#2CA84D] flex justify-center items-center"
+                  onClick={() => handleEditClick(base.id)}
+                >
+                  <FaEdit className="w-4 h-4" />
+                </button>
+                <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">Edit</span>
+              </div>
 
-              <button
-                type="button"
-                className="size-8 text-[12px] rounded-full border-2 border-[#D7263C] text-[#D7263C] flex justify-center items-center"
-                onClick={() => handleDeleteButton(base.id)}
-              >
-                <FaRegTrashAlt className="w-4 h-4" />
-              </button>
+              <div className="group relative flex justify-center">
+                <button
+                  type="button"
+                  className="size-8 text-[12px] rounded-full border-2 border-[#D7263C] text-[#D7263C] flex justify-center items-center"
+                  onClick={() => handleDeleteButton(base.id)}
+                >
+                  <FaRegTrashAlt className="w-4 h-4" />
+                </button>
+                <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">Delete</span>
+              </div>
+
 
             </div>
           </div>

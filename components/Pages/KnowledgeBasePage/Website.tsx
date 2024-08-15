@@ -99,7 +99,7 @@ const Website = ({ urls, setUrls }) => {
     <div className="w-full overflow-y-auto">
       <div className="text-center bg-[#F5E8FF] py-2 sm:mx-7 mx-3">
         <span className="text-[#343434] text-sm text-center">
-          <FaInfoCircle className="text-[#A536FA] size-5 inline-block" />
+          <FaInfoCircle className="text-[#A536FA] size-5 inline-block mr-3" />
           Note: Build your Chatbot’s Knowledge Base by uploading urls. These urls train your chatbot to answer questions accurately.
         </span>
       </div>

@@ -1,8 +1,8 @@
 const Language = [
-  { name: "ENG", flgURL: "gb.svg", value: 10 },
-  { name: "DUT", flgURL: "de.svg", value: 20 },
-  { name: "FRE", flgURL: "fr.svg", value: 30 },
-  { name: "SPA", flgURL: "es.svg", value: 40 },
+  { name: "ENG", text: "English", flgURL: "gb.svg", value: 10 },
+  { name: "DUT", text: "Dutch", flgURL: "de.svg", value: 20 },
+  { name: "FRE", text: "French", flgURL: "fr.svg", value: 30 },
+  { name: "SPA", text: "Spanish", flgURL: "es.svg", value: 40 },
 ]
 
 export default Language

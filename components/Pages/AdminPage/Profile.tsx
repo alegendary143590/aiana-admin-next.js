@@ -313,7 +313,7 @@ const Profile = () => {
                   <p className="text-[#767676]">Country</p>
                 </div>
                 <div className="max-sm:w-full w-3/4">
-                  <CustomDropdown onSelect={handleInputChange} countries={Countries} />
+                  <CustomDropdown selectedOption={formState.com_country} onSelect={handleInputChange} countries={Countries} />
                 </div>
               </div>
             </div>
