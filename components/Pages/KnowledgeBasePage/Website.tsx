@@ -7,8 +7,8 @@ import { ToastContainer, toast } from "react-toastify"
 
 import AlertDialog from "@/components/AlertDialog"
 import { AUTH_API } from "@/components/utils/serverURL"
-import { isValidUrl } from "./validation"
 import formatDateString from "@/components/utils/common"
+import { isValidUrl } from "./validation"
 
 // Define the interface for a website object
 interface WebsiteObject {
@@ -133,7 +133,7 @@ const Website = ({ urls, setUrls }) => {
               {urls && urls.map((url, i) =>
                 <tr key={url.id}>
                   <td className="sm:px-7 px-3 py-2">
-                    <a href={`${url.url}`} target="_blank" className="text-[#A438FA] underline">{url.url}</a></td>
+                    <a href={`${url.url}`} target="_blank" className="text-[#A438FA] underline" rel="noreferrer">{url.url}</a></td>
                   <td className="sm:px-7 px-3 py-2">{formatDateString(url.created_at)}</td>
                   <td className="sm:px-7 px-3 py-2">
                     <button
