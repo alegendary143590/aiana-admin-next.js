@@ -31,7 +31,7 @@ const Text = ({ questionAnswers, setQuestionAnswers }) => {
       <div className="text-center bg-[#F5E8FF] py-2 sm:mx-7 mx-3">
         <span className="text-[#343434] text-sm text-center">
           <FaInfoCircle className="text-[#A536FA] size-5 inline-block mr-3" />
-          Note: Add custom texts/questions to build your chatbot’s knowledge base. These texts help train your chatbot to answer questions accurately.
+          Note: Build your Chatbot’s Knowledge Base by uploading urls. The content of these web pages will be used by your chatbot to answer questions accurately.
         </span>
       </div>
       <div className="flex max-md:flex-col">

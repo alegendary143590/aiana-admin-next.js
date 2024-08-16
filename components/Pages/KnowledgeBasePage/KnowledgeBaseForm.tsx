@@ -217,7 +217,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
           >
             <button type="button" className={`${value === 0 && "border-b-2 text-[#A536FA]"} border-[#A536FA] py-3 cursor-pointer`} onClick={() => setValue(0)}>Document</button>
             <button type="button" className={`${value === 1 && "border-b-2 text-[#A536FA]"} border-[#A536FA] py-3 cursor-pointer`} onClick={() => setValue(1)}>Website</button>
-            <button type="button" className={`${value === 2 && "border-b-2 text-[#A536FA]"} border-[#A536FA] py-3 cursor-pointer`} onClick={() => setValue(2)}>Text</button>
+            <button type="button" className={`${value === 2 && "border-b-2 text-[#A536FA]"} border-[#A536FA] py-3 cursor-pointer`} onClick={() => setValue(2)}>Questions & Answers</button>
           </ul>
           <hr className="w-full" />
 
