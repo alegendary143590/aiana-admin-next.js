@@ -6,7 +6,7 @@ import router from "next/router"
 import { ToastContainer, toast } from "react-toastify"
 
 import { AUTH_API } from "@/components/utils/serverURL"
-import formatDateString from '@/components/utils/common'
+import formatDateString, { setExpiryTime } from '@/components/utils/common'
 import AlertDialog from "@/components/AlertDialog"
 
 const Tickets = () => {
@@ -31,6 +31,7 @@ const Tickets = () => {
         .then((response) => {
           if (response.status === 200) {
             setTickets(response.data);
+            setExpiryTime();
           }
           if (response.status === 401) {
             toast.error("Please login!", { position: toast.POSITION.TOP_RIGHT });

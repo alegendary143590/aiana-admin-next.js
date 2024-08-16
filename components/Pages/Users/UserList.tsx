@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 import { FaEdit } from "react-icons/fa"
 import { ToastContainer, toast } from "react-toastify"
 
-import formatDateString from '@/components/utils/common'
+import formatDateString, { setExpiryTime } from '@/components/utils/common'
 import { AUTH_API } from "@/components/utils/serverURL"
 
 const UserList = () => {
@@ -26,6 +26,7 @@ const UserList = () => {
         .then((response) => {
           if (response.status === 200) {
             setUsers(response.data);
+            setExpiryTime();
           }
           if (response.status === 401) {
             toast.error("Please login!", { position: toast.POSITION.TOP_RIGHT });

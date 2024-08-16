@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 
 import { AUTH_API } from "@/components/utils/serverURL"
 import AlertDialog from "@/components/AlertDialog"
+import ScrollableItems from "@/components/ScrollableItems";
+import { setExpiryTime } from "@/components/utils/common";
 
 const KnowledgeBase = () => {
   const [bases, setBases] = React.useState([]);
@@ -40,6 +42,7 @@ const KnowledgeBase = () => {
             toast.error(`HTTP error! Status: ${response.status}`, { position: toast.POSITION.TOP_RIGHT });
             return null;
           }
+          setExpiryTime();
           return response.json();
         })
         .then(data => {
@@ -196,22 +199,11 @@ const KnowledgeBase = () => {
                 <p className="font-bold text-xl">{base.name}</p>
               </div>
             </div>
-            <div className="flex overflow-auto w-full h-[50px] px-5 items-center gap-2">
+            <div className="flex w-full h-[50px] px-5 items-center gap-2">
               <p className="text-sm text-[#070E0B]">Connected with</p>
-              <div>
-                {
-                  base.bot_avatar && base.bot_avatar.map((avatar) => (
-                    <Image
-                      key={avatar}
-                      src={avatar || "/images/logo_sm.png"}
-                      alt="bot_avatar"
-                      width={40}
-                      height={40}
-                      className="object-cover rounded-full"
-                    />)
-                  )
-                }
-              </div>
+
+              <ScrollableItems items={base.bot_avatar.map((item, itemIndex) => { const newItem = { item, index:itemIndex }; return newItem; })} tooltips={base.bot_names} />
+
             </div>
             <hr className="my-5" />
             <div className="flex flex-row justify-end gap-3 mx-5 mb-5">
