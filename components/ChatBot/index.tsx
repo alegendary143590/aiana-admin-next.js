@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { isTimeBetween } from '../utils/common';
+import { isTimeBetween, setExpiryTime } from '../utils/common';
 
 const options:Intl.DateTimeFormatOptions = { 
     weekday: 'short', 
@@ -87,6 +87,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
             setStartTime(data.bot.start_time);
             setEndTime(data.bot.end_time);
             setIsLoading(false);
+            setExpiryTime();
         })
         .catch(error => {
             setIsError(true)
@@ -142,6 +143,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                         setShowYesNo(true); // Show the form if solve is false
                         setIsBook(true);
                     }
+                    setExpiryTime();
                 }
                 setInput("");
                 setIsLoading(false);
@@ -215,6 +217,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                     }
                     setEmail("")
                     setContent("")
+                    setExpiryTime();
                 }
                 setInput("");
                 setIsLoading(false);
