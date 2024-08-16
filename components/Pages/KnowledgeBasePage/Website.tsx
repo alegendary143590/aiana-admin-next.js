@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify"
 
 import AlertDialog from "@/components/AlertDialog"
 import { AUTH_API } from "@/components/utils/serverURL"
+import formatDateString from "@/components/utils/common"
 import { isValidUrl } from "./validation"
 
 // Define the interface for a website object
@@ -99,10 +100,11 @@ const Website = ({ urls, setUrls }) => {
     <div className="w-full overflow-y-auto">
       <div className="text-center bg-[#F5E8FF] py-2 sm:mx-7 mx-3">
         <span className="text-[#343434] text-sm text-center">
-          <FaInfoCircle className="text-[#A536FA] size-5 inline-block" />
+          <FaInfoCircle className="text-[#A536FA] size-5 inline-block mr-3" />
           Note: Build your Chatbot’s Knowledge Base by uploading urls. These urls train your chatbot to answer questions accurately.
         </span>
       </div>
+      <p className="text-center pt-5 font-bold text-sm">Please do not add URLs to websites that contain confidential information or where the publisher has imposed restrictions on sharing.</p>
       <div className="w-full md:inline-flex flex-wrap justify-center items-center px-10 mt-5 max-md:space-y-5 py-10">
         <p className="w-[100px] text-lg">Enter URL:</p>
         <input
@@ -117,10 +119,6 @@ const Website = ({ urls, setUrls }) => {
         </button>
       </div>
       <div>
-        <div className="w-full justify-between flex my-5 sm:px-7 px-3">
-          <h4 className="text-lg font-bold">URLs List</h4>
-          <p className="text-[#767676] text-sm">{urls.length} URL added</p>
-        </div>
         <div className="overflow-auto">
           <table className="min-w-max w-full whitespace-nowrap">
             <thead>
@@ -135,8 +133,8 @@ const Website = ({ urls, setUrls }) => {
               {urls && urls.map((url, i) =>
                 <tr key={url.id}>
                   <td className="sm:px-7 px-3 py-2">
-                    <a href={`${url.url}`} className="text-[#A438FA] underline">{url.url}</a></td>
-                  <td className="sm:px-7 px-3 py-2">{url.created_at}</td>
+                    <a href={`${url.url}`} target="_blank" className="text-[#A438FA] underline" rel="noreferrer">{url.url}</a></td>
+                  <td className="sm:px-7 px-3 py-2">{formatDateString(url.created_at)}</td>
                   <td className="sm:px-7 px-3 py-2">
                     <button
                       type="button"

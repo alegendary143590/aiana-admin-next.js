@@ -69,12 +69,12 @@ const ResetPasswordPage = () => {
           <CardContent>
             <div className="text-center mt-5">
               <img src="/images/logo_big.png" alt="Logo" className="mx-auto h-20" />
-              <Typography variant="h6" className="text-primary font-mono text-[#00d7ca]">
+              <Typography variant="h6" className="font-mono text-[#00d7ca]">
                 Welcome!
               </Typography>
             </div>
             <Box component="form" action="/admin" noValidate sx={{ mt: 3, m: "15px" }}>
-              <Typography variant="body1" className="text-primary font-mono !m-0">
+              <Typography variant="body1" className="font-mono !m-0">
                 New Password
               </Typography>
 
@@ -92,7 +92,7 @@ const ResetPasswordPage = () => {
                 autoFocus
                 className="bg-white mt-2"
               />
-              <Typography variant="body1" className="text-primary font-mono mt-2">
+              <Typography variant="body1" className="font-mono mt-2">
                 Confirm Password
               </Typography>
               <TextField

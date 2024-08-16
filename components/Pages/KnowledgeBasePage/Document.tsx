@@ -125,7 +125,7 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
     <div className="w-full overflow-y-auto">
       <div className="text-center bg-[#F5E8FF] py-2 sm:mx-7 mx-3">
         <span className="text-[#343434] text-sm text-center">
-          <FaInfoCircle className="text-[#A536FA] size-5 inline-block" />
+          <FaInfoCircle className="text-[#A536FA] size-5 inline-block mr-3" />
           Note: Build your Chatbot’s Knowledge Base by uploading documents. These documents train your chatbot to answer questions accurately.
         </span>
       </div>
@@ -140,8 +140,9 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
             Drop files here or click to upload
           </p>
           <p className="text-[#767676] max-sm:hidden text-sm text-center">
-            You can upload multiple files in any format (PDF/DOC/TXT/ETC). Maximum file size is 5MB.
+            Upload files in formats (PDF, DOC(X), TXT) with a maximum size of 5MB.
           </p>
+          <p className="text-[#767676] font-bold text-center text-sm">Please do not upload any confidential data.</p>
 
         </label>
         <input

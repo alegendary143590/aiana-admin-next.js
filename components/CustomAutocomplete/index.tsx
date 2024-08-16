@@ -1,14 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { FaChevronDown } from 'react-icons/fa';
 
 const CustomAutocomplete = ({ currentValue, options, onChange }) => {
     const [inputValue, setInputValue] = useState('');
-    const filteredOptions = options.filter(option => option.toLowerCase().includes(inputValue.toLowerCase()))
     const [isOpen, setIsOpen] = useState(false);
+    const inputRef = useRef(null);
 
     useEffect(() => {
-        console.log('options:', filteredOptions);
-        console.log('inputValue:', inputValue);
-    }, [options, inputValue]);
+        const handleClickOutside = (event: MouseEvent) => {
+            if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        }
+        document.addEventListener('click', handleClickOutside);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        }
+    }, []);
 
     useEffect(() => {
         setInputValue(currentValue);
@@ -20,22 +28,23 @@ const CustomAutocomplete = ({ currentValue, options, onChange }) => {
         setIsOpen(false);
     };
 
+
+    const toggleOpen = () => setIsOpen(!isOpen);
+
     return (
-        <div className="flex flex-col mt-4">
+        <div className="flex flex-col mt-4" ref={inputRef}>
             <div className="relative">
-                <input
-                    type="text"
-                    value={inputValue}
-                    onFocus={() => setIsOpen(true)}
-                    onBlur={() => !isOpen && setIsOpen(false)}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    className="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500"
-                />
+                <div>
+                    <button type="button" onClick={toggleOpen} className="flex justify-between items-center w-full rounded-md border border-[#767676] shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:border-indigo-500" aria-haspopup="true" aria-expanded={isOpen}>
+                        {inputValue || ''}
+                        <FaChevronDown />
+                    </button>
+                </div>
                 {
                     isOpen && <ul className="absolute bottom-12 z-10 w-full bg-white shadow-lg max-h-60 overflow-auto rounded-md my-1 filter">
-                        {filteredOptions.map((option) => (
-                            <button 
-                                type="button" 
+                        {options.map((option) => (
+                            <button
+                                type="button"
                                 key={option}
                                 onClick={() => handleClick(option)}
                                 className="cursor-pointer block px-4 py-2 hover:bg-gray-100 w-full text-start">

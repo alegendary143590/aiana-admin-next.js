@@ -224,7 +224,7 @@ const ChatbotForm = ({ bot }) => {
           <button type="button" className="bg-[#F4F4F4] text-[#767676] font-[300] p-3 rounded-md" onClick={() => router.push("/chatbot")}>
             <FaArrowLeft />
           </button>
-          <h3 className="text-lg font-bold">Create Chatbot</h3>
+          <h3 className="text-lg font-bold">{bot !== "-1" ? "Edit Chatbot" : "Create Chatbot"}</h3>
         </div>
         <div className="bg-none w-full rounded-lg flex flex-col gap-4 mt-1 border border-[#CFCFCF] overflow-auto">
           <div className="flex flex-col w-full items-center">
@@ -286,7 +286,7 @@ const ChatbotForm = ({ bot }) => {
               </div>
               <div className="flex flex-col justify-between md:w-1/2 w-full">
                 <div className="flex flex-col">
-                  <p className="font-bold mb-2 sm:mt-0 mt-4">User Message Color</p>
+                  <p className="font-bold mb-2 sm:mt-0 mt-4">Color</p>
                 </div>
                 <div className="flex flex-col ">
                   <button

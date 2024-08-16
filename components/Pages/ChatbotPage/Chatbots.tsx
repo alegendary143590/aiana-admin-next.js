@@ -166,6 +166,7 @@ const Chatbots = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(description)
     toast.success("Successfully copied!", { position: toast.POSITION.TOP_RIGHT })
+    setOpen(false)
   }
 
   const handleAgree = () => {
@@ -264,13 +265,16 @@ const Chatbots = () => {
                   height={60}
                 />
                 <p className="font-bold text-xl ml-2">{bot.name}</p>
-                {isTimeBetween(bot.start_time, bot.end_time) ? (
-                  <div className="size-5 bg-[#2CA84D] ml-auto rounded-full flex items-center justify-center">
-                    <FaCheck className="text-white size-3" />
-                  </div>
-                ) : (
-                  <div className="size-5 border-[1px] border-[#767676] ml-auto rounded-full flex items-center justify-center" />
-                )}
+                <div className="group relative w-32 ml-auto flex justify-end">
+                  {isTimeBetween(bot.start_time, bot.end_time) ? (
+                    <div className="size-5 bg-[#2CA84D] rounded-full flex items-center justify-center">
+                      <FaCheck className="text-white size-3" />
+                    </div>
+                  ) : (
+                    <div className="size-5 border-[1px] border-[#767676] rounded-full flex items-center justify-center" />
+                  )}
+                  <span className="absolute top-8 w-32 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">Not active / Active</span>
+                </div>
               </div>
 
               <div className="flex-grow flex flex-col text-[.8rem]">
@@ -281,9 +285,8 @@ const Chatbots = () => {
                 <div className="flex items-center">
                   <p className="text-gray-600 w-1/2">Knowledge Base</p>
                   <p
-                    className={`italic font-bold ${
-                      bot.knowledgebase_name ? "text-black" : "text-[#D7263C]"
-                    }`}
+                    className={`italic font-bold ${bot.knowledgebase_name ? "text-black" : "text-[#D7263C]"
+                      }`}
                   >
                     {bot.knowledgebase_name ? bot.knowledgebase_name : "Not Connected"}
                   </p>
@@ -292,7 +295,7 @@ const Chatbots = () => {
             </div>
             <hr className="my-5" />
             <div className="flex flex-row justify-between gap-3 mx-5 mb-5">
-              <div>
+              <div className="group relative flex justify-center">
                 <button
                   type="button"
                   className="size-8 text-[12px] rounded-full border-2 border-[#2CA84D] text-[#2CA84D] flex justify-center items-center"
@@ -300,8 +303,9 @@ const Chatbots = () => {
                 >
                   <FaEdit className="w-4 h-4" />
                 </button>
+                <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">Edit</span>
               </div>
-              <div>
+              <div className="group relative flex justify-center">
                 <button
                   type="button"
                   className="size-8 text-[12px] rounded-full border-2 border-[#184A92] text-[#184A92] flex justify-center items-center"
@@ -309,8 +313,9 @@ const Chatbots = () => {
                 >
                   <FaLink className="w-4 h-4" />
                 </button>
+                <span className="absolute top-9 w-24 text-center scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">Add to website</span>
               </div>
-              <div>
+              <div className="group relative flex justify-center">
                 <button
                   type="button"
                   className="size-8 text-[12px] rounded-full border-2 border-[#A438FA] text-[#A438FA] flex justify-center items-center"
@@ -318,8 +323,9 @@ const Chatbots = () => {
                 >
                   <FaRegCommentAlt className="w-4 h-4" />
                 </button>
+                <span className="absolute top-9 w-24 text-center scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">Test chatbot</span>
               </div>
-              <div>
+              <div className="group relative flex justify-center">
                 <button
                   type="button"
                   className="size-8 text-[12px] rounded-full border-2 border-[#D7263C] text-[#D7263C] flex justify-center items-center"
@@ -327,6 +333,7 @@ const Chatbots = () => {
                 >
                   <FaRegTrashAlt className="w-4 h-4" />
                 </button>
+                <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">Delete</span>
               </div>
             </div>
           </div>

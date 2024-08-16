@@ -46,7 +46,10 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
             ref={alertRef}
           >
             <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-              <h2 className="text-xl font-bold text-center ">https://www.aiana.io</h2>
+              <div className="relative">
+                <h2 className="text-xl font-bold text-center ">https://www.aiana.io</h2>
+                <button type="button" className="absolute top-1/2 -translate-y-1/2 right-0 cursor-pointer text-[#A536FA] font-bold rounded-full" onClick={() => setOpen(false)}>✕</button>
+              </div>
               <hr className="my-2" />
               <h3
                 className="text-[14px] pt-3 pl-3 leading-6 font-medium text-[#767676]"

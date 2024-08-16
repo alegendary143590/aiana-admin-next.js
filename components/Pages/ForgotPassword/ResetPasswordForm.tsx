@@ -69,7 +69,7 @@ const ResetPasswordForm = () => {
                 className="absolute left-1/2 -translate-x-1/2 mx-auto h-20"
               />
             </div>
-            <h5 className="text-primary mt-[100px] font-bold text-xl">
+            <h5 className="mt-[100px] font-bold text-xl">
               Reset Password
             </h5>
             Forgot your password? No problem.
@@ -81,7 +81,7 @@ const ResetPasswordForm = () => {
           <div
             className="mt-10 flex flex-col mx-3"
           >
-            <label htmlFor="email" className="text-primary font-mono">
+            <label htmlFor="email" className="font-mono">
               Email
             </label>
 
