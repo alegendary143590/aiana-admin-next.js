@@ -157,7 +157,6 @@ const KnowledgeBaseForm = ({ baseId }) => {
           badAlert = "The knowledge base includes invalid url."
         }
         toast.success(`Uploaded Successfully! ${badAlert}`, { position: toast.POSITION.TOP_RIGHT });
-        router.push("/knowledge")
       }
     } catch (error) {
 
@@ -210,7 +209,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
           />
           <hr className="w-full" />
         </div>
-        <div className="w-full flex flex-col justify-between my-5">
+        <div className="w-full flex flex-col justify-between my-5 overflow-x-auto">
 
           <ul
             className="flex justify-start gap-7 ml-7"

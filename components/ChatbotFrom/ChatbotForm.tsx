@@ -200,7 +200,6 @@ const ChatbotForm = ({ bot }) => {
         },
       })
       toast.success("Successulfy Created!", { position: toast.POSITION.TOP_RIGHT })
-      router.push("/chatbot")
     } catch (error) {
       console.error("Error uploading:", error)
       if (error.response && error.response.status === 401) {

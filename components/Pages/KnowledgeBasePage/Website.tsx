@@ -7,8 +7,17 @@ import { ToastContainer, toast } from "react-toastify"
 
 import AlertDialog from "@/components/AlertDialog"
 import { AUTH_API } from "@/components/utils/serverURL"
-import formatDateString from "@/components/utils/common"
 import { isValidUrl } from "./validation"
+
+const options: Intl.DateTimeFormatOptions = {
+  weekday: 'short',
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric'
+};
 
 // Define the interface for a website object
 interface WebsiteObject {
@@ -104,7 +113,7 @@ const Website = ({ urls, setUrls }) => {
           Note: Build your Chatbot’s Knowledge Base by uploading urls. These urls train your chatbot to answer questions accurately.
         </span>
       </div>
-      <p className="text-center pt-5 font-bold text-sm">Please do not add URLs to websites that contain confidential information or where the publisher has imposed restrictions on sharing.</p>
+      <p className="text-center pt-5 font-bold text-sm px-5">Please do not add URLs to websites that contain confidential information or where the publisher has imposed restrictions on sharing.</p>
       <div className="w-full md:inline-flex flex-wrap justify-center items-center px-10 mt-5 max-md:space-y-5 py-10">
         <p className="w-[100px] text-lg">Enter URL:</p>
         <input
@@ -134,7 +143,7 @@ const Website = ({ urls, setUrls }) => {
                 <tr key={url.id}>
                   <td className="sm:px-7 px-3 py-2">
                     <a href={`${url.url}`} target="_blank" className="text-[#A438FA] underline" rel="noreferrer">{url.url}</a></td>
-                  <td className="sm:px-7 px-3 py-2">{formatDateString(url.created_at)}</td>
+                  <td className="sm:px-7 px-3 py-2">{new Date(url.created_at).toLocaleDateString("en-US", options)}</td>
                   <td className="sm:px-7 px-3 py-2">
                     <button
                       type="button"
