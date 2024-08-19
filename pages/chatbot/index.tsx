@@ -1,7 +1,3 @@
-import ChatbotPage from "@/components/Pages/ChatbotPage"
+import { Redirect } from '@/lib/redirect'
 
-const Chatbots = () => (
-    <ChatbotPage />
-)
-
-export default Chatbots
+export default Redirect

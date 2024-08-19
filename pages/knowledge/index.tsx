@@ -1,5 +1,3 @@
-import KnowledgeBasePage from "@/components/Pages/KnowledgeBasePage"
+import { Redirect } from '@/lib/redirect'
 
-const KnowledgeBase = () => <KnowledgeBasePage />
-
-export default KnowledgeBase
+export default Redirect

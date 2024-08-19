@@ -6,8 +6,10 @@ import { ToastContainer, toast } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 import Avatar from "@/components/Avatar"
 import Image from "next/image"
+import { useTranslation } from "react-i18next"
 
 const ChatLogs = () => {
+  const { t } = useTranslation('dashboard');
   const [userID, setUserID] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [chatLog, setChatLog] = useState([]);
@@ -82,12 +84,12 @@ const ChatLogs = () => {
   }
 
   const handleRowClick = (sessionId) => {
-    router.push(`/log/log?sessionId=${sessionId}`);
+    router.push(`/${router.query.locale}/log/log?sessionId=${sessionId}`);
   }
 
   if (isLoading) {
     return (
-      <div>Loading...</div>
+      <div>{t('Loading...')}</div>
     )
   }
 
@@ -95,17 +97,17 @@ const ChatLogs = () => {
     <>
       <div className="w-full mx-auto p-5">
         <div className="w-full h-[50px] flex items-center justify-between pt-[24px] mb-[10px]">
-          <h3 className="font-bold text-2xl">Chatlogs</h3>
+          <h3 className="font-bold text-2xl">{t('Chatlogs')}</h3>
         </div>
       </div>
       <table className="w-full rounded-table min-w-[600px]" aria-label="table">
         <thead className="bg-[#EEEEEE] text-[#767676] text-sm ">
           <tr>
-            <th className="px-4 py-2 text-start">CHATBOT NAME</th>
-            <th className="px-4 py-2 text-start">STARTED ON</th>
-            <th className="px-4 py-2 text-start">ENDED ON</th>
-            <th className="px-4 py-2 text-start">STATUS</th>
-            <th className="px-4 py-2 text-start">ACTION</th>
+            <th className="px-4 py-2 text-start">{t('CHATBOT NAME')}</th>
+            <th className="px-4 py-2 text-start">{t('STARTED ON')}</th>
+            <th className="px-4 py-2 text-start">{t('ENDED ON')}</th>
+            <th className="px-4 py-2 text-start">{t('STATUS')}</th>
+            <th className="px-4 py-2 text-start">{t('ACTION')}</th>
           </tr>
         </thead>
         <tbody className="gap-3 my-2">
@@ -132,9 +134,9 @@ const ChatLogs = () => {
                   <button
                     type="button"
                     onClick={() => handleDeleteButton(row.session_id)}
-                    className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md"
+                    className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md flex justify-center items-center"
                   >
-                    <Image src="/images/icon_trash.svg" width={18} height={18} />
+                    <Image src="/images/icon_trash.svg" alt = "trash_icon" width={18} height={18} />
                   </button>
                 </td>
               </tr>

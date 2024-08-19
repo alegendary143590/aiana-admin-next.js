@@ -9,8 +9,10 @@ import { isTimeBetween, setExpiryTime } from "@/components/utils/common"
 import AlertDialog from "@/components/AlertDialog"
 import EmbedAlert from "@/components/Alerts/EmbedAlert"
 import ChatbotPage from "@/components/Pages/ChatPage"
+import { useTranslation } from "react-i18next"
 
 const Chatbots = () => {
+  const { t } = useTranslation('chatbot') // Get the translated text from next-i18next
   const [isLoading, setIsLoading] = React.useState(false)
   const [bots, setBots] = React.useState([])
   const [botId, setBotId] = React.useState("")
@@ -89,7 +91,7 @@ const Chatbots = () => {
     }
   }, []) // Empty dependency array means this effect will only run once after the initial render
   const handleEditClickButton = (id: any) => {
-    router.push(`/chatbot/edit?bot=${id}`)
+    router.push(`/${router.query.locale}/chatbot/edit?bot=${id}`)
   }
   const handleChatClickButton = (id: any) => {
     const bot = bots.find((b) => b.id === id)
@@ -179,19 +181,19 @@ const Chatbots = () => {
     setOpenDialog(false)
   }
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div>{t('Loading...')}</div>
   }
   if (bots && bots.length === 0) {
     return (
       <div className="w-[90%] mx-auto p-5">
         <div className="w-full h-[50px] flex items-center justify-between pt-[24px] mb-[10px]">
-          <h3 className="font-bold text-2xl">Chatbots</h3>
+          <h3 className="font-bold text-2xl">{t('Chatbots')}</h3>
         </div>
         <div className="max-sm:w-full w-[300px] h-fit mx-auto mt-10 flex flex-col items-center justify-between">
           <Image src="/images/no_bot.png" alt="no_bot" width={100} height={100} />
-          <p className="text-xl font-bold text-center mt-10">No chatbots created yet</p>
+          <p className="text-xl font-bold text-center mt-10">{t('No chatbots created yet')}</p>
           <p className="text-[#767676] text-center my-5">
-            Create chatbots to help you communicate. You will see chatbots here after creating!
+            {t('Create chatbots to help you communicate. You will see chatbots here after creating!')}
           </p>
           <div className="w-full flex justify-center">
             <button
@@ -200,13 +202,13 @@ const Chatbots = () => {
               className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] flex items-center justify-center gap-1 text-white font-bold rounded-md"
             >
               <Image src="/images/icon_create.svg" alt="create" width={15} height={15} />
-              <p>Create Chatbot</p>
+              <p>{t('Create Chatbot')}</p>
             </button>
           </div>
         </div>
         <AlertDialog
-          title="Confirm Delete"
-          description="Are you sure you want to delete this item? This action cannot be undone."
+          title={`${t('Confirm Delete')}`}
+          description={`${t('Are you sure you want to delete this item? This action cannot be undone.')}`}
           handleAgree={handleAgree}
           handleDisagree={handleDisagree}
           open={openDialog}
@@ -238,7 +240,7 @@ const Chatbots = () => {
   return (
     <div className="w-[90%] mx-auto p-5">
       <div className="w-full h-[50px] flex items-center justify-between pt-[24px] mb-[10px]">
-        <h3 className="font-bold text-2xl">Chatbots</h3>
+        <h3 className="font-bold text-2xl">{t('Chatbots')}</h3>
         <div>
           <button
             type="button"
@@ -246,7 +248,7 @@ const Chatbots = () => {
             className="bg-[#A536FA] w-[160px] h-[40px] flex items-center justify-center gap-1 text-white font-bold rounded-md"
           >
             <Image src="/images/icon_create.svg" alt="create" width={15} height={15} />
-            <p>Create Chatbot</p>
+            <p>{t('Create Chatbot')}</p>
           </button>
         </div>
       </div>
@@ -254,7 +256,7 @@ const Chatbots = () => {
         {bots.map((bot) => (
           <div
             key={bot.id}
-            className="w-[300px] h-fit border-2 border-[#A438FA] shadow-sm rounded-lg m-3"
+            className="w-[300px] h-fit border-2 border-solid border-[#A438FA] shadow-lg rounded-lg m-3"
           >
             <div className="w-full h-fit px-5 pt-5">
               <div className="w-full flex items-center">
@@ -274,17 +276,17 @@ const Chatbots = () => {
                   ) : (
                     <div className="size-5 border-[1px] border-[#767676] rounded-full flex items-center justify-center" />
                   )}
-                  <span className="absolute top-8 w-32 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">Not active / Active</span>
+                  <span className="absolute top-8 w-32 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{t('Not active / Active')}</span>
                 </div>
               </div>
 
               <div className="flex-grow flex flex-col text-[.8rem]">
                 <div className="mt-3 flex items-center">
-                  <p className="text-gray-600 w-1/2 ">Status</p>
-                  <p className={`italic font-bold ${bot.active ? "text-black" : "text-[#D7263C]"}`}>{bot.active ? "Active" : "Inactive"}</p>
+                  <p className="text-gray-600 w-1/2 ">{t('Status')}</p>
+                  <p className={`italic font-bold ${bot.active ? "text-black" : "text-[#D7263C]"}`}>{bot.active ? "Active":"Inactive"}</p>
                 </div>
                 <div className="flex items-center">
-                  <p className="text-gray-600 w-1/2">Knowledge Base</p>
+                  <p className="text-gray-600 w-1/2">{t('Knowledge Base')}</p>
                   <p
                     className={`italic font-bold ${bot.knowledgebase_name ? "text-black" : "text-[#D7263C]"
                       }`}
@@ -304,7 +306,7 @@ const Chatbots = () => {
                 >
                   <FaEdit className="w-4 h-4" />
                 </button>
-                <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">Edit</span>
+                <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{t('Edit')}</span>
               </div>
               <div className="group relative flex justify-center">
                 <button
@@ -314,7 +316,7 @@ const Chatbots = () => {
                 >
                   <FaLink className="w-4 h-4" />
                 </button>
-                <span className="absolute top-9 w-24 text-center scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">Add to website</span>
+                <span className="absolute top-9 w-24 text-center scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{t('Add to website')}</span>
               </div>
               <div className="group relative flex justify-center">
                 <button
@@ -324,7 +326,7 @@ const Chatbots = () => {
                 >
                   <FaRegCommentAlt className="w-4 h-4" />
                 </button>
-                <span className="absolute top-9 w-24 text-center scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">Test chatbot</span>
+                <span className="absolute top-9 w-24 text-center scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{t('Test chatbot')}</span>
               </div>
               <div className="group relative flex justify-center">
                 <button
@@ -334,7 +336,7 @@ const Chatbots = () => {
                 >
                   <FaRegTrashAlt className="w-4 h-4" />
                 </button>
-                <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">Delete</span>
+                <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{t('Delete')}</span>
               </div>
             </div>
           </div>

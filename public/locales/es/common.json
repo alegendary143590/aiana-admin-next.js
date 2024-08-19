@@ -1,0 +1,18 @@
+{
+    "back-to-home": "Volver a casa",
+    "user": "Mi cuenta",
+    "error-with-status": "Ocurrió un error {{statusCode}} en el servidor",
+    "error-without-status": "Ocurrió un error en el servidor",
+    "h1": "Un ejemplo sencillo",
+    "title": "Inicio | next-i18next",
+    "to-second-page": "A la segunda página",
+    "My Account": "Mi cuenta",
+    "Users": "Usuarios",
+    "Chatbot": "Robots de chat",
+    "Knowledge Base": "Base de conocimientos",
+    "Chatlogs": "Registros de chat",
+    "Tickets": "Boletos",
+    "To add a chatbubble to the bottom right of your website add this script tag to your html": "Para agregar una burbuja de chat en la parte inferior derecha de su sitio web, agregue esta etiqueta de script a su html",
+    "Log out" : "Cerrar sesión",
+    "Copy Script" : "Copiar script"
+}
