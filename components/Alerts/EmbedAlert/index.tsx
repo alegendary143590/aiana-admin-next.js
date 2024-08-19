@@ -1,8 +1,9 @@
 import React from "react"
+import { useTranslation } from "react-i18next"
 
 export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
   const alertRef = React.useRef(null)
-
+  const { t } = useTranslation('common')
   React.useEffect(() => {
     const handleClickOutside = (event) => {
       if (alertRef.current && !alertRef.current.contains(event.target)) {
@@ -17,7 +18,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
 
   // const title = "To embed your chatbot onto your website, paste this snippet into your website's HTML file";
   const title =
-    "To add a chatbubble to the bottom right of your website add this script tag to your html"
+    `${t("To add a chatbubble to the bottom right of your website add this script tag to your html")}`
 
   return (
     open && (
@@ -68,7 +69,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
                   onClick={handleCopy}
                   className="mt-3 w-full inline-flex justify-center rounded-md border shadow-sm px-4 py-2 transition duration-150 ease-out border-[#A536FA] text-base font-medium hover:bg-[#A536FA] hover:text-white focus:outline-none sm:mt-0 sm:w-auto sm:text-sm"
                 >
-                  Copy Script
+                  {t('Copy Script')}
                 </button>
               </div>
             </div>

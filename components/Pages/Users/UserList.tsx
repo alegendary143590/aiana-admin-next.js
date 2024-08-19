@@ -6,8 +6,10 @@ import { ToastContainer, toast } from "react-toastify"
 
 import formatDateString, { setExpiryTime } from '@/components/utils/common'
 import { AUTH_API } from "@/components/utils/serverURL"
+import { useTranslation } from "react-i18next"
 
 const UserList = () => {
+   const { t } = useTranslation('users');
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState([]);
@@ -61,19 +63,19 @@ const UserList = () => {
   }, []);
 
   const handleRowClick = (index) => {
-    router.push(`/users/user?user=${index}`);
+    router.push(`/${router.query.locale}/users/user?user=${index}`);
   }
 
   if (isLoading) {
     return (
-      <div>Loading...</div>
+      <div>{t('Loading...')}</div>
     )
   }
 
   return (
     <div>
       <div className="w-full h-[50px] flex items-center justify-start text-black_8 font-bold pt-[20px] mb-[10px] text-2xl pl-10">
-        Users
+        {t('Users')}
       </div>
       {users.length === 0 ? (
         <div className="text-center w-full">There is no user</div>
@@ -82,12 +84,12 @@ const UserList = () => {
           <table style={{ minWidth: 700 }} aria-label="customized table" className="overflow-auto border-collapse text-sm mx-auto w-full">
             <thead className="bg-[#EEEEEE] text-[#767676] font-bold">
               <tr>
-                <td className="px-5 py-2">NAME</td>
-                <td className="">CONTACTS</td>
-                <td className="">LOCATION</td>
-                <td className="">REGISTERED AT</td>
-                <td className="">ROLE</td>
-                <td className="">ACTION</td>
+                <td className="px-5 py-2">{t('NAME')}</td>
+                <td className="">{t('CONTACTS')}</td>
+                <td className="">{t('LOCATION')}</td>
+                <td className="">{t('REGISTERED AT')}</td>
+                <td className="">{t('ROLE')}</td>
+                <td className="">{t('ACTION')}</td>
               </tr>
             </thead>
             <tbody>

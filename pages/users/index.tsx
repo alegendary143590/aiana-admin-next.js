@@ -1,5 +1,3 @@
-import Users from "@/components/Pages/Users"
+import { Redirect } from '@/lib/redirect'
 
-const Dashboard = () => <Users />
-
-export default Dashboard
+export default Redirect

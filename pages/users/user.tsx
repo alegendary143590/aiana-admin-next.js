@@ -1,5 +1,3 @@
-import UserPage from "@/components/Pages/Users/User"
+import { Redirect } from '@/lib/redirect'
 
-const User = () => <UserPage />
-
-export default User
+export default Redirect
