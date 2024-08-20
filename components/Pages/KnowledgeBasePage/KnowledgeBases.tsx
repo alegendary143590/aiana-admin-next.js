@@ -8,9 +8,12 @@ import { toast } from "react-toastify";
 import { AUTH_API } from "@/components/utils/serverURL"
 import AlertDialog from "@/components/AlertDialog"
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ScrollableItems from "@/components/ScrollableItems";
 import { setExpiryTime } from "@/components/utils/common";
 import { useTranslation } from "react-i18next";
+=======
+>>>>>>> parent of cabe3e5 (update expiry time and scrollable items)
 =======
 >>>>>>> parent of cabe3e5 (update expiry time and scrollable items)
 
@@ -204,12 +207,15 @@ const KnowledgeBase = () => {
               </div>
             </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <div className="flex w-full h-[50px] px-5 items-center gap-2">
               <p className="text-sm text-[#070E0B]">{t('Connected with')}</p>
 
               <ScrollableItems items={base.bot_avatar.map((item, itemIndex) => { const newItem = { item, index:itemIndex }; return newItem; })} tooltips={base.bot_names} />
 
 =======
+=======
+>>>>>>> parent of cabe3e5 (update expiry time and scrollable items)
             <div className="flex overflow-auto w-full h-[50px] px-5 items-center gap-2">
               <p className="text-sm text-[#070E0B]">Connected with</p>
               <div>
@@ -226,6 +232,9 @@ const KnowledgeBase = () => {
                   )
                 }
               </div>
+<<<<<<< HEAD
+>>>>>>> parent of cabe3e5 (update expiry time and scrollable items)
+=======
 >>>>>>> parent of cabe3e5 (update expiry time and scrollable items)
             </div>
             <hr className="my-5" />
