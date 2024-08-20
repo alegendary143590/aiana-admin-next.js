@@ -6,12 +6,10 @@ import router from "next/router"
 import { ToastContainer, toast } from "react-toastify"
 
 import { AUTH_API } from "@/components/utils/serverURL"
-import formatDateString from '@/components/utils/common'
+import formatDateString, { setExpiryTime } from '@/components/utils/common'
 import AlertDialog from "@/components/AlertDialog"
-import { useTranslation } from "react-i18next"
 
 const Tickets = () => {
-  const { t }  = useTranslation('ticket');
   const [userId, setUserId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [tickets, setTickets] = useState([]);
@@ -33,6 +31,7 @@ const Tickets = () => {
         .then((response) => {
           if (response.status === 200) {
             setTickets(response.data);
+            setExpiryTime();
           }
           if (response.status === 401) {
             toast.error("Please login!", { position: toast.POSITION.TOP_RIGHT });
@@ -114,7 +113,7 @@ const Tickets = () => {
 
   if (isLoading || !userId) {
     return (
-      <div>{t('Loading...')}</div>
+      <div>Loading...</div>
     )
   }
 
@@ -122,22 +121,22 @@ const Tickets = () => {
     <div>
       <div className="w-full mx-auto p-5">
         <div className="w-full h-[50px] flex items-center justify-between pt-[24px] mb-[10px]">
-          <h3 className="font-bold text-2xl">{t('Chatlogs')}</h3>
+          <h3 className="font-bold text-2xl">Chatlogs</h3>
         </div>
       </div>
       {tickets.length === 0 ? (
-        <div className="text-center w-full">{t('There is no ticket')}</div>
+        <div className="text-center w-full">There is no ticket</div>
       ) : (
         <table className="w-full rounded-table min-w-[600px]" aria-label="table">
           <thead className="bg-[#EEEEEE] text-[#767676] text-sm ">
             <tr>
-              <th className="px-4 py-2 text-start">{t('No')}</th>
-              <th className="px-4 py-2 text-start">{t('Email')}</th>
-              <th className="px-4 py-2 text-start">{t('Website')}</th>
-              <th className="px-4 py-2 text-start">{t('Content')}</th>
-              <th className="px-4 py-2 text-start">{t('Status')}</th>
-              <th className="px-4 py-2 text-start">{t('Created at')}</th>
-              <th className="px-4 py-2 text-start">{t('Action')}</th>
+              <th className="px-4 py-2 text-start">No</th>
+              <th className="px-4 py-2 text-start">Email</th>
+              <th className="px-4 py-2 text-start">Website</th>
+              <th className="px-4 py-2 text-start">Content</th>
+              <th className="px-4 py-2 text-start">Status</th>
+              <th className="px-4 py-2 text-start">Created at</th>
+              <th className="px-4 py-2 text-start">Action</th>
             </tr>
           </thead>
           <tbody className="gap-3 my-2">
@@ -155,9 +154,9 @@ const Tickets = () => {
                     <button
                       type="button"
                       onClick={() => handleCancelButton(row.id)}
-                      className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md flex justify-center items-center"
+                      className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md"
                     >
-                      <Image src="/images/icon_trash.svg" alt="icon_trash" width={18} height={18} />
+                      <Image src="/images/icon_trash.svg" width={18} height={18} />
                     </button>
                   </td>
                 </tr>
@@ -167,8 +166,8 @@ const Tickets = () => {
         </table>
       )}
       <AlertDialog
-        title={t("Confirm Delete")}
-        description={t("Are you sure you want to delete this item? This action cannot be undone.")}
+        title="Confirm Delete"
+        description="Are you sure you want to delete this item? This action cannot be undone."
         handleAgree={handleAgree}
         handleDisagree={handleDisagree}
         open={openDialog}

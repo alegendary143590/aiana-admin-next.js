@@ -5,8 +5,9 @@ import router from "next/router"
 import Image from "next/image"
 import { ToastContainer, toast } from "react-toastify"
 import { FaCaretDown } from "react-icons/fa"
-import { useTranslation } from "react-i18next"
+
 import { AUTH_API } from "@/components/utils/serverURL"
+import BasicSelect from "@/components/DropMenu"
 import { isTimeBetween } from "@/components/utils/common"
 import Spinner from "@/components/Spinner"
 import Avatar from "../../Avatar"
@@ -33,11 +34,10 @@ const ChatPage = ({
   visible,
   setVisible,
 }) => {
-  const {t} = useTranslation(['chatbot']);
   const [messages, setMessages] = useState([
-    { id: uuidv4(), isBot: true, text: `${t("Hello! How can I assist you today?")}` },
+    { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" },
   ])
-  const [lang, ] = useState(10)
+  const [lang, setLang] = useState(10)
   const inputRef = useRef(null)
   const [botAvatar, setBotAvatar] = useState("")
   const [input, setInput] = useState("")
@@ -50,13 +50,14 @@ const ChatPage = ({
   const [showForm, setShowForm] = useState(false) // State to manage whether to show the form
   const [email, setEmail] = useState("") // State to store email input
   const [content, setContent] = useState("") // State to store content input
+
   useEffect(() => {
     if (visible) {
       setVisibleClass("h-[600px]")
       setBotAvatar(avatar === "" ? "/images/logo_sm.png" : avatar)
       const session = uuidv4().toString()
       setSessionId(session)
-      setMessages([{ id: session, isBot: true, text: `${t("Hello! How can I assist you today?")}` }])
+      setMessages([{ id: session, isBot: true, text: "Hello! How can I assist you today?" }])
     } else {
       setVisibleClass("h-[0px]")
     }
@@ -231,7 +232,7 @@ const ChatPage = ({
 
   return (
     <div
-      className={`sm:w-[400px] w-full transition-all rounded-md duration-300 ease-in-out absolute right-0 bottom-0 shadow-xl flex flex-col overflow-auto bg-white ${visibleClass}`}
+      className={`sm:w-[400px] w-full transition-all rounded-md duration-300 ease-in-out absolute right-0 bottom-0 border-solid border-2 flex flex-col overflow-auto bg-white ${visibleClass}`}
     >
       <div className="relative h-[70px] flex">
         <div
@@ -241,6 +242,9 @@ const ChatPage = ({
           <div className="flex items-center">
             <Avatar src={botAvatar} name="bot avatar" className="mr-2 size-12 rounded-full" />
             <h3 className="ml-2 text-[16px] font-bold text-white">{botName}</h3>
+          </div>
+          <div className="flex items-center w-32">
+            <BasicSelect setLang={setLang} />
           </div>
           <button type="button" className="w-8" onClick={() => setVisible(false)}>
             <FaCaretDown />
@@ -289,21 +293,21 @@ const ChatPage = ({
             className="mr-2 py-2 px-4 text-white bg-[#A536FA]"
             onClick={handleYesClick}
           >
-            {t('Yes')}
+            Yes
           </button>
           <button
             type="button"
             className="py-2 px-4 text-[#A536FA] border-[#A536FA] border"
             onClick={handleNoClick}
           >
-            {t('No')}
+            No
           </button>
         </div>
       )}
       {showForm && (
         <div className="p-4 mt-2">
           <p className="text-center text-[#070E0B]">
-           {t('Please provide your email and content to book a ticket')}
+            Please provide your email and content to book a ticket
           </p>
           <input
             type="email"
@@ -325,14 +329,14 @@ const ChatPage = ({
               className="mr-2 py-2 px-4 text-white bg-[#A536FA]"
               onClick={handleOkayClick}
             >
-              {t('Okay')}
+              Okay
             </button>
             <button
               type="button"
               className="py-2 px-4 text-[#A536FA] border-[#A536FA] border"
               onClick={handleCancelClick}
             >
-              {t('Cancel')}
+              Cancel
             </button>
           </div>
         </div>

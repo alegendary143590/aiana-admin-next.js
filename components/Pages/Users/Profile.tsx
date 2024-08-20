@@ -4,7 +4,7 @@ import { useRouter } from "next/router" // Corrected import
 import Image from "next/image"
 import { ToastContainer, toast } from "react-toastify"
 import { FaArrowLeft, FaStarOfLife } from "react-icons/fa"
-import { useTranslation } from "react-i18next"
+
 import { AUTH_API } from "@/components/utils/serverURL"
 import Countries from "@/components/Countries"
 import Spinner from "@/components/Spinner"
@@ -30,7 +30,7 @@ const Profile = () => {
     com_street_number: "",
     com_website: "",
   }
-  const { t } = useTranslation('admin') // Get the translated text from next-i18next
+
   const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
   const [change, setChange] = useState(false)
   const [userId, setUserId] = useState("")
@@ -114,7 +114,7 @@ const Profile = () => {
     const validationError = validateForm(formState)
     if (validationError !== "") {
       toast.error(validationError, { position: toast.POSITION.TOP_RIGHT })
-      return;
+      return ;
     }
 
 
@@ -189,77 +189,62 @@ const Profile = () => {
 
   const handleCancel = () => {
     if (isEdit) setIsEdit(false)
-    else router.push(`/${router.query.locale}/users`)
+    else router.push('/users')
   }
 
   if (isLoading) {
-    return <div>{t('Loading...')}</div>
+    return <div>Loading...</div>
   }
 
   return (
     <div className="d-flex flex-column bg-transparent">
       <div className="row justify-center w-[90%] mx-auto p-5">
         <div className="bg-none w-full rounded-lg flex items-center gap-3">
-          <button type="button" className="bg-[#F4F4F4] text-[#767676] font-[300] p-3 rounded-md" onClick={handleCancel}>
+          <button type="button" className="bg-[#F4F4F4] text-[#767676] font-[300] p-3 rounded-md" onClick={() => router.push("/users")}>
             <FaArrowLeft />
           </button>
-          <h3 className="text-lg font-bold">{t('Back to Users')}</h3>
+          <h3 className="text-lg font-bold">Users</h3>
         </div>
-        <h3 className="font-bold text-2xl">{t('myAccount')}</h3>
         <div className="flex max-md:flex-col mx-auto">
           <div className="md:w-1/2 w-full">
-            <h4 className="font-[600] text-[#767676] mt-5 mb-3">{t('CompanyInformation')}</h4>
-
+            <h4 className="font-[600] text-[#767676] mt-5 mb-3">COMPANY INFORMATION</h4>
             <div className="flex flex-col gap-3">
               <div>
-                <div>
-                  <p className="text-[#767676]">{t('CompanyName')}</p>
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    id="com_name"
-                    className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
-                    value={formState.com_name}
-                    onChange={(e) => handleInputChange("com_name", e.target.value)}
-                  />
-                </div>
+                <p className="text-[#767676]">Company Name</p>
+                <input
+                  type="text"
+                  id="com_name"
+                  className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
+                  value={formState.com_name}
+                  onChange={(e) => handleInputChange("com_name", e.target.value)}
+                />
               </div>
               <div>
-                <div>
-                  <p className="text-[#767676]">{t('CompanyURL')}</p>
-                </div>
-                <div>
-                  <input
-                    id="com_website"
-                    className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
-                    value={formState.com_website}
-                    onChange={(e) => handleInputChange("com_website", e.target.value)}
-                    type="text"
-                  />
-                </div>
+                <p className="text-[#767676]">Company URL</p>
+                <input
+                  id="com_website"
+                  className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
+                  value={formState.com_website}
+                  onChange={(e) => handleInputChange("com_website", e.target.value)}
+                  type="text"
+                />
               </div>
               <div>
-                <div>
-                  <p className="text-[#767676]">{t('VATNumber')}</p>
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
-                    id="com_vat"
-                    value={formState.com_vat}
-                    onChange={(e) => handleInputChange("com_vat", e.target.value)}
-                  />
-                </div>
+                <p className="text-[#767676]">VAT number:</p>
+                <input
+                  type="text"
+                  className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
+                  id="com_vat"
+                  value={formState.com_vat}
+                  onChange={(e) => handleInputChange("com_vat", e.target.value)}
+                />
               </div>
             </div>
-
-            <h4 className="font-[600] text-[#767676] mt-5 mb-3">{t('CompanyAddress')}</h4>
+            <h4 className="font-[600] text-[#767676] mt-5 mb-3">COMPANY ADDRESS</h4>
             <div className="flex flex-col gap-3">
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('Address/Street')}</p>
+                  <p className="text-[#767676]">Address/Sreet</p>
                 </div>
                 <div>
                   <input
@@ -273,7 +258,7 @@ const Profile = () => {
               </div>
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('StreetNumber')}</p>
+                  <p className="text-[#767676]">Street Number</p>
                 </div>
                 <div>
                   <input
@@ -287,7 +272,7 @@ const Profile = () => {
               </div>
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('City')}</p>
+                  <p className="text-[#767676]">City</p>
                 </div>
                 <div>
                   <input
@@ -301,7 +286,7 @@ const Profile = () => {
               </div>
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('PostalCode')}</p>
+                  <p className="text-[#767676]">Postal code</p>
                 </div>
                 <div>
                   <input
@@ -315,7 +300,7 @@ const Profile = () => {
               </div>
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('Country')}</p>
+                  <p className="text-[#767676]">Country</p>
                 </div>
                 <div className="max-sm:w-full w-3/4">
                   <CustomDropdown selectedOption={formState.com_country} onSelect={handleInputChange} countries={Countries} />
@@ -327,12 +312,13 @@ const Profile = () => {
             <div className="max-md:mt-5 flex max-sm:w-full max-md:w-3/4 max-md:justify-center">
               <Image src="/images/users/avatar-default.svg" alt="avatar" width={100} height={100} />
             </div>
-            <h4 className="font-[600] text-[#767676] mt-5 mb-3">{t('UserInformation')}</h4>
+            <h4 className="font-[600] text-[#767676] mt-5 mb-3">USER INFORMATION</h4>
             <div className="flex flex-col gap-3">
               <div className="flex max-lg:flex-col lg:justify-between">
                 <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
                   <div>
-                    <p className="text-[#767676]">{t('firstName')}<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
+                    <p className="text-[#767676]">First Name<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" />
+                    </p>
                   </div>
                   <div>
                     <input
@@ -346,7 +332,7 @@ const Profile = () => {
                 </div>
                 <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
                   <div>
-                    <p className="text-[#767676]">{t('lastName')}<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
+                    <p className="text-[#767676]">Last Name<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
                   </div>
                   <div>
                     <input
@@ -362,7 +348,7 @@ const Profile = () => {
               <div className="flex max-lg:flex-col lg:justify-between">
                 <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
                   <div>
-                    <p className="text-[#767676]">{t('Language')}</p>
+                    <p className="text-[#767676]">Language</p>
                   </div>
                   <div className="w-full sm:w-full md:w-3/4 lg:w-full">
                     <CustomSelect
@@ -377,12 +363,12 @@ const Profile = () => {
               </div>
             </div>
 
-            <h4 className="font-[600] text-[#767676] mt-5 mb-3">{t('ContactInformation')}</h4>
+            <h4 className="font-[600] text-[#767676] mt-5 mb-3">CONTACT INFORMATION</h4>
 
             <div className="flex flex-col gap-3">
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('EmailAddress')}<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
+                  <p className="text-[#767676]">Email Address<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
                 </div>
                 <div>
                   <input
@@ -403,14 +389,14 @@ const Profile = () => {
             className="bg-[url('/images/button-bg-white.png')] max-sm:bg-[length:100%_40px] bg-[length:160px_40px] rounded-md bg-center bg-no-repeat max-sm:w-full w-[160px] h-[40px] text-[#A536FA] font-bold"
             onClick={handleCancel}
           >
-            {t('Cancel')}
+            Cancel
           </button>
           <button
             type="button"
             className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] text-white font-bold rounded-md"
             onClick={handleSubmit}
           >
-            {isSaving ? <Spinner color="" /> : `${t('SaveChanges')}`}
+            {isSaving ? <Spinner color="" /> : "Save Changes"}
           </button>
         </div>
       </div>

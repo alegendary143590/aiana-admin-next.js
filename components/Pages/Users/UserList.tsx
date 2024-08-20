@@ -4,12 +4,10 @@ import { useRouter } from "next/router"
 import { FaEdit } from "react-icons/fa"
 import { ToastContainer, toast } from "react-toastify"
 
-import formatDateString from '@/components/utils/common'
+import formatDateString, { setExpiryTime } from '@/components/utils/common'
 import { AUTH_API } from "@/components/utils/serverURL"
-import { useTranslation } from "react-i18next"
 
 const UserList = () => {
-   const { t } = useTranslation('users');
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState([]);
@@ -28,6 +26,7 @@ const UserList = () => {
         .then((response) => {
           if (response.status === 200) {
             setUsers(response.data);
+            setExpiryTime();
           }
           if (response.status === 401) {
             toast.error("Please login!", { position: toast.POSITION.TOP_RIGHT });
@@ -62,19 +61,19 @@ const UserList = () => {
   }, []);
 
   const handleRowClick = (index) => {
-    router.push(`/${router.query.locale}/users/user?user=${index}`);
+    router.push(`/users/user?user=${index}`);
   }
 
   if (isLoading) {
     return (
-      <div>{t('Loading...')}</div>
+      <div>Loading...</div>
     )
   }
 
   return (
     <div>
       <div className="w-full h-[50px] flex items-center justify-start text-black_8 font-bold pt-[20px] mb-[10px] text-2xl pl-10">
-        {t('Users')}
+        Users
       </div>
       {users.length === 0 ? (
         <div className="text-center w-full">There is no user</div>
@@ -83,12 +82,12 @@ const UserList = () => {
           <table style={{ minWidth: 700 }} aria-label="customized table" className="overflow-auto border-collapse text-sm mx-auto w-full">
             <thead className="bg-[#EEEEEE] text-[#767676] font-bold">
               <tr>
-                <td className="px-5 py-2">{t('NAME')}</td>
-                <td className="">{t('CONTACTS')}</td>
-                <td className="">{t('LOCATION')}</td>
-                <td className="">{t('REGISTERED AT')}</td>
-                <td className="">{t('ROLE')}</td>
-                <td className="">{t('ACTION')}</td>
+                <td className="px-5 py-2">NAME</td>
+                <td className="">CONTACTS</td>
+                <td className="">LOCATION</td>
+                <td className="">REGISTERED AT</td>
+                <td className="">ROLE</td>
+                <td className="">ACTION</td>
               </tr>
             </thead>
             <tbody>

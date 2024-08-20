@@ -1,3 +1,7 @@
-import { Redirect } from '@/lib/redirect'
+import DashboardPage from "@/components/Pages/Dashboard"
 
-export default Redirect
+const Dashboard = () => (
+    <DashboardPage />
+)
+
+export default Dashboard

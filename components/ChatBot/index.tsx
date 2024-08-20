@@ -1,15 +1,14 @@
 import {useState, useEffect, useRef} from 'react'
 import axios from 'axios';
-import { useTranslation } from 'react-i18next';
-import { v4 as uuidv4 } from 'uuid';
-import { ToastContainer, toast } from "react-toastify"
 import { AUTH_API } from '@/components/utils/serverURL';
 import { Avatar, Typography, Button, Box, Paper, IconButton, CircularProgress } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { ToastContainer, toast } from "react-toastify"
+import { v4 as uuidv4 } from 'uuid';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { isTimeBetween } from '../utils/common';
+import { isTimeBetween, setExpiryTime } from '../utils/common';
 
 const options:Intl.DateTimeFormatOptions = { 
     weekday: 'short', 
@@ -30,9 +29,9 @@ const ChatBot = ({ userIndex, botId, website }) => {
         avatar: "",
         color: "",
     }
-    const {t } = useTranslation(['chatbot', 'common']);
+
     const [messages, setMessages] = useState([
-        { id: uuidv4(), isBot: true, text: `${t("Hello! How can I assist you today?")}` }
+        { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" }
     ]);
     const [isError, setIsError] = useState(false)
     const [isVisible, setIsVisible] = useState(false)
@@ -66,7 +65,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
             const session = uuidv4().toString();
             setSessionId(session);
             setMessages([
-                { id: session, isBot: true, text: `${t("Hello! How can I assist you today?")}` }
+                { id: session, isBot: true, text: "Hello! How can I assist you today?" }
             ]);
         } else {
             setVisibleClass("hidden");
@@ -88,6 +87,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
             setStartTime(data.bot.start_time);
             setEndTime(data.bot.end_time);
             setIsLoading(false);
+            setExpiryTime();
         })
         .catch(error => {
             setIsError(true)
@@ -143,6 +143,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                         setShowYesNo(true); // Show the form if solve is false
                         setIsBook(true);
                     }
+                    setExpiryTime();
                 }
                 setInput("");
                 setIsLoading(false);
@@ -216,6 +217,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                     }
                     setEmail("")
                     setContent("")
+                    setExpiryTime();
                 }
                 setInput("");
                 setIsLoading(false);

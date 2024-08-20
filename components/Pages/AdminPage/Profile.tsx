@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
+import { ToastContainer, toast } from "react-toastify"
 import { useRouter } from "next/router" // Corrected import
 import Image from "next/image"
-import { useTranslation } from 'next-i18next'
 import { FaStarOfLife } from "react-icons/fa"
-import { ToastContainer, toast } from "react-toastify"
-import i18nextConfig from '@/next-i18next.config'
+
 import { AUTH_API } from "@/components/utils/serverURL"
 import Spinner from "@/components/Spinner"
 import CustomDropdown from "@/components/CountrySelect"
@@ -13,12 +12,9 @@ import CustomSelect from "../../CustomSelect"
 import Countries from "../../Countries"
 import Language from "../../Language"
 import { validateForm } from "./validation"
-
 import "react-phone-input-2/lib/style.css"
 
 const Profile = () => {
-  const { t } = useTranslation('admin') // Get the translated text from next-i18next
-
   const INITIAL_REGISTER_OBJ = {
     first_name: "",
     last_name: "",
@@ -42,54 +38,6 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const router = useRouter() // Use the router from useRouter
-  const currentLocale =
-    router.query.locale || i18nextConfig.i18n.defaultLocale
-  const [localeLanguage, setLocaleLanguage] = useState(currentLocale)
-
-  const ChangeLocale = (locale) => {
-    if (currentLocale === locale) return;
-    let pName = router.pathname
-    let href = router.asPath
-    Object.keys(router.query).forEach(k => {
-      if (k === 'locale') {
-        pName = pName.replace(`[${k}]`, locale)
-        return
-      }
-      const queryValue = Array.isArray(router.query[k]) ? router.query[k][0] : router.query[k];
-      // Ensure queryValue is a string before using it in replace
-      pName = pName.replace(`[${k}]`, String(queryValue));
-    })
-    if (locale) {
-      href = pName
-    }
-    if (href.indexOf(`/${locale}`) < 0) {
-      href = `/${locale}${href}`
-    }
-    router.push(href)
-  }
-
-  useEffect(() => {
-    let language = 'en';
-    console.log(localeLanguage);
-    switch (localeLanguage) {
-      case "English":
-        language = 'en'
-        break
-      case "French":
-        language = 'fr'
-        break
-      case "Dutch":
-        language = 'nl'
-        break
-      case "Spanish":
-        language = 'es'
-        break
-      default:
-        language = `${currentLocale}`;
-        break
-    }
-    ChangeLocale(language)
-  }, [localeLanguage])
 
   useEffect(() => {
     const userID = localStorage.getItem("userID")
@@ -115,7 +63,6 @@ const Profile = () => {
               `${userData.first_name} ${userData.last_name[0].toUpperCase()}.`,
             )
             setRole(userData.role)
-            setLocaleLanguage(userData.language)
             localStorage.setItem("role", userData.role)
             setFormState((prevState) => ({
               ...prevState,
@@ -177,7 +124,7 @@ const Profile = () => {
     const validationError = validateForm(formState)
     if (validationError !== "") {
       toast.error(validationError, { position: toast.POSITION.TOP_RIGHT })
-      return;
+      return ;
     }
     if (change) {
       setIsSaving(true)
@@ -209,7 +156,6 @@ const Profile = () => {
         )
         .then((response) => {
           if (response.status === 201) {
-            setLocaleLanguage(formState.language)
             toast.success("Successfully updated!", { position: toast.POSITION.TOP_RIGHT })
           } else if (response.status === 401) {
             toast.error("Session Expired! Please login again!", {
@@ -248,21 +194,21 @@ const Profile = () => {
   }
 
   if (isLoading) {
-    return <div>{t('Loading...')}</div>
+    return <div>Loading...</div>
   }
 
   return (
     <div className="d-flex flex-column bg-transparent">
       <div className="row justify-center w-[90%] mx-auto p-5">
-        <h3 className="font-bold text-2xl">{t('myAccount')}</h3>
+        <h3 className="font-bold text-2xl">My Account</h3>
         <div className="flex max-md:flex-col mx-auto">
           <div className="md:w-1/2 w-full">
-            <h4 className="font-[600] text-[#767676] mt-5 mb-3">{t('CompanyInformation')}</h4>
+            <h4 className="font-[600] text-[#767676] mt-5 mb-3">COMPANY INFORMATION</h4>
 
             <div className="flex flex-col gap-3">
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('CompanyName')}</p>
+                  <p className="text-[#767676]">Company Name</p>
                 </div>
                 <div>
                   <input
@@ -276,7 +222,7 @@ const Profile = () => {
               </div>
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('CompanyURL')}</p>
+                  <p className="text-[#767676]">Company URL</p>
                 </div>
                 <div>
                   <input
@@ -290,7 +236,7 @@ const Profile = () => {
               </div>
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('VATNumber')}</p>
+                  <p className="text-[#767676]">VAT number:</p>
                 </div>
                 <div>
                   <input
@@ -304,11 +250,11 @@ const Profile = () => {
               </div>
             </div>
 
-            <h4 className="font-[600] text-[#767676] mt-5 mb-3">{t('CompanyAddress')}</h4>
+            <h4 className="font-[600] text-[#767676] mt-5 mb-3">COMPANY ADDRESS</h4>
             <div className="flex flex-col gap-3">
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('Address/Street')}</p>
+                  <p className="text-[#767676]">Address/Sreet</p>
                 </div>
                 <div>
                   <input
@@ -322,7 +268,7 @@ const Profile = () => {
               </div>
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('StreetNumber')}</p>
+                  <p className="text-[#767676]">Street Number</p>
                 </div>
                 <div>
                   <input
@@ -336,7 +282,7 @@ const Profile = () => {
               </div>
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('City')}</p>
+                  <p className="text-[#767676]">City</p>
                 </div>
                 <div>
                   <input
@@ -350,7 +296,7 @@ const Profile = () => {
               </div>
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('PostalCode')}</p>
+                  <p className="text-[#767676]">Postal code</p>
                 </div>
                 <div>
                   <input
@@ -364,7 +310,7 @@ const Profile = () => {
               </div>
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('Country')}</p>
+                  <p className="text-[#767676]">Country</p>
                 </div>
                 <div className="max-sm:w-full w-3/4">
                   <CustomDropdown selectedOption={formState.com_country} onSelect={handleInputChange} countries={Countries} />
@@ -376,12 +322,12 @@ const Profile = () => {
             <div className="max-md:mt-5 flex max-sm:w-full max-md:w-3/4 max-md:justify-center">
               <Image src="/images/users/avatar-default.svg" alt="avatar" width={100} height={100} />
             </div>
-            <h4 className="font-[600] text-[#767676] mt-5 mb-3">{t('UserInformation')}</h4>
+            <h4 className="font-[600] text-[#767676] mt-5 mb-3">USER INFORMATION</h4>
             <div className="flex flex-col gap-3">
               <div className="flex max-lg:flex-col lg:justify-between">
                 <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
                   <div>
-                    <p className="text-[#767676]">{t('firstName')}<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
+                    <p className="text-[#767676]">First Name<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
                   </div>
                   <div>
                     <input
@@ -395,7 +341,7 @@ const Profile = () => {
                 </div>
                 <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
                   <div>
-                    <p className="text-[#767676]">{t('lastName')}<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
+                    <p className="text-[#767676]">Last Name<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
                   </div>
                   <div>
                     <input
@@ -411,7 +357,7 @@ const Profile = () => {
               <div className="flex max-lg:flex-col lg:justify-between">
                 <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
                   <div>
-                    <p className="text-[#767676]">{t('role')}</p>
+                    <p className="text-[#767676]">Role</p>
                   </div>
                   <div>
                     <input
@@ -425,7 +371,7 @@ const Profile = () => {
                 </div>
                 <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
                   <div>
-                    <p className="text-[#767676]">{t('Language')}</p>
+                    <p className="text-[#767676]">Language</p>
                   </div>
                   <div className="w-full sm:w-full md:w-3/4 lg:w-full">
                     <CustomSelect
@@ -440,12 +386,12 @@ const Profile = () => {
               </div>
             </div>
 
-            <h4 className="font-[600] text-[#767676] mt-5 mb-3">{t('ContactInformation')}</h4>
+            <h4 className="font-[600] text-[#767676] mt-5 mb-3">CONTACT INFORMATION</h4>
 
             <div className="flex flex-col gap-3">
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('EmailAddress')}<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
+                  <p className="text-[#767676]">Email Address<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
                 </div>
                 <div>
                   <input
@@ -500,14 +446,14 @@ const Profile = () => {
             type="button"
             className="bg-[url('/images/button-bg-white.png')] max-sm:bg-[length:100%_40px] bg-[length:160px_40px] rounded-md bg-center bg-no-repeat max-sm:w-full w-[160px] h-[40px] text-[#A536FA] font-bold"
           >
-            {t('Cancel')}
+            Cancel
           </button>
           <button
             type="button"
             className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] text-white font-bold rounded-md"
             onClick={handleSubmit}
           >
-            {isSaving ? <Spinner color="" /> : `${t('SaveChanges')}`}
+            {isSaving ? <Spinner color="" /> : "Save Changes"}
           </button>
         </div>
       </div>
@@ -517,4 +463,3 @@ const Profile = () => {
 }
 
 export default Profile
-

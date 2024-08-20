@@ -1,3 +1,7 @@
-import { Redirect } from '@/lib/redirect'
+import AdminPage from "@/components/Pages/AdminPage"
 
-export default Redirect
+const Creator = () => (
+    <AdminPage />
+)
+
+export default Creator

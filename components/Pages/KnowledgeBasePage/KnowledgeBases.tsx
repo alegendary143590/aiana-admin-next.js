@@ -7,16 +7,10 @@ import { toast } from "react-toastify";
 
 import { AUTH_API } from "@/components/utils/serverURL"
 import AlertDialog from "@/components/AlertDialog"
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { useTranslation } from "react-i18next";
-=======
->>>>>>> parent of cabe3e5 (update expiry time and scrollable items)
-=======
->>>>>>> parent of cabe3e5 (update expiry time and scrollable items)
+import ScrollableItems from "@/components/ScrollableItems";
+import { setExpiryTime } from "@/components/utils/common";
 
 const KnowledgeBase = () => {
-  const { t } = useTranslation('knowledge');
   const [bases, setBases] = React.useState([]);
   const [index, setIndex] = React.useState();
   const [isLoading, setIsLoading] = React.useState(true);
@@ -48,6 +42,7 @@ const KnowledgeBase = () => {
             toast.error(`HTTP error! Status: ${response.status}`, { position: toast.POSITION.TOP_RIGHT });
             return null;
           }
+          setExpiryTime();
           return response.json();
         })
         .then(data => {
@@ -81,7 +76,7 @@ const KnowledgeBase = () => {
   }, []); // Empty dependency array means this effect will only run once after the initial render
 
   const handleEditClick = (baseId) => {
-    router.push(`/${router.query.locale}/knowledge/edit?baseId=${baseId}`);
+    router.push(`/knowledge/edit?baseId=${baseId}`);
 
   }
 
@@ -145,20 +140,20 @@ const KnowledgeBase = () => {
     setOpenDialog(false);
   }
   if (isLoading) {
-    return <div>{t('Loading...')}</div>;
+    return <div>Loading...</div>;
   }
 
   if (bases && bases.length === 0) {
     return (
       <div className="w-[90%] mx-auto p-5">
         <div className="w-full h-[50px] flex items-center justify-between pt-[24px] mb-[10px]">
-          <h3 className="font-bold text-2xl">{t('Knowledge Base')}</h3>
+          <h3 className="font-bold text-2xl">Knowledge Base</h3>
         </div>
         <div className="max-sm:w-full w-[350px] h-fit mx-auto mt-10 flex flex-col items-center justify-between">
           <Image src="/images/icon_noKnowledge.svg" alt="no_bot" width={100} height={100} />
-          <p className="text-xl font-bold text-center mt-10">{t('No knowledge base created yet')}</p>
+          <p className="text-xl font-bold text-center mt-10">No knowledge base created yet</p>
           <p className="text-[#767676] text-center my-5">
-            {t('Create knowledge base and connect it to chatbot!')}
+            Create knowledge base and connect it to chatbot!
           </p>
           <div className="w-full flex justify-center">
             <button
@@ -167,14 +162,14 @@ const KnowledgeBase = () => {
               className="bg-[#A536FA] max-sm:w-full w-[210px] sm:h-[40px] h-auto p-3 flex items-center justify-center gap-1 text-white font-bold rounded-md"
             >
               <Image src="/images/icon_createKnowledge.svg" alt="create" width={20} height={20} />
-              <p>{t('Create Knowledge Base')}</p>
+              <p>Create Knowledge Base</p>
             </button>
           </div>
         </div>
         <AlertDialog
-           title={t('Confirm Delete')}
-           description={t('Are you sure you want to delete this item? This action cannot be undone.')}
-           handleAgree={handleAgree}
+          title="Confirm Delete"
+          description="Are you sure you want to delete this item? This action cannot be undone."
+          handleAgree={handleAgree}
           handleDisagree={handleDisagree}
           open={openDialog}
           setOpen={setOpenDialog}
@@ -186,65 +181,29 @@ const KnowledgeBase = () => {
   return (
     <div className="w-[90%] mx-auto p-5">
       <div className="w-full max-sm:flex-col flex items-center justify-between pt-[24px] mb-[10px]">
-        <h3 className="font-bold text-2xl max-sm:mb-5">{t('Knowledge Base')}</h3>
+        <h3 className="font-bold text-2xl max-sm:mb-5">Knowledge Base</h3>
         <button
           type="button"
           onClick={handleAddRow}
           className="bg-[#A536FA] max-sm:w-full w-[210px] sm:h-[40px] h-auto p-3 flex items-center justify-center gap-1 text-white font-bold rounded-md"
         >
           <Image src="/images/icon_createKnowledge.svg" alt="create" width={20} height={20} />
-          <p>{t('Create Knowledge Base')}</p>
+          <p>Create Knowledge Base</p>
         </button>
       </div>
       <div className="relative w-full h-fit flex flex-wrap mt-10 items-center justify-start">
         {bases && bases.map((base) => (
-          <div key={base.id} className="w-[300px] h-fit border-2 border-solid border-[#A438FA] shadow-sm rounded-lg m-3">
+          <div key={base.id} className="w-[300px] h-fit border-2 border-[#A438FA] shadow-sm rounded-lg m-3">
             <div className="w-full h-fit flex flex-row items-center justify-center">
               <div className="w-full h-fit px-5 pt-5">
                 <p className="font-bold text-xl">{base.name}</p>
               </div>
             </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <div className="flex overflow-auto w-full h-[50px] px-5 items-center gap-2">
-              <p className="text-sm text-[#070E0B]">{t('Connected with')}</p>
-              <div>
-                {
-                  base.bot_avatar && base.bot_avatar.map((avatar) => (
-                    <Image
-                      key={avatar}
-                      src={avatar || "/images/logo_sm.png"}
-                      alt="bot_avatar"
-                      width={40}
-                      height={40}
-                      className="object-cover rounded-full"
-                    />)
-                  )
-                }
-              </div>
-=======
-=======
->>>>>>> parent of cabe3e5 (update expiry time and scrollable items)
-            <div className="flex overflow-auto w-full h-[50px] px-5 items-center gap-2">
+            <div className="flex w-full h-[50px] px-5 items-center gap-2">
               <p className="text-sm text-[#070E0B]">Connected with</p>
-              <div>
-                {
-                  base.bot_avatar && base.bot_avatar.map((avatar) => (
-                    <Image
-                      key={avatar}
-                      src={avatar || "/images/logo_sm.png"}
-                      alt="bot_avatar"
-                      width={40}
-                      height={40}
-                      className="object-cover rounded-full"
-                    />)
-                  )
-                }
-              </div>
-<<<<<<< HEAD
->>>>>>> parent of cabe3e5 (update expiry time and scrollable items)
-=======
->>>>>>> parent of cabe3e5 (update expiry time and scrollable items)
+
+              <ScrollableItems items={base.bot_avatar.map((item, itemIndex) => { const newItem = { item, index:itemIndex }; return newItem; })} tooltips={base.bot_names} />
+
             </div>
             <hr className="my-5" />
             <div className="flex flex-row justify-end gap-3 mx-5 mb-5">
@@ -256,7 +215,7 @@ const KnowledgeBase = () => {
                 >
                   <FaEdit className="w-4 h-4" />
                 </button>
-                <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{t('Edit')}</span>
+                <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">Edit</span>
               </div>
 
               <div className="group relative flex justify-center">
@@ -267,7 +226,7 @@ const KnowledgeBase = () => {
                 >
                   <FaRegTrashAlt className="w-4 h-4" />
                 </button>
-                <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{t('Delete')}</span>
+                <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">Delete</span>
               </div>
 
 
@@ -277,8 +236,8 @@ const KnowledgeBase = () => {
         ))}
       </div>
       <AlertDialog
-        title={t('Confirm Delete')}
-        description={t('Are you sure you want to delete this item? This action cannot be undone.')}
+        title="Confirm Delete"
+        description="Are you sure you want to delete this item? This action cannot be undone."
         handleAgree={handleAgree}
         handleDisagree={handleDisagree}
         open={openDialog}

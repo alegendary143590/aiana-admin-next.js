@@ -9,14 +9,12 @@ import { FaInfoCircle } from "react-icons/fa";
 import { AUTH_API } from "@/components/utils/serverURL";
 import AlertDialog from "@/components/AlertDialog";
 import { formatDateStringOnly } from "@/components/utils/common"
-import { useTranslation } from "react-i18next";
 
 
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB in bytes
 
 const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
-  const { t } = useTranslation('knowledge');
   const [openDialog, setOpenDialog] = React.useState(false);
   const [id, setId] = React.useState("");
   const [index, setIndex] = React.useState("");
@@ -128,7 +126,7 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
       <div className="text-center bg-[#F5E8FF] py-2 sm:mx-7 mx-3">
         <span className="text-[#343434] text-sm text-center">
           <FaInfoCircle className="text-[#A536FA] size-5 inline-block mr-3" />
-          {t('Note: Build your Chatbot’s Knowledge Base by uploading documents. These documents train your chatbot to answer questions accurately.')}
+          Note: Build your Chatbot’s Knowledge Base by uploading documents. These documents train your chatbot to answer questions accurately.
         </span>
       </div>
 
@@ -137,14 +135,14 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
           htmlFor="file_upload"
           className="bg-transparent text-gray-600 rounded-md w-full flex flex-col h-[150px] cursor-pointer items-center justify-center border-dashed border-2 border-gray-200"
         >
-          <Image src="/images/icon_file_upload.svg" alt="icon_file_upload" width={50} height={50} />
+          <Image src="/images/icon_file_upload.svg" width={50} height={50} />
           <p className="font-bold text-black text-[16px] text-center">
-            {t('Drop files here or click to upload')}
+            Drop files here or click to upload
           </p>
           <p className="text-[#767676] max-sm:hidden text-sm text-center">
-            {t("Upload files in formats (PDF, DOC(X), TXT) with a maximum size of 5MB.")}
+            Upload files in formats (PDF, DOC(X), TXT) with a maximum size of 5MB.
           </p>
-          <p className="text-[#767676] font-bold text-center text-sm">{t("Please do not upload any confidential data.")}</p>
+          <p className="text-[#767676] font-bold text-center text-sm">Please do not upload any confidential data.</p>
 
         </label>
         <input
@@ -158,17 +156,17 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
       </div>
       <div>
         <div className="w-full justify-between flex my-5 sm:px-7 px-3">
-          <h4 className="text-lg font-bold">{t('Uploaded files')}</h4>
-          <p className="text-[#767676] text-sm">{documents.length} {t('files uploaded')}</p>
+          <h4 className="text-lg font-bold">Uploaded files</h4>
+          <p className="text-[#767676] text-sm">{documents.length} files uploaded</p>
         </div>
         <div className="overflow-auto">
           <table className="min-w-max w-full whitespace-nowrap">
             <thead>
               <tr className="text-xs font-semibold uppercase tracking-wide text-left text-[#767676] border-b-2">
-                <th className="sm:px-7 px-3 py-2">{t('FILENAME')}</th>
-                <th className="sm:px-7 px-3 py-2">{t('TYPE')}</th>
-                <th className="sm:px-7 px-3 py-2">{t('UPLOADED ON')}</th>
-                <th className="sm:px-7 px-3 py-2">{t('ACTION')}</th>
+                <th className="sm:px-7 px-3 py-2">FILENAME</th>
+                <th className="sm:px-7 px-3 py-2">TYPE</th>
+                <th className="sm:px-7 px-3 py-2">UPLOADED ON</th>
+                <th className="sm:px-7 px-3 py-2">ACTION</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -194,9 +192,9 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
                     <button
                       type="button"
                       onClick={() => handleDelete(doc.id, i)}
-                      className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md flex justify-center items-center"
+                      className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md"
                     >
-                      <Image src="/images/icon_trash.svg" alt="icon_trash" width={18} height={18} />
+                      <Image src="/images/icon_trash.svg" width={18} height={18} />
                     </button>
                   </td>
                 </tr>

@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 import axios from "axios"
 import { FaInfoCircle } from "react-icons/fa"
 import { ToastContainer, toast } from "react-toastify"
-import { useTranslation } from "react-i18next"
+
 import AlertDialog from "@/components/AlertDialog"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { isValidUrl } from "./validation"
@@ -90,8 +90,6 @@ const Website = ({ urls, setUrls }) => {
     setUrls(updatedUrls)
   }
 
-  const { t } = useTranslation('knowledge');
-
   const handleDeleteButton = (_id, _index) => {
     setId(_id)
     setIndex(_index)
@@ -112,12 +110,12 @@ const Website = ({ urls, setUrls }) => {
       <div className="text-center bg-[#F5E8FF] py-2 sm:mx-7 mx-3">
         <span className="text-[#343434] text-sm text-center">
           <FaInfoCircle className="text-[#A536FA] size-5 inline-block mr-3" />
-          {t('Note: Build your Chatbot’s Knowledge Base by uploading urls. These urls train your chatbot to answer questions accurately.')}
+          Note: Build your Chatbot’s Knowledge Base by uploading urls. These urls train your chatbot to answer questions accurately.
         </span>
       </div>
-      <p className="text-center pt-5 font-bold text-sm px-5">{t('Please do not add URLs to websites that contain confidential information or where the publisher has imposed restrictions on sharing.')}</p>
+      <p className="text-center pt-5 font-bold text-sm px-5">Please do not add URLs to websites that contain confidential information or where the publisher has imposed restrictions on sharing.</p>
       <div className="w-full md:inline-flex flex-wrap justify-center items-center px-10 mt-5 max-md:space-y-5 py-10">
-        <p className="w-[100px] text-lg">{t('Enter URL:')}</p>
+        <p className="w-[100px] text-lg">Enter URL:</p>
         <input
           type="text"
           value={urlInputValue}
@@ -126,7 +124,7 @@ const Website = ({ urls, setUrls }) => {
           id="urlInput"
         />
         <button className="bg-[#A438FA] px-2 py-2 text-white rounded-md w-[150px]" type="button" onClick={handleUrlAdd}>
-          {t('Add this URL')}
+          Add this URL
         </button>
       </div>
       <div>
@@ -134,9 +132,9 @@ const Website = ({ urls, setUrls }) => {
           <table className="min-w-max w-full whitespace-nowrap">
             <thead>
               <tr className="text-xs font-semibold uppercase tracking-wide text-left text-[#767676] border-b-2">
-                <th className="sm:px-7 px-3 py-2">{t('URL')}</th>
-                <th className="sm:px-7 px-3 py-2">{t('ADDED ON')}</th>
-                <th className="sm:px-7 px-3 py-2">{t('ACTION')}</th>
+                <th className="sm:px-7 px-3 py-2">URL</th>
+                <th className="sm:px-7 px-3 py-2">ADDED ON</th>
+                <th className="sm:px-7 px-3 py-2">ACTION</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -150,9 +148,9 @@ const Website = ({ urls, setUrls }) => {
                     <button
                       type="button"
                       onClick={() => handleDeleteButton(url.id, i)}
-                      className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md flex justify-center items-center"
+                      className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md"
                     >
-                      <Image src="/images/icon_trash.svg" alt="trash_icon" width={18} height={18} />
+                      <Image src="/images/icon_trash.svg" width={18} height={18} />
                     </button>
                   </td>
                 </tr>
@@ -163,7 +161,7 @@ const Website = ({ urls, setUrls }) => {
           {
             urls.length === 0 && (
               <div className="w-full text-center py-5">
-                <p className="text-[#767676]">{t('No URL added yet')}</p>
+                <p className="text-[#767676]">No URL added yet</p>
               </div>
             )
           }
@@ -171,8 +169,8 @@ const Website = ({ urls, setUrls }) => {
 
       </div>
       <AlertDialog
-        title={t("Confirm Delete")}
-        description={t("Are you sure you want to delete this item? This action cannot be undone.")}
+        title="Confirm Delete"
+        description="Are you sure you want to delete this item? This action cannot be undone."
         handleAgree={handleAgree}
         handleDisagree={handleDisagree}
         open={openDialog}

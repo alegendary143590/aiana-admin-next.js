@@ -45,7 +45,7 @@ export default function CustomSelect({ props, text, id, value, onChange }) {
           <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
             <div className="block px-4 py-2 text-sm text-gray-700" role="menuitem">{text}</div>
             {props.map((item) => (
-              <button type="button" key={item.name} className="w-full block px-4 py-2 text-start text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" onClick={() => handleChange(item)}>
+              <button type="button" key={item} className="w-full block px-4 py-2 text-start text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" onClick={() => handleChange(item)}>
                 {item.name}
               </button>
             ))}
