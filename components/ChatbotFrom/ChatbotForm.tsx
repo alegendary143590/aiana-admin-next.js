@@ -8,7 +8,6 @@ import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSwitch from "../CustomSwitch"
 import Avatar from "../Avatar"
 import CustomAutocomplete from "../CustomAutocomplete"
-import { setExpiryTime } from "../utils/common"
 
 const ChatbotForm = ({ bot }) => {
   const { t } = useTranslation('chatbot')
@@ -80,7 +79,6 @@ const ChatbotForm = ({ bot }) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`)
           }
-          setExpiryTime();
           return response.json()
         })
         .then((data) => {
@@ -202,7 +200,6 @@ const ChatbotForm = ({ bot }) => {
           "Content-Type": "multipart/form-data",
         },
       })
-      setExpiryTime();
       toast.success("Successulfy Created!", { position: toast.POSITION.TOP_RIGHT })
     } catch (error) {
       console.error("Error uploading:", error)

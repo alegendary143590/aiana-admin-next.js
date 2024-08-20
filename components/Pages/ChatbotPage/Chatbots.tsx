@@ -5,7 +5,7 @@ import Image from "next/image"
 import axios from "axios"
 import { toast } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
-import { isTimeBetween, setExpiryTime } from "@/components/utils/common"
+import { isTimeBetween } from "@/components/utils/common"
 import AlertDialog from "@/components/AlertDialog"
 import EmbedAlert from "@/components/Alerts/EmbedAlert"
 import ChatbotPage from "@/components/Pages/ChatPage"
@@ -57,7 +57,6 @@ const Chatbots = () => {
             setIsLoading(false) // Ensure loading state is updated
             router.push("/signin") // Redirect to sign-in page
           }
-          setExpiryTime();
           setIsLoading(false)
           return response.json() // Continue to parse the JSON body
         })

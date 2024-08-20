@@ -5,7 +5,6 @@ import { FaArrowLeft } from "react-icons/fa"
 import { useTranslation } from "react-i18next"
 import { ToastContainer, toast } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
-import { setExpiryTime } from "@/components/utils/common"
 import Document from "./Document"
 import Website from "./Website"
 import Text from "./Text"
@@ -68,7 +67,6 @@ const KnowledgeBaseForm = ({ baseId }) => {
               })
             };
             const response = await fetch(`${AUTH_API.GET_KNOWLEDGE_BASE}?baseId=${newBaseId}`, requestOptions);
-            setExpiryTime();
             const data = await response.json();
 
             setBase(data.base || {
@@ -160,7 +158,6 @@ const KnowledgeBaseForm = ({ baseId }) => {
         if (!response.data.bad_url) {
           badAlert = "The knowledge base includes invalid url."
         }
-        setExpiryTime();
         toast.success(`Uploaded Successfully! ${badAlert}`, { position: toast.POSITION.TOP_RIGHT });
       }
     } catch (error) {
