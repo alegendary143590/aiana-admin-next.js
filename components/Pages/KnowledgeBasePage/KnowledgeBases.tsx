@@ -9,8 +9,6 @@ import { AUTH_API } from "@/components/utils/serverURL"
 import AlertDialog from "@/components/AlertDialog"
 <<<<<<< HEAD
 <<<<<<< HEAD
-import ScrollableItems from "@/components/ScrollableItems";
-import { setExpiryTime } from "@/components/utils/common";
 import { useTranslation } from "react-i18next";
 =======
 >>>>>>> parent of cabe3e5 (update expiry time and scrollable items)
@@ -208,11 +206,22 @@ const KnowledgeBase = () => {
             </div>
 <<<<<<< HEAD
 <<<<<<< HEAD
-            <div className="flex w-full h-[50px] px-5 items-center gap-2">
+            <div className="flex overflow-auto w-full h-[50px] px-5 items-center gap-2">
               <p className="text-sm text-[#070E0B]">{t('Connected with')}</p>
-
-              <ScrollableItems items={base.bot_avatar.map((item, itemIndex) => { const newItem = { item, index:itemIndex }; return newItem; })} tooltips={base.bot_names} />
-
+              <div>
+                {
+                  base.bot_avatar && base.bot_avatar.map((avatar) => (
+                    <Image
+                      key={avatar}
+                      src={avatar || "/images/logo_sm.png"}
+                      alt="bot_avatar"
+                      width={40}
+                      height={40}
+                      className="object-cover rounded-full"
+                    />)
+                  )
+                }
+              </div>
 =======
 =======
 >>>>>>> parent of cabe3e5 (update expiry time and scrollable items)
