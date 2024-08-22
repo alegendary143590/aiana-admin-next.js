@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
+import { useTranslations } from "next-intl"
 import { toast, ToastContainer } from "react-toastify"
-import { AUTH_API } from "@/components/utils/serverURL"
-import formatDateString from "@/components/utils/common"
 import router from "next/router"
 import Image from 'next/image'
 import { FaArrowLeft } from "react-icons/fa"
+import { AUTH_API } from "@/components/utils/serverURL"
+import formatDateString from "@/components/utils/common"
 import Avatar from "@/components/Avatar"
 
 const Logs = ({ session }) => {
+  const t = useTranslations('chatbot');
+  const ts = useTranslations('dashboard');
+  const toa = useTranslations('toast');
   const INITIAL_BOT_OBJ = {
     bot_name: "",
     greetings: "Hello! How can I assist you today?",
@@ -32,7 +36,7 @@ const Logs = ({ session }) => {
         })
         .then((response) => {
           if (response.status === 401) {
-            toast.error("Please login!", { position: toast.POSITION.TOP_RIGHT });
+            toast.error(`${toa('Please_login')}`, { position: toast.POSITION.TOP_RIGHT });
             router.push("/signin");
           }
           // console.log("conversation >>>>>", response.data)
@@ -64,7 +68,7 @@ const Logs = ({ session }) => {
             console.log('Error status code:', error.response.status);
             console.log('Error response data:', error.response.data);
             if (error.response.status === 401) {
-              toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
+              toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
 
               router.push("/signin")
             }
@@ -87,17 +91,18 @@ const Logs = ({ session }) => {
 
   if (isLoading) {
     return (
-      <div>Loading...</div>
+      <div>{t('Loading')}</div>
     )
   }
+
   return (
     <div className="h-full sm:w-[90%] w-full mx-auto sm:p-5">
       <div className="w-full h-[50px] relative flex items-center justify-start text-black_8 pt-[20px] mb-[10px] text-[20px]">
         <div className="bg-none w-full rounded-lg flex items-center gap-3">
-          <button type="button" className="bg-[#F4F4F4] text-[#767676] font-[300] p-3 rounded-md" onClick={() => router.push("/dashboard")}>
+          <button type="button" aria-label="back-logs" className="bg-[#F4F4F4] text-[#767676] font-[300] p-3 rounded-md" onClick={() => router.push(`/dashboard`)}>
             <FaArrowLeft />
           </button>
-          <h3 className="text-lg font-bold">Back to Chatlogs</h3>
+          <h3 className="text-lg font-bold">{ts('Back_to_Chatlogs')}</h3>
         </div>
       </div>
       <div className="max-w-[1000px] overflow-y-auto border border-[#CFCFCF] rounded-md">

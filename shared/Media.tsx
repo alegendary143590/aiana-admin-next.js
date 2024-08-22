@@ -42,12 +42,6 @@ function Media({
             blurLink ||
             "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcMXP2OQAGOQKc/DqDigAAAABJRU5ErkJggg=="
           }
-          {...(width &&
-            height && {
-              width,
-              height,
-            })}
-          unoptimized
         />
       )}
     </div>

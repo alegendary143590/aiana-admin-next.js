@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from "react"
 import { useRouter } from "next/router"
 import Image from "next/image"
+import { useTranslations } from "next-intl"
 import { useSideMenu } from "@/providers/SideMenuProvider"
 import { logOut } from "../utils/common"
 
 const AccountManagementDropdown = () => {
+  const t = useTranslations('common');
   const { push } = useRouter()
   const { setRole } = useSideMenu()
 
@@ -64,7 +66,7 @@ const AccountManagementDropdown = () => {
         <Image src="/images/users/avatar-default.svg" alt="avatar" width={40} height={40} />
         <div className="sm:flex hidden flex-col justify-between items-start">
           <p className="font-bold text-[14px]">{userName}</p>
-          <p className="text-[#737791]">{userRole}</p>
+          <p className="text-[#737791]">{userRole === 'admin' ? t('admin') : t('users')}</p>
         </div>
         <svg
           className="fill-current size-5 ml-2"
@@ -88,7 +90,7 @@ const AccountManagementDropdown = () => {
               className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 text-start"
               role="menuitem"
             >
-              Profile
+              {t('Profile')}
             </button>
             <hr />
             <button
@@ -97,7 +99,7 @@ const AccountManagementDropdown = () => {
               className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 text-start"
               role="menuitem"
             >
-              Logout
+              {t('Log_out')}
             </button>
           </div>
         </div>

@@ -1,15 +1,18 @@
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import axios from "axios"
 import Image from "next/image"
 import router from "next/router"
 import { ToastContainer, toast } from "react-toastify"
+import { useTranslations } from "next-intl"
 
 import { AUTH_API } from "@/components/utils/serverURL"
 import formatDateString, { setExpiryTime } from '@/components/utils/common'
 import AlertDialog from "@/components/AlertDialog"
 
 const Tickets = () => {
+  const t = useTranslations('ticket');
+  const toa = useTranslations('toast');
   const [userId, setUserId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [tickets, setTickets] = useState([]);
@@ -34,7 +37,7 @@ const Tickets = () => {
             setExpiryTime();
           }
           if (response.status === 401) {
-            toast.error("Please login!", { position: toast.POSITION.TOP_RIGHT });
+            toast.error(`${toa('Please_login')}`, { position: toast.POSITION.TOP_RIGHT });
             router.push("/signin");
 
           }
@@ -45,7 +48,7 @@ const Tickets = () => {
             console.log('Error status code:', error.response.status);
             console.log('Error response data:', error.response.data);
             if (error.response.status === 401) {
-              toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
+              toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
 
               router.push("/signin")
             }
@@ -80,7 +83,7 @@ const Tickets = () => {
         if (response.status === 201) {
           const updatedTickets = tickets.filter(ticket => ticket.id !== currentItem);
           setTickets(updatedTickets);
-          toast.success("Successfully Deleted!", { position: toast.POSITION.TOP_RIGHT })
+          toast.success(`${toa('Successfully_deleted!')}`, { position: toast.POSITION.TOP_RIGHT })
         }
       })
       .catch((error) => {
@@ -88,7 +91,7 @@ const Tickets = () => {
           console.log('Error status code:', error.response.status);
           console.log('Error response data:', error.response.data);
           if (error.response.status === 401) {
-            toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
+            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
 
             router.push("/signin")
           }
@@ -113,7 +116,7 @@ const Tickets = () => {
 
   if (isLoading || !userId) {
     return (
-      <div>Loading...</div>
+      <div>{t('Loading')}</div>
     )
   }
 
@@ -121,27 +124,27 @@ const Tickets = () => {
     <div>
       <div className="w-full mx-auto p-5">
         <div className="w-full h-[50px] flex items-center justify-between pt-[24px] mb-[10px]">
-          <h3 className="font-bold text-2xl">Chatlogs</h3>
+          <h3 className="font-bold text-2xl">{t('Chatlogs')}</h3>
         </div>
       </div>
       {tickets.length === 0 ? (
-        <div className="text-center w-full">There is no ticket</div>
+        <div className="text-center w-full">{t('There_is_no_ticket')}</div>
       ) : (
         <table className="w-full rounded-table min-w-[600px]" aria-label="table">
           <thead className="bg-[#EEEEEE] text-[#767676] text-sm ">
             <tr>
-              <th className="px-4 py-2 text-start">No</th>
-              <th className="px-4 py-2 text-start">Email</th>
-              <th className="px-4 py-2 text-start">Website</th>
-              <th className="px-4 py-2 text-start">Content</th>
-              <th className="px-4 py-2 text-start">Status</th>
-              <th className="px-4 py-2 text-start">Created at</th>
-              <th className="px-4 py-2 text-start">Action</th>
+              <th className="px-4 py-2 text-start">{t('No')}</th>
+              <th className="px-4 py-2 text-start">{t('Email')}</th>
+              <th className="px-4 py-2 text-start">{t('Website')}</th>
+              <th className="px-4 py-2 text-start">{t('Content')}</th>
+              <th className="px-4 py-2 text-start">{t('Status')}</th>
+              <th className="px-4 py-2 text-start">{t('Created_at')}</th>
+              <th className="px-4 py-2 text-start">{t('Action')}</th>
             </tr>
           </thead>
           <tbody className="gap-3 my-2">
             {tickets.map((row, index) => (
-              <>
+              <React.Fragment key={row.id}>
                 <tr className="h-3" />
                 <tr key={row.id} className="hover:bg-gray-100 cursor-pointer border border-[#BEBEBE] border-round">
                   <td > {index + 1}</td>
@@ -154,20 +157,20 @@ const Tickets = () => {
                     <button
                       type="button"
                       onClick={() => handleCancelButton(row.id)}
-                      className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md"
+                      className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md flex justify-center items-center"
                     >
-                      <Image src="/images/icon_trash.svg" width={18} height={18} />
+                      <Image src="/images/icon_trash.svg" alt="icon_trash" width={18} height={18} />
                     </button>
                   </td>
                 </tr>
-              </>
+              </React.Fragment>
             ))}
           </tbody>
         </table>
       )}
       <AlertDialog
-        title="Confirm Delete"
-        description="Are you sure you want to delete this item? This action cannot be undone."
+        title={t("Confirm_Delete")}
+        description={t('Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone')}
         handleAgree={handleAgree}
         handleDisagree={handleDisagree}
         open={openDialog}

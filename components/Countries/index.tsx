@@ -1,3 +1,4 @@
+
 const countries = [
     {
         "name": "Albania",
@@ -20,7 +21,7 @@ const countries = [
         "flgURL": "ao.svg"
     },
     {
-        "name": "Antigua and Barbuda",
+        "name": "Antigua_and_Barbuda",
         "flgURL": "ag.svg"
     },
     {
@@ -84,7 +85,7 @@ const countries = [
         "flgURL": "bo.svg"
     },
     {
-        "name": "Bosnia and Herzegovina",
+        "name": "Bosnia_and_Herzegovina",
         "flgURL": "ba.svg"
     },
     {
@@ -104,7 +105,7 @@ const countries = [
         "flgURL": "bg.svg"
     },
     {
-        "name": "Burkina Faso",
+        "name": "Burkina_Faso",
         "flgURL": "bf.svg"
     },
     {
@@ -112,11 +113,11 @@ const countries = [
         "flgURL": "bi.svg"
     },
     {
-        "name": "Côte d'Ivoire",
+        "name": "Côte_d'Ivoire",
         "flgURL": "ci.svg"
     },
     {
-        "name": "Cabo Verde",
+        "name": "Cabo_Verde",
         "flgURL": "cv.svg"
     },
     {
@@ -132,7 +133,7 @@ const countries = [
         "flgURL": "ca.svg"
     },
     {
-        "name": "Central African Republic",
+        "name": "Central_African_Republic",
         "flgURL": "cf.svg"
     },
     {
@@ -156,7 +157,7 @@ const countries = [
         "flgURL": "km.svg"
     },
     {
-        "name": "Costa Rica",
+        "name": "Costa_Rica",
         "flgURL": "cr.svg"
     },
     {
@@ -172,7 +173,7 @@ const countries = [
         "flgURL": "cy.svg"
     },
     {
-        "name": "Democratic Republic of the Congo",
+        "name": "Democratic_Republic_of_the_Congo",
         "flgURL": "cd.svg"
     },
     {
@@ -188,7 +189,7 @@ const countries = [
         "flgURL": "do.svg"
     },
     {
-        "name": "Dominican Republic",
+        "name": "Dominican_Republic",
         "flgURL": "do.svg"
     },
     {
@@ -200,11 +201,11 @@ const countries = [
         "flgURL": "eg.svg"
     },
     {
-        "name": "El Salvador",
+        "name": "El_Salvador",
         "flgURL": "sv.svg"
     },
     {
-        "name": "Equatorial Guinea",
+        "name": "Equatorial_Guinea",
         "flgURL": "gq.svg"
     },
     {
@@ -268,7 +269,7 @@ const countries = [
         "flgURL": "gw.svg"
     },
     {
-        "name": "Guinea-Bissau",
+        "name": "Guinea_Bissau",
         "flgURL": "gw.svg"
     },
     {
@@ -280,7 +281,7 @@ const countries = [
         "flgURL": "ht.svg"
     },
     {
-        "name": "Holy See",
+        "name": "Holy_See",
         "flgURL": "va.svg"
     },
     {
@@ -416,7 +417,7 @@ const countries = [
         "flgURL": "mt.svg"
     },
     {
-        "name": "Marshall Islands",
+        "name": "Marshall_Islands",
         "flgURL": "mh.svg"
     },
     {
@@ -476,7 +477,7 @@ const countries = [
         "flgURL": "nl.svg"
     },
     {
-        "name": "New Zealand",
+        "name": "New_Zealand",
         "flgURL": "nz.svg"
     },
     {
@@ -492,7 +493,7 @@ const countries = [
         "flgURL": "ng.svg"
     },
     {
-        "name": "North Macedonia",
+        "name": "North_Macedonia",
         "flgURL": "mk.svg"
     },
     {
@@ -516,7 +517,7 @@ const countries = [
         "flgURL": "pa.svg"
     },
     {
-        "name": "Papua New Guinea",
+        "name": "Papua_New_Guinea",
         "flgURL": "pg.svg"
     },
     {
@@ -556,15 +557,15 @@ const countries = [
         "flgURL": "rw.svg"
     },
     {
-        "name": "Saint Kitts and Nevis",
+        "name": "Saint_Kitts_and_Nevis",
         "flgURL": "kn.svg"
     },
     {
-        "name": "Saint Lucia",
+        "name": "Saint_Lucia",
         "flgURL": "lc.svg"
     },
     {
-        "name": "Saint Vincent and the Grenadines",
+        "name": "Saint_Vincent_and_the_Grenadines",
         "flgURL": "vc.svg"
     },
     {
@@ -572,15 +573,15 @@ const countries = [
         "flgURL": "as.svg"
     },
     {
-        "name": "San Marino",
+        "name": "San_Marino",
         "flgURL": "sm.svg"
     },
     {
-        "name": "Sao Tome and Principe",
+        "name": "Sao_Tome_and_Principe",
         "flgURL": "st.svg"
     },
     {
-        "name": "Saudi Arabia",
+        "name": "Saudi_Arabia",
         "flgURL": "sa.svg"
     },
     {
@@ -596,7 +597,7 @@ const countries = [
         "flgURL": "sc.svg"
     },
     {
-        "name": "Sierra Leone",
+        "name": "Sierra_Leone",
         "flgURL": "sl.svg"
     },
     {
@@ -612,7 +613,7 @@ const countries = [
         "flgURL": "si.svg"
     },
     {
-        "name": "Solomon Islands",
+        "name": "Solomon_Islands",
         "flgURL": "sb.svg"
     },
     {
@@ -620,15 +621,15 @@ const countries = [
         "flgURL": "so.svg"
     },
     {
-        "name": "South Africa",
+        "name": "South_Africa",
         "flgURL": "za.svg"
     },
     {
-        "name": "South Korea",
+        "name": "South_Korea",
         "flgURL": "kr.svg"
     },
     {
-        "name": "South Sudan",
+        "name": "South_Sudan",
         "flgURL": "ss.svg"
     },
     {
@@ -636,7 +637,7 @@ const countries = [
         "flgURL": "es.svg"
     },
     {
-        "name": "Sri Lanka",
+        "name": "Sri_Lanka",
         "flgURL": "lk.svg"
     },
     {
@@ -672,7 +673,7 @@ const countries = [
         "flgURL": "th.svg"
     },
     {
-        "name": "Timor-Leste",
+        "name": "Timor_Leste",
         "flgURL": "tl.svg"
     },
     {
@@ -684,7 +685,7 @@ const countries = [
         "flgURL": "to.svg"
     },
     {
-        "name": "Trinidad and Tobago",
+        "name": "Trinidad_and_Tobago",
         "flgURL": "tt.svg"
     },
     {
@@ -712,15 +713,15 @@ const countries = [
         "flgURL": "ua.svg"
     },
     {
-        "name": "United Arab Emirates",
+        "name": "United_Arab_Emirates",
         "flgURL": "ae.svg"
     },
     {
-        "name": "United Kingdom",
+        "name": "United_Kingdom",
         "flgURL": "gb.svg"
     },
     {
-        "name": "United States of America",
+        "name": "United_States_of_America",
         "flgURL": "us.svg"
     },
     {
@@ -756,23 +757,23 @@ const countries = [
         "flgURL": "zw.svg"
     },
     {
-        "name": "Czechia (Czech Republic)",
+        "name": "Czechia_Czech_Republic",
         "flgURL": "cz.svg"
     },
     {
-        "name": "Congo (Congo-Brazzaville)",
+        "name": "Congo_Congo_Brazzaville",
         "flgURL": "cg.svg"
     },
     {
-        "name": "Eswatini (fmr. Swaziland)",
+        "name": "Eswatini_fmr_Swaziland",
         "flgURL": "sz.svg"
     },
     {
-        "name": "Palestine State",
+        "name": "Palestine_State",
         "flgURL": "ps.svg"
     },
     {
-        "name": "Myanmar (formerly Burma)",
+        "name": "Myanmar_formerly_Burma",
         "flgURL": "mm.svg"
     }
 ];

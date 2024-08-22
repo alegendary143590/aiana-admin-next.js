@@ -2,12 +2,14 @@ import * as React from "react"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
+import { useTranslations } from "next-intl"
 
 import { useSideMenu } from "@/providers/SideMenuProvider"
 import { logOut } from "@/components/utils/common"
 import MenuList from "./MenuList"
 
 const SideNavBar = () => {
+  const t = useTranslations('common');
   const {isOpen, setOpen } = useSideMenu()
   const router = useRouter()
   const [logo, setLogo] = React.useState("/images/logo_big.png")
@@ -60,7 +62,7 @@ const SideNavBar = () => {
           className={`${isOpen && "bg-[url('/images/button-bg.png')]"} w-full bg-contain bg-no-repeat bg-center rounded-[4px] p-[10px] text-[16px] text-white transition duration-300 hover:opacity-80 mt-auto sm:mb-10 mb-5 flex justify-center items-center`}
         >
           <Image src="/images/navbar/icon_logout.svg" alt="logout" width={18} height={18} className="opacity-90" />
-          <p className={`ml-2 opacity-90 ${isOpen ? "block" : "hidden"}`}>Log out</p>
+          <p className={`ml-2 opacity-90 ${isOpen ? "block" : "hidden"}`}>{t('Log_out')}</p>
         </button>
       </div>
       <button

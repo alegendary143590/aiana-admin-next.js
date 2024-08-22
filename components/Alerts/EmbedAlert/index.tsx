@@ -1,6 +1,8 @@
+import { useTranslations } from "next-intl"
 import React from "react"
 
 export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
+  const t = useTranslations('common')
   const alertRef = React.useRef(null)
 
   React.useEffect(() => {
@@ -17,7 +19,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
 
   // const title = "To embed your chatbot onto your website, paste this snippet into your website's HTML file";
   const title =
-    "To add a chatbubble to the bottom right of your website add this script tag to your html"
+    `${t('To_add_a_chatbubble_to_the_bottom_right_of_your_website_add_this_script_tag_to_your_html')}`
 
   return (
     open && (
@@ -68,7 +70,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
                   onClick={handleCopy}
                   className="mt-3 w-full inline-flex justify-center rounded-md border shadow-sm px-4 py-2 transition duration-150 ease-out border-[#A536FA] text-base font-medium hover:bg-[#A536FA] hover:text-white focus:outline-none sm:mt-0 sm:w-auto sm:text-sm"
                 >
-                  Copy Script
+                  {t('Copy_Script')}
                 </button>
               </div>
             </div>

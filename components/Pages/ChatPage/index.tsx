@@ -5,7 +5,7 @@ import router from "next/router"
 import Image from "next/image"
 import { ToastContainer, toast } from "react-toastify"
 import { FaCaretDown } from "react-icons/fa"
-
+import { useTranslations } from "next-intl"
 import { AUTH_API } from "@/components/utils/serverURL"
 import BasicSelect from "@/components/DropMenu"
 import { isTimeBetween } from "@/components/utils/common"
@@ -34,8 +34,11 @@ const ChatPage = ({
   visible,
   setVisible,
 }) => {
+  const  t  = useTranslations('chatbot');
+  const toa = useTranslations('toast');
+  const ts = useTranslations('chatpage');
   const [messages, setMessages] = useState([
-    { id: uuidv4(), isBot: true, text: "Hello! How can I assist you today?" },
+    { id: uuidv4(), isBot: true, text: `${t('Hello_How_can_I_assist_you_today')}` },
   ])
   const [lang, setLang] = useState(10)
   const inputRef = useRef(null)
@@ -57,7 +60,7 @@ const ChatPage = ({
       setBotAvatar(avatar === "" ? "/images/logo_sm.png" : avatar)
       const session = uuidv4().toString()
       setSessionId(session)
-      setMessages([{ id: session, isBot: true, text: "Hello! How can I assist you today?" }])
+      setMessages([{ id: session, isBot: true, text: `${t('Hello_How_can_I_assist_you_today')}` }])
     } else {
       setVisibleClass("h-[0px]")
     }
@@ -79,7 +82,7 @@ const ChatPage = ({
     setInput("")
 
     if (!isTimeBetween(startTime, endTime)) {
-      toast.error("It's not active time for this assistant!", {
+      toast.error(`${toa('Its_not_the_time_to_be_active_for_this_assistant')}`, {
         position: toast.POSITION.TOP_RIGHT,
       })
       return
@@ -120,7 +123,7 @@ const ChatPage = ({
           console.log("Error status code:", error.response.status)
           console.log("Error response data:", error.response.data)
           if (error.response.status === 401) {
-            toast.error("Session Expired. Please log in again!", {
+            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
               position: toast.POSITION.TOP_RIGHT,
             })
 
@@ -169,7 +172,7 @@ const ChatPage = ({
 
   const handleOkayClick = () => {
     if (email === "" || content === "") {
-      toast.error("Please provide an email and content!", { position: toast.POSITION.TOP_RIGHT })
+      toast.error(`${toa('Please_provide_an_email_and_content')}`, { position: toast.POSITION.TOP_RIGHT })
       return
     }
     // Logic to handle the form submission (e.g., send email and content to backend)
@@ -192,9 +195,9 @@ const ChatPage = ({
         if (response.status === 201) {
           const { message } = response.data
           if (message === "success") {
-            toast.success("Successfully Booked!", { position: toast.POSITION.TOP_RIGHT })
+            toast.success(`${toa('Successfully_Booked')}`, { position: toast.POSITION.TOP_RIGHT })
           } else {
-            toast.error("Busy Network! Try again!", { position: toast.POSITION.TOP_RIGHT })
+            toast.error(`${toa('Busy_Network_Try_again')}`, { position: toast.POSITION.TOP_RIGHT })
           }
           setEmail("")
           setContent("")
@@ -210,7 +213,7 @@ const ChatPage = ({
           console.log("Error status code:", error.response.status)
           console.log("Error response data:", error.response.data)
           if (error.response.status === 401) {
-            toast.error("Session Expired. Please log in again!", {
+            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
               position: toast.POSITION.TOP_RIGHT,
             })
 
@@ -246,7 +249,7 @@ const ChatPage = ({
           <div className="flex items-center w-32">
             <BasicSelect setLang={setLang} />
           </div>
-          <button type="button" className="w-8" onClick={() => setVisible(false)}>
+          <button type="button" aria-label="hidden" className="w-8" onClick={() => setVisible(false)}>
             <FaCaretDown />
           </button>
         </div>
@@ -293,21 +296,21 @@ const ChatPage = ({
             className="mr-2 py-2 px-4 text-white bg-[#A536FA]"
             onClick={handleYesClick}
           >
-            Yes
+            {ts('Yes')}
           </button>
           <button
             type="button"
             className="py-2 px-4 text-[#A536FA] border-[#A536FA] border"
             onClick={handleNoClick}
           >
-            No
+            {ts('No')}
           </button>
         </div>
       )}
       {showForm && (
         <div className="p-4 mt-2">
           <p className="text-center text-[#070E0B]">
-            Please provide your email and content to book a ticket
+            {ts('Please_provide_your_email_and_content_to_book_a_ticket')}
           </p>
           <input
             type="email"
@@ -329,14 +332,14 @@ const ChatPage = ({
               className="mr-2 py-2 px-4 text-white bg-[#A536FA]"
               onClick={handleOkayClick}
             >
-              Okay
+              {ts('Okay')}
             </button>
             <button
               type="button"
               className="py-2 px-4 text-[#A536FA] border-[#A536FA] border"
               onClick={handleCancelClick}
             >
-              Cancel
+              {ts('Cancel')}
             </button>
           </div>
         </div>

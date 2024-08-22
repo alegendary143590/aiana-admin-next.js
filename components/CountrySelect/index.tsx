@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from "react"
 import Image from "next/image"
+import { useTranslations } from "next-intl";
 
 const CustomDropdown = ({ selectedOption, countries, onSelect }) => {
 
   const menuRef = useRef(null);
+  const transCountry = useTranslations('country');
 
   const [selectedCountry, setSelectedCountry] = useState<any>({
     name: "",
@@ -53,7 +55,7 @@ const CustomDropdown = ({ selectedOption, countries, onSelect }) => {
               width={20}
               height={20}
             />
-            <span className="ml-2">{selectedCountry.name}</span>
+            <span className="ml-2">{`${transCountry(selectedCountry.name)}`}</span>
           </div>
         ) : (
           <div className="flex items-center">
@@ -64,7 +66,7 @@ const CustomDropdown = ({ selectedOption, countries, onSelect }) => {
               width={20}
               height={20}
             />
-            <span className="ml-2">{countries[0].name}</span>
+            <span className="ml-2">{`${transCountry(countries[0].name)}`}</span>
           </div>
         )}
         <svg
@@ -94,7 +96,7 @@ const CustomDropdown = ({ selectedOption, countries, onSelect }) => {
                 width={20}
                 height={20}
               />
-              <span className="ml-2">{country.name}</span>
+              <span className="ml-2">{`${transCountry(country.name)}`}</span>
             </div>
           </button>
         ))}
