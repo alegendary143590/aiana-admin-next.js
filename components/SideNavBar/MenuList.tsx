@@ -1,8 +1,10 @@
 import { useRouter } from "next/router"
-import { useSideMenu } from "@/providers/SideMenuProvider"
+import { useTranslations } from "use-intl"
 import Image from "next/image"
+import { useSideMenu } from "@/providers/SideMenuProvider"
 
 const MenuList = ({ open }) => {
+  const t = useTranslations('common');
   const { push } = useRouter()
 
 
@@ -34,10 +36,10 @@ const MenuList = ({ open }) => {
           } flex items-center justify-start`}
         >
           <div className={profileActive ? iconActiveClasses : iconClasses}>
-            <Image src="/images/navbar/icon_account.svg" width={18} height={20} className="opacity-90" />
+            <Image alt="icon_account" src="/images/navbar/icon_account.svg" width={18} height={20} className="opacity-90" />
           </div>
           <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>
-            My Account
+            {t('My_Account')}
           </p>
         </div>
       </button>
@@ -53,9 +55,9 @@ const MenuList = ({ open }) => {
             } flex items-center justify-start`}
           >
             <div className={usersActive ? iconActiveClasses : iconClasses}>
-              <Image src="/images/navbar/icon_users.svg" width={18} height={20} className="opacity-90" />
+              <Image alt="icon_users" src="/images/navbar/icon_users.svg" width={18} height={20} className="opacity-90" />
             </div>
-            <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>Users</p>
+            <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>{t('Users')}</p>
           </div>
         </button>
       )}
@@ -71,9 +73,9 @@ const MenuList = ({ open }) => {
           style={{ paddingRight: !open && "14px", paddingLeft: !open && "14px" }}
         >
           <div className={createActive ? iconActiveClasses : iconClasses}>
-            <Image src="/images/navbar/icon_chatbot.svg" width={24} height={20} className="opacity-90" />
+            <Image alt="icon_chatbot" src="/images/navbar/icon_chatbot.svg" width={24} height={20} className="opacity-90" />
           </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>Chatbot</p>
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>{t('Chatbot')}</p>
         </div>
       </button>
       <button
@@ -87,10 +89,10 @@ const MenuList = ({ open }) => {
           } flex items-center justify-start`}
         >
           <div className={knowledgeActive ? iconActiveClasses : iconClasses}>
-            <Image src="/images/navbar/icon_knowledge.svg" width={18} height={20} className="opacity-90" />
+            <Image alt="icon_knowledge" src="/images/navbar/icon_knowledge.svg" width={18} height={20} className="opacity-90" />
           </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>
-            Knowledge Base
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px] text-left`}>
+            {t('Knowledge_Base')}
           </p>
         </div>
       </button>
@@ -105,9 +107,9 @@ const MenuList = ({ open }) => {
           } flex items-center justify-start`}
         >
           <div className={dashboardActive ? iconActiveClasses : iconClasses}>
-            <Image src="/images/navbar/icon_chatlogs.svg" width={18} height={20} className="opacity-90" />
+            <Image alt="icon_chatlogs" src="/images/navbar/icon_chatlogs.svg" width={18} height={20} className="opacity-90" />
           </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>Chatlogs</p>
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>{t('Chatlogs')}</p>
         </div>
       </button>
       <button
@@ -121,9 +123,9 @@ const MenuList = ({ open }) => {
           } flex items-center justify-start`}
         >
           <div className={ticketsActive ? iconActiveClasses : iconClasses}>
-            <Image src="/images/navbar/icon_tickets.svg" width={18} height={20} className="opacity-90" />
+            <Image alt="icon_tickets.svg" src="/images/navbar/icon_tickets.svg" width={18} height={20} className="opacity-90" />
           </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>Tickets</p>
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>{t('Tickets')}</p>
         </div>
       </button>
     </div>

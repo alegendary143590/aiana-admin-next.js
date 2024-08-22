@@ -1,6 +1,7 @@
+import { GetStaticPaths } from "next";
+import { useRouter } from "next/router"
 import ChatbotForm from "@/components/ChatbotFrom"
 import Layout from "@/components/Layout"
-import { useRouter } from "next/router"
 
 const EditPage = () => {
   const router = useRouter();
@@ -16,3 +17,14 @@ const EditPage = () => {
 }
     
 export default EditPage
+export async function getStaticProps(context) {
+  return {
+      props: {
+          messages: (await import(`@/messages/${context.locale}.json`)).default
+      }
+  };
+}
+export const getStaticPaths: GetStaticPaths = async () => ({
+  paths: [], // No pre-rendered paths
+  fallback: 'blocking', // or 'true' for client-side rendering on unknown paths
+})

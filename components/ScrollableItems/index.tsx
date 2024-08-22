@@ -24,6 +24,7 @@ const ScrollableItems = ({ items, tooltips }) => {
             {items.length > itemsPerPage && (
                 <button
                     type="button"
+                    aria-label='icon_left'
                     onClick={handlePrev}
                     className="mr-2 rounded-full p-1 text-[#A536FA]"
                 >
@@ -31,13 +32,13 @@ const ScrollableItems = ({ items, tooltips }) => {
                 </button>
             )}
             {visibleItems.map((item, index) => (
-                <div key={item.index} className="flex-none relative group w-12 px-2">
+                <div key={item.index} className="relative group size-8 mx-1">
                     <Image
                         src={item.item || "/images/logo_sm.png"}
                         alt="bot_avatar"
-                        width={40}
-                        height={40}
-                        className="object-cover rounded-full"
+                        width={100}
+                        height={100}
+                        className="object-cover rounded-full w-full h-full"
                     />
                     <span className="absolute z-[99] left-1/2 -translate-x-1/2 top-10 scale-0 rounded bg-gray-800 inline p-2 text-xs text-white group-hover:scale-100">{visibleTooltips ? visibleTooltips[index] : ''}</span>
                 </div>
@@ -45,6 +46,7 @@ const ScrollableItems = ({ items, tooltips }) => {
             {items.length > itemsPerPage && (
                 <button
                     type="button"
+                    aria-label="Add"
                     onClick={handleNext}
                     className="ml-2 rounded-full p-1 text-[#A536FA]"
                 >

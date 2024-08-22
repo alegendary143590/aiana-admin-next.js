@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react"
 import { useRouter } from "next/router"
 import axios from "axios"
 import { FaArrowLeft } from "react-icons/fa"
+import { useTranslations } from "next-intl"
 import { ToastContainer, toast } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { setExpiryTime } from "@/components/utils/common"
@@ -19,6 +20,8 @@ interface Base {
 }
 
 const KnowledgeBaseForm = ({ baseId }) => {
+  const t = useTranslations('knowledge');
+  const toa = useTranslations('toast');
   const router = useRouter();
   const [value, setValue] = useState(0)
   const [nameInputValue, setNameInputValue] = useState("")
@@ -88,7 +91,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
               console.log('Error status code:', error.response.status);
               console.log('Error response data:', error.response.data);
               if (error.response.status === 401) {
-                toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
+                toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
 
                 router.push("/signin")
               }
@@ -117,12 +120,12 @@ const KnowledgeBaseForm = ({ baseId }) => {
 
   const handleSubmit = async () => {
     if (nameInputValue === "") {
-      toast.error("Please input the name!", { position: toast.POSITION.TOP_RIGHT })
+      toast.error(`${toa('Please_input_the_name')}`, { position: toast.POSITION.TOP_RIGHT })
       return
     }
 
     if (documents.length === 0 && urls.length === 0 && questionAnswers.length === 0) {
-      toast.error("Please input the data!", { position: toast.POSITION.TOP_RIGHT })
+      toast.error(`${toa('Please_input_the_data')}`, { position: toast.POSITION.TOP_RIGHT })
       return
     }
     const userID = localStorage.getItem("userID")
@@ -167,11 +170,11 @@ const KnowledgeBaseForm = ({ baseId }) => {
         console.log('Error status code:', error.response.status);
         console.log('Error response data:', error.response.data);
         if (error.response.status === 401) {
-          toast.error("Session Expired!", { position: toast.POSITION.TOP_RIGHT })
+          toast.error(`${toa('Session_Expired')}`, { position: toast.POSITION.TOP_RIGHT })
           router.push("/signin")
         }
         else if (error.response.status === 504) {
-          toast.error("It takes too much time to retrieve information from your document!", { position: toast.POSITION.TOP_RIGHT })
+          toast.error(`${toa('It_takes_too_much_time_to_retrieve_information_from_your_document')}`, { position: toast.POSITION.TOP_RIGHT })
 
         }
         // Handle the error response as needed
@@ -188,7 +191,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>{t('Loading')}</div>;
   }
 
   return (
@@ -196,10 +199,10 @@ const KnowledgeBaseForm = ({ baseId }) => {
       className="relative flex h-full flex-col flex-grow sm:w-[90%] w-full mx-auto sm:p-5"
     >
       <div className="bg-none w-full rounded-lg flex items-center gap-3 mb-5">
-        <button type="button" className="bg-[#F4F4F4] text-[#767676] font-[300] p-3 rounded-md" onClick={() => router.push("/knowledge")}>
+        <button type="button" aria-label="back" className="bg-[#F4F4F4] text-[#767676] font-[300] p-3 rounded-md" onClick={() => router.push("/knowledge")}>
           <FaArrowLeft />
         </button>
-        <h3 className="text-lg font-bold">{newBaseId !== "-1" ? 'Edit Knowledge Base' : 'Create Knowledge Base'}</h3>
+        <h3 className="text-lg font-bold">{newBaseId !== "-1" ? `${t('Edit_Knowledge_Base')}` : `${t('Create_Knowledge_Base')}`}</h3>
       </div>
       <div className="bg-none w-full rounded-lg flex flex-col mt-1 border border-[#CFCFCF]">
         <div className="flex flex-col w-full items-center">
@@ -207,7 +210,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
             className="w-full rounded-lg py-4 px-7 text-xl font-bold border-none focus:ring-0"
             type="text"
             value={nameInputValue}
-            placeholder="Enter name of new knowledge base"
+            placeholder={t('Enter_name_of_new_knowledge_base')}
             onChange={(e) => setNameInputValue(e.target.value)}
           />
           <hr className="w-full" />
@@ -217,9 +220,9 @@ const KnowledgeBaseForm = ({ baseId }) => {
           <ul
             className="flex justify-start gap-7 ml-7"
           >
-            <button type="button" className={`${value === 0 && "border-b-2 text-[#A536FA]"} border-[#A536FA] py-3 cursor-pointer`} onClick={() => setValue(0)}>Document</button>
-            <button type="button" className={`${value === 1 && "border-b-2 text-[#A536FA]"} border-[#A536FA] py-3 cursor-pointer`} onClick={() => setValue(1)}>Website</button>
-            <button type="button" className={`${value === 2 && "border-b-2 text-[#A536FA]"} border-[#A536FA] py-3 cursor-pointer`} onClick={() => setValue(2)}>Questions & Answers</button>
+            <button type="button" className={`${value === 0 && "border-b-2 text-[#A536FA]"} border-[#A536FA] py-3 cursor-pointer`} onClick={() => setValue(0)}>{t('Document')}</button>
+            <button type="button" className={`${value === 1 && "border-b-2 text-[#A536FA]"} border-[#A536FA] py-3 cursor-pointer`} onClick={() => setValue(1)}>{t('Website')}</button>
+            <button type="button" className={`${value === 2 && "border-b-2 text-[#A536FA]"} border-[#A536FA] py-3 cursor-pointer`} onClick={() => setValue(2)}>{t('Questions_Answers')}</button>
           </ul>
           <hr className="w-full" />
 
@@ -233,16 +236,16 @@ const KnowledgeBaseForm = ({ baseId }) => {
           <button
             type="button"
             className="bg-[url('/images/button-bg-white.png')] max-sm:bg-[length:100%_40px] bg-[length:160px_40px] rounded-md bg-center bg-no-repeat max-sm:w-full w-[160px] h-[40px] text-[#A536FA] font-bold"
-            onClick={() => router.push("/knowledge")}
+            onClick={() => router.push(`/knowledge`)}
           >
-            Cancel
+            {t('Cancel')}
           </button>
           <button
             type="button"
             className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] text-white font-bold rounded-md"
             onClick={handleSubmit}
           >
-            Save
+            {t('Save')}
           </button>
         </div>
 

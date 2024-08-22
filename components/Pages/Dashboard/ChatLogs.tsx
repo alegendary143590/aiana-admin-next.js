@@ -1,13 +1,16 @@
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import router from "next/router"
 import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
+import { useTranslations } from "use-intl"
 
 import { AUTH_API } from "@/components/utils/serverURL"
 import Avatar from "@/components/Avatar"
 import Image from "next/image"
 
 const ChatLogs = () => {
+  const t = useTranslations('dashboard');
+  const toa = useTranslations('toast')
   const [userID, setUserID] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [chatLog, setChatLog] = useState([]);
@@ -29,7 +32,7 @@ const ChatLogs = () => {
             setChatLog(chatLogs);
           }
           if (response.status === 401) {
-            toast.error("Please login!", { position: toast.POSITION.TOP_RIGHT });
+            toast.error(`${toa('Please_login')}`, { position: toast.POSITION.TOP_RIGHT });
             router.push("/signin");
           }
           setIsLoading(false)
@@ -40,7 +43,7 @@ const ChatLogs = () => {
             console.log('Error status code:', error.response.status);
             console.log('Error response data:', error.response.data);
             if (error.response.status === 401) {
-              toast.error("Session Expired. Please log in again!", { position: toast.POSITION.TOP_RIGHT });
+              toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
 
               router.push("/signin")
             }
@@ -73,11 +76,11 @@ const ChatLogs = () => {
         if (response.status === 201) {
           const updatedChatLog = chatLog.filter((log) => log.session_id !== sessionId);
           setChatLog(updatedChatLog);
-          toast.success("Chatlog deleted successfully!", { position: toast.POSITION.TOP_RIGHT })
+          toast.success(`${toa('Chatlog_deleted_successfully')}`, { position: toast.POSITION.TOP_RIGHT })
         }
       })
       .catch(() => {
-        toast.error("Failed to delete chatlog. Please try again later!", { position: toast.POSITION.TOP_RIGHT });
+        toast.error(`${toa('Failed_to_delete_chatlog_Please_try_again_later')}`, { position: toast.POSITION.TOP_RIGHT });
       });
   }
 
@@ -87,7 +90,7 @@ const ChatLogs = () => {
 
   if (isLoading) {
     return (
-      <div>Loading...</div>
+      <div>{t('Loading')}</div>
     )
   }
 
@@ -95,50 +98,50 @@ const ChatLogs = () => {
     <>
       <div className="w-full mx-auto p-5">
         <div className="w-full h-[50px] flex items-center justify-between pt-[24px] mb-[10px]">
-          <h3 className="font-bold text-2xl">Chatlogs</h3>
+          <h3 className="font-bold text-2xl">{t('Chatlogs')}</h3>
         </div>
       </div>
       <table className="w-full rounded-table min-w-[600px]" aria-label="table">
         <thead className="bg-[#EEEEEE] text-[#767676] text-sm ">
           <tr>
-            <th className="px-4 py-2 text-start">CHATBOT NAME</th>
-            <th className="px-4 py-2 text-start">STARTED ON</th>
-            <th className="px-4 py-2 text-start">ENDED ON</th>
-            <th className="px-4 py-2 text-start">STATUS</th>
-            <th className="px-4 py-2 text-start">ACTION</th>
+            <th className="px-4 py-2 text-start">{t('CHATBOT_NAME')}</th>
+            <th className="px-4 py-2 text-start">{t('STARTED_ON')}</th>
+            <th className="px-4 py-2 text-start">{t('ENDED_ON')}</th>
+            <th className="px-4 py-2 text-start">{t('STATUS')}</th>
+            <th className="px-4 py-2 text-start">{t('ACTION')}</th>
           </tr>
         </thead>
         <tbody className="gap-3 my-2">
           {chatLog.map((row) => (
-            <>
+            <React.Fragment key={row.id}>
               <tr className="h-3" />
-              <tr key={row.id} className="hover:bg-gray-100 cursor-pointer border border-[#BEBEBE] border-round">
+              <tr className="hover:bg-gray-100 cursor-pointer border border-[#BEBEBE] border-round">
 
                 <td >
-                  <button type="button" onClick={() => handleRowClick(row.session_id)} className="px-4 py-2 w-full h-full flex justify-start items-center gap-3 font-bold">
+                  <button type="button" aria-label="bot" onClick={() => handleRowClick(row.session_id)} className="px-4 py-2 w-full h-full flex justify-start items-center gap-3 font-bold">
                     <Avatar src={row.bot_avatar || "/images/logo_sm.png"} name="avatar" className="size-10 rounded-full" />
                     {row.bot_name}
                   </button>
 
                 </td>
                 <td className="px-4 py-2">
-                  <button type="button" onClick={() => handleRowClick(row.session_id)} className="w-full h-full py-4 text-start">
+                  <button type="button" aria-label="created" onClick={() => handleRowClick(row.session_id)} className="w-full h-full py-4 text-start">
                     {row.created_at}
                   </button>
                 </td>
-                <td className="px-4 py-2"><button type="button" onClick={() => handleRowClick(row.session_id)} className="w-full h-full py-4 text-start">{row.ended_at}</button></td>
-                <td className={`px-4 py-2 italic font-bold ${row.bot_active > 0 ? "text-black" : "text-[#BA1126]"}`}><button type="button" onClick={() => handleRowClick(row.session_id)} className="w-full h-full py-4 text-start">{row.bot_active > 0 ? "Active" : "Inactive"}</button></td>
+                <td className="px-4 py-2"><button type="button" aria-label="session" onClick={() => handleRowClick(row.session_id)} className="w-full h-full py-4 text-start">{row.ended_at}</button></td>
+                <td className={`px-4 py-2 italic font-bold ${row.bot_active > 0 ? "text-black" : "text-[#BA1126]"}`}><button type="button" aria-label="session" onClick={() => handleRowClick(row.session_id)} className="w-full h-full py-4 text-start">{row.bot_active > 0 ? "Active" : "Inactive"}</button></td>
                 <td className="px-4 py-2">
                   <button
                     type="button"
                     onClick={() => handleDeleteButton(row.session_id)}
-                    className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md"
+                    className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md flex justify-center items-center"
                   >
-                    <Image src="/images/icon_trash.svg" width={18} height={18} />
+                    <Image src="/images/icon_trash.svg" alt = "trash_icon" width={18} height={18} />
                   </button>
                 </td>
               </tr>
-            </>
+           </React.Fragment>
 
 
           ))}

@@ -3,6 +3,7 @@ import axios from "axios"
 import { useRouter } from "next/router"
 import { ToastContainer, toast } from "react-toastify"
 import { FaArrowLeft, FaChevronDown } from "react-icons/fa"
+import { useTranslations } from "next-intl"
 
 import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSwitch from "../CustomSwitch"
@@ -11,6 +12,8 @@ import CustomAutocomplete from "../CustomAutocomplete"
 import { setExpiryTime } from "../utils/common"
 
 const ChatbotForm = ({ bot }) => {
+  const t = useTranslations('chatbot');
+  const toa = useTranslations('toast');
   const [name, setName] = useState("")
   const [active, setActive] = useState(false)
   const [knowledgeBase, setKnowleBase] = useState("")
@@ -103,12 +106,12 @@ const ChatbotForm = ({ bot }) => {
         })
         .catch((error) => {
           if (error.message.includes("401")) {
-            toast.error("Session Expired. Please log in again!", {
+            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
               position: toast.POSITION.TOP_RIGHT,
             })
             router.push("/signin")
           } else {
-            toast.error("An error occurred while fetching data.", {
+            toast.error(`${toa('An_error_occurred_while_fetching_data')}`, {
               position: toast.POSITION.TOP_RIGHT,
             })
           }
@@ -171,7 +174,7 @@ const ChatbotForm = ({ bot }) => {
   const handleSubmit = async () => {
     const formData = new FormData()
     if (name === "" || knowledgeBase === "") {
-      toast.error("Name and Knowledge Base are required!", { position: toast.POSITION.TOP_RIGHT })
+      toast.error(`${toa('Name_and_Knowledge_Base_are_required')}`, { position: toast.POSITION.TOP_RIGHT })
       return
     }
 
@@ -202,7 +205,7 @@ const ChatbotForm = ({ bot }) => {
         },
       })
       setExpiryTime();
-      toast.success("Successulfy Created!", { position: toast.POSITION.TOP_RIGHT })
+      toast.success(`${toa('Successfully_Created')}`, { position: toast.POSITION.TOP_RIGHT })
     } catch (error) {
       console.error("Error uploading:", error)
       if (error.response && error.response.status === 401) {
@@ -216,17 +219,17 @@ const ChatbotForm = ({ bot }) => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div>{t('Loading')}</div>
   }
 
   return (
     <div className="h-full sm:w-[90%] w-full mx-auto sm:p-5">
       <div className="w-full flex flex-col gap-4">
         <div className="bg-none w-full rounded-lg flex items-center gap-3">
-          <button type="button" className="bg-[#F4F4F4] text-[#767676] font-[300] p-3 rounded-md" onClick={() => router.push("/chatbot")}>
+          <button type="button" className="bg-[#F4F4F4] text-[#767676] font-[300] p-3 rounded-md" aria-label="Go back" onClick={handleCancelClick}>
             <FaArrowLeft />
           </button>
-          <h3 className="text-lg font-bold">{bot !== "-1" ? "Edit Chatbot" : "Create Chatbot"}</h3>
+          <h3 className="text-lg font-bold">{bot !== "-1" ? `${t("Edit_Chatbot")}` : `${t("Create_Chatbot")}`}</h3>
         </div>
         <div className="bg-none w-full rounded-lg flex flex-col gap-4 mt-1 border border-[#CFCFCF] overflow-auto">
           <div className="flex flex-col w-full items-center">
@@ -241,7 +244,7 @@ const ChatbotForm = ({ bot }) => {
           <div className="p-4">
             <div className="flex flex-col">
               <div className="flex flex-col">
-                <p className="font-bold">Avatar</p>
+                <p className="font-bold">{t('Avatar')}</p>
               </div>
               <div className="flex items-center gap-4">
                 <input
@@ -255,7 +258,7 @@ const ChatbotForm = ({ bot }) => {
                   <div
                     className="bg-[#A438FA] hover:bg-[#941cf7] cursor-pointer text-white font-bold py-2 px-4 rounded-md"
                   >
-                    <p className="text-sm font-bold">+ Upload Avatar</p>
+                    <p className="text-sm font-bold">+ {t('Upload_Avatar')}</p>
                   </div>
                 </label>
                 {avatarPreview && (
@@ -273,7 +276,7 @@ const ChatbotForm = ({ bot }) => {
             <div className="flex flex-wrap max-lg:flex-col w-full">
               <div className="flex flex-col justify-between md:w-1/2 w-full">
                 <div>
-                  <p className="font-bold">Timing</p>
+                  <p className="font-bold">{t('Timing')}</p>
                 </div>
                 <div className="flex mt-2">
                   <input type="time" value={timeFrom} onChange={handleTimeFromChange} className="mr-2 rounded-md border-[#CFCFCF]" />
@@ -288,12 +291,13 @@ const ChatbotForm = ({ bot }) => {
               </div>
               <div className="flex flex-col justify-between md:w-1/2 w-full">
                 <div className="flex flex-col">
-                  <p className="font-bold mb-2 sm:mt-0 mt-4">Color</p>
+                  <p className="font-bold mb-2 sm:mt-0 mt-4">{t('Color')}</p>
                 </div>
                 <div className="flex flex-col ">
                   <button
                     type="button"
                     onClick={handleColorButtonClick}
+                    aria-label="color-picker"
                     className="max-w-[300px] py-2 px-3  rounded-md border border-[#CFCFCF] flex justify-between items-center"
                   >
                     <div className="flex size-7 items-center ring-2 ring-offset-1 ring-[#D9D9D9]" style={{ backgroundColor: themeColor }} />
@@ -324,7 +328,7 @@ const ChatbotForm = ({ bot }) => {
             </div>
 
             <div className="flex flex-col mt-4 md:w-1/2 w-full">
-              <p className="font-bold">Knowledge Base</p>
+              <p className="font-bold">{t('Knowledge_Base')}</p>
               <CustomAutocomplete currentValue={knowledgeBase} options={knowledgeBases || []} onChange={(value) => handleKnowledgeBaseChange(value)} />
             </div>
             <div className="w-full flex sm:flex-row flex-col-reverse items-center justify-end gap-5 mt-3">
@@ -333,14 +337,14 @@ const ChatbotForm = ({ bot }) => {
                 className="bg-[url('/images/button-bg-white.png')] max-sm:bg-[length:100%_40px] bg-[length:160px_40px] rounded-md bg-center bg-no-repeat max-sm:w-full w-[160px] h-[40px] text-[#A536FA] font-bold"
                 onClick={handleCancelClick}
               >
-                Cancel
+                {t('Cancel')}
               </button>
               <button
                 type="button"
                 className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] text-white font-bold rounded-md"
                 onClick={handleSubmit}
               >
-                Save
+                {t('Save')}
               </button>
             </div>
           </div>
