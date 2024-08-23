@@ -83,10 +83,11 @@ const ChatPage = ({
     setInput("")
 
     if (!isTimeBetween(startTime, endTime)) {
-      toast.error(`${toa('Its_not_the_time_to_be_active_for_this_assistant')}`, {
-        position: toast.POSITION.TOP_RIGHT,
-      })
-      return
+      // toast.error(`${toa('Its_not_the_time_to_be_active_for_this_assistant')}`, {
+      //   position: toast.POSITION.TOP_RIGHT,
+      // })
+      // return
+      console.log(`Time between ${startTime} and ${endTime}`)
     }
     const createdAt = new Date().toLocaleDateString("en-US", options)
 

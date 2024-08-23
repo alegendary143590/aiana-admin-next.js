@@ -34,7 +34,7 @@ const Text = ({ questionAnswers, setQuestionAnswers }) => {
       <div className="text-center bg-[#F5E8FF] py-2 sm:mx-7 mx-3">
         <span className="text-[#343434] text-sm text-center">
           <FaInfoCircle className="text-[#A536FA] size-5 inline-block mr-3" />
-          {t('Note_Build_your_Chatbot_Knowledge_Base_by_uploading_documents_These_documents_train_your_chat')}
+          {t('Note_Add_custom_texts_questions_to_build_your_chatbot_knowledge_base_These_texts_help_train_your_chatbot_to_answer_questions_accurately')}
         </span>
       </div>
       <div className="flex max-md:flex-col">
