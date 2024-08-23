@@ -111,6 +111,7 @@
         "Edit_Knowledge_Base": "Edit Knowledge Base",
         "Confirm_Delete": "Confirm Delete",
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_documents_These_documents_train_your_chat": "Note: Build your Chatbot’s Knowledge Base by uploading documents. These documents train your chat",
+        "Note_Add_custom_texts_questions_to_build_your_chatbot_knowledge_base_These_texts_help_train_your_chatbot_to_answer_questions_accurately": "Note: Add custom texts/questions to build your chatbot’s knowledge base. These texts help train your chatbot to answer questions accurately.",
         "Drop_files_here_or_click_to_upload": "Drop files here or click to upload",
         "Upload_files_in_formats_PDF_DOC_TXT_with_a_maximum_size_of_5MB": "Upload files in formats (PDF, DOC(X), TXT) with a maximum size of",
         "Uploaded_files": "Uploaded files",
