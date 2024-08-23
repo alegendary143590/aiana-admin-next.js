@@ -23,6 +23,10 @@
     },
     "admin": {
         "Select_a_language":"Selecteer een taal",
+        "English": "Engels",
+        "Spanish": "Spaans",
+        "Dutch": "Nederlands",
+        "French": "Frans",
         "users": "gebruikers",
         "myAccount": "Mijn account",
         "Loading": "Laden",
