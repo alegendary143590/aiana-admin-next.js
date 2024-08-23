@@ -113,7 +113,7 @@ const Website = ({ urls, setUrls }) => {
       <div className="text-center bg-[#F5E8FF] py-2 sm:mx-7 mx-3">
         <span className="text-[#343434] text-sm text-center">
           <FaInfoCircle className="text-[#A536FA] size-5 inline-block mr-3" />
-          {t('Note_Build_your_Chatbot_Knowledge_Base_by_uploading_documents_These_documents_train_your_chat')}
+          {t('Note_Build_your_Chatbot_Knowledge_Base_by_uploading_urls_These_urls_train_your_chatbot_to_answer_questions_accurately')}
         </span>
       </div>
       <p className="text-center pt-5 font-bold text-sm px-5">{t('Please_do_not_add_URLs_to_websites_that_contain_confidential_information_or_where_the_publisher_has_imposed_restrictions_on_sharing')}</p>

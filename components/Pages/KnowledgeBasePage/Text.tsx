@@ -20,7 +20,7 @@ const Text = ({ questionAnswers, setQuestionAnswers }) => {
       setQuestionInputValue("")
       setAnswerInputValue("")
     } else {
-      toast.error(`${toa('Question_and_Answer_are_rquired')}`, { position: toast.POSITION.TOP_RIGHT });
+      toast.error(`${toa('Question_and_Answer_are_required')}`, { position: toast.POSITION.TOP_RIGHT });
     }
   }
 

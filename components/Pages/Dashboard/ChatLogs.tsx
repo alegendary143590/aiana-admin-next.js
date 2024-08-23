@@ -137,11 +137,11 @@ const ChatLogs = () => {
                     onClick={() => handleDeleteButton(row.session_id)}
                     className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md flex justify-center items-center"
                   >
-                    <Image src="/images/icon_trash.svg" alt = "trash_icon" width={18} height={18} />
+                    <Image src="/images/icon_trash.svg" alt="trash_icon" width={18} height={18} />
                   </button>
                 </td>
               </tr>
-           </React.Fragment>
+            </React.Fragment>
 
 
           ))}

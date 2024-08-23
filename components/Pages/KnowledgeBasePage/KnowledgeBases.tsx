@@ -164,15 +164,15 @@ const KnowledgeBase = () => {
               onClick={handleAddRow}
               className="bg-[#A536FA] max-sm:w-full w-[210px] sm:h-[40px] h-auto p-3 flex items-center justify-center gap-1 text-white font-bold rounded-md"
             >
-              <Image src="/images/icon_createKnowledge.svg" alt="create" width={20} height={20} />
+              <Image src="/images/icon_createKnowledge.svg" alt="create" width={15} height={15} />
               <p>{t('Create_Knowledge_Base')}</p>
             </button>
           </div>
         </div>
         <AlertDialog
-           title={t('Confirm_Delete')}
-           description={t('Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone')}
-           handleAgree={handleAgree}
+          title={t('Confirm_Delete')}
+          description={t('Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone')}
+          handleAgree={handleAgree}
           handleDisagree={handleDisagree}
           open={openDialog}
           setOpen={setOpenDialog}
@@ -190,7 +190,7 @@ const KnowledgeBase = () => {
           onClick={handleAddRow}
           className="bg-[#A536FA] max-sm:w-full w-[210px] sm:h-[40px] h-auto p-3 flex items-center justify-center gap-1 text-white font-bold rounded-md"
         >
-          <Image src="/images/icon_createKnowledge.svg" alt="create" width={20} height={20} />
+          <Image src="/images/icon_createKnowledge.svg" alt="create" width={15} height={15} />
           <p>{t('Create_Knowledge_Base')}</p>
         </button>
       </div>
@@ -205,7 +205,7 @@ const KnowledgeBase = () => {
             <div className="flex w-full h-[50px] px-5 items-center gap-2">
               <p className="text-sm text-[#070E0B]">{t('Connected_with')}</p>
 
-              <ScrollableItems items={base.bot_avatar.map((item, itemIndex) => { const newItem = { item, index:itemIndex }; return newItem; })} tooltips={base.bot_names} />
+              <ScrollableItems items={base.bot_avatar.map((item, itemIndex) => { const newItem = { item, index: itemIndex }; return newItem; })} tooltips={base.bot_names} />
 
             </div>
             <hr className="my-5" />
