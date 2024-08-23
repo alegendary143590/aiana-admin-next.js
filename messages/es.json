@@ -117,6 +117,7 @@
         "FILENAME": "NOMBRE_DEL_ARCHIVO",
         "TYPE": "TIPO",
         "UPLOADED_ON": "SUBIDO_EL",
+        "Drop_files_here_or_click_to_upload": "Suelte los archivos aquí o haga clic para cargarlos",
         "ACTION": "ACCIÓN",
         "Please_do_not_upload_any_confidential_data": "Por favor, no suba datos confidenciales.",
         "Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone": "¿Esta seguro de que desea eliminar este elemento? Esta acción no se puede deshacer.",

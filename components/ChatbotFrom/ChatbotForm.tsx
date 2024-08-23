@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import axios from "axios"
 import { useRouter } from "next/router"
 import { ToastContainer, toast } from "react-toastify"
 import { FaArrowLeft, FaChevronDown } from "react-icons/fa"
 import { useTranslations } from "next-intl"
+import { SketchPicker } from 'react-color';
+
 
 import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSwitch from "../CustomSwitch"
@@ -12,6 +14,7 @@ import CustomAutocomplete from "../CustomAutocomplete"
 import { setExpiryTime } from "../utils/common"
 
 const ChatbotForm = ({ bot }) => {
+  const colorRef = useRef(null);
   const t = useTranslations('chatbot');
   const toa = useTranslations('toast');
   const [name, setName] = useState("")
@@ -21,50 +24,41 @@ const ChatbotForm = ({ bot }) => {
   const [avatarPreview, setAvatarPreview] = useState(null)
   const [timeFrom, setTimeFrom] = useState("09:00")
   const [timeUntil, setTimeUntil] = useState("17:00")
-  const [anchorEl, setAnchorEl] = useState(null)
-  const [themeColor, setThemeColor] = useState("#1976D2")
+  const [themeColor, setThemeColor] = useState("#703e46")
   const [isLoading, setIsLoading] = useState(false)
   const [bases, setBases] = useState([])
   const [knowledgeBases, setKnowledgeBases] = useState([])
+  const [isPickerOpen, setPickerOpen] = useState(false)
 
   const router = useRouter()
   // console.log("inner >>>", bot)
   const [index, setIndex] = useState(-1)
   const [userId, setUserId] = useState(null)
-  const handleColorButtonClick = (event) => {
-    setAnchorEl(event.currentTarget)
+
+  const handleColorChange = (color) => {
+    setThemeColor(color.hex)
   }
 
-  const handleColorMenuItemClick = (color) => {
-    // console.log("1",index)
-
-    setThemeColor(color)
-    setAnchorEl(null)
-  }
-
-  const colors = [
-    "#FFFF00",
-    "#FFDAB9",
-    "#FFC0CB",
-    "#FFA500",
-    "#FA8072",
-    "#FF7F50",
-    "#98FB98",
-    "#87CEEB",
-    "#00FFFF",
-    "#40E0D0",
-    "#008080",
-    "#1976D2",
-    "#C8A2C8",
-    "#800080",
-    "#0000FF",
-    "#A52A2A",
-    "#708090",
-    "#000000",
-  ]
-
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (colorRef.current && !colorRef.current.contains(event.target as Node)) {
+        setPickerOpen(false);
+      }
+    };
+  
+    if (typeof window !== 'undefined') {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+  
+    // Return a cleanup function, even if it's a no-op
+    return () => {
+      if (typeof window !== 'undefined') {
+        document.removeEventListener("mousedown", handleClickOutside);
+      }
+    };
+  }, []);
   // Fetch knowledge bases when component mounts
-  React.useEffect(() => {
+  useEffect(() => {
     setIsLoading(true)
     const userID = localStorage.getItem("userID")
     setUserId(userID)
@@ -205,7 +199,7 @@ const ChatbotForm = ({ bot }) => {
         },
       })
       setExpiryTime();
-      toast.success(`${toa('Successfully_Created')}`, { position: toast.POSITION.TOP_RIGHT })
+      toast.success(`${ bot === "-1" ? toa('Successfully_Created') : toa('Successfully_updated')}`, { position: toast.POSITION.TOP_RIGHT })
     } catch (error) {
       console.error("Error uploading:", error)
       if (error.response && error.response.status === 401) {
@@ -231,7 +225,7 @@ const ChatbotForm = ({ bot }) => {
           </button>
           <h3 className="text-lg font-bold">{bot !== "-1" ? `${t("Edit_Chatbot")}` : `${t("Create_Chatbot")}`}</h3>
         </div>
-        <div className="bg-none w-full rounded-lg flex flex-col gap-4 mt-1 border border-[#CFCFCF] overflow-auto">
+        <div className="bg-none w-full rounded-lg flex flex-col gap-4 mt-5 border border-[#CFCFCF] overflow-auto">
           <div className="flex flex-col w-full items-center">
             <input
               className="w-full rounded-lg p-4 text-xl font-bold border-none focus:ring-0"
@@ -269,7 +263,7 @@ const ChatbotForm = ({ bot }) => {
               </div>
             </div>
             <div className="flex flex-col">
-              <div className="flex flex-col my-4">
+              <div className="flex flex-col my-8">
                 <CustomSwitch value={active} onChange={handleSwitchChange} />
               </div>
             </div>
@@ -289,49 +283,33 @@ const ChatbotForm = ({ bot }) => {
                 </div>
 
               </div>
-              <div className="flex flex-col justify-between md:w-1/2 w-full">
+              <div className="flex flex-col justify-between md:w-1/2 w-full relative">
                 <div className="flex flex-col">
                   <p className="font-bold mb-2 sm:mt-0 mt-4">{t('Color')}</p>
                 </div>
-                <div className="flex flex-col ">
-                  <button
-                    type="button"
-                    onClick={handleColorButtonClick}
-                    aria-label="color-picker"
-                    className="max-w-[300px] py-2 px-3  rounded-md border border-[#CFCFCF] flex justify-between items-center"
-                  >
-                    <div className="flex size-7 items-center ring-2 ring-offset-1 ring-[#D9D9D9]" style={{ backgroundColor: themeColor }} />
-                    <div className="bg-[#F4F4F4] p-2 rounded-md flex items-center justify-center text-[#343434] font-[300]"><FaChevronDown className="size-3" /></div>
-                  </button>
-                  <div className={`absolute max-h-64 overflow-y-auto z-10 mt-1 w-64 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 ${anchorEl ? 'block' : 'hidden'}`}>
-                    <ul role="menu" className="py-1 text-base" aria-labelledby="options-menu">
-                      {colors.map((color) => (
-                        <li key={color}>
-                          <button
-                            type="button"
-                            onClick={() => handleColorMenuItemClick(color)}
-                            className="group flex rounded-md items-center w-full px-2 py-2 text-left text-sm"
-                          >
-                            <span className="flex-shrink-0 block px-2 py-2 text-sm leading-4 font-medium text-gray-700">
-                              <div className="inline-block align-middle select-none shadow-md rounded-md size-7" style={{ backgroundColor: color }} />
-                            </span>
-                            <span className="ml-3 truncate">{color}</span>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                <div className="">
+                  {
+                    isPickerOpen ? (
+                      <div className="absolute bottom-0 left-0" ref={colorRef} >
+                        <SketchPicker color={themeColor} onChangeComplete={handleColorChange} />
+                      </div>
+                    )
+                      : (
+                        <button aria-label="color-picker" type="button" onClick={() => setPickerOpen(true)} className="flex p-1 rounded-md border border-[#CFCFCF] justify-between items-center w-32">
+                          <div className="rounded-md size-8" style={{ backgroundColor: themeColor }} />
+                          <FaChevronDown />
+                        </button>
+                      )
+                  }
                 </div>
               </div>
-
-
             </div>
 
-            <div className="flex flex-col mt-4 md:w-1/2 w-full">
+            <div className="flex flex-col mt-8 md:w-1/2 w-full">
               <p className="font-bold">{t('Knowledge_Base')}</p>
               <CustomAutocomplete currentValue={knowledgeBase} options={knowledgeBases || []} onChange={(value) => handleKnowledgeBaseChange(value)} />
             </div>
-            <div className="w-full flex sm:flex-row flex-col-reverse items-center justify-end gap-5 mt-3">
+            <div className="w-full flex sm:flex-row flex-col-reverse items-center justify-end gap-5 mt-8">
               <button
                 type="button"
                 className="bg-[url('/images/button-bg-white.png')] max-sm:bg-[length:100%_40px] bg-[length:160px_40px] rounded-md bg-center bg-no-repeat max-sm:w-full w-[160px] h-[40px] text-[#A536FA] font-bold"
