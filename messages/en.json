@@ -45,7 +45,11 @@
         "Cancel": "Cancel",
         "SaveChanges": "Save Changes",
         "Back_to_Users": "Back to Users",
-        "Select_a_language":"Select a language"
+        "Select_a_language":"Select a language",
+        "English": "English",
+        "Spanish": "Spanish",
+        "Dutch" : "Dutch",
+        "French" : "French"
     },
     "chatbot": {
         "Chatbots": "Chatbots",

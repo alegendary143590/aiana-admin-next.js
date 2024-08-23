@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import { FaChevronDown } from "react-icons/fa";
 
 export default function CustomSelect({ props, text, id, value, onChange }) {
+  const t = useTranslations("admin");
   const menuRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(value);
@@ -35,7 +37,7 @@ export default function CustomSelect({ props, text, id, value, onChange }) {
     <div className="relative inline-block w-full text-left" ref={menuRef}>
       <div>
         <button type="button" onClick={toggleOpen} className="flex justify-between items-center w-full rounded-md border border-[#767676] shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:border-indigo-500" aria-haspopup="true" aria-expanded={isOpen}>
-          {selectedValue.name || text}
+          {t(selectedValue.text) || text}
           <FaChevronDown />
         </button>
       </div>
@@ -46,7 +48,7 @@ export default function CustomSelect({ props, text, id, value, onChange }) {
             <div className="block px-4 py-2 text-sm text-gray-700" role="menuitem">{text}</div>
             {props.map((item) => (
               <button type="button" key={item.name} className="w-full block px-4 py-2 text-start text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" onClick={() => handleChange(item)}>
-                {item.name}
+                {t(item.text)}
               </button>
             ))}
           </div>
