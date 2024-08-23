@@ -13,3 +13,10 @@ const ChatbotPage = () => {
 };
 
 export default ChatbotPage;
+export async function getStaticProps(context) {
+  return {
+      props: {
+          messages: (await import(`@/messages/${context.locale}.json`)).default
+      }
+  };
+}

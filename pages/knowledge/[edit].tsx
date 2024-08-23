@@ -1,5 +1,6 @@
 import { useRouter } from "next/router"
 import { useEffect } from "react"
+import { GetStaticPaths } from "next"
 import Layout from "@/components/Layout"
 import KnowledgeBaseForm from "@/components/Pages/KnowledgeBasePage/KnowledgeBaseForm"
 
@@ -28,3 +29,14 @@ const EditPage = () => {
 }
 
 export default EditPage
+export async function getStaticProps(context) {
+  return {
+      props: {
+          messages: (await import(`@/messages/${context.locale}.json`)).default
+      }
+  };
+}
+export const getStaticPaths: GetStaticPaths = async () => ({
+  paths: [], // No pre-rendered paths
+  fallback: 'blocking', // or 'true' for client-side rendering on unknown paths
+})
