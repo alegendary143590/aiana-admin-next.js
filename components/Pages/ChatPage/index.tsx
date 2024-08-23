@@ -60,6 +60,7 @@ const ChatPage = ({
       const session = uuidv4().toString()
       setSessionId(session)
       setMessages([{ id: session, isBot: true, text: `${t('Hello_How_can_I_assist_you_today')}` }])
+      inputRef.current.focus()
     } else {
       setVisibleClass("h-[0px]")
     }
@@ -71,6 +72,7 @@ const ChatPage = ({
 
   useEffect(() => {
     scrollToBottom() // Scroll to bottom whenever messages change
+    inputRef.current.focus()
   }, [messages])
 
   const handleSendMessage = () => {
@@ -107,7 +109,6 @@ const ChatPage = ({
           const botResponse = { id: uuidv4(), text: message, isBot: true }
 
           setMessages((prevMessages) => [...prevMessages, botResponse])
-          inputRef.current.focus()
           if (!solve) {
             setShowYesNo(true) // Show the form if solve is false
             setIsBook(true)
