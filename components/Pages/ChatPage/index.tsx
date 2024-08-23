@@ -7,7 +7,6 @@ import { ToastContainer, toast } from "react-toastify"
 import { FaCaretDown } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 import { AUTH_API } from "@/components/utils/serverURL"
-import BasicSelect from "@/components/DropMenu"
 import { isTimeBetween } from "@/components/utils/common"
 import Spinner from "@/components/Spinner"
 import Avatar from "../../Avatar"
@@ -40,7 +39,7 @@ const ChatPage = ({
   const [messages, setMessages] = useState([
     { id: uuidv4(), isBot: true, text: `${t('Hello_How_can_I_assist_you_today')}` },
   ])
-  const [lang, setLang] = useState(10)
+  const lang = 10
   const inputRef = useRef(null)
   const [botAvatar, setBotAvatar] = useState("")
   const [input, setInput] = useState("")
@@ -61,6 +60,7 @@ const ChatPage = ({
       const session = uuidv4().toString()
       setSessionId(session)
       setMessages([{ id: session, isBot: true, text: `${t('Hello_How_can_I_assist_you_today')}` }])
+      inputRef.current.focus()
     } else {
       setVisibleClass("h-[0px]")
     }
@@ -72,6 +72,7 @@ const ChatPage = ({
 
   useEffect(() => {
     scrollToBottom() // Scroll to bottom whenever messages change
+    inputRef.current.focus()
   }, [messages])
 
   const handleSendMessage = () => {
@@ -108,7 +109,6 @@ const ChatPage = ({
           const botResponse = { id: uuidv4(), text: message, isBot: true }
 
           setMessages((prevMessages) => [...prevMessages, botResponse])
-          inputRef.current.focus()
           if (!solve) {
             setShowYesNo(true) // Show the form if solve is false
             setIsBook(true)
@@ -245,9 +245,6 @@ const ChatPage = ({
           <div className="flex items-center">
             <Avatar src={botAvatar} name="bot avatar" className="mr-2 size-12 rounded-full" />
             <h3 className="ml-2 text-[16px] font-bold text-white">{botName}</h3>
-          </div>
-          <div className="flex items-center w-32">
-            <BasicSelect setLang={setLang} />
           </div>
           <button type="button" aria-label="hidden" className="w-8" onClick={() => setVisible(false)}>
             <FaCaretDown />

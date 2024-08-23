@@ -279,7 +279,7 @@ const Chatbots = () => {
                   ) : (
                     <div className="size-5 border-[1px] border-[#767676] rounded-full flex items-center justify-center" />
                   )}
-                  <span className="absolute top-8 w-32 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{t('Not_active_Active')}</span>
+                  <span className="absolute top-8 w-20 text-center scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{isTimeBetween(bot.start_time, bot.end_time) ? t('Active') : t('Not_active')}</span>
                 </div>
               </div>
 
