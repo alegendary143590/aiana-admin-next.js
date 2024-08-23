@@ -18,6 +18,7 @@ const Profile = () => {
   const t = useTranslations('admin');
   const toa = useTranslations('toast');
   const INITIAL_REGISTER_OBJ = {
+    userId: "",
     first_name: "",
     last_name: "",
     password: "",
@@ -36,7 +37,6 @@ const Profile = () => {
 
   const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
   const [change, setChange] = useState(false)
-  const [userId, setUserId] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [isEdit, setIsEdit] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -44,7 +44,6 @@ const Profile = () => {
   const { user } = router.query;
   useEffect(() => {
     if (user) {
-      setUserId(localStorage.getItem('userID'))
       setIsLoading(true);
       axios
         .post(AUTH_API.GET_USER_AS_ADMIN, { user }, {
@@ -59,6 +58,7 @@ const Profile = () => {
             localStorage.setItem("name", `${userData.first_name} ${userData.last_name[0]}`)
             setFormState((prevState) => ({
               ...prevState,
+              userId: userData.id,
               first_name: userData.first_name,
               last_name: userData.last_name,
               email: userData.email,
@@ -126,7 +126,7 @@ const Profile = () => {
       setIsSaving(true)
       axios
         .post(AUTH_API.UPDATE_USER, {
-          userId,
+          userId: formState.userId,
           first_name: formState.first_name,
           last_name: formState.last_name,
           email: formState.email,
