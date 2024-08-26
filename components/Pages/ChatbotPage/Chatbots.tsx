@@ -350,8 +350,8 @@ const Chatbots = () => {
         ))}
       </div>
       <AlertDialog
-        title="Confirm Delete"
-        description="Are you sure you want to delete this item? This action cannot be undone."
+        title={`${t("Confirm_Delete")}`}
+        description={`${t('Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone')}`}
         handleAgree={handleAgree}
         handleDisagree={handleDisagree}
         open={openDialog}

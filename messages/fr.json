@@ -112,7 +112,7 @@
         "Questions_Answers": "Questions et Réponses",
         "Edit_Knowledge_Base": "Modifier la base de connaissances",
         "Confirm_Delete": "Confirmer la suppression",
-        "Drop_files_here_or_click_to_upload": "Déposez des fichiers ou cliquez pour télécharger",
+        "Click_to_upload": "Cliquez pour télécharger",
         "Upload_files_in_formats_PDF_DOC_TXT_with_a_maximum_size_of_5MB": "Téléchargez des fichiers dans les formats (PDF, DOC(X), TXT) avec une taille maximale de 5 Mo.",
         "Uploaded_files": "Fichiers téléchargés",
         "files_uploaded": "fichiers téléchargés",
