@@ -96,6 +96,7 @@
     },
     "knowledge": {
         "Loading": "Loading",
+        "SIZE": "SIZE",
         "Knowledge_Base": "Knowledge Base",
         "No_knowledge_base_created_yet": "No knowledge base created yet",
         "Create_knowledge_base_and_connect_it_to_chatbot": "Create knowledge base and connect it to chatbot!",

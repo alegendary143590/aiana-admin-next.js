@@ -27,6 +27,17 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
     console.log("Documents: ", documents);
   }, [documents]);
 
+  function ConvertBytes(bytes : number):string{
+    let fileSize = bytes;
+    let i = 0;
+    const units = ["bytes", "KB", "MB"];
+    while(fileSize > 512) {
+      fileSize /= 1024;
+      i += 1;
+    }
+    return `${Math.round(fileSize)} ${units[i]}`;
+  }
+
   const handleDocumentChanged = (event) => {
     const fileList = event.target.files;
     const validFiles = [];
@@ -48,6 +59,7 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
       filename: file.name,
       id: uuidv4(),
       type: file.type,
+      size: ConvertBytes(file.size),
       unique_id: "",
     }))
     setDocuments([...documents, ...newDocs]);
@@ -168,6 +180,7 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
               <tr className="text-xs font-semibold uppercase tracking-wide text-left text-[#767676] border-b-2">
                 <th className="sm:px-7 px-3 py-2">{t('FILENAME')}</th>
                 <th className="sm:px-7 px-3 py-2">{t('TYPE')}</th>
+                <th className="sm:px-7 px-3 py-2">{t('SIZE')}</th>
                 <th className="sm:px-7 px-3 py-2">{t('UPLOADED_ON')}</th>
                 <th className="sm:px-7 px-3 py-2">{t('ACTION')}</th>
               </tr>
@@ -190,6 +203,7 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
                       }
                     })()}
                   </td>
+                  <td className="sm:px-7 px-3 py-2">{doc.size}</td>
                   <td className="sm:px-7 px-3 py-2">{formatDateStringOnly(doc.created_at)}</td>
                   <td className="sm:px-7 px-3 py-2">
                     <button
