@@ -142,7 +142,7 @@
     },
     "ticket": {
         "Loading": "Chargement",
-        "Chatlogs": "Logs de chat",
+        "tickets": "Billets",
         "There_is_no_ticket": "Il n'y a pas de billet",
         "No": "Non",
         "Email": "E-mail",

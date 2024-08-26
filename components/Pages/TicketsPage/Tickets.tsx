@@ -124,7 +124,7 @@ const Tickets = () => {
     <div>
       <div className="w-full mx-auto p-5">
         <div className="w-full h-[50px] flex items-center justify-between pt-[24px] mb-[10px]">
-          <h3 className="font-bold text-2xl">{t('Chatlogs')}</h3>
+          <h3 className="font-bold text-2xl">{t('tickets')}</h3>
         </div>
       </div>
       {tickets.length === 0 ? (

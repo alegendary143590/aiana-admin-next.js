@@ -114,7 +114,7 @@
         "Confirm_Delete": "Verwijdering bevestigen",
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_documents_These_documents_train_your_chat": "Opmerking: Bouw de kennisbank van uw chatbot op door documenten te uploaden. Deze documenten trainen uw chat",
         "Click_to_upload": "Klik om te uploaden",
-        "Upload_files_in_formats_PDF_DOC_TXT_with_a_maximum_size_of_5MB": "Upload bestanden in formaten (PDF, DOC(X), TXT) met een maximale grootte van",
+        "Upload_files_in_formats_PDF_DOC_TXT_with_a_maximum_size_of_5MB": "Upload bestanden in formaten (PDF, DOC(X), TXT) met een maximale grootte van 5MB",
         "Uploaded_files": "Geüploade bestanden",
         "files_uploaded": "bestanden geüpload",
         "FILENAME": "BESTANDSNAAM",
@@ -143,7 +143,7 @@
     },
     "ticket": {
         "Loading": "Laden",
-        "Chatlogs": "Chatlogs",
+        "tickets": "Kaartjes",
         "There_is_no_ticket": "Er is geen ticket",
         "No": "Nee",
         "Email": "E-mail",
