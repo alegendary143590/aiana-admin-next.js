@@ -46,7 +46,9 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
 
     for (let i = 0; i < fileList.length; i += 1) {
       if (fileList[i].size <= MAX_FILE_SIZE) {
+        if(fileList[i].type === "application/pdf" || fileList[i].type === "text/plain" || fileList[i].type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" )
         validFiles.push(fileList[i]);
+        // console.log(fileList[i].type);
       } else {
         toast.error(
           `File "${fileList[i].name}" exceeds the maximum size of 5MB.`,
