@@ -96,6 +96,7 @@
     },
     "knowledge": {
         "Loading": "Laden",
+        "SIZE": "MAAT",
         "Knowledge_Base": "Kennisbank",
         "No_knowledge_base_created_yet": "Nog geen kennisbank aangemaakt",
         "Create_knowledge_base_and_connect_it_to_chatbot": "Maak een kennisbank en verbind deze met de chatbot!",

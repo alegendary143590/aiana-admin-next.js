@@ -96,6 +96,7 @@
     },
     "knowledge": {
         "Loading": "Chargement",
+        "SIZE": "TAILLE",
         "Knowledge_Base": "Base de connaissances",
         "No_knowledge_base_created_yet": "Pas encore de base de connaissances créée",
         "Create_knowledge_base_and_connect_it_to_chatbot": "Créez une base de connaissances et connectez-la au bot !",
