@@ -29,6 +29,7 @@ const ChatbotForm = ({ bot }) => {
   const [bases, setBases] = useState([])
   const [knowledgeBases, setKnowledgeBases] = useState([])
   const [isPickerOpen, setPickerOpen] = useState(false)
+  const [isSaved, setIsSaved] = useState(false);
 
   const router = useRouter()
   // console.log("inner >>>", bot)
@@ -166,6 +167,7 @@ const ChatbotForm = ({ bot }) => {
   }
 
   const handleSubmit = async () => {
+    setIsSaved(true);
     const formData = new FormData()
     if (name === "" || knowledgeBase === "") {
       toast.error(`${toa('Name_and_Knowledge_Base_are_required')}`, { position: toast.POSITION.TOP_RIGHT })
@@ -320,7 +322,7 @@ const ChatbotForm = ({ bot }) => {
               <button
                 type="button"
                 className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] text-white font-bold rounded-md"
-                onClick={handleSubmit}
+                onClick={isSaved? null : handleSubmit}
               >
                 {t('Save')}
               </button>

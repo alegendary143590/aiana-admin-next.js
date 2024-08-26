@@ -152,7 +152,7 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
         >
           <Image src="/images/icon_file_upload.svg" alt="icon_file_upload" width={50} height={50} />
           <p className="font-bold text-black text-[16px] text-center">
-            {t('Drop_files_here_or_click_to_upload')}
+            {t('Click_to_upload')}
           </p>
           <p className="text-[#767676] max-sm:hidden text-sm text-center">
             {t('Upload_files_in_formats_PDF_DOC_TXT_with_a_maximum_size_of_5MB')}
