@@ -35,7 +35,8 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
       fileSize /= 1024;
       i += 1;
     }
-    return `${Math.round(fileSize)} ${units[i]}`;
+    fileSize = Math.round(fileSize * 100) / 100; // Round to two decimal places
+    return `${fileSize} ${units[i]}`;
   }
 
   const handleDocumentChanged = (event) => {
@@ -203,7 +204,7 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
                       }
                     })()}
                   </td>
-                  <td className="sm:px-7 px-3 py-2">{doc.size}</td>
+                  <td className="sm:px-7 px-3 py-2">{doc.file_size? doc.file_size : doc.size}</td>
                   <td className="sm:px-7 px-3 py-2">{formatDateStringOnly(doc.created_at)}</td>
                   <td className="sm:px-7 px-3 py-2">
                     <button
