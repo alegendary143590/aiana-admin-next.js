@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl"
 import { ToastContainer, toast } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { setExpiryTime } from "@/components/utils/common"
+import Spinner from "@/components/Spinner"
 import Document from "./Document"
 import Website from "./Website"
 import Text from "./Text"
@@ -29,6 +30,10 @@ const KnowledgeBaseForm = ({ baseId }) => {
   const [files, setFiles] = useState([])
   const [urls, setUrls] = useState([])
   const [questionAnswers, setQuestionAnswers] = useState([])
+  const [isShowed, setIsShowed] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [length, setLength] = useState(0);
   const [base, setBase] = React.useState<Base>({
     created_at: "",
     id: 0,
@@ -36,14 +41,15 @@ const KnowledgeBaseForm = ({ baseId }) => {
     unique_id: "",
     user_id: 0,
   });
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const documentRef = useRef([]);
   const filesRef = useRef([]);
   const urlsRef = useRef([]);
   const qaRef = useRef([]);
 
-  const [isLoading, setIsLoading] = React.useState(false);
   let newBaseId = baseId;
+
   React.useEffect(() => {
     // Use a local variable instead of modifying the parameter directly
     if (!newBaseId) {
@@ -54,6 +60,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
     }
   }, [baseId]);
   React.useEffect(() => {
+    localStorage.setItem('isSaved', 'false');
     if (newBaseId !== "-1") {
 
 
@@ -91,7 +98,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
               console.log('Error status code:', error.response.status);
               console.log('Error response data:', error.response.data);
               if (error.response.status === 401) {
-                toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
+                toast.error(toa('Session_Expired_Please_log_in_again'), { position: toast.POSITION.TOP_RIGHT });
 
                 router.push("/signin")
               }
@@ -120,14 +127,23 @@ const KnowledgeBaseForm = ({ baseId }) => {
 
   const handleSubmit = async () => {
     if (nameInputValue === "") {
-      toast.error(`${toa('Please_input_the_name')}`, { position: toast.POSITION.TOP_RIGHT })
+      if (isShowed === false) {
+
+        toast.error(toa('Please_input_the_name'), { position: toast.POSITION.TOP_RIGHT })
+        setIsShowed(true);
+      }
       return
     }
 
     if (documents.length === 0 && urls.length === 0 && questionAnswers.length === 0) {
-      toast.error(`${toa('Please_input_the_data')}`, { position: toast.POSITION.TOP_RIGHT })
+      if (isShowed === false) {
+
+        toast.error(toa('Please_input_the_data'), { position: toast.POSITION.TOP_RIGHT })
+        setIsShowed(true);
+      }
       return
     }
+    
     const userID = localStorage.getItem("userID")
     const formData = new FormData()
     formData.append("name", nameInputValue)
@@ -140,7 +156,13 @@ const KnowledgeBaseForm = ({ baseId }) => {
     const updatedQa = questionAnswers.filter(qa => !qaRef.current.includes(qa));
     formData.append("qa", JSON.stringify(updatedQa));
     formData.append("userID", userID)
+    if(length === (updatedDocs.length + updatedFiles.length + updatedQa.length + updatedUrls.length))
+      {setIsSaved(true);localStorage.setItem('isSaved', 'true')}
+    else {setIsSaved(false);setIsSaving(true); localStorage.setItem('isSaved', 'false')}
+    setLength(updatedDocs.length + updatedFiles.length + updatedQa.length + updatedUrls.length);
 
+
+    if(!isSaved|| localStorage.getItem('isSaved') === 'false')
     try {
       let API = ""
       if (newBaseId === "-1") {
@@ -161,8 +183,10 @@ const KnowledgeBaseForm = ({ baseId }) => {
         if (!response.data.bad_url) {
           badAlert = "The knowledge base includes invalid url."
         }
+        setIsSaved(true);
+        setIsSaving(false)
         setExpiryTime();
-        toast.success(`Uploaded Successfully! ${badAlert}`, { position: toast.POSITION.TOP_RIGHT });
+        toast.success(`${toa('Successfully_updated')} ${badAlert}`, { position: toast.POSITION.TOP_RIGHT });
       }
     } catch (error) {
 
@@ -170,11 +194,13 @@ const KnowledgeBaseForm = ({ baseId }) => {
         console.log('Error status code:', error.response.status);
         console.log('Error response data:', error.response.data);
         if (error.response.status === 401) {
-          toast.error(`${toa('Session_Expired')}`, { position: toast.POSITION.TOP_RIGHT })
+
+          toast.error(toa('Session_Expired'), { position: toast.POSITION.TOP_RIGHT })
           router.push("/signin")
         }
         else if (error.response.status === 504) {
-          toast.error(`${toa('It_takes_too_much_time_to_retrieve_information_from_your_document')}`, { position: toast.POSITION.TOP_RIGHT })
+
+          toast.error(toa('It_takes_too_much_time_to_retrieve_information_from_your_document'), { position: toast.POSITION.TOP_RIGHT })
 
         }
         // Handle the error response as needed
@@ -202,7 +228,8 @@ const KnowledgeBaseForm = ({ baseId }) => {
         <button type="button" aria-label="back" className="bg-[#F4F4F4] text-[#767676] font-[300] p-3 rounded-md" onClick={() => router.push("/knowledge")}>
           <FaArrowLeft />
         </button>
-        <h3 className="text-lg font-bold">{newBaseId !== "-1" ? `${t('Edit_Knowledge_Base')}` : `${t('Create_Knowledge_Base')}`}</h3>
+
+        <h3 className="text-lg font-bold">{newBaseId !== "-1" ? t('Edit_Knowledge_Base') : t('Create_Knowledge_Base')}</h3>
       </div>
       <div className="bg-none w-full rounded-lg flex flex-col mt-1 border border-[#CFCFCF]">
         <div className="flex flex-col w-full items-center">
@@ -243,9 +270,10 @@ const KnowledgeBaseForm = ({ baseId }) => {
           <button
             type="button"
             className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] text-white font-bold rounded-md"
-            onClick={handleSubmit}
+
+            onClick={isSaving? () =>{} : handleSubmit}
           >
-            {t('Save')}
+            {isSaving? <Spinner color=""/>:t('Save')}
           </button>
         </div>
 
