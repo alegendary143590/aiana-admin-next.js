@@ -16,8 +16,7 @@ const options: Intl.DateTimeFormatOptions = {
   month: 'short',
   day: 'numeric',
   hour: 'numeric',
-  minute: 'numeric',
-  second: 'numeric'
+  minute: 'numeric'
 };
 
 // Define the interface for a website object
