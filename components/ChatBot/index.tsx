@@ -1,13 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios';
-import { AUTH_API } from '@/components/utils/serverURL';
-import { Avatar, Typography, Button, Box, Paper, IconButton, CircularProgress } from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { ToastContainer, toast } from "react-toastify"
+import { FaCaretDown } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { AUTH_API } from '@/components/utils/serverURL';
+import Spinner from '../Spinner';
 import { isTimeBetween, setExpiryTime } from '../utils/common';
 
 const options: Intl.DateTimeFormatOptions = {
@@ -49,14 +46,10 @@ const ChatBot = ({ userIndex, botId, website }) => {
     const [showForm, setShowForm] = useState(false); // State to manage whether to show the form
     const [email, setEmail] = useState(""); // State to store email input
     const [content, setContent] = useState(""); // State to store content input
-    const [lang, setLang] = useState(10);
+    const lang = 10;
 
     const toggleChatbot = () => {
         setIsVisible(!isVisible);  // Toggle the visibility state
-    };
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setLang(parseInt(event.target.value, 10));
     };
 
     useEffect(() => {
@@ -263,69 +256,62 @@ const ChatBot = ({ userIndex, botId, website }) => {
                         overflow: 'hidden',
                     }}>
                     <div className='w-full h-full flex flex-col flex-grow'>
-                        <Paper elevation={4} className={`relative h-[70px] flex items-center w-full `} style={{ backgroundColor: bot.color || '#fff', borderRadius: '0px' }}>
-                            <Box display="flex" justifyContent="space-between" alignItems="center" p={1} className="w-full bg-none">
-                                <Box display="flex" alignItems="center" className="h-full">
-                                    <Avatar src={bot.avatar} alt="bot avatar" />
-                                    <Typography variant="body1" ml={1}>{bot.name}</Typography>
-                                </Box>
-                                <div style={{ height: '30px' }}>
-                                    <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
-                                        <Select
-                                            value={lang.toString()}
-                                            onChange={handleChange}
-                                            displayEmpty
-                                            inputProps={{ 'aria-label': 'Without label' }}
-                                            sx={{ color: 'white', height: '30px' }}
-                                        >
-                                            <MenuItem value={10}>
-                                                <em>English</em>
-                                            </MenuItem>
-                                            <MenuItem value={20}>Dutch</MenuItem>
-                                            <MenuItem value={30}>French</MenuItem>
-                                            <MenuItem value={40}>Spanish</MenuItem>
-                                        </Select>
-                                    </FormControl>
+                        <div className={`relative h-[70px] flex items-center w-full `} style={{ backgroundColor: bot.color || '#fff', borderRadius: '0px' }}>
+                            <div className="w-full bg-none flex justify-between items-center mx-4">
+                                <div className="h-full flex items-center">
+                                    <img className='w-10 h-10 rounded-full' src={bot.avatar} alt="bot avatar" />
+                                    <div className='ml-1'>{bot.name}</div>
                                 </div>
-                                <IconButton onClick={() => setIsVisible(!isVisible)}>
-                                    <KeyboardArrowDownIcon />
-                                </IconButton>
-                            </Box>
-                        </Paper>
+                                <button onClick={() => setIsVisible(!isVisible)}
+                                    type='button' aria-label="Toggle Chatbot">
+                                    <FaCaretDown />
+                                </button>
+                            </div>
+                        </div>
                         <div className="overflow-auto flex flex-col flex-grow mt-2 mx-1 space-y-2">
                             {messages.map((message) => (
-                                <Paper
+                                <div
                                     key={message.id}
-                                    elevation={3}
-                                    className={`p-2 rounded-lg ${message.isBot ? 'bg-blue-500 text-gray-900' : 'bg-gray-200 text-black'} flex items-center ${message.isBot ? '' : 'justify-end'}`}
+                                    className={`p-2 rounded-lg text-black flex items-center ${message.isBot ? '' : 'justify-end'}`}
                                     style={{
                                         maxWidth: '70%',
                                         alignSelf: message.isBot ? 'flex-start' : 'flex-end',
                                         wordWrap: 'break-word'
                                     }}
                                 >
-                                    <Box className={`flex gap-2 ${message.isBot ? '' : 'flex-row-reverse'}`}>
-                                        <Avatar
-                                            src={message.isBot ? bot.avatar : "/images/users/avatar-1.jpg"}
+                                    <div className={`flex gap-2 ${message.isBot ? '' : 'flex-row-reverse'} items-center`}>
+                                        <img
+                                            src={message.isBot ? bot.avatar : "/images/logo_sm.jpg"}
                                             alt="avatar"
+                                            className={`rounded-full size-12 ${!message.isBot && "hidden"}`}
                                         />
-                                        <Typography variant="body2" className="flex-grow" style={{ textAlign: message.isBot ? 'left' : 'right', overflowWrap: 'break-word' }}>
-                                            {message.text}
-                                        </Typography>
-                                    </Box>
-                                </Paper>
+                                        <div
+                                            className={`flex gap-2 p-2 rounded-lg break-words ${message.isBot
+                                                ? "bg-[#EBEBEB] text-[#070E0B]"
+                                                : "flex-row-reverse bg-[#A536FA] text-white"
+                                                }`}
+                                        >
+                                            <p
+                                                className="flex-grow"
+                                                style={{ textAlign: message.isBot ? "left" : "right", overflowWrap: "break-word" }}
+                                            >
+                                                {message.text}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             ))}
                             <div ref={messagesEndRef} />
                         </div>
                         {showYesNo && (
                             <div className="flex justify-center mt-2">
-                                <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" aria-label="Click Yes" onClick={handleYesClick}>Yes</Button>
-                                <Button variant="outlined" color="secondary" onClick={handleNoClick} aria-label="Click No">No</Button>
+                                <button className="mr-2 bg-[#1976d2] px-4 h-10" type='button' aria-label="Click Yes" onClick={handleYesClick}>Yes</button>
+                                <button className='mr-2 border-[#1976d2] border-[1px] px-4 h-10' type='button' onClick={handleNoClick} aria-label="Click No">No</button>
                             </div>
                         )}
                         {showForm && (
-                            <Paper elevation={4} className="p-4 mt-2">
-                                <Typography variant="h6" className="text-center" gutterBottom>Please provide your email and content to book a ticket</Typography>
+                            <div className="p-4 mt-2">
+                                <div className="text-center text-[1.4rem]">Please provide your email and content to book a ticket</div>
                                 <input
                                     type="email"
                                     placeholder="Email"
@@ -341,27 +327,27 @@ const ChatBot = ({ userIndex, botId, website }) => {
                                     onChange={(e) => setContent(e.target.value)}
                                 />
                                 <div className="flex justify-end">
-                                    <Button variant="contained" color="primary" className="mr-2 bg-[#1976d2]" aria-label="Click Okay" onClick={handleOkayClick}>Okay</Button>
-                                    <Button variant="outlined" color="secondary" onClick={handleCancelClick} aria-label="Click Cancel">Cancel</Button>
+                                    <button className="mr-2 bg-[#1976d2] px-4 h-10" type='button' aria-label="Click Okay" onClick={handleOkayClick}>Okay</button>
+                                    <button className='mr-2 border-[#1976d2] border-[1px] px-4 h-10' type='button' onClick={handleCancelClick} aria-label="Click Cancel">Cancel</button>
                                 </div>
-                            </Paper>
+                            </div>
                         )}
                         <div className="flex p-2 h-16">
                             <style>
                                 {`
-                    .custom-input {
-                        width: 100%;
-                        padding: 8px;
-                        font-size: 16px;
-                        border: 1px solid #ccc;
-                        border-radius: 4px;
-                        outline: none;
-                        box-sizing: border-box;
-                    }
-                    .custom-input:focus {
-                        box-shadow: none;
-                    }
-                    `}
+                                .custom-input {
+                                    width: 100%;
+                                    padding: 8px;
+                                    font-size: 16px;
+                                    border: 1px solid #ccc;
+                                    border-radius: 4px;
+                                    outline: none;
+                                    box-sizing: border-box;
+                                }
+                                .custom-input:focus {
+                                    box-shadow: none;
+                                }
+                                `}
                             </style>
                             <textarea
                                 id='input'
@@ -371,9 +357,9 @@ const ChatBot = ({ userIndex, botId, website }) => {
                                 onKeyDown={handleKeyDown}
                                 disabled={isLoading || isBook}
                             />
-                            <Button variant="contained" color="primary" className="bg-[#1976D2]" aria-label="Send Button" onClick={handleSendMessage}>
-                                {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Send'}
-                            </Button>
+                            <button type="button" className="absolute translate-y-4 flex right-4 items-center" onClick={handleSendMessage}>
+                                {isLoading ? <Spinner color="#A536FA" /> : <img src="/images/icon_send.svg" alt="send" width={20} height={20} />}
+                            </button>
                         </div>
                     </div>
 
