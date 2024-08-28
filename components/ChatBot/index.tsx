@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios';
-import { AUTH_API } from '@/components/utils/serverURL';
-import { SlArrowDown } from "react-icons/sl";
 import { ToastContainer, toast } from "react-toastify"
+import { FaCaretDown } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
+import { AUTH_API } from '@/components/utils/serverURL';
 import Spinner from '../Spinner';
 import { isTimeBetween, setExpiryTime } from '../utils/common';
 
@@ -46,7 +46,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
     const [showForm, setShowForm] = useState(false); // State to manage whether to show the form
     const [email, setEmail] = useState(""); // State to store email input
     const [content, setContent] = useState(""); // State to store content input
-    const lang= 10;
+    const lang = 10;
 
     const toggleChatbot = () => {
         setIsVisible(!isVisible);  // Toggle the visibility state
@@ -262,9 +262,9 @@ const ChatBot = ({ userIndex, botId, website }) => {
                                     <img className='w-10 h-10 rounded-full' src={bot.avatar} alt="bot avatar" />
                                     <div className='ml-1'>{bot.name}</div>
                                 </div>
-                                <button onClick={() => setIsVisible(!isVisible)} 
-                                type='button' aria-label="Toggle Chatbot">
-                                    <SlArrowDown />
+                                <button onClick={() => setIsVisible(!isVisible)}
+                                    type='button' aria-label="Toggle Chatbot">
+                                    <FaCaretDown />
                                 </button>
                             </div>
                         </div>
@@ -272,7 +272,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                             {messages.map((message) => (
                                 <div
                                     key={message.id}
-                                    className={`p-2 rounded-lg ${message.isBot ? 'bg-blue-500 text-gray-900' : 'bg-gray-200 text-black'} flex items-center ${message.isBot ? '' : 'justify-end'}`}
+                                    className={`p-2 rounded-lg text-black flex items-center ${message.isBot ? '' : 'justify-end'}`}
                                     style={{
                                         maxWidth: '70%',
                                         alignSelf: message.isBot ? 'flex-start' : 'flex-end',
@@ -281,12 +281,22 @@ const ChatBot = ({ userIndex, botId, website }) => {
                                 >
                                     <div className={`flex gap-2 ${message.isBot ? '' : 'flex-row-reverse'} items-center`}>
                                         <img
-                                            src={message.isBot ? bot.avatar : "/images/users/avatar-1.jpg"}
+                                            src={message.isBot ? bot.avatar : "/images/logo_sm.jpg"}
                                             alt="avatar"
-                                            className='w-10 h-10 rounded-full'
+                                            className={`rounded-full size-12 ${!message.isBot && "hidden"}`}
                                         />
-                                        <div className="flex-grow" style={{ textAlign: message.isBot ? 'left' : 'right', overflowWrap: 'break-word' }}>
-                                            {message.text}
+                                        <div
+                                            className={`flex gap-2 p-2 rounded-lg break-words ${message.isBot
+                                                ? "bg-[#EBEBEB] text-[#070E0B]"
+                                                : "flex-row-reverse bg-[#A536FA] text-white"
+                                                }`}
+                                        >
+                                            <p
+                                                className="flex-grow"
+                                                style={{ textAlign: message.isBot ? "left" : "right", overflowWrap: "break-word" }}
+                                            >
+                                                {message.text}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -347,8 +357,8 @@ const ChatBot = ({ userIndex, botId, website }) => {
                                 onKeyDown={handleKeyDown}
                                 disabled={isLoading || isBook}
                             />
-                            <button className="ml-2 bg-[#1976d2] px-4 h-12" type='button' aria-label="Send Button" onClick={handleSendMessage}>
-                                {isLoading ? <Spinner color="" /> : 'Send'}
+                            <button type="button" className="absolute translate-y-4 flex right-4 items-center" onClick={handleSendMessage}>
+                                {isLoading ? <Spinner color="#A536FA" /> : <img src="/images/icon_send.svg" alt="send" width={20} height={20} />}
                             </button>
                         </div>
                     </div>
