@@ -62,8 +62,6 @@ const KnowledgeBaseForm = ({ baseId }) => {
   React.useEffect(() => {
     localStorage.setItem('isSaved', 'false');
     if (newBaseId !== "-1") {
-
-
       const fetchData = async () => {
         if (newBaseId && newBaseId !== "-1") {
           setIsLoading(true);
@@ -78,7 +76,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
             const response = await fetch(`${AUTH_API.GET_KNOWLEDGE_BASE}?baseId=${newBaseId}`, requestOptions);
             setExpiryTime();
             const data = await response.json();
-
+            console.log(data)
             setBase(data.base || {
               created_at: "",
               id: 0,
@@ -89,6 +87,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
             setNameInputValue(data.base.name)
             setDocuments(data.documents || []);
             documentRef.current = data.documents;
+
             setUrls(data.websites || []);
             urlsRef.current = data.websites;
             setQuestionAnswers(data.texts || []);
@@ -147,9 +146,12 @@ const KnowledgeBaseForm = ({ baseId }) => {
     const userID = localStorage.getItem("userID")
     const formData = new FormData()
     formData.append("name", nameInputValue)
+    console.log("Old --->", documentRef.current.length)
     const updatedDocs = documents.filter(doc => !documentRef.current.includes(doc));
+    console.log("The length of the updated docs=--=---", updatedDocs.length)
     formData.append("docs", JSON.stringify(updatedDocs));
     const updatedFiles = files.filter(file => !filesRef.current.includes(file));
+    console.log("The length of the updated files=--=---", files.length)
     updatedFiles.forEach(doc => formData.append("files", doc))
     const updatedUrls = urls.filter(url => !urlsRef.current.includes(url));
     formData.append("urls", JSON.stringify(updatedUrls))
@@ -256,7 +258,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
         </div>
         <div className="w-full sm:mb-7 mb-3">
           {value === 0 && <Document documents={documents} documentRef={documentRef} setDocuments={setDocuments} setFiles={setFiles} />}
-          {value === 1 && <Website urls={urls} setUrls={setUrls} />}
+          {value === 1 && <Website urls={urls} setUrls={setUrls} websiteRef={urlsRef} />}
           {value === 2 && <Text questionAnswers={questionAnswers} setQuestionAnswers={setQuestionAnswers} />}
         </div>
         <div className="w-full flex sm:flex-row flex-col-reverse items-center justify-end gap-5 sm:px-7 px-3 sm:pb-7 pb-3">

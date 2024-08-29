@@ -26,7 +26,7 @@ interface WebsiteObject {
   unique_id: string
   url: string
 }
-const Website = ({ urls, setUrls }) => {
+const Website = ({ urls, setUrls, websiteRef }) => {
   const t = useTranslations('knowledge');
   const toa = useTranslations('toast');
   const router = useRouter()
@@ -95,12 +95,28 @@ const Website = ({ urls, setUrls }) => {
   const handleDeleteButton = (_id, _index) => {
     setId(_id)
     setIndex(_index)
-    setOpenDialog(true)
+    let websiteArray;
+    if (websiteRef.current){
+      websiteArray = websiteRef.current;
+    } else {
+      websiteArray = []
+    }
+
+    const websiteExists = websiteArray.some(doc => doc.id === _id);
+    if (websiteExists) {
+      setOpenDialog(true);
+
+    } else {
+      setUrls(urls.filter(doc => doc.id !== _id));
+    }
   }
 
   const handleAgree = () => {
     setOpenDialog(false)
-    handleDeleteUrl()
+    console.log(id)
+    console.log(index)
+    console.log(websiteRef.current)
+    // handleDeleteUrl()
   }
 
   const handleDisagree = () => {
