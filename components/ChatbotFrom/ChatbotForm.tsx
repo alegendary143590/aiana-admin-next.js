@@ -167,7 +167,6 @@ const ChatbotForm = ({ bot }) => {
   }
 
   const handleSubmit = async () => {
-    setIsSaved(true);
     const formData = new FormData()
     if (name === "" || knowledgeBase === "") {
       toast.error(`${toa('Name_and_Knowledge_Base_are_required')}`, { position: toast.POSITION.TOP_RIGHT })
@@ -200,6 +199,8 @@ const ChatbotForm = ({ bot }) => {
           "Content-Type": "multipart/form-data",
         },
       })
+      setIsSaved(true);
+
       setExpiryTime();
       toast.success(`${ bot === "-1" ? toa('Successfully_Created') : toa('Successfully_updated')}`, { position: toast.POSITION.TOP_RIGHT })
     } catch (error) {
