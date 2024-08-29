@@ -199,6 +199,8 @@ const ChatbotForm = ({ bot }) => {
           "Content-Type": "multipart/form-data",
         },
       })
+      setIsSaved(true);
+
       setExpiryTime();
       setIsSaved(true);
       setIsSaving(false);
