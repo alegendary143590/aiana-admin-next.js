@@ -113,10 +113,7 @@ const Website = ({ urls, setUrls, websiteRef }) => {
 
   const handleAgree = () => {
     setOpenDialog(false)
-    console.log(id)
-    console.log(index)
-    console.log(websiteRef.current)
-    // handleDeleteUrl()
+    handleDeleteUrl()
   }
 
   const handleDisagree = () => {
