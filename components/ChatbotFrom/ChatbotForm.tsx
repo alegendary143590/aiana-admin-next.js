@@ -5,13 +5,12 @@ import { ToastContainer, toast } from "react-toastify"
 import { FaArrowLeft, FaChevronDown } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 import { SketchPicker } from 'react-color';
-
-
 import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSwitch from "../CustomSwitch"
 import Avatar from "../Avatar"
 import CustomAutocomplete from "../CustomAutocomplete"
 import { setExpiryTime } from "../utils/common"
+import Spinner from "../Spinner"
 
 const ChatbotForm = ({ bot }) => {
   const colorRef = useRef(null);
@@ -30,6 +29,7 @@ const ChatbotForm = ({ bot }) => {
   const [knowledgeBases, setKnowledgeBases] = useState([])
   const [isPickerOpen, setPickerOpen] = useState(false)
   const [isSaved, setIsSaved] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   const router = useRouter()
   // console.log("inner >>>", bot)
@@ -172,7 +172,7 @@ const ChatbotForm = ({ bot }) => {
       toast.error(`${toa('Name_and_Knowledge_Base_are_required')}`, { position: toast.POSITION.TOP_RIGHT })
       return
     }
-
+    setIsSaving(true);
     formData.append("name", name)
     formData.append("avatar", avatar)
     formData.append("color", themeColor)
@@ -202,6 +202,8 @@ const ChatbotForm = ({ bot }) => {
       setIsSaved(true);
 
       setExpiryTime();
+      setIsSaved(true);
+      setIsSaving(false);
       toast.success(`${ bot === "-1" ? toa('Successfully_Created') : toa('Successfully_updated')}`, { position: toast.POSITION.TOP_RIGHT })
     } catch (error) {
       console.error("Error uploading:", error)
@@ -323,9 +325,9 @@ const ChatbotForm = ({ bot }) => {
               <button
                 type="button"
                 className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] text-white font-bold rounded-md"
-                onClick={isSaved? null : handleSubmit}
+                onClick={(isSaving||isSaved)? () =>{} : handleSubmit}
               >
-                {t('Save')}
+                {isSaving? <Spinner color=""/>:t('Save')}
               </button>
             </div>
           </div>

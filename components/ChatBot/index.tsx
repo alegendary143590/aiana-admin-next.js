@@ -53,6 +53,10 @@ const ChatBot = ({ userIndex, botId, website }) => {
     };
 
     useEffect(() => {
+        window.parent.postMessage({ type: 'VISIBILITY_CHANGE', isVisible }, '*');
+    }, [isVisible])
+
+    useEffect(() => {
         if (isVisible) {
             setVisibleClass("");
             const session = uuidv4().toString();
@@ -242,7 +246,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
     }
 
     return (
-        <div style={{ position: 'fixed', bottom: '10px', right: '10px', zIndex: '1000', borderRadius: '5px' }}>
+        <div style={{ position: 'fixed', zIndex: '1000', borderRadius: '5px' }}>
 
             {isVisible ? (
                 <div
@@ -254,8 +258,10 @@ const ChatBot = ({ userIndex, botId, website }) => {
                         border: '1px solid #ccc',
                         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                         overflow: 'hidden',
+                        display: 'flex',
+                        flexDirection: 'column',
                     }}>
-                    <div className='w-full h-full flex flex-col flex-grow'>
+                    <div className='w-full h-full flex flex-col flex-grow' id="chat-form">
                         <div className={`relative h-[70px] flex items-center w-full `} style={{ backgroundColor: bot.color || '#fff', borderRadius: '0px' }}>
                             <div className="w-full bg-none flex justify-between items-center mx-4">
                                 <div className="h-full flex items-center">
