@@ -39,7 +39,7 @@ const Website = ({ urls, setUrls, websiteRef }) => {
     if (isValidUrl(urlInputValue)) {
       const newWebsite: WebsiteObject = {
         created_at: new Date().toISOString(),
-        id: -1, //
+        id: urls.length, //
         unique_id: "",
         url: urlInputValue,
       }
