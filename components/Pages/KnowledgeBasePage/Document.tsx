@@ -56,7 +56,7 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
         );
       }
     }
-    setFiles([...validFiles]); // Only set valid files
+    setFiles((prev)=>[...prev, ...validFiles]); // Only set valid files
     const newDocs = validFiles.map((file: File) => ({
       created_at: new Date().toISOString(),
       filename: file.name,

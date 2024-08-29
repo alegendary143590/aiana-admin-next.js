@@ -87,7 +87,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
             setNameInputValue(data.base.name)
             setDocuments(data.documents || []);
             documentRef.current = data.documents;
-
+            filesRef.current = []
             setUrls(data.websites || []);
             urlsRef.current = data.websites;
             setQuestionAnswers(data.texts || []);
