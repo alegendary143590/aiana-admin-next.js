@@ -88,6 +88,7 @@ const UserList = () => {
                 <td className="px-5 py-2">{t('NAME')}</td>
                 <td className="">{t('CONTACTS')}</td>
                 <td className="">{t('LOCATION')}</td>
+                <td className="">LAST LOGIN DATE</td>
                 <td className="">{t('REGISTERED_AT')}</td>
                 <td className="">{t('ROLE')}</td>
                 <td className="">{t('ACTION')}</td>
@@ -99,6 +100,7 @@ const UserList = () => {
                   <td className="px-5"><p className="text-[#070E0B] font-bold">{`${row.first_name} ${row.last_name}`}</p><p className="text-[#343434]">{row.com_name}</p></td>
                   <td>{row.email}</td>
                   <td><p className="text-[#070E0B] font-bold">{row.com_country}</p><p className="text-[#343434]">{row.com_city}</p></td>
+                  <td className="font-bold text-[#070E0B]">{formatDateString(row.last_login)}</td>
                   <td className="font-bold text-[#070E0B]">{formatDateString(row.created_at)}</td>
                   <td className="text-[#343434]">{row.role === 'admin' ? trole('admin') : trole('username')}</td>
                   <td><button type="button" aria-label="edit" onClick={() => handleRowClick(row.index)} className="p-2 bg-[#F4F4F4] rounded-md mr-5"><FaEdit className="w-5 h-5 text-[#767676]" aria-label="edit icon" /></button></td>
