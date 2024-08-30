@@ -1,5 +1,6 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
+import { useStep } from "usehooks-ts"
 
 export enum SIDE_NAVS {
   DASHBOARD = "DASHBOARD",
@@ -34,7 +35,8 @@ const useSideNavbar = () => {
   const activeProjectsActive = pathname.includes("/active-projects")
 
   const [selectedNav, setSelectedNav] = useState()
-
+  const [userName, setUserName] = useState("")
+  const [userRole, setUserRole] = useState("")
   const [isOpen, setOpen] = useState(false)
 
   const [role, setRole] = useState("user")
@@ -71,7 +73,11 @@ const useSideNavbar = () => {
     isOpen,
     setOpen,
     role,
-    setRole
+    setRole, 
+    userName,
+    setUserName,
+    userRole,
+    setUserRole,
   }
 }
 
