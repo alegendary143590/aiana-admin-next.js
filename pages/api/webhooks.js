@@ -38,9 +38,7 @@ async function handleWebhookEvent(req, res) {
             console.warn(`Unhandled event type: ${event.type}`);
     }
 
-    res.status(200).end();
-
-    return;
+    return res.status(200).end();
 }
 
 export default handleWebhookEvent;
