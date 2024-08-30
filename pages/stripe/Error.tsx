@@ -1,16 +1,15 @@
 import Head from "next/head";
 
-const Error = () => {
-  return (
+const Error = () => (
     <>
-      <Head>
-        <title>Error Page</title>
-      </Head>
-      <div className="h-screen flex justify-center items-center">
-        <h1 className="text-white text-4xl">Error</h1>
-      </div>
+        <Head>
+            <title>Error Page</title>
+        </Head>
+        <div className="h-screen flex justify-center items-center">
+            <h1 className="text-white text-4xl">Error</h1>
+        </div>
     </>
-  );
-};
+);
+
 
 export default Error;

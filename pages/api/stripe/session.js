@@ -16,9 +16,9 @@ export default async function handler(req, res) {
                         price_data: {
                             currency: "usd",
                             product_data: {
-                                name: "INV-" + date,
+                                name: `INV-${date}`,
                             },
-                            unit_amount: body?.amount * 100 || 100,
+                            unit_amount: (body?.amount ?? 0) * 100 || 100,
                         },
                         quantity: 1,
                     },

@@ -32,6 +32,7 @@ const CheckoutButton = ({ amount = 1 }) => {
 
     return (
         <button
+            type="button"
             onClick={handler}
             className="bg-blue-700 hover:bg-blue-800 duration-200 px-8 py-4 text-white"
         >
