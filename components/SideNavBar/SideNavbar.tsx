@@ -12,16 +12,16 @@ const SideNavBar = () => {
   const t = useTranslations('common');
   const {isOpen, setOpen } = useSideMenu()
   const router = useRouter()
-  const [logo, setLogo] = React.useState("/images/logo_big.png")
+  const [logo, setLogo] = React.useState("/images/logo_final_white.png")
 
   const handleDrawerOpen = () => {
     setOpen(true)
-    setLogo("/images/logo_big.png")
+    setLogo("/images/logo_final_white.png")
   }
 
   const handleDrawerClose = () => {
     setOpen(false)
-    setLogo("/images/logo_sm.png")
+    setLogo("/images/logo_short_white.png")
   }
 
   const handleLogOut = () => {
