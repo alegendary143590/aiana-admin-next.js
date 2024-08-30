@@ -181,7 +181,6 @@ const Website = ({ urls, setUrls, websiteRef }) => {
             )
           }
         </div>
-
       </div>
       <AlertDialog
         title={t('Confirm_Delete')}
