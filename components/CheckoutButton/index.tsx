@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
-const CheckoutButton = ({ amount = 1 }) => {
+const CheckoutButton = ({ amount }) => {
     console.log("API Key: ", process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
     const router = useRouter();
 
@@ -20,7 +20,7 @@ const CheckoutButton = ({ amount = 1 }) => {
             const { sessionId } = await res.json();
 
             const { error } = await stripe.redirectToCheckout({ sessionId });
-            console.log(error);
+            console.log("Error: ", error);
             if (error) {
                 router.push("/error");
             }
