@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 const CheckoutButton = ({ amount = 1 }) => {
+    console.log("API Key: ", process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
     const router = useRouter();
 
     const handler = async () => {
