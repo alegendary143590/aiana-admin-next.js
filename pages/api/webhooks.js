@@ -27,19 +27,20 @@ async function handleWebhookEvent(req, res) {
     }
 
     switch (event.type) {
-        case 'checkout.session.completed':
+        case 'checkout.session.completed': {
             const session = event.data.object;
             console.log(`Payment successful for session ID: ${session.id}`);
             // Handle post-payment actions here
             break;
-
+        }
         // Add other event types to handle as needed
-
         default:
             console.warn(`Unhandled event type: ${event.type}`);
     }
 
     res.status(200).end();
+
+    return;
 }
 
 export default handleWebhookEvent;

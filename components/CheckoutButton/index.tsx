@@ -32,7 +32,7 @@ const CheckoutButton = () => {
     }
   };
   
-  return <button onClick={handleCheckout}>Buy Now</button>;
+  return <button type="button" onClick={handleCheckout}>Buy Now</button>;
 };
 
 export default CheckoutButton;
