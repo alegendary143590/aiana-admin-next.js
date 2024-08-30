@@ -1,38 +1,43 @@
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/router";
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);
+const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
-const CheckoutButton = () => {
-  const router = useRouter();
-  
-  const handleCheckout = async () => {
-    try {
-      const stripe = await stripePromise;
-      const response = await fetch("/api/checkout_sessions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+const CheckoutButton = ({ amount = 1 }) => {
+    const router = useRouter();
 
-      const { sessionId } = await response.json();
-      const { error } = await stripe.redirectToCheckout({
-        sessionId,
-      });
+    const handler = async () => {
+        try {
+            const stripe = await asyncStripe;
+            const res = await fetch("/api/stripe/session", {
+                method: "POST",
+                body: JSON.stringify({
+                    amount,
+                }),
+                headers: { "Content-Type": "application/json" },
+            });
+            const { sessionId } = await res.json();
 
-      if (error) {
-        router.push("/error");
-      }
-    } catch (err) {
-      console.error("Error in creating checkout session:", err);
-      router.push("/error");
-    }
-  };
-  
-  return <button type="button" onClick={handleCheckout}>Buy Now</button>;
+            const { error } = await stripe.redirectToCheckout({ sessionId });
+            console.log(error);
+            if (error) {
+                router.push("/error");
+            }
+            router.push("/success")
+        } catch (err) {
+            console.log(err);
+            router.push("/error");
+        }
+    };
+
+    return (
+        <button
+            onClick={handler}
+            className="bg-blue-700 hover:bg-blue-800 duration-200 px-8 py-4 text-white"
+        >
+            Checkout
+        </button>
+    );
 };
 
 export default CheckoutButton;

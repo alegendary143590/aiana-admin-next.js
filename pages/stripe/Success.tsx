@@ -1,9 +1,16 @@
+import Head from "next/head";
 
-export default function Success() {
-    return (
-        <div>
-            <h1>Payment Successful!</h1>
-            <p>Thank you for your purchase.</p>
-        </div>
-    );
-}
+const Success = () => {
+  return (
+    <>
+      <Head>
+        <title>Success Page</title>
+      </Head>
+      <div className="h-screen flex justify-center items-center">
+        <h1 className="text-white text-4xl">Success</h1>
+      </div>
+    </>
+  );
+};
+
+export default Success;
