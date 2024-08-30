@@ -19,6 +19,8 @@ const CheckoutButton = ({ amount }) => {
             });
             const { sessionId } = await res.json();
 
+            console.log("Session Id: ", sessionId)
+
             const { error } = await stripe.redirectToCheckout({ sessionId });
             console.log("Error: ", error);
             if (error) {
