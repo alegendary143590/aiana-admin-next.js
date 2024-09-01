@@ -6,6 +6,28 @@ import Stripe from "stripe"
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY as string)
 const endpointSecret = process.env.WEBHOOK_SECRET;
 
+const handleCompletedCheckoutSession = async (event:Stripe.CheckoutSessionCompletedEvent) => {
+    try {
+        const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
+            (event.data.object as any).id,
+            {
+                expand:["line_items"],
+            }
+        );
+
+        const lineItems = sessionWithLineItems.line_items;
+
+        if(!lineItems) return false;
+        
+        console.log(lineItems)
+
+        return true;
+    } catch(err:any){
+        console.error(err)
+        return false;
+
+    }
+}
 export async function POST(req:NextRequest) {
     const rawBody = await req.text();
     const sig = req.headers.get("stripe-signature");
@@ -41,25 +63,4 @@ export async function POST(req:NextRequest) {
     }
 }
 
-const handleCompletedCheckoutSession = async (event:Stripe.CheckoutSessionCompletedEvent) => {
-    try {
-        const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
-            (event.data.object as any).id,
-            {
-                expand:["line_items"],
-            }
-        );
 
-        const lineItems = sessionWithLineItems.line_items;
-
-        if(!lineItems) return false;
-        
-        console.log(lineItems)
-
-        return true;
-    } catch(err:any){
-        console.error(err)
-        return false;
-
-    }
-}

@@ -19,12 +19,12 @@ const CheckoutButton = ({ amount }) => {
                 }),
                 headers: { "Content-Type": "application/json" },
             });
-            const data = res.json();
+            const data = await res.json();
             console.log(data)
             // localStorage.setItem("Response", JSON.parse(response))
             // console.log("Session Id: ", sessionId)
 
-            const { error } = await stripe.redirectToCheckout({ sessionId:data['result'].id });
+            const { error } = await stripe.redirectToCheckout({ sessionId:data.result.id });
             console.log("Error: ", error);
             if (error) {
                 router.push("/error");
