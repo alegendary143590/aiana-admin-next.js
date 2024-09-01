@@ -18,7 +18,7 @@ export default async function handler(req, res) {
                             product_data: {
                                 name: `INV-${date}`,
                             },
-                            unit_amount: (body?.amount ?? 0) * 100 || 100,
+                            unit_amount: 100,
                         },
                         quantity: 1,
                     },
@@ -27,9 +27,11 @@ export default async function handler(req, res) {
                 cancel_url: `${host}`,
                 success_url: `${host}/success`,
             });
-
+            // localStorage.setItem("SESSOIN-->", session)
+            console.log(session)
             res.status(200).json({ sessionId: session.id });
         } catch (err) {
+            console.log(err)
             res.status(500).json({ error: "Error checkout session" });
         }
     } else {

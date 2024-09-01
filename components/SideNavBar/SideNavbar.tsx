@@ -3,7 +3,7 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
 import { useTranslations } from "next-intl"
-
+import { constants } from "../utils/constants"
 import { useSideMenu } from "@/providers/SideMenuProvider"
 import { logOut } from "@/components/utils/common"
 import MenuList from "./MenuList"
@@ -25,9 +25,10 @@ const SideNavBar = () => {
   }
 
   const handleLogOut = () => {
-    if (logOut()) {
-      router.push("/signin")
-    }
+    // if (logOut()) {
+    //   router.push("/signin")
+    // }
+    router.push(constants.paymentLinks.preOrder)
   }
 
   return (
