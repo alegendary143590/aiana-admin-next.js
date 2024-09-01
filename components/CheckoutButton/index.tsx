@@ -30,7 +30,7 @@ const CheckoutButton = ({ amount }) => {
                 router.push("/error");
             }
             router.push("/success")
-        } catch (err) {
+        } catch (err:any) {
             console.log(err);
             // router.push("/error");
         }
