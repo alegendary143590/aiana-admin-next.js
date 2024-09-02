@@ -1,3 +1,5 @@
+"use client"
+
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/router";
 
@@ -17,19 +19,20 @@ const CheckoutButton = ({ amount }) => {
                 }),
                 headers: { "Content-Type": "application/json" },
             });
-            const { sessionId } = await res.json();
+            const data = await res.json();
+            console.log(data)
+            // localStorage.setItem("Response", JSON.parse(response))
+            // console.log("Session Id: ", sessionId)
 
-            console.log("Session Id: ", sessionId)
-
-            const { error } = await stripe.redirectToCheckout({ sessionId });
+            const { error } = await stripe.redirectToCheckout({ sessionId:data.result.id });
             console.log("Error: ", error);
             if (error) {
                 router.push("/error");
             }
             router.push("/success")
-        } catch (err) {
+        } catch (err:any) {
             console.log(err);
-            router.push("/error");
+            // router.push("/error");
         }
     };
 
