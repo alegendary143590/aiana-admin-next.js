@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl"
 import { useSideMenu } from "@/providers/SideMenuProvider"
 import { logOut } from "@/components/utils/common"
 import MenuList from "./MenuList"
-import { constants } from "../utils/constants"
+// import { constants } from "../utils/constants"
 
 
 const SideNavBar = () => {
