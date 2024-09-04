@@ -8,7 +8,7 @@ export const constants = {
             process.env.NODE_ENV === "development"
                 ? "https://buy.stripe.com/test_eVa00dgy7fLyemQ9AA"
                 :"",
-            preOrder:
+            preOrderBasicLink:
             process.env.NODE_ENV === "development"
                 ?"https://buy.stripe.com/test_eVa00dgy7fLyemQ9AA"
                 :"",
