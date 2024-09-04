@@ -14,11 +14,13 @@
         "Chatlogs": "Logs de chat",
         "Tickets": "Billets",
         "Copy_Script": "Copier le script",
+        "Upgrad": "Mise à niveau",
         "Log_out": "Se déconnecter",
         "To_add_a_chatbubble_to_the_bottom_right_of_your_website_add_this_script_tag_to_your_html": "Pour ajouter une bulle de chat au bas à droite de votre site web, ajoutez cette balise script à votre HTML",
         "admin":"administratrice",
         "users":"utilisateurs",
         "username":"utilisateur",
+        "Add_domains_where_you_want_to_use_chatbot": "Ajoutez les domaines dans lesquels vous souhaitez utiliser le chatbot.",
         "Profile":"Profil"
     },
     "admin": {
@@ -137,6 +139,7 @@
         "Questions_List": "Liste des questions",
         "question_added": "question ajoutée",
         "No_question_added_yet": "Pas encore de question ajoutée",
+        "Invalid_URL_Please_enter_a_valid_URL": "URL non valide. Veuillez saisir une URL valide.",
         "Enter_name_of_new_knowledge_base": "Entrez le nom de la nouvelle base de connaissances",
         "Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone": "Êtes-vous sûr de vouloir supprimer cet élément ? Cette action ne peut pas être annulée."
     },

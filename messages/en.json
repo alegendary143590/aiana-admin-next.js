@@ -16,8 +16,10 @@
         "Tickets": "Tickets",
         "Copy_Script": "Copy Script",
         "Log_out": "Log out",
+        "Upgrad": "Upgrad",
         "admin": "admin",
         "users":"users",
+        "Add_domains_where_you_want_to_use_chatbot": "Add domains where you want to use chatbot.",
         "username":"user",
         "Profile":"Profile"
     },
@@ -139,6 +141,7 @@
         "Questions_List": "Questions List",
         "question_added": "question added",
         "No_question_added_yet": "No question added yet",
+        "Invalid_URL_Please_enter_a_valid_URL":"Invalid URL. Please enter a valid URL.",
         "Enter_name_of_new_knowledge_base": "Enter name of new knowledge base"
     },
     "ticket": {
