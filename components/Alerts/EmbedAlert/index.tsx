@@ -4,7 +4,6 @@ import React from "react"
 export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
   const t = useTranslations('common')
   const alertRef = React.useRef(null)
-  const [domainInput, setDomainInput] = React.useState("");
   React.useEffect(() => {
     const handleClickOutside = (event) => {
       if (alertRef.current && !alertRef.current.contains(event.target)) {
