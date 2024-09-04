@@ -94,6 +94,7 @@ const Chatbots = () => {
   const handleEditClickButton = (id: any) => {
     router.push(`/chatbot/edit?bot=${id}`)
   }
+
   const handleChatClickButton = (id: any) => {
     const bot = bots.find((b) => b.id === id)
     if (!bot.active) {
@@ -181,6 +182,7 @@ const Chatbots = () => {
   const handleDisagree = () => {
     setOpenDialog(false)
   }
+
   if (isLoading) {
     return <div>{t('Loading')}</div>
   }
@@ -357,7 +359,7 @@ const Chatbots = () => {
         open={openDialog}
         setOpen={setOpenDialog}
       />
-      <EmbedAlert open={open} setOpen={setOpen} description={description} handleCopy={handleCopy} />
+        <EmbedAlert open={open} setOpen={setOpen} description={description} handleCopy={handleCopy} />
 
       <ChatbotPage
         userId={userId}

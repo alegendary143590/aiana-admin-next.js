@@ -100,6 +100,8 @@ const ChatbotForm = ({ bot }) => {
           setIsLoading(false)
         })
         .catch((error) => {
+          setIsSaving(false)
+          console.log("Error creating a new bot :", error.message)
           if (error.message.includes("401")) {
             toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
               position: toast.POSITION.TOP_RIGHT,
@@ -199,14 +201,17 @@ const ChatbotForm = ({ bot }) => {
           "Content-Type": "multipart/form-data",
         },
       })
-      setIsSaved(true);
 
       setExpiryTime();
       setIsSaved(true);
       setIsSaving(false);
       toast.success(`${ bot === "-1" ? toa('Successfully_Created') : toa('Successfully_updated')}`, { position: toast.POSITION.TOP_RIGHT })
     } catch (error) {
-      console.error("Error uploading:", error)
+      setExpiryTime();
+      setIsSaving(false)
+      if(error.response && error.response.status === 403){
+        toast.error(`${ bot === "-1" ? 'You need to upgrade to create more bots' : toa('Successfully_updated')}`, { position: toast.POSITION.TOP_RIGHT })
+      }
       if (error.response && error.response.status === 401) {
         // Redirect to the sign-in page if the response status is 401
         router.push("/signin")
