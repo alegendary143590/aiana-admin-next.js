@@ -130,7 +130,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
         }
         const createdAt = new Date().toLocaleDateString('en-US', options);
         // console.log("Here>>>>>>",createdAt)
-        axios.post(AUTH_API.QUERY, { botId: bot.id, sessionId, input, userId, createdAt, lang })
+        axios.post(AUTH_API.QUERY, { botId: bot.id, website, sessionId, input, userId, createdAt, lang })
             .then((response) => {
                 if (response.status === 200) {
                     const { message, solve } = response.data;
@@ -147,6 +147,9 @@ const ChatBot = ({ userIndex, botId, website }) => {
             })
             .catch((error) => {
                 setInput("");
+                if(error.response && error.response.status === 403){
+                    toast.error("You need to upgrade to ask more questions to the bot!", { position: toast.POSITION.BOTTOM_RIGHT });
+                }
                 if (error.response) {
                     console.log('Error status code:', error.response.status);
                     console.log('Error response data:', error.response.data);

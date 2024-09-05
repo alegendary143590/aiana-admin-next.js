@@ -105,6 +105,7 @@ const ChatLogs = () => {
         <thead className="bg-[#EEEEEE] text-[#767676] text-sm ">
           <tr>
             <th className="px-4 py-2 text-start">{t('CHATBOT_NAME')}</th>
+            <th className="px-4 py-2 text-start">{t('Website')}</th>
             <th className="px-4 py-2 text-start">{t('STARTED_ON')}</th>
             <th className="px-4 py-2 text-start">{t('ENDED_ON')}</th>
             <th className="px-4 py-2 text-start">{t('STATUS')}</th>
@@ -123,6 +124,11 @@ const ChatLogs = () => {
                     {row.bot_name}
                   </button>
 
+                </td>
+                <td className="px-4 py-2">
+                  <button type="button" aria-label="created" onClick={() => handleRowClick(row.session_id)} className="w-full h-full py-4 text-start">
+                    {row.website}
+                  </button>
                 </td>
                 <td className="px-4 py-2">
                   <button type="button" aria-label="created" onClick={() => handleRowClick(row.session_id)} className="w-full h-full py-4 text-start">

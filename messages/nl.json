@@ -15,7 +15,7 @@
         "Chatlogs": "Chatlogs",
         "Tickets": "Kaartjes",
         "Copy_Script": "Kopieer script",
-        "Upgrad": "Upgraden",
+        "Upgrade": "Upgraden",
         "Log_out": "Uitloggen",
         "admin":"beheerder",
         "users":"gebruikers",
@@ -94,7 +94,8 @@
         "ENDED_ON": "GEËINDIGD OP",
         "STATUS": "STATUS",
         "ACTION": "ACTIE",
-        "Back_to_Chatlogs": "Terug naar chatlogs"
+        "Back_to_Chatlogs": "Terug naar chatlogs",
+        "Website":"Website"
     },
     "knowledge": {
         "Loading": "Laden",

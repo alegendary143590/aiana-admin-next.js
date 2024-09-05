@@ -14,7 +14,7 @@
         "Chatlogs": "Logs de chat",
         "Tickets": "Billets",
         "Copy_Script": "Copier le script",
-        "Upgrad": "Mise à niveau",
+        "Upgrade": "Mise à niveau",
         "Log_out": "Se déconnecter",
         "To_add_a_chatbubble_to_the_bottom_right_of_your_website_add_this_script_tag_to_your_html": "Pour ajouter une bulle de chat au bas à droite de votre site web, ajoutez cette balise script à votre HTML",
         "admin":"administratrice",
@@ -94,7 +94,8 @@
         "ENDED_ON": "FINI_LE",
         "STATUS": "STATUT",
         "ACTION": "ACTION",
-        "Back_to_Chatlogs": "Retour aux logs de chat"
+        "Back_to_Chatlogs": "Retour aux logs de chat",
+        "Website":"Site Web"
     },
     "knowledge": {
         "Loading": "Chargement",
