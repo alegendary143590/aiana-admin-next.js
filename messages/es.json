@@ -16,7 +16,7 @@
         "Tickets": "Entradas",
         "Copy_Script": "Copiar script",
         "Log_out": "Cerrar sesión",
-        "Upgrad": "Actualizar",
+        "Upgrade": "Actualizar",
         "admin": "administración",
         "users":"usuarios",
         "username":"usuario",
@@ -94,7 +94,8 @@
         "ENDED_ON": "FINALIZÓ_EL",
         "STATUS": "ESTADO",
         "ACTION": "ACCIÓN",
-        "Back_to_Chatlogs": "Volver a registros de chat"
+        "Back_to_Chatlogs": "Volver a registros de chat",
+        "Website":"Sitio web"
     },
     "knowledge": {
         "Loading": "Cargando",
