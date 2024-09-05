@@ -1,8 +1,10 @@
 import { useTranslations } from "next-intl"
-import React from "react"
+import React, { useState } from "react"
 
 export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
-  const t = useTranslations('common')
+  const [urlInputValue, setUrlInputValue] = useState("")
+  const t = useTranslations('common');
+  const tk = useTranslations('knowledge');
   const alertRef = React.useRef(null)
   React.useEffect(() => {
     const handleClickOutside = (event) => {
@@ -56,9 +58,21 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
                 className="text-[14px] pt-3 pl-3 leading-6 font-medium text-[#767676]"
                 id="modal-title"
               >
-                Add domains where you want to use chatbot 
+                {t("Add_domains_where_you_want_to_use_chatbot")}
               </h3>
-             
+              <div className="w-full flex justify-center items-center px-4 text-sm">
+                <p className="w-[70px]">{tk('Enter_URL')}</p>
+                <input
+                  type="text"
+                  value={urlInputValue}
+                  onChange={(e) => setUrlInputValue(e.target.value)}
+                  className="grow mr-5 border border-[#D9D9D9] rounded-md"
+                  id="urlInput"
+                />
+                <button className="bg-[#A438FA] px-2 py-2 text-white rounded-md w-[90px]" type="button">
+                  {tk('Add_this_URL')}
+                </button>
+              </div>
               <h3
                 className="text-[14px] pt-3 pl-3 leading-6 font-medium text-[#767676]"
                 id="modal-title"

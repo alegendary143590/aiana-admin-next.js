@@ -15,10 +15,12 @@
         "Chatlogs": "Chatlogs",
         "Tickets": "Kaartjes",
         "Copy_Script": "Kopieer script",
+        "Upgrad": "Upgraden",
         "Log_out": "Uitloggen",
         "admin":"beheerder",
         "users":"gebruikers",
         "username":"gebruiker",
+        "Add_domains_where_you_want_to_use_chatbot": "Voeg domeinen toe waar u de chatbot wilt gebruiken.",
         "Profile":"Profiel"
     },
     "admin": {
@@ -131,6 +133,7 @@
         "Add_this_URL": "Deze URL toevoegen",
         "URL": "URL",
         "ADDED_ON": "TOEGEVOEGD OP",
+        "Invalid_URL_Please_enter_a_valid_URL":"Ongeldige URL. Voer een geldige URL in.",
         "No_URL_added_yet": "Nog geen URL toegevoegd",
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_urls_The_content_of_these_web_pages_will_be_used_by_your_chatbot_to_answer_questions_accurately": "Opmerking: Bouw de kennisbank van uw chatbot op door urls te uploaden. De inhoud van deze webpagina's zal door uw chatbot worden gebruikt om vragen nauwkeurig te beantwoorden.",
         "Question": "Vraag",

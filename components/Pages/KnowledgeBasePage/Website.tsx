@@ -46,7 +46,7 @@ const Website = ({ urls, setUrls, websiteRef }) => {
       setUrls([...urls, newWebsite])
       setUrlInputValue("")
     } else {
-      alert("Invalid URL. Please enter a valid URL.")
+      toast.error(t("Invalid_URL_Please_enter_a_valid_URL"), { position: toast.POSITION.TOP_RIGHT })
     }
   }
 

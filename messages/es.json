@@ -16,9 +16,11 @@
         "Tickets": "Entradas",
         "Copy_Script": "Copiar script",
         "Log_out": "Cerrar sesión",
+        "Upgrad": "Actualizar",
         "admin": "administración",
         "users":"usuarios",
         "username":"usuario",
+        "Add_domains_where_you_want_to_use_chatbot": "Añade dominios donde quieras usar el chatbot.",
         "Profile":"Perfil"
     },
     "admin": {
@@ -137,6 +139,7 @@
         "Click_to_upload": "Haga clic para cargar",
         "Questions_List": "Lista de preguntas",
         "question_added": "pregunta agregada",
+        "Invalid_URL_Please_enter_a_valid_URL":"URL no válida. Ingrese una URL válida.",
         "No_question_added_yet": "Aún no se ha agregado ninguna pregunta",
         "Enter_name_of_new_knowledge_base": "Ingrese el nombre de la nueva base de conocimientos"
     },
