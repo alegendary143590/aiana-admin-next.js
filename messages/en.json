@@ -16,7 +16,7 @@
         "Tickets": "Tickets",
         "Copy_Script": "Copy Script",
         "Log_out": "Log out",
-        "Upgrad": "Upgrad",
+        "Upgrade": "Upgrade",
         "admin": "admin",
         "users":"users",
         "Add_domains_where_you_want_to_use_chatbot": "Add domains where you want to use chatbot.",
@@ -94,7 +94,8 @@
         "ENDED_ON": "ENDED ON",
         "STATUS": "STATUS",
         "ACTION": "ACTION",
-        "Back_to_Chatlogs": "Back to Chatlogs"
+        "Back_to_Chatlogs": "Back to Chatlogs",
+        "Website":"Website"
     },
     "knowledge": {
         "Loading": "Loading",

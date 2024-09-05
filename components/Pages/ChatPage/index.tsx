@@ -96,7 +96,7 @@ const ChatPage = ({
     axios
       .post(
         AUTH_API.QUERY,
-        { botId, sessionId, input, userId, createdAt, lang },
+        { botId, sessionId, website:null, input, userId, createdAt, lang },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header

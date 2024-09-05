@@ -68,7 +68,7 @@ const SideNavBar = () => {
             className={`${isOpen && "bg-[url('/images/button-bg.png')]"} w-full bg-contain bg-no-repeat bg-center rounded-[4px] p-[10px] text-[16px] text-white transition duration-300 hover:opacity-80 mt-auto sm:mb-5 mb-2 flex justify-center items-center`}
           >
             <GiUpgrade />
-            <p className={`ml-2 opacity-90 ${isOpen ? "block" : "hidden"}`}>{t('Upgrad')}</p>
+            <p className={`ml-2 opacity-90 ${isOpen ? "block" : "hidden"}`}>{t('Upgrade')}</p>
           </button>
           <button
             type="button"
