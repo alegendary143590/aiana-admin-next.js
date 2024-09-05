@@ -131,7 +131,9 @@
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_urls_These_urls_train_your_chatbot_to_answer_questions_accurately": "Note: Build your Chatbot’s Knowledge Base by adding urls. These urls train your chatbot to answer questions accurately.",
         "Please_do_not_add_URLs_to_websites_that_contain_confidential_information_or_where_the_publisher_has_imposed_restrictions_on_sharing": "Please do not add URLs to websites that contain confidential information or where the publisher has imposed",
         "Enter_URL": "Enter URL:",
+        "Enter_Domain": "Enter Domain:",
         "Add_this_URL": "Add this URL",
+        "Add_this_Domain": "Add this Domain",
         "URL": "URL",
         "ADDED_ON": "ADDED ON",
         "No_URL_added_yet": "No URL added yet",
@@ -143,6 +145,7 @@
         "question_added": "question added",
         "No_question_added_yet": "No question added yet",
         "Invalid_URL_Please_enter_a_valid_URL":"Invalid URL. Please enter a valid URL.",
+        "Invalid_Domain_Please_enter_a_valid_Domain":"Invalid Domain. Please enter a valid Domain.",
         "Enter_name_of_new_knowledge_base": "Enter name of new knowledge base"
     },
     "ticket": {
@@ -192,6 +195,8 @@
         "Please_input_the_name": "Please input the name!",
         "Please_input_the_data": "Please input the data!",
         "Session_Expired": "Session Expired!",
+        "URL_already_exist":"URL already exist!", 
+        "Domain_already_exist":"Domain already exist!", 
         "Successfully_Created": "Successfully Created!"
     },
     "country": {
