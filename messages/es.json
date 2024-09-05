@@ -194,7 +194,7 @@
         "Please_input_the_data": "Por favor ingresa los datos!",
         "Session_Expired": "La sesión ha expirado!",
         "URL_already_exist": "¡La URL ya existe!",
-        "Domain_already_exist":"Dominio already exist!", 
+        "Domain_already_exist":"¡El dominio ya existe!", 
         "Successfully_Created": "Creado con éxito!"
     },
     "country": {
