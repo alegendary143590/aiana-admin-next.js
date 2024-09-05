@@ -127,8 +127,10 @@
         "Please_do_not_upload_any_confidential_data": "Ne téléchargez pas de données confidentielles.",
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_urls_These_urls_train_your_chatbot_to_answer_questions_accurately": "Remarque: Construisez la base de connaissances de votre bot en téléchargeant des urls. Ces urls entraînent votre bot à répondre précisément aux questions.",
         "Please_do_not_add_URLs_to_websites_that_contain_confidential_information_or_where_the_publisher_has_imposed_restrictions_on_sharing": "Ne rajoutez pas d'urls à des sites contenant des informations confidentielles ou où le diffuseur a imposé des restrictions sur le partage.",
-        "Enter_URL": "Entrez l'url:",
-        "Add_this_URL": "Ajouter cette url",
+        "Enter_URL": "Entrez l'URL:",
+        "Enter_Domain": "Entrez l'Domaine:",
+        "Add_this_URL": "Ajouter cette URL",
+        "Add_this_Domain": "Ajouter cette Domaine",
         "URL": "URL",
         "ADDED_ON": "AJOUTÉ_LE",
         "No_URL_added_yet": "Pas encore d'url ajoutée",
@@ -140,6 +142,7 @@
         "question_added": "question ajoutée",
         "No_question_added_yet": "Pas encore de question ajoutée",
         "Invalid_URL_Please_enter_a_valid_URL": "URL non valide. Veuillez saisir une URL valide.",
+        "Invalid_Domain_Please_enter_a_valid_Domain": "Domaine non valide. Veuillez saisir une Domaine valide.",
         "Enter_name_of_new_knowledge_base": "Entrez le nom de la nouvelle base de connaissances",
         "Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone": "Êtes-vous sûr de vouloir supprimer cet élément ? Cette action ne peut pas être annulée."
     },
@@ -190,6 +193,8 @@
         "Please_input_the_name": "Veuillez entrer le nom !",
         "Please_input_the_data": "Veuillez entrer les données !",
         "Session_Expired": "La session a expiré !",
+        "URL_already_exist":"L'URL existe déjà !", 
+        "Domain_already_exist":"L'Domaine existe déjà !", 
         "Successfully_Created": "Création réussie !"
     },
     "country":

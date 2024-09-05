@@ -130,10 +130,13 @@
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_urls_These_urls_train_your_chatbot_to_answer_questions_accurately": "Opmerking: Bouw de kennisbank van uw chatbot op door urls te uploaden. Deze urls trainen uw chatbot om vragen nauwkeurig te beantwoorden.",
         "Please_do_not_add_URLs_to_websites_that_contain_confidential_information_or_where_the_publisher_has_imposed_restrictions_on_sharing": "Voeg geen URLs toe aan websites die vertrouwelijke informatie bevatten of waar de uitgever beperkingen heeft opgelegd voor delen.",
         "Enter_URL": "Voer URL in:",
+        "Enter_Domain": "Voer Domein in:",
         "Add_this_URL": "Deze URL toevoegen",
+        "Add_this_Domain": "Deze Domein toevoegen",
         "URL": "URL",
         "ADDED_ON": "TOEGEVOEGD OP",
         "Invalid_URL_Please_enter_a_valid_URL":"Ongeldige URL. Voer een geldige URL in.",
+        "Invalid_Domain_Please_enter_a_valid_Domain":"Ongeldige Domein. Voer een geldige Domein in.",
         "No_URL_added_yet": "Nog geen URL toegevoegd",
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_urls_The_content_of_these_web_pages_will_be_used_by_your_chatbot_to_answer_questions_accurately": "Opmerking: Bouw de kennisbank van uw chatbot op door urls te uploaden. De inhoud van deze webpagina's zal door uw chatbot worden gebruikt om vragen nauwkeurig te beantwoorden.",
         "Question": "Vraag",
@@ -191,6 +194,8 @@
         "Please_input_the_name": "Voeg alsjeblieft de naam in!",
         "Please_input_the_data": "Voeg de gegevens in!",
         "Session_Expired": "Sessie verlopen!",
+        "URL_already_exist":"URL bestaat al!", 
+        "Domain_already_exist":"Domein bestaat al!", 
         "Successfully_Created": "Succesvol gecreeërd!"
     },
     "country": {

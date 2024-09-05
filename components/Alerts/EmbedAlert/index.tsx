@@ -1,10 +1,35 @@
 import { useTranslations } from "next-intl"
-import React, { useState } from "react"
+import { ToastContainer, toast } from "react-toastify"
+import Image from "next/image"
+import axios from "axios"
+import { useRouter } from "next/router"
+import React, { useRef, useState } from "react"
+
+import { AUTH_API } from "@/components/utils/serverURL"
+import AlertDialog from "@/components/AlertDialog"
+import { isValidUrl } from "@/components/Pages/KnowledgeBasePage/validation"
+
+
+interface WebsiteObject {
+  created_at: string
+  id: number
+  unique_id: string
+  url: string
+}
 
 export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
   const [urlInputValue, setUrlInputValue] = useState("")
   const t = useTranslations('common');
   const tk = useTranslations('knowledge');
+  const toa = useTranslations('toast');
+  const router = useRouter();
+  const [id, setId] = React.useState("")
+  const [openDialog, setOpenDialog] = React.useState(false)
+  const [index, setIndex] = React.useState("")
+  const websiteRef = useRef()
+  // const router = useRouter()
+
+  const [urls, setUrls] = useState<WebsiteObject[]>([])
   const alertRef = React.useRef(null)
   React.useEffect(() => {
     const handleClickOutside = (event) => {
@@ -21,6 +46,96 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
   // const title = "To embed your chatbot onto your website, paste this snippet into your website's HTML file";
   const title =
     `${t('To_add_a_chatbubble_to_the_bottom_right_of_your_website_add_this_script_tag_to_your_html')}`
+
+    const handleUrlAdd = () => {
+      if (isValidUrl(urlInputValue)) {
+        const existingUrl = urls.find(url => url.url === urlInputValue);
+        if (existingUrl) {
+          toast.error(`${toa('URL_already_exist')}`, { position: toast.POSITION.TOP_RIGHT });
+        } else {
+          const newWebsite: WebsiteObject = {
+            created_at: new Date().toISOString(),
+            id: urls.length + 1,
+            unique_id: "", // Assuming you have a function to generate unique IDs
+            url: urlInputValue,
+          };
+          setUrls(prevUrls => [...prevUrls, newWebsite]);
+          setUrlInputValue("");
+        }
+      } else {
+        toast.error(tk("Invalid_Domain_Please_enter_a_valid_Domain"), { position: toast.POSITION.TOP_RIGHT });
+      }
+    };
+  
+    const handleDeleteUrl = () => {
+      axios
+        .post(
+          AUTH_API.DELETE_URL,
+          { id },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header
+              "Content-Type": "application/json", // Explicitly defining the Content-Type
+              "ngrok-skip-browser-warning": "1",
+            },
+          },
+        )
+        .then((response) => {
+          if (response.status === 201) {
+            toast.success(`${toa('Successfully_deleted!')}`, { position: toast.POSITION.TOP_RIGHT })
+          } else {
+            toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log("Error status code:", error.response.status)
+            console.log("Error response data:", error.response.data)
+            if (error.response.status === 401) {
+              router.push("/signin")
+            }
+            // Handle the error response as needed
+          } else if (error.request) {
+            // The request was made but no response was received
+            console.log("Error request:", error.request)
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error message:", error.message)
+          }
+          console.log("Error config:", error.config)
+          toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
+        })
+      const updatedUrls = urls.filter((_, i: any) => i !== index)
+      setUrls(updatedUrls)
+    }
+  
+    const handleDeleteButton = (_id, _index) => {
+      setId(_id)
+      setIndex(_index)
+      let websiteArray;
+      if (websiteRef.current){
+        websiteArray = websiteRef.current;
+      } else {
+        websiteArray = []
+      }
+  
+      const websiteExists = websiteArray.some(doc => doc.id === _id);
+      if (websiteExists) {
+        setOpenDialog(true);
+  
+      } else {
+        setUrls(urls.filter(doc => doc.id !== _id));
+      }
+    }
+  
+    const handleAgree = () => {
+      setOpenDialog(false)
+      handleDeleteUrl()
+    }
+  
+    const handleDisagree = () => {
+      setOpenDialog(false)
+    }
 
   return (
     open && (
@@ -61,7 +176,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
                 {t("Add_domains_where_you_want_to_use_chatbot")}
               </h3>
               <div className="w-full flex justify-center items-center px-4 text-sm">
-                <p className="w-[70px]">{tk('Enter_URL')}</p>
+                <p className="w-[70px]">{tk('Enter_Domain')}</p>
                 <input
                   type="text"
                   value={urlInputValue}
@@ -69,10 +184,57 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
                   className="grow mr-5 border border-[#D9D9D9] rounded-md"
                   id="urlInput"
                 />
-                <button className="bg-[#A438FA] px-2 py-2 text-white rounded-md w-[90px]" type="button">
-                  {tk('Add_this_URL')}
+                <button className="bg-[#A438FA] px-2 py-2 text-white rounded-md w-[90px]" type="button" onClick={handleUrlAdd}>
+                  {tk('Add_this_Domain')}
                 </button>
               </div>
+              <div>
+                <div className="overflow-auto max-h-48">
+                  <table className="min-w-max w-full whitespace-nowrap">
+                    <thead>
+                      <tr className="text-xs font-semibold uppercase tracking-wide text-left text-[#767676] border-b-2">
+                        <th className="sm:px-7 px-3 py-2">{tk('URL')}</th>
+                        <th className="sm:px-7 px-3 py-2">{tk('ACTION')}</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+
+                      {urls && urls.map((url, i) =>
+                        <tr key={url.id}>
+                          <td className="sm:px-7 px-3 py-2">
+                            <a href={`${url.url}`} target="_blank" className="text-[#A438FA] underline" rel="noreferrer">{url.url}</a></td>
+                          <td className="sm:px-7 px-3 py-2">
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteButton(url.id, i)}
+                              className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md flex justify-center items-center"
+                            >
+                              <Image src="/images/icon_trash.svg" alt="trash_icon" width={18} height={18} />
+                            </button>
+                          </td>
+                        </tr>
+                      )
+                      }
+                    </tbody>
+                  </table>
+                  {
+                    urls.length === 0 && (
+                      <div className="w-full text-center py-5">
+                        <p className="text-[#767676]">{tk('No_URL_added_yet')}</p>
+                      </div>
+                    )
+                  }
+                </div>
+              </div>
+              <AlertDialog
+                title={tk('Confirm_Delete')}
+                description={tk('Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone')}
+                handleAgree={handleAgree}
+                handleDisagree={handleDisagree}
+                open={openDialog}
+                setOpen={setOpenDialog}
+              />
+              <ToastContainer />
               <h3
                 className="text-[14px] pt-3 pl-3 leading-6 font-medium text-[#767676]"
                 id="modal-title"
