@@ -3,7 +3,7 @@ import axios from "axios"
 import { v4 as uuidv4 } from "uuid"
 import router from "next/router"
 import Image from "next/image"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import { FaCaretDown } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 import { AUTH_API } from "@/components/utils/serverURL"
@@ -358,7 +358,6 @@ const ChatPage = ({
           </button>
         </div>
       </div>
-      <ToastContainer />
     </div>
   )
 }

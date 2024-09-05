@@ -171,6 +171,7 @@
         "REGISTERED_AT": "GEREGISTREERD OP",
         "ROLE": "ROL",
         "ACTION": "ACTIE",
+        "LAST_LOGIN_DATE":"LAATSTE INLOGDATUM",
         "There_is_no_user":"Er is geen gebruiker"
     },
     "toast": {

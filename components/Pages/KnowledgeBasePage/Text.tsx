@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Image from "next/image";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { FaInfoCircle } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 
@@ -90,7 +90,6 @@ const Text = ({ questionAnswers, setQuestionAnswers }) => {
           </div>
         </div>
       </div>
-      <ToastContainer />
 
     </div>
   )

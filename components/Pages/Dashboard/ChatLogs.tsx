@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import router from "next/router"
 import axios from "axios"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import { useTranslations } from "use-intl"
 
 import { AUTH_API } from "@/components/utils/serverURL"
@@ -154,7 +154,6 @@ const ChatLogs = () => {
         </tbody>
 
       </table>
-      <ToastContainer />
     </>
 
   )

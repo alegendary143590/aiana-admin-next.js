@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import Link from "next/link"
 import axios from "axios"
 
@@ -117,7 +117,6 @@ const ResetPasswordForm = () => {
               </p>
             </div>
           </div>
-          <ToastContainer />
         </div>
       </div>
     </div>

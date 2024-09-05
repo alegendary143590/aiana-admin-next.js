@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { useRouter } from "next/router"
 import { FaEdit } from "react-icons/fa"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import { useTranslations } from "use-intl"
 import formatDateString, { setExpiryTime } from '@/components/utils/common'
 import { AUTH_API } from "@/components/utils/serverURL"
@@ -75,20 +75,19 @@ const UserList = () => {
 
   return (
     <div>
-      <div className="w-full h-[50px] flex items-center justify-start text-black_8 font-bold pt-[20px] mb-[10px] text-2xl pl-10">
+      <div className="w-full h-[50px] flex items-center justify-start text-black_8 font-bold pt-[20px] mb-[10px] text-2xl pl-10" >
         {t('Users')}
       </div>
       {users.length === 0 ? (
         <div className="text-center w-full">{t('There_is_no_user')}</div>
       ) : (
-        <>
           <table style={{ minWidth: 700 }} aria-label="customized table" className="overflow-auto border-collapse text-sm mx-auto w-full">
             <thead className="bg-[#EEEEEE] text-[#767676] font-bold">
               <tr>
                 <td className="px-5 py-2">{t('NAME')}</td>
                 <td className="">{t('CONTACTS')}</td>
                 <td className="">{t('LOCATION')}</td>
-                <td className="">LAST LOGIN DATE</td>
+                <td className="">{t('LAST_LOGIN_DATE')}</td>
                 <td className="">{t('REGISTERED_AT')}</td>
                 <td className="">{t('ROLE')}</td>
                 <td className="">{t('ACTION')}</td>
@@ -108,10 +107,6 @@ const UserList = () => {
               ))}
             </tbody>
           </table>
-          <ToastContainer />
-        </>
-
-
       )
       }
     </div>

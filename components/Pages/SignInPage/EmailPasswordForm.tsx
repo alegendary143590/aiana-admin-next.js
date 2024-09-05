@@ -1,5 +1,5 @@
 import React from "react"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import Link from "next/link"
 import router from "next/router"
 import Image from "next/image"
@@ -115,7 +115,6 @@ const EmailPasswordForm = () => {
           <Image src="/images/chatbot.png" alt="chatbot" width={50} height={50} />
         </div>
       </div>
-      <ToastContainer />
     </div>
   )
 }

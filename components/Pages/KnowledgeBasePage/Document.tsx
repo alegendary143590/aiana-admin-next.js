@@ -3,7 +3,7 @@ import Image from "next/image"
 import { useRouter } from "next/router";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { FaInfoCircle } from "react-icons/fa";
 
 import { AUTH_API } from "@/components/utils/serverURL";
@@ -232,7 +232,6 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
         open={openDialog}
         setOpen={setOpenDialog}
       />
-      <ToastContainer />
     </div>
   )
 }
