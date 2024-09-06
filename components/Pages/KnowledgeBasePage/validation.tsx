@@ -6,7 +6,9 @@ export function isValidUrl(url: string): boolean {
         '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
         '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
         '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
-    if (url.trim().endsWith('/')) return false;
-    if (!url.toLowerCase().startsWith('https')) return false;
+    if (!url.toLowerCase().startsWith('https://')) return false;
+    for (let i = 10; i < url.length; i += 1) {
+        if (url[i] === '/') return false;
+    }
     return !!pattern.test(url);
 }
