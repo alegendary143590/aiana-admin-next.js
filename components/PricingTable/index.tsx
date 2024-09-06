@@ -9,8 +9,7 @@ declare global {
   }
 }
 
-const PricingTable = () => {
-  return (
+const PricingTable = () => (
     <>
       <Script
         async
@@ -23,6 +22,5 @@ const PricingTable = () => {
       />
     </>
   );
-};
 
 export default PricingTable;
