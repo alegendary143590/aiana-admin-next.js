@@ -173,7 +173,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
                 className="text-[14px] pt-3 pl-3 leading-6 font-medium text-[#767676]"
                 id="modal-title"
               >
-                {t("Add_domains_where_you_want_to_use_chatbot")}{`("https://example.com")`}
+                {t("Add_domains_where_you_want_to_use_chatbot")}{`(https://example.com)`}
               </h3>
               <div className="w-full flex justify-center items-center px-4 text-sm">
                 <input
