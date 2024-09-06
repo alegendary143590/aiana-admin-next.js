@@ -170,6 +170,7 @@
         "REGISTERED_AT": "REGISTRADO_EL",
         "ROLE": "ROL",
         "ACTION": "ACCIÓN",
+        "LAST_LOGIN_DATE":"ÚLTIMA FECHA DE INICIO DE SESIÓN",
         "There_is_no_user": "No hay usuaria"
     },
     "toast": {

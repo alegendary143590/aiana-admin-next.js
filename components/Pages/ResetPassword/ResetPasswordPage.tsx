@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material"
 import axios from "axios"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import router from "next/router"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { useToken } from "@/providers/TokenContext"
@@ -122,7 +122,6 @@ const ResetPasswordPage = () => {
                 </Button>
               </div>
             </Box>
-            <ToastContainer />
           </CardContent>
         </Card>
       </div>

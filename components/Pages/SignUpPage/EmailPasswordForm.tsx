@@ -3,7 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import router from "next/router"
 import axios from "axios"
-import { toast, ToastContainer } from "react-toastify"
+import { toast} from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 
 import { validateForm } from "./validation"
@@ -214,7 +214,6 @@ function EmailPasswordForm() {
           <Image src="/images/chatbot.png" alt="chatbot" width={50} height={50} />
         </div>
       </div>
-      <ToastContainer />
     </div>
   )
 }
