@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { useTranslations } from "next-intl"
-import { toast, ToastContainer } from "react-toastify"
+import { toast } from "react-toastify"
 import router from "next/router"
 import Image from 'next/image'
 import { FaArrowLeft } from "react-icons/fa"
@@ -142,7 +142,6 @@ const Logs = ({ session }) => {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </div>
   )
 }

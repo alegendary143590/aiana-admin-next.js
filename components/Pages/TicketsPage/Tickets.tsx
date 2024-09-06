@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import Image from "next/image"
 import router from "next/router"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import { useTranslations } from "next-intl"
 
 import { AUTH_API } from "@/components/utils/serverURL"
@@ -176,7 +176,6 @@ const Tickets = () => {
         open={openDialog}
         setOpen={setOpenDialog}
       />
-      <ToastContainer />
     </div>
   )
 }

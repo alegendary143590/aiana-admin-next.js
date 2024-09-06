@@ -129,7 +129,7 @@
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_urls_These_urls_train_your_chatbot_to_answer_questions_accurately": "Remarque: Construisez la base de connaissances de votre bot en téléchargeant des urls. Ces urls entraînent votre bot à répondre précisément aux questions.",
         "Please_do_not_add_URLs_to_websites_that_contain_confidential_information_or_where_the_publisher_has_imposed_restrictions_on_sharing": "Ne rajoutez pas d'urls à des sites contenant des informations confidentielles ou où le diffuseur a imposé des restrictions sur le partage.",
         "Enter_URL": "Entrez l'URL:",
-        "Enter_Domain": "Entrez l'Domaine:",
+        "Enter_Domain": "Entrez l'Domaine",
         "Add_this_URL": "Ajouter cette URL",
         "Add_this_Domain": "Ajouter cette Domaine",
         "URL": "URL",
@@ -170,6 +170,7 @@
         "REGISTERED_AT": "ENREGISTRÉ_LE",
         "ROLE": "ROLLE",
         "ACTION": "ACTION",
+        "LAST_LOGIN_DATE":"DATE DE LA DERNIÈRE CONNEXION",
         "There_is_no_user":"Il n'y a pas d'utilisateur"
     },
     "toast": {

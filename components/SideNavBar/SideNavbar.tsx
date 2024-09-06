@@ -14,16 +14,12 @@ const SideNavBar = () => {
   const t = useTranslations('common');
   const { isOpen, setOpen } = useSideMenu()
   const router = useRouter()
-  const [logo, setLogo] = React.useState("/images/logo_final_white.png")
-
   const handleDrawerOpen = () => {
     setOpen(true)
-    setLogo("/images/logo_final_white.png")
   }
 
   const handleDrawerClose = () => {
     setOpen(false)
-    setLogo("/images/logo_short_white.png")
   }
 
   const handleLogOut = () => {
@@ -41,8 +37,8 @@ const SideNavBar = () => {
       >
         <div>
 
-          <button type="button" onClick={handleDrawerOpen} className={`${isOpen ? "p-5" : "sm:mx-auto sm:pt-5"}`}>
-            <img src={logo} alt="logo" style={{ height: "2.5rem" }} />
+          <button type="button" onClick={handleDrawerOpen} className={`${isOpen ? "p-5" : "sm:mx-auto sm:pt-5 sm:pl-3"}`}>
+            <img src={isOpen? "/images/logo_final_white.png":"/images/logo_short_white.png"} alt="logo" style={{ height: "2.5rem" }} />
           </button>
           {isOpen && (
             <button

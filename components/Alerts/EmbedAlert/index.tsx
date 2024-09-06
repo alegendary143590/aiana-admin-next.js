@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import Image from "next/image"
 import axios from "axios"
 import { useRouter } from "next/router"
@@ -173,24 +173,24 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
                 className="text-[14px] pt-3 pl-3 leading-6 font-medium text-[#767676]"
                 id="modal-title"
               >
-                {t("Add_domains_where_you_want_to_use_chatbot")}
+                {t("Add_domains_where_you_want_to_use_chatbot")}{`("https://example.com")`}
               </h3>
               <div className="w-full flex justify-center items-center px-4 text-sm">
-                <p className="w-[70px]">{tk('Enter_Domain')}</p>
                 <input
                   type="text"
                   value={urlInputValue}
                   onChange={(e) => setUrlInputValue(e.target.value)}
                   className="grow mr-5 border border-[#D9D9D9] rounded-md"
                   id="urlInput"
+                  placeholder={tk('Enter_Domain')}
                 />
                 <button className="bg-[#A438FA] px-2 py-2 text-white rounded-md w-[90px]" type="button" onClick={handleUrlAdd}>
-                  {tk('Add_this_Domain')}
+                  {tk('Add')}
                 </button>
               </div>
               <div>
-                <div className="overflow-auto max-h-48">
-                  <table className="min-w-max w-full whitespace-nowrap">
+                <div className="overflow-auto max-h-[380px]">
+                  {urls.length ?(<table className="min-w-max w-full whitespace-nowrap">
                     <thead>
                       <tr className="text-xs font-semibold uppercase tracking-wide text-left text-[#767676] border-b-2">
                         <th className="sm:px-7 px-3 py-2">{tk('URL')}</th>
@@ -216,7 +216,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
                       )
                       }
                     </tbody>
-                  </table>
+                  </table>): ""}
                   {
                     urls.length === 0 && (
                       <div className="w-full text-center py-5">
@@ -234,7 +234,6 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
                 open={openDialog}
                 setOpen={setOpenDialog}
               />
-              <ToastContainer />
               <h3
                 className="text-[14px] pt-3 pl-3 leading-6 font-medium text-[#767676]"
                 id="modal-title"

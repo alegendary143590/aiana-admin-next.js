@@ -3,7 +3,7 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import axios from "axios"
 import { FaInfoCircle } from "react-icons/fa"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import { useTranslations } from "next-intl"
 
 import AlertDialog from "@/components/AlertDialog"
@@ -190,7 +190,6 @@ const Website = ({ urls, setUrls, websiteRef }) => {
         open={openDialog}
         setOpen={setOpenDialog}
       />
-      <ToastContainer />
     </div>
   )
 }

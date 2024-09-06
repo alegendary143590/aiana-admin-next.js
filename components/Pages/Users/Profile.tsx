@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { useRouter } from "next/router" // Corrected import
 import Image from "next/image"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import { FaArrowLeft, FaStarOfLife } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 
@@ -416,7 +416,6 @@ const Profile = () => {
           </button>
         </div>
       </div>
-      <ToastContainer />
     </div>
   )
 }

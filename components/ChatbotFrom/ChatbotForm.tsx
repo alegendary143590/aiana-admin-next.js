@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import axios from "axios"
 import { useRouter } from "next/router"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import { FaArrowLeft, FaChevronDown } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 import { SketchPicker } from 'react-color';
@@ -339,7 +339,6 @@ const ChatbotForm = ({ bot }) => {
 
         </div>
       </div>
-      <ToastContainer />
     </div>
   )
 }

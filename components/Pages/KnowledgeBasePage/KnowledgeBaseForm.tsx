@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import axios from "axios"
 import { FaArrowLeft } from "react-icons/fa"
 import { useTranslations } from "next-intl"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { setExpiryTime } from "@/components/utils/common"
 import Spinner from "@/components/Spinner"
@@ -280,7 +280,6 @@ const KnowledgeBaseForm = ({ baseId }) => {
         </div>
 
       </div>
-      <ToastContainer />
     </div>
   )
 }
