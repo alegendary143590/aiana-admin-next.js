@@ -197,7 +197,8 @@
         "Session_Expired": "La sesión ha expirado!",
         "URL_already_exist": "¡La URL ya existe!",
         "Domain_already_exist":"¡El dominio ya existe!", 
-        "Successfully_Created": "Creado con éxito!"
+        "Successfully_Created": "Creado con éxito!",
+        "Need_Ugrade":"¡Necesitas actualizar para subir más documentos!"
     },
     "country": {
         "Afghanistan": "Afganistán",

@@ -60,7 +60,7 @@ const SideNavBar = () => {
             type="button"
             aria-label="log out"
             title="log out"
-            onClick={handleLogOut}
+            onClick={()=>router.push('/pricing')}
             className={`${isOpen && "bg-[url('/images/button-bg.png')]"} w-full bg-contain bg-no-repeat bg-center rounded-[4px] p-[10px] text-[16px] text-white transition duration-300 hover:opacity-80 mt-auto sm:mb-5 mb-2 flex justify-center items-center`}
           >
             <GiUpgrade />

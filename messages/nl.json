@@ -198,7 +198,8 @@
         "Session_Expired": "Sessie verlopen!",
         "URL_already_exist":"URL bestaat al!", 
         "Domain_already_exist":"Domein bestaat al!", 
-        "Successfully_Created": "Succesvol gecreeërd!"
+        "Successfully_Created": "Succesvol gecreeërd!",
+        "Need_Ugrade":"Je moet upgraden om meer documenten te uploaden!"
     },
     "country": {
         "Afghanistan": "Afghanistan",
