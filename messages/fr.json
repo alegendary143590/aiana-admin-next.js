@@ -197,7 +197,8 @@
         "Session_Expired": "La session a expiré !",
         "URL_already_exist":"L'URL existe déjà !", 
         "Domain_already_exist":"L'Domaine existe déjà !", 
-        "Successfully_Created": "Création réussie !"
+        "Successfully_Created": "Création réussie !",
+        "Need_Ugrade":"Vous devez mettre à niveau pour télécharger plus de documents !"
     },
     "country":
     {

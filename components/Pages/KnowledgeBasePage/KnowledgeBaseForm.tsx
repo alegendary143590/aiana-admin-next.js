@@ -76,7 +76,9 @@ const KnowledgeBaseForm = ({ baseId }) => {
             const response = await fetch(`${AUTH_API.GET_KNOWLEDGE_BASE}?baseId=${newBaseId}`, requestOptions);
             setExpiryTime();
             const data = await response.json();
-            console.log(data)
+            if(data.msg ==="Token has expired"){
+              router.push("/signin")
+            }
             setBase(data.base || {
               created_at: "",
               id: 0,
@@ -93,14 +95,11 @@ const KnowledgeBaseForm = ({ baseId }) => {
             setQuestionAnswers(data.texts || []);
             qaRef.current = data.texts;
           } catch (error) {
+           
             if (error.response) {
               console.log('Error status code:', error.response.status);
               console.log('Error response data:', error.response.data);
-              if (error.response.status === 401) {
-                toast.error(toa('Session_Expired_Please_log_in_again'), { position: toast.POSITION.TOP_RIGHT });
-
-                router.push("/signin")
-              }
+             
               // Handle the error response as needed
             } else if (error.request) {
               // The request was made but no response was received
@@ -108,8 +107,14 @@ const KnowledgeBaseForm = ({ baseId }) => {
               toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
 
             } else {
+              console.log(error.msg)
+              if (error.response.status === 401) {
+                toast.error(toa('Session_Expired_Please_log_in_again'), { position: toast.POSITION.TOP_RIGHT });
+  
+                router.push("/signin")
+              }
               // Something happened in setting up the request that triggered an Error
-              console.log('Error message:', error.message);
+              console.log('Error message:', error.msg);
               toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
 
             }
@@ -186,19 +191,28 @@ const KnowledgeBaseForm = ({ baseId }) => {
           badAlert = "The knowledge base includes invalid url."
         }
         setIsSaved(true);
+        localStorage.setItem('isSaved', 'true')
         setIsSaving(false)
         setExpiryTime();
         toast.success(`${toa('Successfully_updated')} ${badAlert}`, { position: toast.POSITION.TOP_RIGHT });
       }
     } catch (error) {
-
+      setIsSaving(false)
+      setIsSaved(false);
+      setExpiryTime();
+      localStorage.setItem('isSaved', 'false')
       if (error.response) {
         console.log('Error status code:', error.response.status);
         console.log('Error response data:', error.response.data);
-        if (error.response.status === 401) {
+        if (error.response.status && error.response.status === 401) {
 
           toast.error(toa('Session_Expired'), { position: toast.POSITION.TOP_RIGHT })
           router.push("/signin")
+        }
+        if (error.response.status && error.response.status === 403) {
+
+          toast.error(toa('Need_Ugrade'), { position: toast.POSITION.TOP_RIGHT })
+    
         }
         else if (error.response.status === 504) {
 
@@ -211,6 +225,8 @@ const KnowledgeBaseForm = ({ baseId }) => {
         // The request was made but no response was received
         console.log('Error request:', error.request.status);
       } else {
+        toast.error(`${toa('Busy_Network_Try_again')}`, { position: toast.POSITION.TOP_RIGHT });
+
         // Something happened in setting up the request that triggered an Error
         console.log('Error message:', error.message);
       }
