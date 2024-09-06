@@ -131,7 +131,7 @@
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_urls_These_urls_train_your_chatbot_to_answer_questions_accurately": "Note: Build your Chatbot’s Knowledge Base by adding urls. These urls train your chatbot to answer questions accurately.",
         "Please_do_not_add_URLs_to_websites_that_contain_confidential_information_or_where_the_publisher_has_imposed_restrictions_on_sharing": "Please do not add URLs to websites that contain confidential information or where the publisher has imposed",
         "Enter_URL": "Enter URL:",
-        "Enter_Domain": "Enter Domain:",
+        "Enter_Domain": "Enter Domain",
         "Add_this_URL": "Add this URL",
         "Add_this_Domain": "Add this Domain",
         "URL": "URL",

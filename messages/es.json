@@ -126,7 +126,7 @@
         "Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone": "¿Esta seguro de que desea eliminar este elemento? Esta acción no se puede deshacer.",
         "Please_do_not_add_URLs_to_websites_that_contain_confidential_information_or_where_the_publisher_has_imposed_restrictions_on_sharing": "Por favor, no agregue URLs a sitios web que contengan información confidencial o donde el editor haya impuesto restricciones para compartir.",
         "Enter_URL": "Ingrese URL:",
-        "Enter_Domain": "Ingrese Dominio:",
+        "Enter_Domain": "Ingrese Dominio",
         "Add_this_URL": "Agregar esta URL",
         "Add_this_Domain": "Agregar esta Dominio",
         "URL": "URL",
