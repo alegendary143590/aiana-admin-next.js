@@ -178,6 +178,7 @@
         "Successfully_Booked": "Successfully Booked!",
         "Busy_Network_Try_again": "Busy Network! Try again!",
         "Successfully_updated": "Successfully updated!",
+        "Successfully_added": "Successfully added!",
         "Successfully_deleted!": "Successfully deleted!",
         "Successfully_copied": "Successfully copied!",
         "Its_not_the_time_to_be_active_for_this_assistant": "It's not the time to be active for this assistant!",
@@ -199,7 +200,9 @@
         "URL_already_exist":"URL already exist!", 
         "Domain_already_exist":"Domain already exist!", 
         "Successfully_Created": "Successfully Created!",
-        "Need_Ugrade":"You need to upgrade to upload more documents!"
+        "Need_Ugrade":"You need to upgrade to upload more documents!",
+        "Need_Upgrade_For_Website":"You need to upgrade to register more websites!",
+        "Need_Upgrade_For_Question":"You need to upgrade to ask more questions to the bot!"
     },
     "country": {
         "Afghanistan": "Afghanistan",

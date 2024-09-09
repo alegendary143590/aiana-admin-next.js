@@ -178,6 +178,7 @@
         "Busy_Network_Try_again": "Red ocupada! Intenta de nuevo!",
         "Successfully_updated": "Actualizado con éxito!",
         "Successfully_deleted!": "Eliminado con éxito!",
+        "Successfully_added!": "¡Añadido con éxito!",
         "Successfully_copied": "Copiado con éxito!",
         "Its_not_the_time_to_be_active_for_this_assistant": "No es el momento para estar activo en este asistente!",
         "Please_provide_an_email_and_content": "Por favor proporciona un correo electrónico y contenido!",
@@ -198,7 +199,9 @@
         "URL_already_exist": "¡La URL ya existe!",
         "Domain_already_exist":"¡El dominio ya existe!", 
         "Successfully_Created": "Creado con éxito!",
-        "Need_Ugrade":"¡Necesitas actualizar para subir más documentos!"
+        "Need_Ugrade":"¡Necesitas actualizar para subir más documentos!",
+        "Need_Upgrade_For_Website":"¡Necesitas actualizar para registrar más sitios web!",
+        "Need_Upgrade_For_Question":"Necesitas actualizar para hacerle más preguntas al bot."
     },
     "country": {
         "Afghanistan": "Afganistán",

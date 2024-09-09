@@ -16,7 +16,7 @@ const Chatbots = () => {
   const toa = useTranslations('toast');
   const [isLoading, setIsLoading] = React.useState(false)
   const [bots, setBots] = React.useState([])
-  const [botId, setBotId] = React.useState("")
+  const [botId, setBotId] = React.useState(0)
   const [open, setOpen] = React.useState(false)
   const [description, setDescription] = React.useState("")
 
@@ -163,8 +163,11 @@ const Chatbots = () => {
   }
 
   const handleEmbedClickButton = (bot) => {
-    const embeddingCode = `<script src="https://login.aiana.io/aiana.js" data-user-id=${userIndex} data-bot-id=${bot}></script>`
+    const embeddingCode = `<script src="https://login.aiana.io/aiana.js" data-user-id=${userIndex} data-bot-id=${bot.index}></script>`
     setDescription(embeddingCode)
+    setBotId(bot.id)
+    console.log("Clicked on ", bot.id)
+
     setOpen(true)
   }
 
@@ -222,6 +225,7 @@ const Chatbots = () => {
           setOpen={setOpen}
           description={description}
           handleCopy={handleCopy}
+          botId={botId}
         />
 
         <ChatbotPage
@@ -319,7 +323,7 @@ const Chatbots = () => {
                   type="button"
                   aria-label="embed-chatbot"
                   className="size-8 text-[12px] rounded-full border-2 border-[#184A92] text-[#184A92] flex justify-center items-center"
-                  onClick={() => handleEmbedClickButton(bot.index)}
+                  onClick={() => handleEmbedClickButton(bot)}
                 >
                   <FaLink className="w-4 h-4" />
                 </button>
@@ -359,7 +363,7 @@ const Chatbots = () => {
         open={openDialog}
         setOpen={setOpenDialog}
       />
-        <EmbedAlert open={open} setOpen={setOpen} description={description} handleCopy={handleCopy} />
+        <EmbedAlert open={open} setOpen={setOpen} description={description} handleCopy={handleCopy} botId={botId}/>
 
       <ChatbotPage
         userId={userId}

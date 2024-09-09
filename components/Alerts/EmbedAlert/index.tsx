@@ -3,75 +3,120 @@ import { toast } from "react-toastify"
 import Image from "next/image"
 import axios from "axios"
 import { useRouter } from "next/router"
-import React, { useRef, useState } from "react"
-
+import React, { useState } from "react"
 import { AUTH_API } from "@/components/utils/serverURL"
-import AlertDialog from "@/components/AlertDialog"
 import { isValidUrl } from "@/components/Pages/KnowledgeBasePage/validation"
+import Spinner from "@/components/Spinner"
+import { setExpiryTime } from "@/components/utils/common"
+import { v4 as uuidv4 } from 'uuid';
 
 
 interface WebsiteObject {
   created_at: string
   id: number
-  unique_id: string
-  url: string
+  index:string
+  bot_id: number
+  user_id:number
+  domain: string
 }
 
-export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
+export default function EmbedAlert({ open, setOpen, description, handleCopy, botId }) {
   const [urlInputValue, setUrlInputValue] = useState("")
   const t = useTranslations('common');
   const tk = useTranslations('knowledge');
   const toa = useTranslations('toast');
   const router = useRouter();
-  const [id, setId] = React.useState("")
-  const [openDialog, setOpenDialog] = React.useState(false)
   const [index, setIndex] = React.useState("")
-  const websiteRef = useRef()
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [isDeleting, setIsDeleting] = React.useState(false)
   // const router = useRouter()
 
   const [urls, setUrls] = useState<WebsiteObject[]>([])
   const alertRef = React.useRef(null)
   React.useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (alertRef.current && !alertRef.current.contains(event.target)) {
-        setOpen(false)
-      }
+    const userID = localStorage.getItem("userID")
+    
+    const requestOptions = {
+      headers: new Headers({
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "1",
+        Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header
+      }),
     }
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
+    if (userID && userID !== "") {
+      setIsLoading(true)
+      console.log("Bot ID here", botId)
+
+      fetch(`${AUTH_API.GET_WEBSITES}?botId=${botId}`, requestOptions)
+        .then((response) => {
+          if (response.status === 401) {
+            // Handle 401 Unauthorized
+            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
+              position: toast.POSITION.TOP_RIGHT,
+            })
+            setIsLoading(false) // Ensure loading state is updated
+            router.push("/signin") // Redirect to sign-in page
+          }
+          setExpiryTime();
+          setIsLoading(false)
+          return response.json() // Continue to parse the JSON body
+        })
+        .then((data) => {
+          // console.log(data)
+          setUrls(data)
+          setIsLoading(false)
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log("Error status code:", error.response.status)
+            console.log("Error response data:", error.response.data)
+            if (error.response.status === 401) {
+              toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
+                position: toast.POSITION.TOP_RIGHT,
+              })
+
+              router.push("/signin")
+            }
+            // Handle the error response as needed
+          } else if (error.request) {
+            // The request was made but no response was received
+            console.log("Error request:", error.request)
+            toast.error(error.request, { position: toast.POSITION.TOP_RIGHT })
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error message:", error.message)
+            toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
+          }
+          setIsLoading(false)
+        })
     }
-  }, [])
+  }, [botId])
 
   // const title = "To embed your chatbot onto your website, paste this snippet into your website's HTML file";
   const title =
     `${t('To_add_a_chatbubble_to_the_bottom_right_of_your_website_add_this_script_tag_to_your_html')}`
 
-    const handleUrlAdd = () => {
+    const handleUrlAdd = async () => {
+      // console.log(botId)
+      const user_id = localStorage.getItem("userID");
       if (isValidUrl(urlInputValue)) {
-        const existingUrl = urls.find(url => url.url === urlInputValue);
+        const existingUrl = urls.find(url => url.domain === urlInputValue);
         if (existingUrl) {
           toast.error(`${toa('URL_already_exist')}`, { position: toast.POSITION.TOP_RIGHT });
         } else {
           const newWebsite: WebsiteObject = {
             created_at: new Date().toISOString(),
-            id: urls.length + 1,
-            unique_id: "", // Assuming you have a function to generate unique IDs
-            url: urlInputValue,
+            id:0,
+            index: uuidv4(),
+            domain: urlInputValue,
+            user_id:parseInt(user_id),
+            bot_id:botId
           };
-          setUrls(prevUrls => [...prevUrls, newWebsite]);
-          setUrlInputValue("");
-        }
-      } else {
-        toast.error(tk("Invalid_Domain_Please_enter_a_valid_Domain"), { position: toast.POSITION.TOP_RIGHT });
-      }
-    };
-  
-    const handleDeleteUrl = () => {
-      axios
+        setIsLoading(true)
+        await axios
         .post(
-          AUTH_API.DELETE_URL,
-          { id },
+          AUTH_API.ADD_WEBSITE,
+          { index:newWebsite.index, user_id, bot_id:botId, domain:urlInputValue },
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header
@@ -81,14 +126,74 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
           },
         )
         .then((response) => {
+          setIsLoading(false)
           if (response.status === 201) {
-            toast.success(`${toa('Successfully_deleted!')}`, { position: toast.POSITION.TOP_RIGHT })
+            toast.success(`${toa('Successfully_added')}`, { position: toast.POSITION.TOP_RIGHT })
+            setUrls(prevUrls => [...prevUrls, newWebsite]);
+            setUrlInputValue("");
           } else {
             toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
           }
         })
         .catch((error) => {
+          setIsLoading(false)
           if (error.response) {
+            console.log("Error status code:", error.response.status)
+            console.log("Error response data:", error.response.data)
+            if (error.response.status === 401) {
+              router.push("/signin")
+            }
+            if(error.response.status === 403){
+              toast.error(toa('Need_Upgrade_For_Website'), {position:toast.POSITION.TOP_RIGHT})
+            }
+            // Handle the error response as needed
+          } else if (error.request) {
+            // The request was made but no response was received
+            console.log("Error request:", error.request)
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error message:", error.message)
+            toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
+
+          }
+        })
+          
+        }
+      } else {
+        toast.error(tk("Invalid_Domain_Please_enter_a_valid_Domain"), { position: toast.POSITION.TOP_RIGHT });
+      }
+    };
+  
+  
+    const handleDeleteButton = async (index, _index) => {
+      setIndex(index)
+      setIsDeleting(true)
+      await axios
+        .post(
+          AUTH_API.REMOVE_WEBSITE,
+          { index:index },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header
+              "Content-Type": "application/json", // Explicitly defining the Content-Type
+              "ngrok-skip-browser-warning": "1",
+            },
+          },
+        )
+        .then((response) => {
+          setIsDeleting(false)
+          if (response.status === 201) {
+            toast.success(`${toa('Successfully_deleted!')}`, { position: toast.POSITION.TOP_RIGHT })
+            setUrls((prevBases) => prevBases.filter((prev) => prev.index !== index))
+          } else {
+            toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
+          }
+        })
+        .catch((error) => {
+          setIsDeleting(false)
+          if(error.response && error.response.status === 403){
+            toast.error("You need to upgrade to ask more questions to the bot!", { position: toast.POSITION.BOTTOM_RIGHT });
+          } else if (error.response) {
             console.log("Error status code:", error.response.status)
             console.log("Error response data:", error.response.data)
             if (error.response.status === 401) {
@@ -105,37 +210,9 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
           console.log("Error config:", error.config)
           toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
         })
-      const updatedUrls = urls.filter((_, i: any) => i !== index)
-      setUrls(updatedUrls)
+      
     }
   
-    const handleDeleteButton = (_id, _index) => {
-      setId(_id)
-      setIndex(_index)
-      let websiteArray;
-      if (websiteRef.current){
-        websiteArray = websiteRef.current;
-      } else {
-        websiteArray = []
-      }
-  
-      const websiteExists = websiteArray.some(doc => doc.id === _id);
-      if (websiteExists) {
-        setOpenDialog(true);
-  
-      } else {
-        setUrls(urls.filter(doc => doc.id !== _id));
-      }
-    }
-  
-    const handleAgree = () => {
-      setOpenDialog(false)
-      handleDeleteUrl()
-    }
-  
-    const handleDisagree = () => {
-      setOpenDialog(false)
-    }
 
   return (
     open && (
@@ -185,7 +262,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
                   placeholder={tk('Enter_Domain')}
                 />
                 <button className="bg-[#A438FA] px-2 py-2 text-white rounded-md w-[90px]" type="button" onClick={handleUrlAdd}>
-                  {tk('Add')}
+                  {isLoading?<Spinner color=""/>:tk('Add')}
                 </button>
               </div>
               <div>
@@ -202,14 +279,14 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
                       {urls && urls.map((url, i) =>
                         <tr key={url.id}>
                           <td className="sm:px-7 px-3 py-2">
-                            <a href={`${url.url}`} target="_blank" className="text-[#A438FA] underline" rel="noreferrer">{url.url}</a></td>
+                            <a href={`${url.domain}`} target="_blank" className="text-[#A438FA] underline" rel="noreferrer">{url.domain}</a></td>
                           <td className="sm:px-7 px-3 py-2">
                             <button
                               type="button"
-                              onClick={() => handleDeleteButton(url.id, i)}
+                              onClick={() => handleDeleteButton(url.index, i)}
                               className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md flex justify-center items-center"
                             >
-                              <Image src="/images/icon_trash.svg" alt="trash_icon" width={18} height={18} />
+                              {isDeleting && (index===url.index)? <Spinner color="" />: <Image src="/images/icon_trash.svg" alt="trash_icon" width={18} height={18} />}
                             </button>
                           </td>
                         </tr>
@@ -226,14 +303,6 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy }) {
                   }
                 </div>
               </div>
-              <AlertDialog
-                title={tk('Confirm_Delete')}
-                description={tk('Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone')}
-                handleAgree={handleAgree}
-                handleDisagree={handleDisagree}
-                open={openDialog}
-                setOpen={setOpenDialog}
-              />
               <h3
                 className="text-[14px] pt-3 pl-3 leading-6 font-medium text-[#767676]"
                 id="modal-title"
