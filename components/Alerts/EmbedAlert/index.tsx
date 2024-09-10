@@ -98,7 +98,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
 
     const handleUrlAdd = async () => {
       // console.log(botId)
-      const user_id = localStorage.getItem("userID");
+      const userId = localStorage.getItem("userID");
       if (isValidUrl(urlInputValue)) {
         const existingUrl = urls.find(url => url.domain === urlInputValue);
         if (existingUrl) {
@@ -109,14 +109,14 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
             id:0,
             index: uuidv4(),
             domain: urlInputValue,
-            userId:parseInt(user_id, 10),
+            userId:parseInt(userId, 10),
             botId:botId
           };
         setIsLoading(true)
         await axios
         .post(
           AUTH_API.ADD_WEBSITE,
-          { index:newWebsite.index, userId:user_id, botId, domain:urlInputValue },
+          { index:newWebsite.index, userId, botId, domain:urlInputValue },
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header
