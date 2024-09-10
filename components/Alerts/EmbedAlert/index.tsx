@@ -15,8 +15,8 @@ interface WebsiteObject {
   created_at: string
   id: number
   index:string
-  bot_id: number
-  user_id:number
+  botId: number
+  userId:number
   domain: string
 }
 
@@ -109,8 +109,8 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
             id:0,
             index: uuidv4(),
             domain: urlInputValue,
-            user_id:parseInt(user_id, 10),
-            bot_id:botId
+            userId:parseInt(user_id, 10),
+            botId:botId
           };
         setIsLoading(true)
         await axios
