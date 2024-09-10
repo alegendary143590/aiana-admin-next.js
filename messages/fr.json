@@ -177,6 +177,7 @@
         "Successfully_Booked": "Réservation réussie !",
         "Busy_Network_Try_again": "Réseau occupé ! Essayez à nouveau !",
         "Successfully_updated": "Mise à jour réussie !",
+        "Successfully_added": "Ajouté avec succès!",
         "Successfully_deleted!": "Suppression réussie !",
         "Successfully_copied": "Copie réussie !",
         "Its_not_the_time_to_be_active_for_this_assistant": "Ce n'est pas le moment d'être actif pour cet assistant !",
@@ -198,7 +199,10 @@
         "URL_already_exist":"L'URL existe déjà !", 
         "Domain_already_exist":"L'Domaine existe déjà !", 
         "Successfully_Created": "Création réussie !",
-        "Need_Ugrade":"Vous devez mettre à niveau pour télécharger plus de documents !"
+        "Need_Ugrade":"Vous devez mettre à niveau pour télécharger plus de documents !",
+        "Need_Upgrade_For_Website":"Vous devez mettre à niveau pour enregistrer plus de sites Web!",
+        "Need_Upgrade_For_Question":"Vous devez mettre à niveau pour poser plus de questions au bot."
+
     },
     "country":
     {

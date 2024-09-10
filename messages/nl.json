@@ -179,6 +179,7 @@
         "Busy_Network_Try_again": "Netwerk bezig! Probeer het opnieuw!",
         "Successfully_updated": "Succesvol bijgewerkt!",
         "Successfully_deleted!": "Succesvol verwijderd!",
+        "Successfully_added!": "Succesvol toegevoegd!",
         "Successfully_copied": "Succesvol gekopieerd!",
         "Its_not_the_time_to_be_active_for_this_assistant": "Het is niet het juiste moment om actief te zijn voor deze assistent!",
         "Please_provide_an_email_and_content": "Geef alstublieft een e-mail en inhoud op!",
@@ -199,7 +200,10 @@
         "URL_already_exist":"URL bestaat al!", 
         "Domain_already_exist":"Domein bestaat al!", 
         "Successfully_Created": "Succesvol gecreeërd!",
-        "Need_Ugrade":"Je moet upgraden om meer documenten te uploaden!"
+        "Need_Ugrade":"Je moet upgraden om meer documenten te uploaden!",
+        "Need_Upgrade_For_Website":"Je moet upgraden om meer websites te registreren!",
+        "Need_Upgrade_For_Question":"Je moet upgraden om meer vragen aan de bot te kunnen stellen."
+
     },
     "country": {
         "Afghanistan": "Afghanistan",

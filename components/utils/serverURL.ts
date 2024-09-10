@@ -38,4 +38,7 @@ export const AUTH_API = {
   CHATBOT_DATA:`${SERVER_API_URL}/get_chatbot_data`,
   GET_USERS:`${SERVER_API_URL}/get_users`,
   GET_USER_AS_ADMIN: `${SERVER_API_URL}/get_user_as_admin`,
+  ADD_WEBSITE: `${SERVER_API_URL}/add_website`,
+  REMOVE_WEBSITE: `${SERVER_API_URL}/remove_website`,
+  GET_WEBSITES: `${SERVER_API_URL}/get_websites`,
 }

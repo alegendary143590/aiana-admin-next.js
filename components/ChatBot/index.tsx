@@ -148,7 +148,11 @@ const ChatBot = ({ userIndex, botId, website }) => {
             .catch((error) => {
                 setInput("");
                 if(error.response && error.response.status === 403){
-                    toast.error("You need to upgrade to ask more questions to the bot!", { position: toast.POSITION.BOTTOM_RIGHT });
+                    if(error.response.data === "Unregistered domain") {
+                        toast.error('Unregistered domain!', {position:toast.POSITION.BOTTOM_RIGHT})
+                    } else {
+                        toast.error('You need to upgrade to ask more questions to the bot', {position:toast.POSITION.BOTTOM_RIGHT})
+                    }
                 }
                 if (error.response) {
                     console.log('Error status code:', error.response.status);
