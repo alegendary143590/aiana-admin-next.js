@@ -110,7 +110,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
             index: uuidv4(),
             domain: urlInputValue,
             userId:parseInt(userId, 10),
-            botId:botId
+            botId
           };
         setIsLoading(true)
         await axios
