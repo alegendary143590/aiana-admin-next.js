@@ -31,70 +31,70 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
   const [isDeleting, setIsDeleting] = React.useState(false)
   // const router = useRouter()
 
-  const [urls, setUrls] = useState<WebsiteObject[]>([])
-  const alertRef = React.useRef(null)
-  React.useEffect(() => {
-    const userID = localStorage.getItem("userID")
-    
-    const requestOptions = {
-      headers: new Headers({
-        "Content-Type": "application/json",
-        "ngrok-skip-browser-warning": "1",
-        Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header
-      }),
-    }
-    if (userID && userID !== "") {
-      setIsLoading(true)
-      console.log("Bot ID here", botId)
+    const [urls, setUrls] = useState<WebsiteObject[]>([])
+    const alertRef = React.useRef(null)
+    React.useEffect(() => {
+      const userID = localStorage.getItem("userID")
+      
+      const requestOptions = {
+        headers: new Headers({
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "1",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header
+        }),
+      }
+      if (userID && userID !== "") {
+        setIsLoading(true)
+        console.log("Bot ID here", botId)
 
-      fetch(`${AUTH_API.GET_WEBSITES}?botId=${botId}`, requestOptions)
-        .then((response) => {
-          if (response.status === 401) {
-            // Handle 401 Unauthorized
-            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
-              position: toast.POSITION.TOP_RIGHT,
-            })
-            setIsLoading(false) // Ensure loading state is updated
-            router.push("/signin") // Redirect to sign-in page
-          }
-          setExpiryTime();
-          setIsLoading(false)
-          return response.json() // Continue to parse the JSON body
-        })
-        .then((data) => {
-          // console.log(data)
-          setUrls(data)
-          setIsLoading(false)
-        })
-        .catch((error) => {
-          if (error.response) {
-            console.log("Error status code:", error.response.status)
-            console.log("Error response data:", error.response.data)
-            if (error.response.status === 401) {
+        fetch(`${AUTH_API.GET_WEBSITES}?botId=${botId}`, requestOptions)
+          .then((response) => {
+            if (response.status === 401) {
+              // Handle 401 Unauthorized
               toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
                 position: toast.POSITION.TOP_RIGHT,
               })
-
-              router.push("/signin")
+              setIsLoading(false) // Ensure loading state is updated
+              router.push("/signin") // Redirect to sign-in page
             }
-            // Handle the error response as needed
-          } else if (error.request) {
-            // The request was made but no response was received
-            console.log("Error request:", error.request)
-            toast.error(error.request, { position: toast.POSITION.TOP_RIGHT })
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log("Error message:", error.message)
-            toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
-          }
-          setIsLoading(false)
-        })
-    }
-  }, [botId])
+            setExpiryTime();
+            setIsLoading(false)
+            return response.json() // Continue to parse the JSON body
+          })
+          .then((data) => {
+            // console.log(data)
+            setUrls(data)
+            setIsLoading(false)
+          })
+          .catch((error) => {
+            if (error.response) {
+              console.log("Error status code:", error.response.status)
+              console.log("Error response data:", error.response.data)
+              if (error.response.status === 401) {
+                toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
+                  position: toast.POSITION.TOP_RIGHT,
+                })
 
-  // const title = "To embed your chatbot onto your website, paste this snippet into your website's HTML file";
-  const title =
-    `${t('To_add_a_chatbubble_to_the_bottom_right_of_your_website_add_this_script_tag_to_your_html')}`
+                router.push("/signin")
+              }
+              // Handle the error response as needed
+            } else if (error.request) {
+              // The request was made but no response was received
+              console.log("Error request:", error.request)
+              toast.error(error.request, { position: toast.POSITION.TOP_RIGHT })
+            } else {
+              // Something happened in setting up the request that triggered an Error
+              console.log("Error message:", error.message)
+              toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
+            }
+            setIsLoading(false)
+          })
+      }
+    }, [botId])
+
+    // const title = "To embed your chatbot onto your website, paste this snippet into your website's HTML file";
+    const title =
+      `${t('To_add_a_chatbubble_to_the_bottom_right_of_your_website_add_this_script_tag_to_your_html')}`
 
     const handleUrlAdd = async () => {
       // console.log(botId)
@@ -109,14 +109,14 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
             id:0,
             index: uuidv4(),
             domain: urlInputValue,
-            user_id:parseInt(user_id),
+            user_id:parseInt(user_id, 10),
             bot_id:botId
           };
         setIsLoading(true)
         await axios
         .post(
           AUTH_API.ADD_WEBSITE,
-          { index:newWebsite.index, user_id, bot_id:botId, domain:urlInputValue },
+          { index:newWebsite.index, userId:user_id, botId, domain:urlInputValue },
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header
@@ -165,13 +165,13 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
     };
   
   
-    const handleDeleteButton = async (index, _index) => {
-      setIndex(index)
+    const handleDeleteButton = async (_index) => {
+      setIndex(_index)
       setIsDeleting(true)
       await axios
         .post(
           AUTH_API.REMOVE_WEBSITE,
-          { index:index },
+          { index:_index },
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header
@@ -184,7 +184,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
           setIsDeleting(false)
           if (response.status === 201) {
             toast.success(`${toa('Successfully_deleted!')}`, { position: toast.POSITION.TOP_RIGHT })
-            setUrls((prevBases) => prevBases.filter((prev) => prev.index !== index))
+            setUrls((prevBases) => prevBases.filter((prev) => prev.index !== _index))
           } else {
             toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
           }
@@ -276,14 +276,14 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
                     </thead>
                     <tbody className="divide-y divide-gray-200">
 
-                      {urls && urls.map((url, i) =>
+                      {urls && urls.map((url) =>
                         <tr key={url.id}>
                           <td className="sm:px-7 px-3 py-2">
                             <a href={`${url.domain}`} target="_blank" className="text-[#A438FA] underline" rel="noreferrer">{url.domain}</a></td>
                           <td className="sm:px-7 px-3 py-2">
                             <button
                               type="button"
-                              onClick={() => handleDeleteButton(url.index, i)}
+                              onClick={() => handleDeleteButton(url.index)}
                               className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md flex justify-center items-center"
                             >
                               {isDeleting && (index===url.index)? <Spinner color="" />: <Image src="/images/icon_trash.svg" alt="trash_icon" width={18} height={18} />}
