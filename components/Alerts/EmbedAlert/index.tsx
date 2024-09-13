@@ -33,6 +33,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
 
     const [urls, setUrls] = useState<WebsiteObject[]>([])
     const alertRef = React.useRef(null)
+    
     React.useEffect(() => {
       const userID = localStorage.getItem("userID")
       

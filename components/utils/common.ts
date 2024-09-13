@@ -41,7 +41,7 @@ export async function loginUser(email: string, password: string) {
 
     const data = await response.json();
     if (response.ok) {
-        const { accessToken, refreshToken, userId, userIndex,firstName,lastName, role } = data;
+        const { accessToken, refreshToken, userId, userIndex,firstName, lastName, role, stripeCustomerId } = data;
         const expiryTime = new Date().getTime() + (60 * 60 * 1000); // Current time + 60 mins
         localStorage.setItem('token', accessToken);
         localStorage.setItem('userIndex', userIndex);
@@ -49,7 +49,7 @@ export async function loginUser(email: string, password: string) {
         localStorage.setItem('refresh_token', refreshToken);
         localStorage.setItem('userID', userId);
         localStorage.setItem('role', role);
-        
+        localStorage.setItem('stripeCustomerId', stripeCustomerId);
         localStorage.setItem('token_expiry', expiryTime.toString()); // Store expiration time
     } else {
         throw new Error(data.error);
@@ -71,6 +71,8 @@ export function logOut() {
         localStorage.setItem('userIndex', "");
         localStorage.setItem('userID', "");
         localStorage.setItem('token_expiry', "");
+        localStorage.setItem('stripeCustomerId', "");
+
         return true
     } catch (e) {
         return false
