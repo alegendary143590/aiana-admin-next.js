@@ -121,7 +121,7 @@ const Profile = () => {
     }
 
 
-    if (isEdit && change) {
+    if (change) {
 
       setIsSaving(true)
       axios
@@ -138,7 +138,7 @@ const Profile = () => {
           com_country: formState.com_country,
           com_postal: formState.com_postal,
           com_street_number: formState.com_street_number,
-          com_website: formState.com_website,
+          com_website: formState.com_website !== undefined ? formState.com_website : "",
         },
           {
             headers: {
@@ -156,7 +156,7 @@ const Profile = () => {
             toast.error(response.data, { position: toast.POSITION.TOP_RIGHT })
           }
           setIsSaving(false)
-          setIsEdit(false);
+          setChange(false);
 
         })
         .catch((error) => {

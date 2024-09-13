@@ -200,7 +200,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
       setIsSaving(false)
       setIsSaved(false);
       setExpiryTime();
-      localStorage.setItem('isSaved', 'false')
+      localStorage.setItem('isSaved', 'true')
       if (error.response) {
         console.log('Error status code:', error.response.status);
         console.log('Error response data:', error.response.data);
