@@ -29,7 +29,7 @@ const SideNavBar = () => {
     // router.push(constants.paymentLinks.preOrder)
   }
   const handlePricingClick = () => {
-    window.open('/pricing', '_blank'); // Opens '/pricing' in a new tab
+      router.push('https://billing.stripe.com/p/login/test_fZe9ADedecUcfM4eUU');
   };
 
   return (
