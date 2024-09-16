@@ -1,16 +1,18 @@
-import { useRouter } from 'next/router';
+import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 function withAuth(Component) {
     return function ProtectedComponent(props) {
         const router = useRouter();
+        const pathname = usePathname()
         const [isAuthenticated, setIsAuthenticated] = useState(false);
         const [loading, setLoading] = useState(true); // New state to track loading
-
+        const [isPaymentAvailable, setIsPaymentAvailable] = useState(false)
         useEffect(() => {
             const checkAuth = async () => {
                 const expiryTime = parseInt(localStorage.getItem('token_expiry'));
-
+                const status = localStorage.getItem('status');
+                
                 if (expiryTime && expiryTime > Date.now()) {
                     setIsAuthenticated(true);
                     setLoading(false); // Set loading to false after checking
@@ -46,17 +48,22 @@ function withAuth(Component) {
                         setLoading(false); // Set loading to false if no refresh token
                     // }
                 }
+                if(status && status === 'active') {
+                    setIsPaymentAvailable(true)
+                } else {
+                    setIsPaymentAvailable(false)
+                    router.push("/pricing")
+                }
             };
-
             checkAuth();
-        }, [router]);
+        }, [pathname]);
 
         // Show a loading state while authentication is being checked
         if (loading) {
             return <div>Loading...</div>;
         }
 
-        return isAuthenticated ? <Component {...props} /> : null;
+        return (isAuthenticated&&isPaymentAvailable) ? <Component {...props} /> : null;
     };
 }
 

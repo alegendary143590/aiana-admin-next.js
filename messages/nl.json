@@ -21,7 +21,8 @@
         "users":"gebruikers",
         "username":"gebruiker",
         "Add_domains_where_you_want_to_use_chatbot": "Voeg domeinen toe waar u de chatbot wilt gebruiken.",
-        "Profile":"Profiel"
+        "Profile":"Profiel",
+        "Back":"Terug"
     },
     "admin": {
         "Select_a_language":"Selecteer een taal",

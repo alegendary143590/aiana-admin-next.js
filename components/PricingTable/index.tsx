@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Script from 'next/script';
-import { useRouter } from 'next/navigation';
 
 declare global {
   namespace JSX {
@@ -10,17 +9,7 @@ declare global {
   }
 }
 
-const PricingTable = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    const stripeSessionId = localStorage.getItem('stripeCustomerId');
-    if (!stripeSessionId) {
-      router.push('/signin');
-    }
-  }, [router]);
-
-  return (
+const PricingTable = () => (
     <>
       <Script
         async
@@ -30,10 +19,8 @@ const PricingTable = () => {
       <stripe-pricing-table
         pricing-table-id="prctbl_1PqTIF2NgSmULURo3IA6uISx"
         publishable-key="pk_test_51PoLRr2NgSmULURopab8U64Ys08JZdwROxdECldsro2tYAj3ZZgjYU0mHbX3R0aqjEMy4thOymsYPPrZWJNDt98A00Zo66nnVb"
-        customer-session-client-secret={localStorage.getItem('stripeCustomerId')}
       />
     </>
-  );
-};
+  )
 
 export default PricingTable;
