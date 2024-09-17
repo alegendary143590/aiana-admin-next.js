@@ -41,7 +41,7 @@ export async function loginUser(email: string, password: string) {
 
     const data = await response.json();
     if (response.ok) {
-        const { accessToken, refreshToken, userId, userIndex,firstName, plan, lastName, role, status, email } = data;
+        const { accessToken, refreshToken, userId, userIndex,firstName, plan, lastName, role, status } = data;
         const expiryTime = new Date().getTime() + (60 * 60 * 1000); // Current time + 60 mins
         localStorage.setItem('token', accessToken);
         localStorage.setItem('userIndex', userIndex);

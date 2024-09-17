@@ -1,14 +1,10 @@
 import * as React from "react"
 import Image from "next/image"
 import { useRouter } from "next/router"
-import { GiUpgrade } from "react-icons/gi";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 import { useSideMenu } from "@/providers/SideMenuProvider"
 import { logOut } from "@/components/utils/common"
-// import {useStripe, useElements, CardElement} from "@stripe/react-stripe-js"
-// import axios from "axios";
-import { AUTH_API } from "../utils/serverURL";
 import MenuList from "./MenuList"
 
 // import { constants } from "../utils/constants"
@@ -65,16 +61,6 @@ const SideNavBar = () => {
           <MenuList open={isOpen} />
         </div>
         <div>
-          {/* <button
-            type="button"
-            aria-label="log out"
-            title="log out"
-            onClick={handlePricingClick}
-            className={`${isOpen && "bg-[url('/images/button-bg.png')]"} w-full bg-contain bg-no-repeat bg-center rounded-[4px] p-[10px] text-[16px] text-white transition duration-300 hover:opacity-80 mt-auto sm:mb-5 mb-2 flex justify-center items-center`}
-          >
-            <GiUpgrade />
-            <p className={`ml-2 opacity-90 ${isOpen ? "block" : "hidden"}`}>{t('Upgrade')}</p>
-          </button> */}
           <button
             type="button"
             aria-label="log out"
