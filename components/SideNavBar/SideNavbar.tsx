@@ -7,9 +7,6 @@ import { useSideMenu } from "@/providers/SideMenuProvider"
 import { logOut } from "@/components/utils/common"
 import MenuList from "./MenuList"
 
-// import { constants } from "../utils/constants"
-
-
 const SideNavBar = () => {
   const t = useTranslations('common');
   // const stripe = useStripe();
@@ -30,9 +27,6 @@ const SideNavBar = () => {
     }
     // router.push(constants.paymentLinks.preOrder)
   }
-  const handlePricingClick = () => {
-      router.push('/billing-plan');
-  };
 
   return (
     <>

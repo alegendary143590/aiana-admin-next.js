@@ -53,8 +53,8 @@ const Card: React.FC<CardProps> = ({ title, description, price, features }) => {
       {features.length!==0&&(
         <div className='flex flex-col gap-2'>
             This includes:
-            {features.map((item, index)=>(
-                <div key={index} className='flex flex-row justify-start items-center text-[14px] gap-1'>
+            {features.map((item)=>(
+                <div key={item.toString()} className='flex flex-row justify-start items-center text-[14px] gap-1'>
                     <Image src="/images/circle-check-solid.svg" alt="avatar" width={12} height={12} />
                     {item}
                 </div>
