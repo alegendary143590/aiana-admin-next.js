@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Card from '../../Card';
@@ -6,6 +6,7 @@ import Card from '../../Card';
 const BillingPlanTable: React.FC = () => {
     const toa = useTranslations('common');
     const router = useRouter()
+    const [email, setEmail] = useState("")
   const cards = [
     { title: 'Try out Aiana', description: '', price:'0', features:['1 chatbot', '25 chat sessions/month', '50MB document storage','1 linked website', 'Tickets', 'Chat logs', 'Email notifications'] },
     { title: 'Essentials', description: 'For small businesses', price:'29', features:['1 chatbot', '25 chat sessions/month', '50MB document storage','3 linked website', 'Tickets', 'Chat logs', 'Email notifications']  },
@@ -13,8 +14,12 @@ const BillingPlanTable: React.FC = () => {
     { title: 'Enterprise', description: 'Tailored Solutions for Enterprises Seeking Unmatched Performance', price:'' , features:[]  },
   ];
 
+  useEffect(()=>{
+    setEmail(localStorage.getItem("email")!)
+  }, [])
+
   const handleSubscribeClick = () => {
-    router.push("https://billing.stripe.com/p/login/test_fZe9ADedecUcfM4eUU");
+    router.push(`https://billing.stripe.com/p/login/test_fZe9ADedecUcfM4eUU?prefilled_email=${encodeURIComponent(email)}`);
   }
 
   return (
