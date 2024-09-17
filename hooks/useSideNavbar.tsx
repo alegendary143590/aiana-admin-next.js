@@ -26,6 +26,7 @@ const useSideNavbar = () => {
   const knowledgeActive = pathname.includes("/knowledge")
   const reviewsActive = pathname.includes("/reviews")
   const ticketsActive = pathname.includes("/tickets")
+  const billingActive = pathname.includes("/billing-plan")
   const dashboardActive = pathname.includes("/dashboard")
   const helpActive = pathname.includes("/help")
   const settingsActive = pathname.includes("/settings")
@@ -78,6 +79,7 @@ const useSideNavbar = () => {
     setUserName,
     userRole,
     setUserRole,
+    billingActive,
   }
 }
 

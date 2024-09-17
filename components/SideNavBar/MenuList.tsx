@@ -1,6 +1,7 @@
 import { useRouter } from "next/router"
 import { useTranslations } from "use-intl"
 import Image from "next/image"
+import { GiUpgrade } from "react-icons/gi";
 import { useSideMenu } from "@/providers/SideMenuProvider"
 
 const MenuList = ({ open }) => {
@@ -20,6 +21,7 @@ const MenuList = ({ open }) => {
     knowledgeActive,
     ticketsActive,
     usersActive,
+    billingActive,
     role
   } = useSideMenu()
 
@@ -126,6 +128,22 @@ const MenuList = ({ open }) => {
             <Image alt="icon_tickets.svg" src="/images/navbar/icon_tickets.svg" width={18} height={20} className="opacity-90" />
           </div>
           <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>{t('Tickets')}</p>
+        </div>
+      </button>
+      <button
+        type="button"
+        className="flex justify-center items-center w-full"
+        onClick={() => push("/billing-plan")}
+      >
+        <div
+          className={`text-white ${
+            billingActive ? navActiveContainerClasses : navContainerClasses
+          } flex items-center justify-start`}
+        >
+          <div className={billingActive ? iconActiveClasses : iconClasses}>
+            <GiUpgrade />
+          </div>
+          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>{t('BillingPlan')}</p>
         </div>
       </button>
     </div>

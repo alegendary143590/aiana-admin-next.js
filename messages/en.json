@@ -22,7 +22,8 @@
         "Add_domains_where_you_want_to_use_chatbot": "Add domains where you want to use chatbot.",
         "username":"user",
         "Profile":"Profile",
-        "Back":"Back"
+        "Back":"Back",
+        "BillingPlan":"Billing Plans"
     },
     "admin": {
         "users": "users",

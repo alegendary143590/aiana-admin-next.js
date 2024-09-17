@@ -12,7 +12,7 @@ const AdminLayout = ({ children }: ILayout) => (
         <AccountManagementDropdown />
       </div>
       <hr className="fixed w-full top-[85px] right-0 z-4" />
-      <div className="mt-[85px]">
+      <div className="pt-[85px] h-full">
         {children}
       </div>
     </div>
