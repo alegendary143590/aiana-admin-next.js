@@ -1,5 +1,5 @@
-// export const SERVER_API = "https://b243-194-87-199-27.ngrok-free.app"
-export const SERVER_API = "https://bck.aiana.io"
+export const SERVER_API = "https://b243-194-87-199-27.ngrok-free.app"
+// export const SERVER_API = "https://bck.aiana.io"
 
 export const SERVER_API_URL = `${SERVER_API}/api`
 
@@ -41,4 +41,5 @@ export const AUTH_API = {
   ADD_WEBSITE: `${SERVER_API_URL}/add_website`,
   REMOVE_WEBSITE: `${SERVER_API_URL}/remove_website`,
   GET_WEBSITES: `${SERVER_API_URL}/get_websites`,
+  CREATE_CUSTOMER:`${SERVER_API}/sub`,
 }

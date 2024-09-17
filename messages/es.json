@@ -22,7 +22,8 @@
         "username":"usuario",
         "Add_domains_where_you_want_to_use_chatbot": "Añade dominios donde quieras usar el chatbot.",
         "Profile":"Perfil",
-        "Back":"Atrás"
+        "Back":"Atrás",
+        "BillingPlan":"Planes de Facturación"
     },
     "admin": {
         "Select_a_language":"Seleccione un idioma",

@@ -6,14 +6,20 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 import { useSideMenu } from "@/providers/SideMenuProvider"
 import { logOut } from "@/components/utils/common"
+// import {useStripe, useElements, CardElement} from "@stripe/react-stripe-js"
+// import axios from "axios";
+import { AUTH_API } from "../utils/serverURL";
 import MenuList from "./MenuList"
+
 // import { constants } from "../utils/constants"
 
 
 const SideNavBar = () => {
   const t = useTranslations('common');
-  const { isOpen, setOpen } = useSideMenu()
-  const router = useRouter()
+  // const stripe = useStripe();
+  // const element = useElements();
+  const { isOpen, setOpen } = useSideMenu();
+  const router = useRouter();
   const handleDrawerOpen = () => {
     setOpen(true)
   }
@@ -29,7 +35,7 @@ const SideNavBar = () => {
     // router.push(constants.paymentLinks.preOrder)
   }
   const handlePricingClick = () => {
-      router.push('https://billing.stripe.com/p/login/test_fZe9ADedecUcfM4eUU');
+      router.push('/billing-plan');
   };
 
   return (
@@ -59,7 +65,7 @@ const SideNavBar = () => {
           <MenuList open={isOpen} />
         </div>
         <div>
-          <button
+          {/* <button
             type="button"
             aria-label="log out"
             title="log out"
@@ -68,7 +74,7 @@ const SideNavBar = () => {
           >
             <GiUpgrade />
             <p className={`ml-2 opacity-90 ${isOpen ? "block" : "hidden"}`}>{t('Upgrade')}</p>
-          </button>
+          </button> */}
           <button
             type="button"
             aria-label="log out"

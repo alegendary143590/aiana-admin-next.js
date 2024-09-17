@@ -11,9 +11,9 @@ const PricingTablePage = () => {
   }
 
   return (
-    <div className="relative px-[20px] py-[20px] w-full h-screen flex flex-col justify-center">
-      <button type="button" className="underline rounded-md text-gray-500 hover:text-gray-700 absolute top-10 left-20" onClick={handleClickBackButton}>{toa("Back")}</button>
-      <PricingTable />
+    <div className="relative w-screen h-screen pt-20 pb-20" style={{flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
+        <button type="button" className="underline rounded-md text-gray-500 hover:text-gray-700 absolute top-8 left-20" onClick={handleClickBackButton}>{toa("Back")}</button>
+        <PricingTable />
     </div>
   )
 }
