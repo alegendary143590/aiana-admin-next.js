@@ -19,7 +19,7 @@ const BillingPlanTable: React.FC = () => {
   }, [])
 
   const handleSubscribeClick = () => {
-    router.push("https://billing.stripe.com/p/login/test_fZe9ADedecUcfM4eUU?"+`prefilled_email=${encodeURIComponent(email)}`);
+    router.push(`https://billing.stripe.com/p/login/test_fZe9ADedecUcfM4eUU?prefilled_email=${encodeURIComponent(email)}`);
   }
 
   return (
