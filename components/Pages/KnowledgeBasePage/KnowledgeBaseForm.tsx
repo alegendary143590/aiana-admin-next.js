@@ -159,6 +159,8 @@ const KnowledgeBaseForm = ({ baseId }) => {
     console.log("The length of the updated files=--=---", files.length)
     updatedFiles.forEach(doc => formData.append("files", doc))
     const updatedUrls = urls.filter(url => !urlsRef.current.includes(url));
+    console.log("The length of the updated URLs=--=---", updatedUrls.length)
+    console.log("Upadated URL---> ", updatedUrls)
     formData.append("urls", JSON.stringify(updatedUrls))
     const updatedQa = questionAnswers.filter(qa => !qaRef.current.includes(qa));
     formData.append("qa", JSON.stringify(updatedQa));
@@ -168,8 +170,6 @@ const KnowledgeBaseForm = ({ baseId }) => {
     else {setIsSaved(false);setIsSaving(true); localStorage.setItem('isSaved', 'false')}
     setLength(updatedDocs.length + updatedFiles.length + updatedQa.length + updatedUrls.length);
 
-
-    if(!isSaved|| localStorage.getItem('isSaved') === 'false')
     try {
       let API = ""
       if (newBaseId === "-1") {
@@ -214,7 +214,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
           toast.error(toa('Need_Ugrade'), { position: toast.POSITION.TOP_RIGHT })
     
         }
-        else if (error.response.status === 504) {
+        else if (error.response.status && error.response.status === 504) {
 
           toast.error(toa('It_takes_too_much_time_to_retrieve_information_from_your_document'), { position: toast.POSITION.TOP_RIGHT })
 

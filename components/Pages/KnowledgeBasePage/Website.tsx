@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl"
 
 import AlertDialog from "@/components/AlertDialog"
 import { AUTH_API } from "@/components/utils/serverURL"
-import { isValidUrl } from "./validation"
+import { isValidKnolwedgeUrl } from "./validation"
 
 const options: Intl.DateTimeFormatOptions = {
   weekday: 'short',
@@ -36,7 +36,7 @@ const Website = ({ urls, setUrls, websiteRef }) => {
   const [index, setIndex] = React.useState("")
 
   const handleUrlAdd = () => {
-    if (isValidUrl(urlInputValue)) {
+    if (isValidKnolwedgeUrl(urlInputValue)) {
       const newWebsite: WebsiteObject = {
         created_at: new Date().toISOString(),
         id: urls.length, //
