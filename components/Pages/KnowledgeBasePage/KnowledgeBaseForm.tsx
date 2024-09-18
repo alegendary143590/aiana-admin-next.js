@@ -31,9 +31,9 @@ const KnowledgeBaseForm = ({ baseId }) => {
   const [urls, setUrls] = useState([])
   const [questionAnswers, setQuestionAnswers] = useState([])
   const [isShowed, setIsShowed] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
+  // const [isSaved, setIsSaved] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [length, setLength] = useState(0);
+  // const [length, setLength] = useState(0);
   const [base, setBase] = React.useState<Base>({
     created_at: "",
     id: 0,
@@ -159,17 +159,18 @@ const KnowledgeBaseForm = ({ baseId }) => {
     console.log("The length of the updated files=--=---", files.length)
     updatedFiles.forEach(doc => formData.append("files", doc))
     const updatedUrls = urls.filter(url => !urlsRef.current.includes(url));
+    console.log("The length of the updated URLs=--=---", updatedUrls.length)
+    console.log("Upadated URL---> ", updatedUrls)
     formData.append("urls", JSON.stringify(updatedUrls))
     const updatedQa = questionAnswers.filter(qa => !qaRef.current.includes(qa));
     formData.append("qa", JSON.stringify(updatedQa));
     formData.append("userID", userID)
-    if(length === (updatedDocs.length + updatedFiles.length + updatedQa.length + updatedUrls.length))
-      {setIsSaved(true);localStorage.setItem('isSaved', 'true')}
-    else {setIsSaved(false);setIsSaving(true); localStorage.setItem('isSaved', 'false')}
-    setLength(updatedDocs.length + updatedFiles.length + updatedQa.length + updatedUrls.length);
-
-
-    if(!isSaved|| localStorage.getItem('isSaved') === 'false')
+    if(updatedFiles.length + updatedQa.length + updatedUrls.length ===0) return
+    // if(length === (updatedDocs.length + updatedFiles.length + updatedQa.length + updatedUrls.length))
+    //   {setIsSaved(true);localStorage.setItem('isSaved', 'true')}
+    // else {setIsSaved(false);setIsSaving(true); localStorage.setItem('isSaved', 'false')}
+    // setLength(updatedDocs.length + updatedFiles.length + updatedQa.length + updatedUrls.length);
+    setIsSaving(true)
     try {
       let API = ""
       if (newBaseId === "-1") {
@@ -186,11 +187,15 @@ const KnowledgeBaseForm = ({ baseId }) => {
         }
       });
       if (response.status === 200) {
+        documentRef.current = documents;
+        filesRef.current = files;
+        urlsRef.current = urls;
+        qaRef.current = questionAnswers;
         let badAlert = ""
         if (!response.data.bad_url) {
           badAlert = "The knowledge base includes invalid url."
         }
-        setIsSaved(true);
+        // setIsSaved(true);
         localStorage.setItem('isSaved', 'true')
         setIsSaving(false)
         setExpiryTime();
@@ -198,7 +203,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
       }
     } catch (error) {
       setIsSaving(false)
-      setIsSaved(false);
+      // setIsSaved(false);
       setExpiryTime();
       localStorage.setItem('isSaved', 'true')
       if (error.response) {
@@ -214,7 +219,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
           toast.error(toa('Need_Ugrade'), { position: toast.POSITION.TOP_RIGHT })
     
         }
-        else if (error.response.status === 504) {
+        else if (error.response.status && error.response.status === 504) {
 
           toast.error(toa('It_takes_too_much_time_to_retrieve_information_from_your_document'), { position: toast.POSITION.TOP_RIGHT })
 

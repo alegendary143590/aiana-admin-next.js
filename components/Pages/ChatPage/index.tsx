@@ -11,6 +11,9 @@ import { isTimeBetween } from "@/components/utils/common"
 import Spinner from "@/components/Spinner"
 import Avatar from "../../Avatar"
 
+// Define the Markdown component outside the ChatPage component
+
+
 const options: Intl.DateTimeFormatOptions = {
   weekday: "short",
   year: "numeric",
@@ -70,6 +73,8 @@ const ChatPage = ({
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
+  
+
   useEffect(() => {
     scrollToBottom() // Scroll to bottom whenever messages change
     inputRef.current.focus()
@@ -107,8 +112,8 @@ const ChatPage = ({
       .then((response) => {
         if (response.status === 200) {
           const { message, solve } = response.data
-          const botResponse = { id: uuidv4(), text: message, isBot: true }
-
+          const botResponse = { id: uuidv4(), text: message.replace(/\n/g, '<br>'), isBot: true }
+          
           setMessages((prevMessages) => [...prevMessages, botResponse])
           if (!solve) {
             setShowYesNo(true) // Show the form if solve is false
@@ -276,12 +281,11 @@ const ChatPage = ({
                   : "flex-row-reverse bg-[#A536FA] text-white"
               }`}
             >
-              <p
+              <div
                 className="flex-grow"
                 style={{ textAlign: message.isBot ? "left" : "right", overflowWrap: "break-word" }}
-              >
-                {message.text}
-              </p>
+                dangerouslySetInnerHTML={{ __html: message.text }}
+              />
             </div>
           </div>
         ))}
@@ -352,6 +356,7 @@ const ChatPage = ({
             onKeyDown={handleKeyDown}
             disabled={isLoading || isBook}
             ref={inputRef}
+            style={{ whiteSpace: 'pre-wrap' }}
           />
           <button type="button" className="absolute bottom-1/2 translate-y-1/2 flex right-3 items-center" onClick={handleSendMessage}>
             {isLoading ? <Spinner color="#A536FA" /> : <Image src="/images/icon_send.svg" alt="send" width={20} height={20} />}
