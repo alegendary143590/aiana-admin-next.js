@@ -9,7 +9,16 @@ import { useTranslations } from "next-intl"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { isTimeBetween } from "@/components/utils/common"
 import Spinner from "@/components/Spinner"
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import rehypeKatex from 'rehype-katex'
 import Avatar from "../../Avatar"
+
+
+interface LinkProps {
+  href?: string;
+  children?:React.ReactNode;
+}
 
 const options: Intl.DateTimeFormatOptions = {
   weekday: "short",
@@ -52,6 +61,16 @@ const ChatPage = ({
   const [showForm, setShowForm] = useState(false) // State to manage whether to show the form
   const [email, setEmail] = useState("") // State to store email input
   const [content, setContent] = useState("") // State to store content input
+  const component = {
+    a: ({href, children}:LinkProps) => <>
+      <a href={href} className="underline text-blue-700" target="_blank" rel="noopener">{children}</a>
+      {/* <video controls>
+        <source src="/videos/gpt1.mp4" type="video/mp4" />
+        Sorry, your browser doesn't support videos.
+      </video> */}
+      {/* <ReactPlayer url="/videos/video.mp4" width="100%" height="100%" controls/> */}
+    </>
+  }
 
   useEffect(() => {
     if (visible) {
@@ -108,7 +127,7 @@ const ChatPage = ({
         if (response.status === 200) {
           const { message, solve } = response.data
           const botResponse = { id: uuidv4(), text: message, isBot: true }
-
+          
           setMessages((prevMessages) => [...prevMessages, botResponse])
           if (!solve) {
             setShowYesNo(true) // Show the form if solve is false
@@ -280,7 +299,24 @@ const ChatPage = ({
                 className="flex-grow"
                 style={{ textAlign: message.isBot ? "left" : "right", overflowWrap: "break-word" }}
               >
-                {message.text}
+                    
+                    <Markdown
+                      className="w-full h-full h-15 pt-3 pr-10"
+                      components={{
+                        ol: ({ children }) => (
+                          <ol className="list-decimal list-inside">
+                            {children}
+                          </ol>
+                        ),
+                        li: ({ children }) => (
+                          <li className="mb-2">
+                            {children}
+                          </li>
+                        ),
+                      }}
+                    >
+                      {message.text.replace(/\\n/g, '\n')}
+                    </Markdown>
               </p>
             </div>
           </div>
@@ -352,6 +388,7 @@ const ChatPage = ({
             onKeyDown={handleKeyDown}
             disabled={isLoading || isBook}
             ref={inputRef}
+            style={{ whiteSpace: 'pre-wrap' }}
           />
           <button type="button" className="absolute bottom-1/2 translate-y-1/2 flex right-3 items-center" onClick={handleSendMessage}>
             {isLoading ? <Spinner color="#A536FA" /> : <Image src="/images/icon_send.svg" alt="send" width={20} height={20} />}

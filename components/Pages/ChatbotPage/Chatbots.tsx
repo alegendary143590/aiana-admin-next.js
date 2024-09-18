@@ -260,7 +260,7 @@ const Chatbots = () => {
         </div>
       </div>
       <div className="relative w-full h-fit flex flex-wrap mt-10 items-center justify-start">
-        {bots.map((bot) => (
+        {bots&&bots.map((bot) => (
           <div
             key={bot.id}
             className="w-[300px] h-fit border-2 border-solid border-[#A438FA] shadow-lg rounded-lg m-3"

@@ -169,7 +169,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
       {setIsSaved(true);localStorage.setItem('isSaved', 'true')}
     else {setIsSaved(false);setIsSaving(true); localStorage.setItem('isSaved', 'false')}
     setLength(updatedDocs.length + updatedFiles.length + updatedQa.length + updatedUrls.length);
-
+    setIsSaving(true)
     try {
       let API = ""
       if (newBaseId === "-1") {
