@@ -31,7 +31,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
   const [urls, setUrls] = useState([])
   const [questionAnswers, setQuestionAnswers] = useState([])
   const [isShowed, setIsShowed] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
+  // const [isSaved, setIsSaved] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [length, setLength] = useState(0);
   const [base, setBase] = React.useState<Base>({
@@ -165,9 +165,10 @@ const KnowledgeBaseForm = ({ baseId }) => {
     const updatedQa = questionAnswers.filter(qa => !qaRef.current.includes(qa));
     formData.append("qa", JSON.stringify(updatedQa));
     formData.append("userID", userID)
-    if(length === (updatedDocs.length + updatedFiles.length + updatedQa.length + updatedUrls.length))
-      {setIsSaved(true);localStorage.setItem('isSaved', 'true')}
-    else {setIsSaved(false);setIsSaving(true); localStorage.setItem('isSaved', 'false')}
+    if(updatedFiles.length + updatedQa.length + updatedUrls.length ===0) return
+    // if(length === (updatedDocs.length + updatedFiles.length + updatedQa.length + updatedUrls.length))
+    //   {setIsSaved(true);localStorage.setItem('isSaved', 'true')}
+    // else {setIsSaved(false);setIsSaving(true); localStorage.setItem('isSaved', 'false')}
     setLength(updatedDocs.length + updatedFiles.length + updatedQa.length + updatedUrls.length);
     setIsSaving(true)
     try {
@@ -186,11 +187,15 @@ const KnowledgeBaseForm = ({ baseId }) => {
         }
       });
       if (response.status === 200) {
+        documentRef.current = documents;
+        filesRef.current = files;
+        urlsRef.current = urls;
+        qaRef.current = questionAnswers;
         let badAlert = ""
         if (!response.data.bad_url) {
           badAlert = "The knowledge base includes invalid url."
         }
-        setIsSaved(true);
+        // setIsSaved(true);
         localStorage.setItem('isSaved', 'true')
         setIsSaving(false)
         setExpiryTime();
@@ -198,7 +203,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
       }
     } catch (error) {
       setIsSaving(false)
-      setIsSaved(false);
+      // setIsSaved(false);
       setExpiryTime();
       localStorage.setItem('isSaved', 'true')
       if (error.response) {
