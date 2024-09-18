@@ -33,7 +33,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
   const [isShowed, setIsShowed] = useState(false);
   // const [isSaved, setIsSaved] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [length, setLength] = useState(0);
+  // const [length, setLength] = useState(0);
   const [base, setBase] = React.useState<Base>({
     created_at: "",
     id: 0,
@@ -169,7 +169,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
     // if(length === (updatedDocs.length + updatedFiles.length + updatedQa.length + updatedUrls.length))
     //   {setIsSaved(true);localStorage.setItem('isSaved', 'true')}
     // else {setIsSaved(false);setIsSaving(true); localStorage.setItem('isSaved', 'false')}
-    setLength(updatedDocs.length + updatedFiles.length + updatedQa.length + updatedUrls.length);
+    // setLength(updatedDocs.length + updatedFiles.length + updatedQa.length + updatedUrls.length);
     setIsSaving(true)
     try {
       let API = ""

@@ -9,10 +9,9 @@ import { useTranslations } from "next-intl"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { isTimeBetween } from "@/components/utils/common"
 import Spinner from "@/components/Spinner"
-import Markdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import rehypeKatex from 'rehype-katex'
 import Avatar from "../../Avatar"
+
+// Define the Markdown component outside the ChatPage component
 
 
 const options: Intl.DateTimeFormatOptions = {
@@ -74,6 +73,8 @@ const ChatPage = ({
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
+  
+
   useEffect(() => {
     scrollToBottom() // Scroll to bottom whenever messages change
     inputRef.current.focus()
@@ -111,7 +112,7 @@ const ChatPage = ({
       .then((response) => {
         if (response.status === 200) {
           const { message, solve } = response.data
-          const botResponse = { id: uuidv4(), text: message, isBot: true }
+          const botResponse = { id: uuidv4(), text: message.replace(/\n/g, '<br>'), isBot: true }
           
           setMessages((prevMessages) => [...prevMessages, botResponse])
           if (!solve) {
@@ -280,31 +281,11 @@ const ChatPage = ({
                   : "flex-row-reverse bg-[#A536FA] text-white"
               }`}
             >
-              <p
+              <div
                 className="flex-grow"
                 style={{ textAlign: message.isBot ? "left" : "right", overflowWrap: "break-word" }}
-              >
-                    
-                    <Markdown
-                      className="w-full h-full h-15 pt-3 pr-10"
-                      remarkPlugins={[remarkGfm]} 
-                      rehypePlugins={[rehypeKatex]} 
-                      components={{
-                        ol: ({ children }) => (
-                          <ol className="list-decimal list-inside">
-                            {children}
-                          </ol>
-                        ),
-                        li: ({ children }) => (
-                          <li className="mb-2">
-                            {children}
-                          </li>
-                        ),
-                      }}
-                    >
-                      {message.text.replace(/\\n/g, '\n')}
-                    </Markdown>
-              </p>
+                dangerouslySetInnerHTML={{ __html: message.text }}
+              />
             </div>
           </div>
         ))}
