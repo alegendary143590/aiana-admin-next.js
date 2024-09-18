@@ -15,11 +15,6 @@ import rehypeKatex from 'rehype-katex'
 import Avatar from "../../Avatar"
 
 
-interface LinkProps {
-  href?: string;
-  children?:React.ReactNode;
-}
-
 const options: Intl.DateTimeFormatOptions = {
   weekday: "short",
   year: "numeric",
@@ -61,16 +56,6 @@ const ChatPage = ({
   const [showForm, setShowForm] = useState(false) // State to manage whether to show the form
   const [email, setEmail] = useState("") // State to store email input
   const [content, setContent] = useState("") // State to store content input
-  const component = {
-    a: ({href, children}:LinkProps) => <>
-      <a href={href} className="underline text-blue-700" target="_blank" rel="noopener">{children}</a>
-      {/* <video controls>
-        <source src="/videos/gpt1.mp4" type="video/mp4" />
-        Sorry, your browser doesn't support videos.
-      </video> */}
-      {/* <ReactPlayer url="/videos/video.mp4" width="100%" height="100%" controls/> */}
-    </>
-  }
 
   useEffect(() => {
     if (visible) {
@@ -302,6 +287,8 @@ const ChatPage = ({
                     
                     <Markdown
                       className="w-full h-full h-15 pt-3 pr-10"
+                      remarkPlugins={[remarkGfm]} 
+                      rehypePlugins={[rehypeKatex]} 
                       components={{
                         ol: ({ children }) => (
                           <ol className="list-decimal list-inside">
