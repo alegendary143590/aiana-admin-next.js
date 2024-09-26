@@ -1,5 +1,7 @@
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { AUTH_API } from "@/components/utils/serverURL"; 
+import { ref } from 'joi';
 
 function withAuth(Component) {
     return function ProtectedComponent(props) {
@@ -47,6 +49,30 @@ function withAuth(Component) {
                         router.push('/signin');
                         setLoading(false); // Set loading to false if no refresh token
                     // }
+                }
+                if(status && status !== 'active') {
+                    try {
+                        const userID = localStorage.getItem("userID");
+                        const response = await fetch((`${AUTH_API.GET_USER}`), {
+                            method: 'POST',
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header
+                                "Content-Type": "application/json", // Explicitly defining the Content-Type
+                            },
+                            body: JSON.stringify({ userID })
+                        });                    
+                        const data = await response.json();
+                        if (response.ok) {                            
+                            localStorage.setItem('status', data.status);
+                            status = localStorage.getItem('status');
+                        } else {
+                            setIsPaymentAvailable(false);
+                            router.push('/pricing');
+                        }
+                    } catch (error) {
+                        setIsPaymentAvailable(false);
+                        router.push('/pricing');
+                    }            
                 }
                 if(status && status === 'active') {
                     setIsPaymentAvailable(true)
