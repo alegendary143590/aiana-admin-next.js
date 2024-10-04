@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import Card from '../../Card';
 import { useBillingInfo } from '@/providers/BillingInfoProvider';
+import Card from '../../Card';
 
 const BillingPlanTable: React.FC = () => {
     const toa = useTranslations('common');
