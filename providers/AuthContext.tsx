@@ -1,8 +1,6 @@
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import axios from "axios";
-import { AUTH_API } from "@/components/utils/serverURL"; 
-import { ref } from 'joi';
+import { AUTH_API } from '@/components/utils/serverURL';
 
 function withAuth(Component) {
     return function ProtectedComponent(props) {

@@ -133,3 +133,22 @@ export async function makeRequest(options: RequestOptions): Promise<any> {
     }
 }
 
+export async function getBillingInfo(email:string) {
+    const response = await fetch((`${AUTH_API.GET_BILLING_INFO}`), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'ngrok-skip-browser-warning': "1",
+        },
+        body: JSON.stringify({ email})
+    });
+    const data = await response.json();
+    if (response.ok) {
+        const { plan, status } = data;
+        localStorage.setItem('status', status);
+        localStorage.setItem('plan', plan);
+        console.log("This is getBillingInfo Function.");
+    } else {
+        throw new Error(data.error);
+    }
+}
