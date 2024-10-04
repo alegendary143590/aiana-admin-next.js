@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useBillingInfo } from '@/providers/BillingInfoProvider';
 import Card from '../../Card';
 
 const BillingPlanTable: React.FC = () => {
     const toa = useTranslations('common');
     const router = useRouter()
     const [email, setEmail] = useState("")
-    const billingInfo = useBillingInfo();
   const cards = [
     { title: 'Try out Aiana', description: '', price:'0', features:['1 chatbot', '25 chat sessions/month', '50MB document storage','1 linked website', 'Tickets', 'Chat logs', 'Email notifications'] },
     { title: 'Essentials', description: 'For small businesses', price:'29', features:['1 chatbot', '25 chat sessions/month', '50MB document storage','3 linked website', 'Tickets', 'Chat logs', 'Email notifications']  },
