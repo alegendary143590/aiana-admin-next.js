@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import withAuth from "@/providers/AuthContext"
 import BillingPlageTable from "./BillingPlanTable"
 
 const BillingPlagePage = () => (
@@ -9,4 +10,4 @@ const BillingPlagePage = () => (
     </Layout>
 )    
   
-export default BillingPlagePage
+export default withAuth(BillingPlagePage);

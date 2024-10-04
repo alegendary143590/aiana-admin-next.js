@@ -1,7 +1,10 @@
 import BillingPlanPage from "@/components/Pages/BillingPlanPage"
+import { BillingInfoProvider } from '@/providers/BillingInfoProvider';
 
 const BillingPlan = () => (
-    <BillingPlanPage />
+    <BillingInfoProvider>
+        <BillingPlanPage />
+    </BillingInfoProvider>        
 )
 
 export default BillingPlan
