@@ -1,6 +1,6 @@
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { AUTH_API } from "@/components/utils/serverURL";
+import { AUTH_API } from '@/components/utils/serverURL';
 
 function withAuth(Component) {
     return function ProtectedComponent(props) {
