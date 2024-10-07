@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { AUTH_API } from '@/components/utils/serverURL';
 import Card from '../../Card';
 
 const BillingPlanTable: React.FC = () => {
@@ -19,7 +20,17 @@ const BillingPlanTable: React.FC = () => {
   }, [])
 
   const handleSubscribeClick = async() => {
-    router.push(`https://billing.stripe.com/p/login/test_fZe9ADedecUcfM4eUU?prefilled_email=${encodeURIComponent(email)}`);
+    const response = await fetch((`${AUTH_API.GET_UPGRADE_URL}`),{
+      method:"POST",
+      headers:{
+        'Content-Type': 'application/json',
+        'ngrok-skip-brower-warning': "1",
+      },
+      body: JSON.stringify({email})
+    });
+    const data = await response.json();
+    console.log(data.sessionId);
+    router.push(`${data.sessionId}`);
   }
 
   return (
