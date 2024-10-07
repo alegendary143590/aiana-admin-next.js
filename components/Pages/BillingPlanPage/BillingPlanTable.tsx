@@ -29,7 +29,6 @@ const BillingPlanTable: React.FC = () => {
       body: JSON.stringify({email})
     });
     const data = await response.json();
-    console.log(data.sessionId);
     router.push(`${data.sessionId}`);
   }
 
