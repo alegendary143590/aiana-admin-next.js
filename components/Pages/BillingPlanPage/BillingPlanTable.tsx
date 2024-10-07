@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { AUTH_API } from '@/components/utils/serverURL';
 import Card from '../../Card';
 
 const BillingPlanTable: React.FC = () => {
