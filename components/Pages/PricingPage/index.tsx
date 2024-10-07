@@ -1,4 +1,5 @@
+import withAuth from "@/providers/AuthContext"
 import PricingTablePage from "./PricingTablePage"
 
 
-export default PricingTablePage
+export default withAuth(PricingTablePage)

@@ -18,7 +18,7 @@ const BillingPlanTable: React.FC = () => {
     setEmail(localStorage.getItem("email")!)
   }, [])
 
-  const handleSubscribeClick = () => {
+  const handleSubscribeClick = async() => {
     router.push(`https://billing.stripe.com/p/login/test_fZe9ADedecUcfM4eUU?prefilled_email=${encodeURIComponent(email)}`);
   }
 

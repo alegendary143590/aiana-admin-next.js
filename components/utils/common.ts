@@ -76,7 +76,6 @@ export function logOut() {
         localStorage.setItem('role', "");
         localStorage.setItem('status', "");
         localStorage.setItem('plan', "");
-
         return true
     } catch (e) {
         return false
