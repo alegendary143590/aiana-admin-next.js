@@ -203,8 +203,9 @@ const KnowledgeBase = () => {
               </div>
             </div>
             <div className="flex w-full h-[50px] px-5 items-center gap-2">
+              
               <p className="text-sm text-[#070E0B]">{t('Connected_with')}</p>
-
+              
               <ScrollableItems items={base.bot_avatar.map((item, itemIndex) => { const newItem = { item, index: itemIndex }; return newItem; })} tooltips={base.bot_names} />
 
             </div>

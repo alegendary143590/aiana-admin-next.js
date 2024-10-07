@@ -100,6 +100,11 @@ const KnowledgeBaseForm = ({ baseId }) => {
               console.log('Error status code:', error.response.status);
               console.log('Error response data:', error.response.data);
              
+              if (error.response.status === 401) {
+                toast.error(toa('Session_Expired_Please_log_in_again'), { position: toast.POSITION.TOP_RIGHT });
+  
+                router.push("/signin")
+              }
               // Handle the error response as needed
             } else if (error.request) {
               // The request was made but no response was received
@@ -107,12 +112,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
               toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
 
             } else {
-              console.log(error.msg)
-              if (error.response.status === 401) {
-                toast.error(toa('Session_Expired_Please_log_in_again'), { position: toast.POSITION.TOP_RIGHT });
-  
-                router.push("/signin")
-              }
+              console.log(error.msg)              
               // Something happened in setting up the request that triggered an Error
               console.log('Error message:', error.msg);
               toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });

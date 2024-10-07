@@ -50,6 +50,7 @@ function withAuth(Component) {
                     // }
                 }
                 if(status && status !== 'active') {
+                    
                     try {
                         const userID = localStorage.getItem("userID");
                         const response = await fetch((`${AUTH_API.GET_USER}`), {
