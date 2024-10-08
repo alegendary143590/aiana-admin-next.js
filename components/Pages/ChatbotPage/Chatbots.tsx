@@ -97,7 +97,7 @@ const Chatbots = () => {
 
   const handleChatClickButton = (id: any) => {
     const bot = bots.find((b) => b.id === id)
-    if (!bot.active) {
+    if (!bot.active || !isTimeBetween(bot.start_time, bot.end_time)) {
       toast.warn(`${toa('This_bot_is_not_active_yet_Please_wait_until_it_is_active')}`, {
         position: toast.POSITION.TOP_RIGHT,
       })
@@ -278,14 +278,14 @@ const Chatbots = () => {
                 </div>
                   <p className="font-bold text-xl ml-2">{bot.name}</p>
                 <div className="group relative w-32 ml-auto flex justify-end">
-                  {isTimeBetween(bot.start_time, bot.end_time) ? (
+                  {isTimeBetween(bot.start_time, bot.end_time) && bot.active ? (
                     <div className="size-5 bg-[#2CA84D] rounded-full flex items-center justify-center">
                       <FaCheck className="text-white size-3" />
                     </div>
                   ) : (
                     <div className="size-5 border-[1px] border-[#767676] rounded-full flex items-center justify-center" />
                   )}
-                  <span className="absolute top-8 w-20 text-center scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{isTimeBetween(bot.start_time, bot.end_time) ? t('Active') : t('Not_active')}</span>
+                  <span className="absolute top-8 w-20 text-center scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{isTimeBetween(bot.start_time, bot.end_time) && bot.active ? t('Active') : t('Not_active')}</span>
                 </div>
               </div>
 

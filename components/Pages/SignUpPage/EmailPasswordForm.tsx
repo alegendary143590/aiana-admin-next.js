@@ -5,6 +5,7 @@ import router from "next/router"
 import axios from "axios"
 import { toast} from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
+import Spinner from "@/components/Spinner"
 
 import { validateForm } from "./validation"
 
@@ -26,6 +27,8 @@ function EmailPasswordForm() {
     com_website: "",
   }
   const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
+  const [isSaving, setIsSaving] = useState(false)
+  const [isSaved, setIsSaved] = useState(false)
 
   const handleInputChange = (id, value) => {
     setFormState((prevState) => ({
@@ -34,7 +37,8 @@ function EmailPasswordForm() {
     }))
   }
 
-  const handleAuth = () => {
+  const handleAuth = async () => {
+    setIsSaving(true)
     const validationerror = validateForm(formState)
     if (validationerror !== "") {
       toast.error(validationerror, { position: toast.POSITION.TOP_RIGHT })
@@ -48,12 +52,14 @@ function EmailPasswordForm() {
       },
     }
 
-    axios
+    await axios
       .post(AUTH_API.REGISTER, formState, requestOptions)
       .then((response) => {
         if (response.status === 201) {
           toast.success("Successfully registered!", { position: toast.POSITION.TOP_RIGHT })
           router.push("/signin")
+          setIsSaving(false)
+          setIsSaved(true)
           return
         }
         if (response.status === 409) {
@@ -64,6 +70,7 @@ function EmailPasswordForm() {
         }
       })
       .catch((error) => {
+        setIsSaving(false)
         if (error.response) {
           if (error.response.status === 409) {
             toast.error("User already exists!", { position: toast.POSITION.TOP_RIGHT })
@@ -182,9 +189,9 @@ function EmailPasswordForm() {
                     id="signup"
                     type="button"
                     className="mt-1 rounded-lg w-full h-[48px] bg-[linear-gradient(180deg,#6BA4F1_0%,#A438FA_100%)] text-white font-bold text-[16px] transition duration-200 ease-in-out hover:shadow-lg hover:scale-[1.01] active:scale-[.99]"
-                    onClick={handleAuth}
+                    onClick={(isSaved || isSaving) ? ()=> {} : handleAuth}
                   >
-                    Sign up
+                    {isSaving ? <Spinner color=""/> : "Sign Up"}
                   </button>
                   <div className="text-center mt-2">
                     <p>
