@@ -5,11 +5,16 @@ import router from "next/router"
 import Image from "next/image"
 
 import { loginUser } from "@/components/utils/common"
+import { set } from "js-cookie"
+import Spinner from "@/components/Spinner"
 
 const EmailPasswordForm = () => {
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [isLoaded, setIsLoaded] = React.useState(false)
   const handleAuth = async () => {
+    setIsLoading(true)
     if (email === "") {
       toast.error("Email is required!", { position: toast.POSITION.TOP_RIGHT })
       return false
@@ -21,7 +26,10 @@ const EmailPasswordForm = () => {
     try {
       await loginUser(email, password)
       router.push("/admin")
+      setIsLoaded(true)
+      setIsLoading(false)
     } catch (error) {
+      setIsLoading(false)
       toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
     }
     return true
@@ -80,9 +88,9 @@ const EmailPasswordForm = () => {
               id="signin"
               type="button"
               className="mt-1 mb-5 rounded-lg w-full h-[48px] bg-[linear-gradient(180deg,#6BA4F1_0%,#A438FA_100%)] text-white font-bold text-[16px] transition duration-200 ease-in-out hover:shadow-lg hover:scale-[1.01] active:scale-[.99]"
-              onClick={handleAuth}
+              onClick={(isLoaded || isLoading) ? ()=>{} : handleAuth}
             >
-              Log In
+              {isLoading ? <Spinner color=""/> : "Log In"}
             </button>
 
             <Link href="/forgot">
