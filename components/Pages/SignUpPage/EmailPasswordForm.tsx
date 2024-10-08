@@ -5,10 +5,9 @@ import router from "next/router"
 import axios from "axios"
 import { toast} from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
+import Spinner from "@/components/Spinner"
 
 import { validateForm } from "./validation"
-import Spinner from "@/components/Spinner"
-import { set } from "js-cookie"
 
 function EmailPasswordForm() {
   const INITIAL_REGISTER_OBJ = {
