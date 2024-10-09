@@ -13,15 +13,22 @@ const EmailPasswordForm = () => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [isLoaded, setIsLoaded] = React.useState(false)
   const handleAuth = async () => {
-    setIsLoading(true)
+    toast.dismiss() // Dismiss any existing toasts
     if (email === "") {
-      toast.error("Email is required!", { position: toast.POSITION.TOP_RIGHT })
+      toast.error("Email is required!", { 
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000, // Close after 3 seconds
+      })
       return false
     }
     if (password === "") {
-      toast.error("Password is required!", { position: toast.POSITION.TOP_RIGHT })
+      toast.error("Password is required!", { 
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000, // Close after 3 seconds
+      })
       return false
     }
+    setIsLoading(true)
     try {
       await loginUser(email, password)
       router.push("/admin")
@@ -29,7 +36,10 @@ const EmailPasswordForm = () => {
       setIsLoading(false)
     } catch (error) {
       setIsLoading(false)
-      toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
+      toast.error(error.message, { 
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000, // Close after 3 seconds
+      })
     }
     return true
   }
