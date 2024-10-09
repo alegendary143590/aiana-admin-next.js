@@ -38,34 +38,43 @@ function EmailPasswordForm() {
   }
 
   const handleAuth = async () => {
-    setIsSaving(true)
+    toast.dismiss() // Dismiss any existing toasts
     const validationerror = validateForm(formState)
     if (validationerror !== "") {
-      toast.error(validationerror, { position: toast.POSITION.TOP_RIGHT })
+      toast.error(validationerror, { 
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000, // Close after 3 seconds
+      })
       return false
     }
-
+    
     const requestOptions = {
       headers: {
         "Content-Type": "application/json",
         "ngrok-skip-browser-warning": "1",
       },
     }
-
+    
+    setIsSaving(true)
     await axios
       .post(AUTH_API.REGISTER, formState, requestOptions)
       .then((response) => {
         if (response.status === 201) {
-          toast.success("Successfully registered!", { position: toast.POSITION.TOP_RIGHT })
+          toast.error("Successfully registered!", { 
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 3000, // Close after 3 seconds
+          })
           router.push("/signin")
           setIsSaving(false)
           setIsSaved(true)
           return
         }
         if (response.status === 409) {
+          setIsSaving(false)
           toast.error("User already exists!", { position: toast.POSITION.TOP_RIGHT })
         }
         if (response.status === 400) {
+          setIsSaving(false)
           toast.error("Invalid email!", { position: toast.POSITION.TOP_RIGHT })
         }
       })

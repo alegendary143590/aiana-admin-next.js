@@ -30,8 +30,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
   const [files, setFiles] = useState([])
   const [urls, setUrls] = useState([])
   const [questionAnswers, setQuestionAnswers] = useState([])
-  const [isShowed, setIsShowed] = useState(false);
-  // const [isSaved, setIsSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   // const [length, setLength] = useState(0);
   const [base, setBase] = React.useState<Base>({
@@ -130,21 +129,20 @@ const KnowledgeBaseForm = ({ baseId }) => {
   }, []);
 
   const handleSubmit = async () => {
+    toast.dismiss() // Dismiss any existing toasts
     if (nameInputValue === "") {
-      if (isShowed === false) {
-
-        toast.error(toa('Please_input_the_name'), { position: toast.POSITION.TOP_RIGHT })
-        setIsShowed(true);
-      }
+      toast.error(toa('Please_input_the_name'), { 
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000, // Close after 3 seconds
+      })
       return
     }
 
     if (documents.length === 0 && urls.length === 0 && questionAnswers.length === 0) {
-      if (isShowed === false) {
-
-        toast.error(toa('Please_input_the_data'), { position: toast.POSITION.TOP_RIGHT })
-        setIsShowed(true);
-      }
+      toast.error(toa('Please_input_the_data'), { 
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000, // Close after 3 seconds
+      })
       return
     }
     
@@ -198,8 +196,13 @@ const KnowledgeBaseForm = ({ baseId }) => {
         // setIsSaved(true);
         localStorage.setItem('isSaved', 'true')
         setIsSaving(false)
+        setIsSaved(true);
         setExpiryTime();
-        toast.success(`${toa('Successfully_updated')} ${badAlert}`, { position: toast.POSITION.TOP_RIGHT });
+
+        toast.error(`${toa('Successfully_updated')} ${badAlert}`, { 
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000, // Close after 3 seconds
+        })
       }
     } catch (error) {
       setIsSaving(false)
@@ -210,19 +213,26 @@ const KnowledgeBaseForm = ({ baseId }) => {
         console.log('Error status code:', error.response.status);
         console.log('Error response data:', error.response.data);
         if (error.response.status && error.response.status === 401) {
-
-          toast.error(toa('Session_Expired'), { position: toast.POSITION.TOP_RIGHT })
+  
+          toast.error(toa('Session_Expired'), { 
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 3000, // Close after 3 seconds
+          })
           router.push("/signin")
         }
         if (error.response.status && error.response.status === 403) {
-
-          toast.error(toa('Need_Ugrade'), { position: toast.POSITION.TOP_RIGHT })
-    
+  
+          toast.error(toa('Need_Ugrade'), { 
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 3000, // Close after 3 seconds
+          })    
         }
         else if (error.response.status && error.response.status === 504) {
-
-          toast.error(toa('It_takes_too_much_time_to_retrieve_information_from_your_document'), { position: toast.POSITION.TOP_RIGHT })
-
+  
+          toast.error(toa('It_takes_too_much_time_to_retrieve_information_from_your_document'), { 
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 3000, // Close after 3 seconds
+          })
         }
         // Handle the error response as needed
       } else if (error.request) {
@@ -230,8 +240,11 @@ const KnowledgeBaseForm = ({ baseId }) => {
         // The request was made but no response was received
         console.log('Error request:', error.request.status);
       } else {
-        toast.error(`${toa('Busy_Network_Try_again')}`, { position: toast.POSITION.TOP_RIGHT });
 
+          toast.error(`${toa('Busy_Network_Try_again')}`, { 
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 3000, // Close after 3 seconds
+          })
         // Something happened in setting up the request that triggered an Error
         console.log('Error message:', error.message);
       }
@@ -294,7 +307,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
             type="button"
             className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] text-white font-bold rounded-md"
 
-            onClick={isSaving? () =>{} : handleSubmit}
+            onClick={isSaving || isSaved? () =>{} : handleSubmit}
           >
             {isSaving? <Spinner color=""/>:t('Save')}
           </button>

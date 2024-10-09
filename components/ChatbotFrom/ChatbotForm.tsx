@@ -169,9 +169,13 @@ const ChatbotForm = ({ bot }) => {
   }
 
   const handleSubmit = async () => {
+    toast.dismiss() // Dismiss any existing toasts
     const formData = new FormData()
     if (name === "" || knowledgeBase === "") {
-      toast.error(`${toa('Name_and_Knowledge_Base_are_required')}`, { position: toast.POSITION.TOP_RIGHT })
+      toast.error(`${toa('Name_and_Knowledge_Base_are_required')}`, { 
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000, // Close after 3 seconds
+      })
       return
     }
     setIsSaving(true);
@@ -205,12 +209,19 @@ const ChatbotForm = ({ bot }) => {
       setExpiryTime();
       setIsSaved(true);
       setIsSaving(false);
-      toast.success(`${ bot === "-1" ? toa('Successfully_Created') : toa('Successfully_updated')}`, { position: toast.POSITION.TOP_RIGHT })
+      toast.error(`${ bot === "-1" ? toa('Successfully_Created') : toa('Successfully_updated')}`, { 
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000, // Close after 3 seconds
+      })
     } catch (error) {
       setExpiryTime();
       setIsSaving(false)
       if(error.response && error.response.status === 403){
-        toast.error(`${ bot === "-1" ? 'You need to upgrade to create more bots' : toa('Successfully_updated')}`, { position: toast.POSITION.TOP_RIGHT })
+
+        toast.error(`${ bot === "-1" ? 'You need to upgrade to create more bots' : toa('Successfully_updated')}`, { 
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000, // Close after 3 seconds
+        })
       }
       if (error.response && error.response.status === 401) {
         // Redirect to the sign-in page if the response status is 401
