@@ -133,7 +133,7 @@ const MenuList = ({ open }) => {
       <button
         type="button"
         className="flex justify-center items-center w-full"
-        onClick={() => push("/billing-plan")}
+        onClick={() => {if(localStorage.getItem("status") === "active") push("/billing-plan"); else push("/pricing");}}
       >
         <div
           className={`text-white ${

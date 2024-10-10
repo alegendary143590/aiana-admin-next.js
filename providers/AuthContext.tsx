@@ -1,6 +1,6 @@
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { AUTH_API } from '@/components/utils/serverURL';
+// import { AUTH_API } from '@/components/utils/serverURL';
 
 function withAuth(Component) {
     return function ProtectedComponent(props) {
@@ -8,7 +8,7 @@ function withAuth(Component) {
         const pathname = usePathname()
         const [isAuthenticated, setIsAuthenticated] = useState(false);
         const [loading, setLoading] = useState(true); // New state to track loading
-        const [isPaymentAvailable, setIsPaymentAvailable] = useState(false)
+        // const [isPaymentAvailable, setIsPaymentAvailable] = useState(false)
         useEffect(() => {
             const checkAuth = async () => {
                 const expiryTime = parseInt(localStorage.getItem('token_expiry'));
@@ -49,37 +49,37 @@ function withAuth(Component) {
                         setLoading(false); // Set loading to false if no refresh token
                     // }
                 }
-                if(status && status !== 'active') {
+                // if(status && status !== 'active') {
                     
-                    try {
-                        const userID = localStorage.getItem("userID");
-                        const response = await fetch((`${AUTH_API.GET_USER}`), {
-                            method: 'POST',
-                            headers: {
-                                Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header
-                                "Content-Type": "application/json", // Explicitly defining the Content-Type
-                            },
-                            body: JSON.stringify({ userID })
-                        });                    
-                        const data = await response.json();
-                        if (response.ok) {                            
-                            localStorage.setItem('status', data.status);
-                            status = localStorage.getItem('status');
-                        } else {
-                            setIsPaymentAvailable(false);
-                            router.push('/pricing');
-                        }
-                    } catch (error) {
-                        setIsPaymentAvailable(false);
-                        router.push('/pricing');
-                    }            
-                }
-                if(status && status === 'active') {
-                    setIsPaymentAvailable(true)
-                } else {
-                    setIsPaymentAvailable(false)
-                    router.push("/pricing")
-                }
+                //     try {
+                //         const userID = localStorage.getItem("userID");
+                //         const response = await fetch((`${AUTH_API.GET_USER}`), {
+                //             method: 'POST',
+                //             headers: {
+                //                 Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header
+                //                 "Content-Type": "application/json", // Explicitly defining the Content-Type
+                //             },
+                //             body: JSON.stringify({ userID })
+                //         });                    
+                //         const data = await response.json();
+                //         if (response.ok) {                            
+                //             localStorage.setItem('status', data.status);
+                //             status = localStorage.getItem('status');
+                //         } else {
+                //             setIsPaymentAvailable(false);
+                //             router.push('/pricing');
+                //         }
+                //     } catch (error) {
+                //         setIsPaymentAvailable(false);
+                //         router.push('/pricing');
+                //     }            
+                // }
+                // if(status && status === 'active') {
+                //     setIsPaymentAvailable(true)
+                // } else {
+                //     setIsPaymentAvailable(false)
+                //     router.push("/pricing")
+                // }
             };
             checkAuth();
         }, [pathname]);
@@ -89,7 +89,7 @@ function withAuth(Component) {
             return <div>Loading...</div>;
         }
 
-        return (isAuthenticated&&isPaymentAvailable) ? <Component {...props} /> : null;
+        return (isAuthenticated) ? <Component {...props} /> : null;
     };
 }
 
