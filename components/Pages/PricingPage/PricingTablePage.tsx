@@ -1,16 +1,16 @@
 import Layout from "@/components/Layout";
 import PricingTable from "@/components/PricingTable"
-import { useTranslations } from "next-intl"
-import { useRouter } from "next/navigation"
+// import { useTranslations } from "next-intl"
+// import { useRouter } from "next/navigation"
 
 const PricingTablePage = () => {
-  const toa = useTranslations("common");
-  const router = useRouter()
+  // const toa = useTranslations("common");
+  // const router = useRouter()
   // const handleClickBackButton = () => {
   //   router.push("/")
   // }
 
-  return (
+  
     <Layout type="admin">
       <div className="p-[20px] w-full h-full flex flex-col">
         {/* <div className="relative w-screen h-screen pt-20 pb-20" style={{flexDirection:"column", justifyContent:"center", alignItems:"center"}}> */}
@@ -19,7 +19,6 @@ const PricingTablePage = () => {
         {/* </div> */}
       </div>
     </Layout>
-  )
 }
     
   
