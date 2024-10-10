@@ -155,7 +155,6 @@ const Profile = () => {
 
   const handleSubmit = () => {
     const validationError = validateForm(formState)
-    console.log("formState", formState)
     toast.dismiss()
     if (validationError !== "") {
       toast.error(validationError, { position: toast.POSITION.TOP_RIGHT })
