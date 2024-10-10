@@ -9,8 +9,8 @@ const PricingTablePage = () => {
   // const handleClickBackButton = () => {
   //   router.push("/")
   // }
-
-  
+  console.log("PricingTablePage")
+  return(
     <Layout type="admin">
       <div className="p-[20px] w-full h-full flex flex-col">
         {/* <div className="relative w-screen h-screen pt-20 pb-20" style={{flexDirection:"column", justifyContent:"center", alignItems:"center"}}> */}
@@ -19,6 +19,7 @@ const PricingTablePage = () => {
         {/* </div> */}
       </div>
     </Layout>
+  )
 }
     
   
