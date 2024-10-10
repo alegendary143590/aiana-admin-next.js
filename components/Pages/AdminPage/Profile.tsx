@@ -33,6 +33,7 @@ const Profile = () => {
     com_postal: "",
     com_street_number: "",
     com_website: "",
+    botsActive: "",
   }
   const [formState, setFormState] = useState(INITIAL_REGISTER_OBJ)
   const [role, setRole] = useState("user")
@@ -109,6 +110,7 @@ const Profile = () => {
               com_postal: userData.com_postal,
               com_street_number: userData.com_street_number,
               com_website: userData.com_website,
+              botsActive: userData.botsActive,
               // Update other fields as per the response data
             }))
           } else if (response.status === 401) {
@@ -153,6 +155,8 @@ const Profile = () => {
 
   const handleSubmit = () => {
     const validationError = validateForm(formState)
+    console.log("formState", formState)
+    toast.dismiss()
     if (validationError !== "") {
       toast.error(validationError, { position: toast.POSITION.TOP_RIGHT })
       return;
@@ -177,6 +181,7 @@ const Profile = () => {
             com_postal: formState.com_postal,
             com_street_number: formState.com_street_number,
             com_website: formState.com_website,
+            botsActive: formState.botsActive,
           },
           {
             headers: {
