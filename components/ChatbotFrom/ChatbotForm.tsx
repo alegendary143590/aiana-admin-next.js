@@ -11,6 +11,7 @@ import Avatar from "../Avatar"
 import CustomAutocomplete from "../CustomAutocomplete"
 import { setExpiryTime } from "../utils/common"
 import Spinner from "../Spinner"
+import { set } from "js-cookie"
 
 const ChatbotForm = ({ bot }) => {
   const colorRef = useRef(null);
@@ -132,24 +133,29 @@ const ChatbotForm = ({ bot }) => {
     }
 
     if (file) {
+      setIsSaved(false)
       reader.readAsDataURL(file)
     }
   }
 
   const handleSwitchChange = () => {
     setActive((prevActive) => !prevActive) // Toggle the value of active
+    setIsSaved(false)
   }
 
   const handleTimeFromChange = (event) => {
     setTimeFrom(event.target.value)
+    setIsSaved(false)
   }
 
   const handleTimeUntilChange = (event) => {
     setTimeUntil(event.target.value)
+    setIsSaved(false)
   }
 
   const handleNameChange = (event) => {
     setName(event.target.value)
+    setIsSaved(false)
   }
 
   const handleKnowledgeBaseChange = (value) => {
@@ -162,6 +168,7 @@ const ChatbotForm = ({ bot }) => {
       setKnowleBase(bases[selectedIndex].name)
       // Update the index state with the found index
       setIndex(selectedIndex)
+      setIsSaved(false)
     } else {
       // Handle the case where no matching base was found
       console.error("No matching base found for the selected value:", value)
@@ -209,7 +216,7 @@ const ChatbotForm = ({ bot }) => {
       setExpiryTime();
       setIsSaved(true);
       setIsSaving(false);
-      toast.error(`${ bot === "-1" ? toa('Successfully_Created') : toa('Successfully_updated')}`, { 
+      toast.success(`${ bot === "-1" ? toa('Successfully_Created') : toa('Successfully_updated')}`, { 
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000, // Close after 3 seconds
       })

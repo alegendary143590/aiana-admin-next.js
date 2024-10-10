@@ -128,6 +128,11 @@ const KnowledgeBaseForm = ({ baseId }) => {
     }
   }, []);
 
+  React.useEffect(() => {
+    // Update the local state when the base object changes
+    setIsSaved(false);
+  }, [nameInputValue]);
+
   const handleSubmit = async () => {
     toast.dismiss() // Dismiss any existing toasts
     if (nameInputValue === "") {
@@ -199,7 +204,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
         setIsSaved(true);
         setExpiryTime();
 
-        toast.error(`${toa('Successfully_updated')} ${badAlert}`, { 
+        toast.success(`${toa('Successfully_updated')} ${badAlert}`, { 
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000, // Close after 3 seconds
         })
@@ -291,9 +296,9 @@ const KnowledgeBaseForm = ({ baseId }) => {
 
         </div>
         <div className="w-full sm:mb-7 mb-3">
-          {value === 0 && <Document documents={documents} documentRef={documentRef} setDocuments={setDocuments} setFiles={setFiles} />}
-          {value === 1 && <Website urls={urls} setUrls={setUrls} websiteRef={urlsRef} />}
-          {value === 2 && <Text questionAnswers={questionAnswers} setQuestionAnswers={setQuestionAnswers} />}
+          {value === 0 && <Document documents={documents} documentRef={documentRef} setDocuments={setDocuments} setFiles={setFiles} setIsSaved={setIsSaved} />}
+          {value === 1 && <Website urls={urls} setUrls={setUrls} websiteRef={urlsRef} setIsSaved={setIsSaved}/>}
+          {value === 2 && <Text questionAnswers={questionAnswers} setQuestionAnswers={setQuestionAnswers} setIsSaved={setIsSaved}/>}
         </div>
         <div className="w-full flex sm:flex-row flex-col-reverse items-center justify-end gap-5 sm:px-7 px-3 sm:pb-7 pb-3">
           <button

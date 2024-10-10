@@ -60,7 +60,7 @@ function EmailPasswordForm() {
       .post(AUTH_API.REGISTER, formState, requestOptions)
       .then((response) => {
         if (response.status === 201) {
-          toast.error("Successfully registered!", { 
+          toast.success("Successfully registered!", { 
             position: toast.POSITION.TOP_RIGHT,
             autoClose: 3000, // Close after 3 seconds
           })

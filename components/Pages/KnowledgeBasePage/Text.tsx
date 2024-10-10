@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { FaInfoCircle } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 
-const Text = ({ questionAnswers, setQuestionAnswers }) => {
+const Text = ({ questionAnswers, setQuestionAnswers, setIsSaved }) => {
   const t = useTranslations('knowledge')
   const toa = useTranslations('toast')
   const [questionInputValue, setQuestionInputValue] = useState("")
@@ -19,6 +19,7 @@ const Text = ({ questionAnswers, setQuestionAnswers }) => {
       ])
       setQuestionInputValue("")
       setAnswerInputValue("")
+      setIsSaved(false);
     } else {
       toast.error(`${toa('Question_and_Answer_are_required')}`, { position: toast.POSITION.TOP_RIGHT });
     }
@@ -27,6 +28,7 @@ const Text = ({ questionAnswers, setQuestionAnswers }) => {
   const handleDeleteQA = (index) => {
     const updatedQuestionAnswers = questionAnswers.filter((_, i) => i !== index)
     setQuestionAnswers(updatedQuestionAnswers)
+    setIsSaved(false);
   }
 
   return (
