@@ -15,7 +15,7 @@ import { useTranslations } from "next-intl";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB in bytes
 
-const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
+const Document = ({ documents, documentRef, setDocuments, setFiles, setIsSaved }) => {
   const t = useTranslations('knowledge');
   const toa = useTranslations('toast');
   const [openDialog, setOpenDialog] = React.useState(false);
@@ -25,6 +25,7 @@ const Document = ({ documents, documentRef, setDocuments, setFiles }) => {
 
   React.useEffect(() => {
     console.log("Documents: ", documents);
+    setIsSaved(false);
   }, [documents]);
 
   function ConvertBytes(bytes : number):string{

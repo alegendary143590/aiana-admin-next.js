@@ -26,7 +26,7 @@ interface WebsiteObject {
   unique_id: string
   url: string
 }
-const Website = ({ urls, setUrls, websiteRef }) => {
+const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
   const t = useTranslations('knowledge');
   const toa = useTranslations('toast');
   const router = useRouter()
@@ -45,6 +45,7 @@ const Website = ({ urls, setUrls, websiteRef }) => {
       }
       setUrls([...urls, newWebsite])
       setUrlInputValue("")
+      setIsSaved(false);
     } else {
       toast.error(t("Invalid_URL_Please_enter_a_valid_URL"), { position: toast.POSITION.TOP_RIGHT })
     }
