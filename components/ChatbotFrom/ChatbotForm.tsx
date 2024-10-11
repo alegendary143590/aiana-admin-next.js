@@ -5,7 +5,6 @@ import { toast } from "react-toastify"
 import { FaArrowLeft, FaChevronDown } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 import { SketchPicker } from 'react-color';
-import { set } from "js-cookie"
 import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSwitch from "../CustomSwitch"
 import Avatar from "../Avatar"
