@@ -47,7 +47,7 @@ const Chatbots = () => {
     }
     if (userID && userID !== "") {
       setIsLoading(true)
-
+      toast.dismiss()
       fetch(`${AUTH_API.GET_CHATBOTS}?userId=${userID}`, requestOptions)
         .then((response) => {
           if (response.status === 401) {
@@ -96,6 +96,7 @@ const Chatbots = () => {
   }
 
   const handleChatClickButton = (id: any) => {
+    toast.dismiss()
     const bot = bots.find((b) => b.id === id)
     if (!bot.active || !isTimeBetween(bot.start_time, bot.end_time)) {
       toast.warn(`${toa('This_bot_is_not_active_yet_Please_wait_until_it_is_active')}`, {
