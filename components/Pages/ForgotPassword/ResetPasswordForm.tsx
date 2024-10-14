@@ -9,6 +9,7 @@ const ResetPasswordForm = () => {
   const [email, setEmail] = useState("")
 
   const handleSendButton = () => {
+    toast.dismiss() // Dismiss any existing toasts
     if (email !== "") {
       const requestOptions = {
         headers: {
