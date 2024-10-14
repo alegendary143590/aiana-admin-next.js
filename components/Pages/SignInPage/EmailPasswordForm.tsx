@@ -32,12 +32,18 @@ const EmailPasswordForm = () => {
     try {
       const isVerified = await loginUser(email, password)
       console.log("isVerified: ", isVerified)
-      if(isVerified) {
+      if(isVerified === "true") {
         router.push("/admin")
         setIsLoaded(true)
         setIsLoading(false)
-      } else {
+      } else if(isVerified === "false") {
         router.push("/signup/please-verify")
+        setIsLoading(false)
+      } else if(isVerified === "error") {
+        toast.error("Unrecognized email", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000, // Close after 3 seconds
+        })
         setIsLoading(false)
       }
     } catch (error) {
