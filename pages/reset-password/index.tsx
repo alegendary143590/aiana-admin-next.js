@@ -15,7 +15,7 @@ const ResetPass = () => {
     }, [token, setToken]);
 
     return (
-            <ResetPassword /> 
+        <ResetPassword /> 
     );
 };
 

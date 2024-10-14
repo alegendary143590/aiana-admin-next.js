@@ -30,10 +30,16 @@ const EmailPasswordForm = () => {
     }
     setIsLoading(true)
     try {
-      await loginUser(email, password)
-      router.push("/admin")
-      setIsLoaded(true)
-      setIsLoading(false)
+      const isVerified = await loginUser(email, password)
+      console.log("isVerified: ", isVerified)
+      if(isVerified) {
+        router.push("/admin")
+        setIsLoaded(true)
+        setIsLoading(false)
+      } else {
+        router.push("/signup/please-verify")
+        setIsLoading(false)
+      }
     } catch (error) {
       setIsLoading(false)
       toast.error(error.message, { 
