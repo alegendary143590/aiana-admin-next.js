@@ -1,7 +1,5 @@
 import SendLinkPage from "@/components/Pages/SendLinkPage"
 
-const PleaseVerify = () => {
-  return <SendLinkPage />
-}
+const PleaseVerify = () => <SendLinkPage />
 
 export default PleaseVerify

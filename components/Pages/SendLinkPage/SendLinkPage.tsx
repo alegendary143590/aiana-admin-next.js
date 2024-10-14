@@ -71,8 +71,8 @@ const SendLinkPage = () => {
                 <p><span>We just sent an email to the address:</span>{email}</p>
                 <p>Please check your email and select the link provided to verify your address.</p>
                 <div className='flex flex-row gap-6 pt-10'>
-                    <button onClick={handleSendMessage} className='px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-150 ease-in-out hidden sm:inline-block'>Resend email</button>
-                    <button onClick={handleSignIn} className='px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-150 ease-in-out hidden sm:inline-block'>Back to login</button>
+                    <button type="button" className='px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-150 ease-in-out hidden sm:inline-block' onClick={handleSendMessage}>Resend email</button>
+                    <button type="button" className='px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-150 ease-in-out hidden sm:inline-block' onClick={handleSignIn}>Back to login</button>
                 </div>
             </div>
         </div>

@@ -55,14 +55,13 @@ export async function loginUser(email: string, password: string) {
             localStorage.setItem('token_expiry', (new Date().getTime() + (60 * 60 * 1000)).toString()); // Store expiration time
             localStorage.setItem('isVerified', isVerified.toString());
             return true;
-        } else {
-            localStorage.setItem('email', email);
-            localStorage.setItem('isVerified', isVerified.toString());
-            return false;
         }
-    } else {
-        throw new Error(data.error);
+        localStorage.setItem('email', email);
+        localStorage.setItem('isVerified', isVerified.toString());
+        return false;
+        
     }
+    return false;
 }
 
 export function isTimeBetween(startTime: string, endTime: string): boolean {

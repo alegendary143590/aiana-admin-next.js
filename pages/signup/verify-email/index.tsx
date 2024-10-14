@@ -5,8 +5,7 @@ import { toast } from "react-toastify";
 import {AUTH_API} from "@/components/utils/serverURL";
 
 const VerifyEmailPage = () => {
-  useEffect(
-    () => {
+    useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get("token");
         console.log('token', token);
@@ -52,8 +51,7 @@ const VerifyEmailPage = () => {
         else {
             router.push("/signin");
         }
-    },[]
-    );
+    },[]);
   return(
     <div>
         this is verify email page

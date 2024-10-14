@@ -1,2 +1,6 @@
-import SendLinkPage from "./SendLinkPage"
+import React from "react"
+import SendLink from "./SendLinkPage"
+
+const SendLinkPage = () => (<SendLink />)            
+
 export default SendLinkPage
