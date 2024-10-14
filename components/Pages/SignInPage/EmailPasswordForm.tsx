@@ -40,7 +40,7 @@ const EmailPasswordForm = () => {
         router.push("/signup/please-verify")
         setIsLoading(false)
       } else if(isVerified === "error") {
-        toast.error("Unrecognized email", {
+        toast.error("Unrecognized email or password", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000, // Close after 3 seconds
         })
