@@ -41,21 +41,27 @@ export async function loginUser(email: string, password: string) {
 
     const data = await response.json();
     if (response.ok) {
-        const { accessToken, refreshToken, userId, userIndex,firstName, plan, lastName, role, status } = data;
-        const expiryTime = new Date().getTime() + (60 * 60 * 1000); // Current time + 60 mins
-        localStorage.setItem('token', accessToken);
-        localStorage.setItem('userIndex', userIndex);
-        localStorage.setItem("name", `${firstName} ${lastName[0]}`)
-        localStorage.setItem('refresh_token', refreshToken);
-        localStorage.setItem('userID', userId);
-        localStorage.setItem('role', role);
-        localStorage.setItem('status', status);
+        const { accessToken, refreshToken, userId, userIndex,firstName, plan, lastName, role, status, isVerified } = data;
+        if (isVerified.toString() === "true") {
+            localStorage.setItem('token', accessToken);
+            localStorage.setItem('userIndex', userIndex);
+            localStorage.setItem("name", `${firstName} ${lastName[0]}`)
+            localStorage.setItem('refresh_token', refreshToken);
+            localStorage.setItem('userID', userId);
+            localStorage.setItem('role', role);
+            localStorage.setItem('status', status);
+            localStorage.setItem('email', email);
+            localStorage.setItem('plan', plan);
+            localStorage.setItem('token_expiry', (new Date().getTime() + (60 * 60 * 1000)).toString()); // Store expiration time
+            localStorage.setItem('isVerified', isVerified.toString());
+            return true;
+        }
         localStorage.setItem('email', email);
-        localStorage.setItem('plan', plan);
-        localStorage.setItem('token_expiry', expiryTime.toString()); // Store expiration time
-    } else {
-        throw new Error(data.error);
+        localStorage.setItem('isVerified', isVerified.toString());
+        return false;
+        
     }
+    return false;
 }
 
 export function isTimeBetween(startTime: string, endTime: string): boolean {
@@ -76,6 +82,7 @@ export function logOut() {
         localStorage.setItem('role', "");
         localStorage.setItem('status', "");
         localStorage.setItem('plan', "");
+        localStorage.setItem('isVerified',"");
         return true
     } catch (e) {
         return false

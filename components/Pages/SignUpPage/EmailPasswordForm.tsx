@@ -60,11 +60,13 @@ function EmailPasswordForm() {
       .post(AUTH_API.REGISTER, formState, requestOptions)
       .then((response) => {
         if (response.status === 201) {
-          toast.success("Successfully registered!", { 
+          const {message, email} = response.data;
+          localStorage.setItem("email", email);
+          toast.success(message, { 
             position: toast.POSITION.TOP_RIGHT,
             autoClose: 3000, // Close after 3 seconds
           })
-          router.push("/signin")
+          router.push("/signup/please-verify")
           setIsSaving(false)
           setIsSaved(true)
           return
