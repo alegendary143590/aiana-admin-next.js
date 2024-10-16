@@ -1,10 +1,15 @@
 import React, { useState } from "react"
 import Image from "next/image";
+import { useRouter } from "next/router";
+import axios from "axios";
 import { toast } from "react-toastify";
 import { FaInfoCircle } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 
+import { AUTH_API } from "@/components/utils/serverURL"
+
 const Text = ({ questionAnswers, setQuestionAnswers, setIsSaved }) => {
+  const router = useRouter();
   const t = useTranslations('knowledge')
   const toa = useTranslations('toast')
   const [questionInputValue, setQuestionInputValue] = useState("")
@@ -25,7 +30,45 @@ const Text = ({ questionAnswers, setQuestionAnswers, setIsSaved }) => {
     }
   }
 
-  const handleDeleteQA = (index) => {
+  const handleDeleteQA = (id, index) => {
+    axios
+      .post(AUTH_API.DELETE_TEXT, { id },
+        {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+            'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+            'ngrok-skip-browser-warning': "1",
+          }
+        })
+      .then((response) => {
+        if (response.status === 201) {
+          toast.success(`${toa('Successfully_deleted!')}`, { position: toast.POSITION.TOP_RIGHT });
+        } else {
+          toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log('Error status code:', error.response.status);
+          console.log('Error response data:', error.response.data);
+          if (error.response.status === 401) {
+            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
+
+            router.push("/signin")
+          }
+          // Handle the error response as needed
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log('Error request:', error.request);
+          toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error message:', error.message);
+          toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+
+        }
+      });
     const updatedQuestionAnswers = questionAnswers.filter((_, i) => i !== index)
     setQuestionAnswers(updatedQuestionAnswers)
     setIsSaved(false);
@@ -71,7 +114,7 @@ const Text = ({ questionAnswers, setQuestionAnswers, setIsSaved }) => {
                 <p className="text-[#070E0B] my-1"><i className="w-24 inline-block">#{t('Question')} {i + 1}:</i>{questionAnswer.question}
                   <button
                     type="button"
-                    onClick={() => handleDeleteQA(i)}
+                    onClick={() => handleDeleteQA(questionAnswer.id, i)}
                     className="focus:outline-none focus:ring-2 ml-2 focus:ring-blue-500 bg-[#F2E3FE] size-7 rounded-md inline-flex justify-center items-center"
                   >
                     <Image src="/images/icon_trash_1.svg" alt="trash_icon" width={15} height={15} />

@@ -32,6 +32,7 @@ export const AUTH_API = {
   REFRESH_TOKEN: `${SERVER_API_URL}/refresh`,
   DELETE_DOCUMENT: `${SERVER_API_URL}/del_document`,
   DELETE_URL: `${SERVER_API_URL}/del_url`,
+  DELETE_TEXT: `${SERVER_API_URL}/del_text`,
   DELETE_KNOWLEDGEBASE: `${SERVER_API_URL}/del_knowledgebase`,
   DELETE_BOT: `${SERVER_API_URL}/del_bot`,
   DELETE_CHATLOG: `${SERVER_API_URL}/del_chatlog`,
@@ -47,4 +48,6 @@ export const AUTH_API = {
   GET_BILLING_INFO:`${SERVER_API_URL}/get_billing_info`,
   SEND_VERIFICATION_LINK:`${SERVER_API_URL}/send_verification_link`,
   VERIFY_EMAIL:`${SERVER_API_URL}/verify_email`,
+  // SHOPIFY_AUTH_INSTALL:`${SERVER_API_URL}/shopifyauth/install`,
+  // SHOPIFY_AUTH:`${SERVER_API_URL}/shopifyauth`,
 }

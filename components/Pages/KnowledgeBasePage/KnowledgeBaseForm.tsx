@@ -26,6 +26,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
   const router = useRouter();
   const [value, setValue] = useState(0)
   const [nameInputValue, setNameInputValue] = useState("")
+  const [oldName, setOldName] = useState("")
   const [documents, setDocuments] = useState([])
   const [files, setFiles] = useState([])
   const [urls, setUrls] = useState([])
@@ -86,6 +87,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
               user_id: 0,
             });
             setNameInputValue(data.base.name)
+            setOldName(data.base.name)
             setDocuments(data.documents || []);
             documentRef.current = data.documents;
             filesRef.current = []
@@ -168,7 +170,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
     const updatedQa = questionAnswers.filter(qa => !qaRef.current.includes(qa));
     formData.append("qa", JSON.stringify(updatedQa));
     formData.append("userID", userID)
-    if(updatedFiles.length + updatedQa.length + updatedUrls.length ===0) return
+    if(updatedFiles.length + updatedQa.length + updatedUrls.length ===0 && oldName === nameInputValue) return
     // if(length === (updatedDocs.length + updatedFiles.length + updatedQa.length + updatedUrls.length))
     //   {setIsSaved(true);localStorage.setItem('isSaved', 'true')}
     // else {setIsSaved(false);setIsSaving(true); localStorage.setItem('isSaved', 'false')}
@@ -312,7 +314,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
             type="button"
             className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] text-white font-bold rounded-md"
 
-            onClick={isSaving || isSaved? () =>{} : handleSubmit}
+            onClick={isSaving || isSaved ? () => {console.log("isSaving", isSaving, "isSaved", isSaved)} : handleSubmit}
           >
             {isSaving? <Spinner color=""/>:t('Save')}
           </button>
