@@ -205,11 +205,14 @@ const KnowledgeBaseForm = ({ baseId }) => {
         setIsSaving(false)
         setIsSaved(true);
         setExpiryTime();
-
+        setOldName(nameInputValue);
         toast.success(`${toa('Successfully_updated')} ${badAlert}`, { 
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000, // Close after 3 seconds
         })
+        if(newBaseId === "-1") {
+          router.push(`/knowledge`);
+        }
       }
     } catch (error) {
       setIsSaving(false)
