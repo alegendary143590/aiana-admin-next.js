@@ -48,6 +48,6 @@ export const AUTH_API = {
   GET_BILLING_INFO:`${SERVER_API_URL}/get_billing_info`,
   SEND_VERIFICATION_LINK:`${SERVER_API_URL}/send_verification_link`,
   VERIFY_EMAIL:`${SERVER_API_URL}/verify_email`,
-  // SHOPIFY_AUTH_INSTALL:`${SERVER_API_URL}/shopifyauth/install`,
-  // SHOPIFY_AUTH:`${SERVER_API_URL}/shopifyauth`,
+  SHOPIFY_AUTH_INSTALL:`${SERVER_API_URL}/shopifyinstall`,
+  SHOPIFY_AUTH:`${SERVER_API_URL}/shopifyauth`,
 }
