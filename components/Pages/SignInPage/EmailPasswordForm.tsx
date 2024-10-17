@@ -131,11 +131,11 @@ const EmailPasswordForm = () => {
         </div>
         <div className="text-center sm:p-2 px-5 mt-[10vh] lg:3/5 md:w-5/6 w-full mx-auto">
           By continuing, you agree to our{" "}
-          <Link href="/tos">
+          <Link href="https://www.aiana.io/terms-condition/">
             <span className="font-bold underline cursor-pointer">Terms of Service</span>
           </Link>{" "}
           and{" "}
-          <Link href="/privacy">
+          <Link href="https://www.aiana.io/privacy-policy/">
             <span className="font-bold underline cursor-pointer">Privacy Policy</span>
           </Link>
           .
