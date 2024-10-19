@@ -29,14 +29,14 @@ export function formatDateStringOnly(isoDateString: string): string {
     return `${day} ${monthNames[monthIndex]} ${year}`;
 }
 
-export async function loginUser(email: string, password: string) {
+export async function loginUser(email: string, password: string,) {
     const response = await fetch((`${AUTH_API.LOGIN}`), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'ngrok-skip-browser-warning': "1",
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password})
     });
 
     const data = await response.json();

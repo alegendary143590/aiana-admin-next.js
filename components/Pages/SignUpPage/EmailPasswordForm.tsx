@@ -79,6 +79,10 @@ function EmailPasswordForm() {
           setIsSaving(false)
           toast.error("Invalid email!", { position: toast.POSITION.TOP_RIGHT })
         }
+        if (response.status === 203) {
+          setIsSaving(false)
+          toast.error("Invalid email!", { position: toast.POSITION.TOP_RIGHT })
+        }
       })
       .catch((error) => {
         setIsSaving(false)
@@ -156,6 +160,7 @@ function EmailPasswordForm() {
                   <div className="px-[1px]">
                     <input
                       id="email"
+                      type="email"
                       className="rounded-lg border-gray-400 w-full"
                       value={formState.email}
                       placeholder="Enter your email address"

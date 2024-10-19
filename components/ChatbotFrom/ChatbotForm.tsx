@@ -28,7 +28,7 @@ const ChatbotForm = ({ bot }) => {
   const [bases, setBases] = useState([])
   const [knowledgeBases, setKnowledgeBases] = useState([])
   const [isPickerOpen, setPickerOpen] = useState(false)
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
 
   const router = useRouter()
