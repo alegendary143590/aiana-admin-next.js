@@ -17,7 +17,6 @@ function EmailPasswordForm() {
     confirm_password: "",
     email: "",
     language: "",
-    date_and_time: "",
     com_name: "",
     com_vat: "",
     com_street: "",
@@ -40,7 +39,6 @@ function EmailPasswordForm() {
 
   const handleAuth = async () => {
     toast.dismiss() // Dismiss any existing toasts
-    // handleInputChange("date_and_time", new Date().toISOString())
     const validationerror = validateForm(formState)
     if (validationerror !== "") {
       toast.error(validationerror, { 
