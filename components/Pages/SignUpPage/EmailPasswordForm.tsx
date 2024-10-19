@@ -17,6 +17,7 @@ function EmailPasswordForm() {
     confirm_password: "",
     email: "",
     language: "",
+    date_and_time: "",
     com_name: "",
     com_vat: "",
     com_street: "",
@@ -39,6 +40,7 @@ function EmailPasswordForm() {
 
   const handleAuth = async () => {
     toast.dismiss() // Dismiss any existing toasts
+    // handleInputChange("date_and_time", new Date().toISOString())
     const validationerror = validateForm(formState)
     if (validationerror !== "") {
       toast.error(validationerror, { 
@@ -76,6 +78,10 @@ function EmailPasswordForm() {
           toast.error("User already exists!", { position: toast.POSITION.TOP_RIGHT })
         }
         if (response.status === 400) {
+          setIsSaving(false)
+          toast.error("Invalid email!", { position: toast.POSITION.TOP_RIGHT })
+        }
+        if (response.status === 203) {
           setIsSaving(false)
           toast.error("Invalid email!", { position: toast.POSITION.TOP_RIGHT })
         }
@@ -156,6 +162,7 @@ function EmailPasswordForm() {
                   <div className="px-[1px]">
                     <input
                       id="email"
+                      type="email"
                       className="rounded-lg border-gray-400 w-full"
                       value={formState.email}
                       placeholder="Enter your email address"

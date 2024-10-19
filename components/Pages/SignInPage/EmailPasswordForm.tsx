@@ -14,6 +14,7 @@ const EmailPasswordForm = () => {
   const [isLoaded, setIsLoaded] = React.useState(false)
   const handleAuth = async () => {
     toast.dismiss() // Dismiss any existing toasts
+    const login_datetime = new Date().toISOString().slice(0, 19).replace('T', ' ');
     if (email === "") {
       toast.error("Email is required!", { 
         position: toast.POSITION.TOP_RIGHT,
@@ -30,7 +31,7 @@ const EmailPasswordForm = () => {
     }
     setIsLoading(true)
     try {
-      const isVerified = await loginUser(email, password)
+      const isVerified = await loginUser(email, password , login_datetime)
       console.log("isVerified: ", isVerified)
       if(isVerified === "true") {
         router.push("/admin")
