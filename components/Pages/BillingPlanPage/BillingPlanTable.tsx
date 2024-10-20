@@ -32,7 +32,7 @@ const BillingPlanTable: React.FC = () => {
       body: JSON.stringify({email})
     });
     const data = await response.json();
-    router.push(`${data.sessionId}`);
+    window.open(`${data.sessionId}`, '_blank');
   }
 
   return (
