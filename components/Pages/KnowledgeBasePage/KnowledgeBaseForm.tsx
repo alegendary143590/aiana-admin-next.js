@@ -136,13 +136,13 @@ const KnowledgeBaseForm = ({ baseId }) => {
   }, [nameInputValue]);
 
   const isValidName = (name: string): boolean => {
+    console.log("name checker")
     // Check if name is not empty, starts with a letter, ends with a letter, and contains only letters and spaces
     return /^[A-Za-z][A-Za-z\s]*[A-Za-z]$/.test(name);
   };
 
   const handleSubmit = async () => {
     toast.dismiss() // Dismiss any existing toasts
-    console.log("name checker", isValidName(nameInputValue))
     if (nameInputValue === "") {
       toast.error(toa('Please_input_the_name'), { 
         position: toast.POSITION.TOP_RIGHT,

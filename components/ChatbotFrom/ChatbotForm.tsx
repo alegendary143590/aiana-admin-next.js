@@ -16,7 +16,7 @@ const ChatbotForm = ({ bot }) => {
   const colorRef = useRef(null);
   const t = useTranslations('chatbot');
   const toa = useTranslations('toast');
-  const [name, setName] = useState("")
+  const [nameInputValue, setNameInputValue] = useState("")
   const [active, setActive] = useState(false)
   const [knowledgeBase, setKnowleBase] = useState("")
   const [avatar, setAvatar] = useState(null)
@@ -85,7 +85,7 @@ const ChatbotForm = ({ bot }) => {
           const knowldgeBases = data.knowledge
           // console.log(data.bot_data.name)
           if (data.bot_data !== "-1") {
-            setName(data.bot_data.name)
+            setNameInputValue(data.bot_data.name)
             setActive(data.bot_data.active)
             setKnowleBase(data.bot_data.knowledge_base !== "-1" ? data.bot_data.knowledge_base : "")
             const i = knowldgeBases.findIndex((base) => base.name === data.bot_data.knowledge_base)
@@ -153,7 +153,7 @@ const ChatbotForm = ({ bot }) => {
   }
 
   const handleNameChange = (event) => {
-    setName(event.target.value)
+    setNameInputValue(event.target.value)
     setIsSaved(false)
   }
 
@@ -175,14 +175,15 @@ const ChatbotForm = ({ bot }) => {
   }
 
   const isValidName = (name: string): boolean => {
+    console.log("name checker")
     // Check if name is not empty, starts with a letter, ends with a letter, and contains only letters and spaces
-    return /^[A-Za-z][A-Za-z\s]*[A-Za-z]$/.test(name);
+    return /^[A-Za-z][A-Za-z\s]*[A-Za-z]$/.test(name.trim());
   };
 
   const handleSubmit = async () => {
     toast.dismiss() // Dismiss any existing toasts
     const formData = new FormData()
-    if (name === "" || knowledgeBase === "") {
+    if (nameInputValue === "" || knowledgeBase === "") {
       toast.error(`${toa('Name_and_Knowledge_Base_are_required')}`, { 
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000, // Close after 3 seconds
@@ -190,7 +191,7 @@ const ChatbotForm = ({ bot }) => {
       return
     }
 
-    if (!isValidName(name)) {
+    if (!isValidName(nameInputValue)) {
       toast.error(`${toa('Name_must_start_and_end_with_a_letter_and_contain_only_letters_and_spaces')}`, { 
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000,
@@ -199,7 +200,7 @@ const ChatbotForm = ({ bot }) => {
     }
 
     setIsSaving(true);
-    formData.append("name", name)
+    formData.append("name", nameInputValue)
     formData.append("avatar", avatar)
     formData.append("color", themeColor)
     formData.append("active", active !== undefined ? active.toString() : "false")
@@ -271,7 +272,7 @@ const ChatbotForm = ({ bot }) => {
             <input
               className="w-full rounded-lg p-4 text-xl font-bold border-none focus:ring-0"
               type="text"
-              value={name}
+              value={nameInputValue}
               onChange={handleNameChange}
             />
             <hr className="w-full" />
@@ -298,7 +299,7 @@ const ChatbotForm = ({ bot }) => {
                 </label>
                 {avatarPreview && (
                   <div className="flex flex-col justify-center items-center">
-                    <Avatar src={avatarPreview} name={name} className="size-20 rounded-full" />
+                    <Avatar src={avatarPreview} name={nameInputValue} className="size-20 rounded-full" />
                   </div>
                 )}
               </div>
