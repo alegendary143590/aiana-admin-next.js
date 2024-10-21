@@ -135,13 +135,27 @@ const KnowledgeBaseForm = ({ baseId }) => {
     setIsSaved(false);
   }, [nameInputValue]);
 
+  const isValidName = (name: string): boolean => {
+    // Check if name is not empty, starts with a letter, ends with a letter, and contains only letters and spaces
+    return /^[A-Za-z][A-Za-z\s]*[A-Za-z]$/.test(name);
+  };
+
   const handleSubmit = async () => {
     toast.dismiss() // Dismiss any existing toasts
+    console.log("name checker", isValidName(nameInputValue))
     if (nameInputValue === "") {
       toast.error(toa('Please_input_the_name'), { 
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000, // Close after 3 seconds
       })
+      return
+    }
+
+    if (!isValidName(nameInputValue)) {
+      toast.error(`${toa('Name_must_start_and_end_with_a_letter_and_contain_only_letters_and_spaces')}`, { 
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+      });
       return
     }
 

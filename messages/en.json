@@ -198,6 +198,7 @@
         "Chatlog_deleted_successfully": "Chatlog deleted successfully!",
         "Please_input_the_name": "Please input the name!",
         "Please_input_the_data": "Please input the data!",
+        "Name_must_start_and_end_with_a_letter_and_contain_only_letters_and_spaces": "Name must start and end with a letter and contain only letters and spaces!",
         "Session_Expired": "Session Expired!",
         "URL_already_exist":"URL already exist!", 
         "Domain_already_exist":"Domain already exist!", 

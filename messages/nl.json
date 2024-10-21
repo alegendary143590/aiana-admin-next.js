@@ -198,6 +198,7 @@
         "Chatlog_deleted_successfully": "Chatlog succesvol verwijderd!",
         "Please_input_the_name": "Voeg alsjeblieft de naam in!",
         "Please_input_the_data": "Voeg de gegevens in!",
+        "Name_must_start_and_end_with_a_letter_and_contain_only_letters_and_spaces": "De naam moet beginnen en eindigen met een letter en mag alleen letters en spaties bevatten!",
         "Session_Expired": "Sessie verlopen!",
         "URL_already_exist":"URL bestaat al!", 
         "Domain_already_exist":"Domein bestaat al!", 
