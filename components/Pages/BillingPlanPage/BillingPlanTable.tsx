@@ -10,8 +10,8 @@ const BillingPlanTable: React.FC = () => {
   const [email, setEmail] = useState("")
   const cards = [
     { title: 'Try out Aiana', description: '', price:'0', features:['1 chatbot', '25 chat sessions/month', '50MB document storage','1 linked website', 'Tickets', 'Chat logs', 'Email notifications'] },
-    { title: 'Essentials', description: 'For small businesses', price:'29', features:['1 chatbot', '25 chat sessions/month', '50MB document storage','3 linked website', 'Tickets', 'Chat logs', 'Email notifications']  },
-    { title: 'Advanced', description: 'More of everything', price:'49' , features:['3 chatbot', '500 chat sessions/month', '250MB document storage','Up to 7 linked website', 'Tickets', 'Chat logs', 'Email notifications']  },
+    { title: 'Essentials', description: 'For small businesses', price:'29', features:['3 chatbot', '500 chat sessions/month', '250MB document storage','3 linked website', 'Tickets', 'Chat logs', 'Email notifications']  },
+    { title: 'Advanced', description: 'More of everything', price:'49' , features:['5 chatbot', '1000 chat sessions/month', '1GB document storage','Up to 7 linked website', 'Tickets', 'Chat logs', 'Email notifications']  },
     { title: 'Enterprise', description: 'Tailored Solutions for Enterprises Seeking Unmatched Performance', price:'' , features:[]  },
   ];
 
