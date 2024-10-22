@@ -436,6 +436,7 @@ const Profile = () => {
                     value={formState.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
                     type="text"
+                    disabled
                   />
                 </div>
               </div>
