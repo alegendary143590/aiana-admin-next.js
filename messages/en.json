@@ -219,7 +219,8 @@
         "Successfully_Created": "Successfully Created!",
         "Need_Ugrade":"You need to upgrade to upload more documents!",
         "Need_Upgrade_For_Website":"You need to upgrade to register more websites!",
-        "Need_Upgrade_For_Question":"You need to upgrade to ask more questions to the bot!"
+        "Need_Upgrade_For_Question":"You need to upgrade to ask more questions to the bot!",
+        "The_name_already_exist":"The name already exist!"
     },
     "country": {
         "Afghanistan": "Afghanistan",

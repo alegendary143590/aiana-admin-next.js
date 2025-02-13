@@ -236,6 +236,9 @@ const KnowledgeBaseForm = ({ baseId }) => {
   
           customerToast({type:'error', title: `${toa('It_takes_too_much_time_to_retrieve_information_from_your_document')}`, content: ""})
         }
+        else if (error.response.status && error.response.status === 402) {
+          customerToast({type:'error', title: `${toa('The_name_already_exist')}`, content: ""})
+        }
         // Handle the error response as needed
       } else if (error.request) {
 
