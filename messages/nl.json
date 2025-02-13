@@ -219,7 +219,8 @@
         "Successfully_Created": "Succesvol gecreeërd!",
         "Need_Ugrade":"Je moet upgraden om meer documenten te uploaden!",
         "Need_Upgrade_For_Website":"Je moet upgraden om meer websites te registreren!",
-        "Need_Upgrade_For_Question":"Je moet upgraden om meer vragen aan de bot te kunnen stellen."
+        "Need_Upgrade_For_Question":"Je moet upgraden om meer vragen aan de bot te kunnen stellen.",
+        "The_name_already_exist":"De naam bestaat al!"
 
     },
     "country": {
